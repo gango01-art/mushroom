@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Грибная Ферма · yurme</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--c:#8B1A3A;--c2:#B22050;--c3:#D4305E;--rose:#E8607A;--pale:#F5D0D8;--dk:#100608;--dk2:#1A0A12;--dk3:#220D16;--dk4:#2E1020;--gold:#D4A849;--gold2:#F0C870;--tx:#EEC8D4;--tx2:#AA7888;--tx3:#7A4858;--glow:0 0 20px rgba(180,40,80,.5),0 0 45px rgba(180,40,80,.2);--glow2:0 0 12px rgba(180,40,80,.32);--grn:#27AE60;--grn2:#2ECC71;--pur:#8E44AD;--nav:60px;--r:12px;--r2:18px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--dk);color:var(--tx);font-family:'Crimson Pro',serif;display:flex;flex-direction:column;background-image:radial-gradient(ellipse 100% 55% at 50% -8%,rgba(139,26,58,.5) 0%,transparent 60%),radial-gradient(ellipse 55% 55% at 0% 100%,rgba(70,8,28,.6) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 100% 100%,rgba(100,12,40,.4) 0%,transparent 55%);}
+#bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.sp{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,48,94,.5),transparent);animation:floatSp linear infinite;}
+@keyframes floatSp{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:.4}100%{transform:translateY(-8vh) rotate(360deg);opacity:0}}
+.app{position:relative;z-index:1;display:flex;height:100vh;width:100vw;max-width:540px;margin:0 auto;overflow:hidden;}
+.sidebar{width:var(--nav);flex-shrink:0;background:rgba(16,6,8,.9);border-right:1px solid rgba(212,48,94,.18);display:flex;flex-direction:column;align-items:center;padding:10px 0 6px;gap:2px;backdrop-filter:blur(14px);z-index:10;}
+.logo{font-size:22px;margin-bottom:6px;filter:drop-shadow(0 0 10px rgba(212,48,94,.8));}
+.nb{width:46px;height:46px;border-radius:11px;background:transparent;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:all .2s;color:var(--tx3);position:relative;}
+.nb svg{width:20px;height:20px;fill:currentColor;transition:fill .2s;}
+.nb span{font-family:'Cinzel',serif;font-size:6px;letter-spacing:.4px;text-transform:uppercase;}
+.nb:hover{background:rgba(212,48,94,.1);border-color:rgba(212,48,94,.22);color:var(--tx2);}
+.nb.on{background:rgba(139,26,58,.4);border-color:rgba(212,48,94,.55);color:var(--pale);box-shadow:var(--glow2);}
+.nb.on svg{fill:var(--pale);}.nb.on span{color:var(--rose);}
+.ndot{position:absolute;top:5px;right:5px;width:6px;height:6px;background:var(--gold2);border-radius:50%;border:1px solid var(--dk);animation:ndp 1.2s infinite;}
+@keyframes ndp{0%,100%{opacity:1}50%{opacity:.2}}
+.sidebar-spacer{flex:1;}
+.credits{font-size:7px;color:var(--tx3);font-family:'Cinzel',serif;letter-spacing:1.5px;text-align:center;padding:6px 0;border-top:1px solid rgba(212,48,94,.12);width:100%;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.topbar{background:rgba(16,6,8,.75);border-bottom:1px solid rgba(212,48,94,.18);padding:9px 10px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(10px);flex-shrink:0;}
+.topbar-title{font-family:'Cinzel',serif;font-size:12px;color:var(--pale);flex:1;}
+.chip{display:flex;align-items:center;gap:5px;background:var(--dk3);border:1px solid rgba(212,48,94,.28);border-radius:18px;padding:4px 9px;cursor:pointer;transition:all .2s;}
+.chip:hover{border-color:var(--c3);}
+.chip-av{font-size:12px;}.chip-name{font-family:'Cinzel',serif;font-size:9px;color:var(--pale);}
+.chip-pid{font-size:8px;color:var(--tx3);}.chip-st{font-size:8px;color:var(--gold2);}
+.panel{display:none;flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 9px 16px;flex-direction:column;gap:8px;}
+.panel.on{display:flex;}
+.panel::-webkit-scrollbar{width:2px;}.panel::-webkit-scrollbar-thumb{background:rgba(212,48,94,.3);}
+.res-row{display:flex;gap:6px;}
+.rc{flex:1;background:var(--dk3);border:1px solid rgba(212,48,94,.22);border-radius:var(--r);padding:7px 9px;position:relative;overflow:hidden;}
+.rc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,26,58,.1),transparent 55%);pointer-events:none;}
+.rc-l{font-size:8px;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;}
+.rc-v{font-size:16px;font-weight:600;color:var(--pale);line-height:1.2;}
+.rc-s{font-size:9px;color:var(--rose);}
+.hero{background:var(--dk3);border:1px solid rgba(212,48,94,.28);border-radius:var(--r2);padding:14px 12px 11px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 85% 75% at 50% 130%,rgba(139,26,58,.5),transparent 65%);pointer-events:none;}
+.hero-lbl{font-family:'Cinzel',serif;font-size:9px;color:var(--tx2);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
+.mwrap{display:inline-block;cursor:pointer;user-select:none;-webkit-user-select:none;perspective:180px;position:relative;z-index:1;}
+.m3d{display:inline-block;transform-style:preserve-3d;animation:mbr 3.5s ease-in-out infinite;}
+@keyframes mbr{0%,100%{transform:scale(1) rotateY(0)}30%{transform:scale(1.04) rotateY(6deg) rotateX(-2deg)}70%{transform:scale(1.03) rotateY(-5deg) rotateX(2deg)}}
+.m3d:active{transform:scale(.85) rotateX(18deg)!important;animation:none;}
+.m3d.mc{animation:mc .17s ease forwards;}.m3d.mcrit{animation:mcrit .22s ease forwards;}
+@keyframes mc{0%{transform:scale(.85) rotateX(18deg)}55%{transform:scale(1.12) rotateX(-5deg)}100%{transform:scale(1)}}
+@keyframes mcrit{0%{transform:scale(.85)}45%{transform:scale(1.3) rotateY(12deg)}100%{transform:scale(1)}}
+.hero-sub{font-size:9px;color:var(--tx2);margin-top:6px;}
+.combo{background:var(--dk3);border:1px solid rgba(212,48,94,.22);border-radius:var(--r);padding:7px 10px;display:flex;align-items:center;gap:8px;}
+.co-icon{font-size:18px;}.co-body{flex:1;}
+.co-lbl{font-size:8px;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;}
+.co-val{font-family:'Cinzel',serif;font-size:13px;color:var(--gold2);line-height:1.1;}
+.co-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:3px;overflow:hidden;}
+.co-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .15s;}
+.ev{background:linear-gradient(135deg,rgba(70,8,28,.95),rgba(139,26,58,.65));border:1px solid rgba(212,48,94,.6);border-radius:var(--r);padding:7px 10px;display:flex;align-items:center;gap:8px;animation:evp 2s ease-in-out infinite;}
+@keyframes evp{0%,100%{border-color:rgba(212,48,94,.6)}50%{border-color:rgba(212,48,94,1);box-shadow:var(--glow)}}
+.ev.hidden{display:none;}
+.ev-icon{font-size:20px;}.ev-info{flex:1;}
+.ev-name{font-family:'Cinzel',serif;font-size:11px;color:var(--pale);}
+.ev-desc{font-size:9px;color:var(--tx2);}
+.ev-timer{font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);}
+.gnrow{background:var(--dk3);border:1px solid rgba(212,48,94,.22);border-radius:var(--r);padding:8px 10px;display:flex;align-items:center;gap:8px;}
+.gn-ic{font-size:20px;}.gn-info{flex:1;}
+.gn-name{font-family:'Cinzel',serif;font-size:11px;color:var(--pale);}
+.gn-sub{font-size:9px;color:var(--tx2);}
+.gn-btn{background:var(--c);border:none;border-radius:8px;color:var(--pale);font-family:'Cinzel',serif;font-size:9px;padding:6px 9px;cursor:pointer;transition:all .2s;line-height:1.4;white-space:nowrap;}
+.gn-btn:hover:not(:disabled){background:var(--c2);box-shadow:var(--glow2);}
+.gn-btn:disabled{opacity:.38;cursor:default;}
+.fn{position:fixed;pointer-events:none;z-index:999;font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold2);text-shadow:0 2px 8px rgba(0,0,0,.8);animation:fup .8s ease-out forwards;}
+.fn.crit{font-size:19px;color:#FFD700;}
+@keyframes fup{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px) scale(.65)}}
+.mgrid-hd{display:flex;align-items:flex-start;justify-content:space-between;}
+.mgh-t{font-family:'Cinzel',serif;font-size:12px;color:var(--pale);}
+.mgh-s{font-size:9px;color:var(--gold);margin-top:2px;}
+.mgh-h{font-size:8px;color:var(--tx2);margin-top:3px;line-height:1.4;}
+.mbox-btn{background:var(--c);border:none;border-radius:9px;color:var(--pale);font-family:'Cinzel',serif;font-size:9px;padding:7px 10px;cursor:pointer;transition:all .2s;line-height:1.4;}
+.mbox-btn:hover:not(:disabled){background:var(--c2);box-shadow:var(--glow2);}
+.mbox-btn:disabled{opacity:.38;cursor:default;}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:rgba(16,6,8,.55);border:1px solid rgba(212,48,94,.18);border-radius:16px;padding:8px;}
+.mcell{aspect-ratio:1;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid rgba(212,48,94,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;}
+.mcell:hover{border-color:rgba(212,48,94,.3);background:rgba(255,255,255,.05);}
+.mcell.sel{border-color:var(--gold2)!important;background:rgba(212,168,73,.1)!important;box-shadow:0 0 12px rgba(212,168,73,.35);}
+.mcell.has:hover{transform:scale(1.06);}
+.mcell.cm{border-color:var(--grn2)!important;animation:cmglow .75s ease-in-out infinite;}
+@keyframes cmglow{0%,100%{box-shadow:0 0 5px rgba(46,204,113,.2)}50%{box-shadow:0 0 18px rgba(46,204,113,.7)}}
+.cell-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;padding:3px;}
+.cell-svg-wrap{width:76%;height:76%;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 2px 6px rgba(0,0,0,.7));transition:filter .2s;}
+.mcell:hover .cell-svg-wrap{filter:drop-shadow(0 3px 10px rgba(212,48,94,.6)) brightness(1.1);}
+.mcell.sel .cell-svg-wrap{filter:drop-shadow(0 3px 12px rgba(212,168,73,.8)) brightness(1.2);}
+.cell-lvl{font-family:'Cinzel',serif;font-size:7px;line-height:1;color:var(--tx2);}
+.cell-plus{font-size:14px;color:rgba(255,255,255,.1);}
+.mstat-row{display:flex;gap:6px;}
+.mst{flex:1;background:var(--dk3);border:1px solid rgba(212,48,94,.18);border-radius:var(--r);padding:8px 10px;}
+.mst-l{font-size:8px;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;}
+.mst-v{font-family:'Cinzel',serif;font-size:14px;color:var(--pale);}
+.mst-s{font-size:8px;color:var(--rose);}
+.mlog{background:var(--dk3);border:1px solid rgba(212,48,94,.18);border-radius:var(--r);padding:8px 10px;max-height:85px;overflow-y:auto;}
+.mlog::-webkit-scrollbar{width:2px;}.mlog::-webkit-scrollbar-thumb{background:rgba(212,48,94,.28);}
+.mle{font-size:9px;color:var(--tx2);padding:2px 0;border-bottom:1px solid rgba(212,48,94,.07);}
+.mle:last-child{border:none;}
+.ulist{display:flex;flex-direction:column;gap:6px;}
+.uc{display:flex;align-items:center;gap:8px;background:var(--dk3);border:1px solid rgba(212,48,94,.18);border-radius:var(--r);padding:8px 10px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.uc::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(212,48,94,.06));opacity:0;transition:opacity .2s;pointer-events:none;}
+.uc:hover::after{opacity:1;}
+.uc:hover{border-color:rgba(212,48,94,.38);transform:translateX(2px);}
+.uc.aff{border-color:rgba(212,48,94,.42);}.uc.aff:hover{border-color:var(--c3);}
+.uc.mx{opacity:.45;cursor:default;}.uc.mx:hover{transform:none;}
+.u-ic{font-size:22px;flex-shrink:0;}
+.u-info{flex:1;min-width:0;}
+.u-name{font-family:'Cinzel',serif;font-size:10px;color:var(--pale);font-weight:600;}
+.u-desc{font-size:9px;color:var(--tx2);margin-top:1px;}
+.u-right{text-align:right;flex-shrink:0;}
+.u-cost{font-family:'Cinzel',serif;font-size:10px;font-weight:600;}
+.u-cost.y{color:var(--gold2);}.u-cost.n{color:var(--tx2);}
+.u-boost{font-size:8px;color:var(--rose);}
+.u-prog-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-top:5px;}
+.u-prog-fill{height:100%;background:linear-gradient(90deg,var(--c),var(--c3));border-radius:2px;transition:width .4s;}
+.qlist{display:flex;flex-direction:column;gap:6px;}
+.qc{background:var(--dk3);border:1px solid rgba(212,48,94,.16);border-radius:var(--r);padding:8px 10px;display:flex;align-items:center;gap:8px;}
+.qc.done{border-color:rgba(39,174,96,.32);background:rgba(39,174,96,.04);}
+.q-ic{font-size:18px;flex-shrink:0;}
+.q-info{flex:1;min-width:0;}
+.q-name{font-family:'Cinzel',serif;font-size:10px;color:var(--pale);}
+.q-prog{font-size:9px;color:var(--tx2);margin-top:1px;}
+.q-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:4px;}
+.q-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--c),var(--c3));transition:width .3s;}
+.qc.done .q-fill{background:linear-gradient(90deg,#186a38,var(--grn2));}
+.qc.ready{border-color:rgba(212,168,73,.55);background:rgba(212,168,73,.06);animation:qrdy 1.8s ease-in-out infinite;}
+@keyframes qrdy{0%,100%{border-color:rgba(212,168,73,.55)}50%{border-color:rgba(212,168,73,1);box-shadow:0 0 12px rgba(212,168,73,.3)}}
+.q-rw{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);flex-shrink:0;}
+.cbtn{background:#165c30;border:none;border-radius:7px;color:#aef0c8;font-family:'Cinzel',serif;font-size:8px;padding:5px 7px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.cbtn:hover{background:var(--grn);}
+.q-tier{font-size:8px;color:var(--tx3);margin-top:1px;}
+.phero{background:linear-gradient(135deg,rgba(142,68,173,.18),rgba(139,26,58,.18));border:1px solid rgba(142,68,173,.38);border-radius:var(--r2);padding:14px;text-align:center;}
+.ph-t{font-family:'Cinzel',serif;font-size:13px;color:var(--pale);margin-bottom:4px;}
+.ph-d{font-size:10px;color:var(--tx2);line-height:1.5;margin-bottom:8px;}
+.ph-e{font-family:'Cinzel',serif;font-size:11px;color:var(--gold2);margin-bottom:10px;}
+.ph-btn{background:linear-gradient(135deg,var(--pur),var(--c2));border:none;border-radius:10px;color:var(--pale);font-family:'Cinzel',serif;font-size:12px;padding:10px 20px;cursor:pointer;transition:all .2s;width:100%;}
+.ph-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(142,68,173,.4);}
+.ph-btn:disabled{opacity:.38;cursor:default;}
+.pklist{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.pkc{display:flex;align-items:center;gap:8px;background:rgba(142,68,173,.1);border:1px solid rgba(142,68,173,.2);border-radius:var(--r);padding:7px 10px;cursor:pointer;transition:all .2s;}
+.pkc:hover:not(.pw){border-color:rgba(142,68,173,.45);transform:translateX(2px);}
+.pkc.pw{opacity:.55;cursor:default;}
+.pk-ic{font-size:17px;}.pk-info{flex:1;}
+.pk-name{font-family:'Cinzel',serif;font-size:10px;color:var(--pale);}
+.pk-desc{font-size:9px;color:var(--tx2);}
+.pk-cost{font-family:'Cinzel',serif;font-size:10px;color:var(--pur);}
+.lbhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.lb-ref{background:var(--dk3);border:1px solid rgba(212,48,94,.25);border-radius:8px;color:var(--tx2);font-family:'Cinzel',serif;font-size:9px;padding:5px 9px;cursor:pointer;transition:all .2s;}
+.lb-ref:hover{border-color:var(--c3);color:var(--pale);}
+.lb-mr{background:rgba(139,26,58,.18);border:1px solid rgba(212,48,94,.28);border-radius:9px;padding:6px 10px;text-align:center;font-size:9px;color:var(--tx2);margin-bottom:5px;}
+.lb-mr span{font-family:'Cinzel',serif;color:var(--gold2);}
+.lb-mr.hidden{display:none;}
+.lblist{display:flex;flex-direction:column;gap:4px;}
+.lbrow{display:flex;align-items:center;gap:8px;background:var(--dk3);border:1px solid rgba(212,48,94,.16);border-radius:10px;padding:7px 9px;}
+.lbrow.me{border-color:rgba(212,48,94,.52);background:rgba(139,26,58,.14);}
+.lb-rk{font-family:'Cinzel',serif;font-size:12px;font-weight:700;width:22px;text-align:center;flex-shrink:0;}
+.r1{color:#FFD700;}.r2{color:#C0C0C0;}.r3{color:#CD7F32;}.rn{color:var(--tx2);}
+.lb-av{font-size:16px;flex-shrink:0;}
+.lb-inf{flex:1;min-width:0;}
+.lb-nm{font-family:'Cinzel',serif;font-size:10px;color:var(--pale);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-id{font-size:8px;color:var(--tx3);}
+.lb-sc{font-family:'Cinzel',serif;font-size:10px;color:var(--rose);flex-shrink:0;}
+.lb-ps{font-size:8px;color:var(--gold);}
+.lb-ld{text-align:center;padding:14px;color:var(--tx2);font-style:italic;font-size:11px;}
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.cc{aspect-ratio:1;background:var(--dk3);border:1px solid rgba(212,48,94,.16);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:all .2s;padding:4px;position:relative;}
+.cc.fnd{border-color:rgba(212,48,94,.42);}.cc.fnd:hover{transform:scale(1.05);box-shadow:var(--glow2);}
+.cc.lck{opacity:.2;cursor:default;}
+.cc-svg{width:58%;height:58%;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+.cc.lck .cc-svg{filter:grayscale(1) opacity(.3);}
+.cc-name{font-size:7px;color:var(--tx2);text-align:center;padding:0 2px;line-height:1.2;}
+.cc.fnd .cc-name{color:var(--rose);}
+.cc-cat{font-size:6px;color:var(--tx3);text-align:center;}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.scard{background:var(--dk3);border:1px solid rgba(212,48,94,.16);border-radius:var(--r);padding:8px 10px;}
+.s-lbl{font-size:8px;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+.s-val{font-family:'Cinzel',serif;font-size:14px;color:var(--pale);}
+.mov{display:none;position:fixed;inset:0;z-index:500;background:rgba(8,2,6,.92);align-items:center;justify-content:center;backdrop-filter:blur(7px);}
+.mov.on{display:flex;}
+.mbox{background:var(--dk3);border:1px solid rgba(212,48,94,.5);border-radius:20px;padding:22px 18px;max-width:290px;width:90%;text-align:center;box-shadow:0 0 50px rgba(139,26,58,.55);animation:mboxIn .28s ease;}
+@keyframes mboxIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.mbox h2{font-family:'Cinzel',serif;font-size:15px;color:var(--pale);margin-bottom:5px;}
+.mbox p{font-size:11px;color:var(--tx2);margin-bottom:4px;line-height:1.5;}
+.bignum{font-family:'Cinzel',serif;font-size:25px;color:var(--gold2);margin:8px 0;text-shadow:0 0 14px rgba(212,168,73,.55);}
+.mbtn{background:var(--c);border:none;border-radius:10px;color:var(--pale);font-family:'Cinzel',serif;font-size:12px;padding:10px 20px;cursor:pointer;margin-top:8px;width:100%;transition:all .2s;}
+.mbtn:hover{background:var(--c2);box-shadow:var(--glow);}
+.mbtn.sec{background:transparent;border:1px solid rgba(212,48,94,.35);margin-top:5px;}
+.minput{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(212,48,94,.38);border-radius:8px;color:var(--pale);font-family:'Cinzel',serif;font-size:12px;padding:8px 12px;text-align:center;margin-top:6px;outline:none;}
+.minput:focus{border-color:var(--c3);}
+.cbar{position:fixed;bottom:0;left:0;right:0;z-index:600;background:rgba(16,6,8,.97);border-top:1px solid rgba(212,48,94,.3);padding:8px 12px;display:flex;align-items:center;gap:9px;backdrop-filter:blur(12px);}
+.cbar.hidden{display:none;}
+.cbar-tx{font-size:9px;color:var(--tx2);flex:1;line-height:1.5;}
+.cbar-tx b{color:var(--rose);}
+.cacc{background:var(--c);border:none;border-radius:7px;color:var(--pale);font-family:'Cinzel',serif;font-size:9px;padding:6px 10px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.cacc:hover{background:var(--c2);}
+.toast{position:fixed;bottom:50px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dk3);border:1px solid rgba(212,48,94,.48);border-radius:9px;padding:6px 13px;font-family:'Cinzel',serif;font-size:10px;color:var(--pale);z-index:400;opacity:0;transition:all .28s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.gold{border-color:rgba(212,168,73,.65);color:var(--gold2);}
+.toast.green{border-color:rgba(39,174,96,.5);color:var(--grn2);}
+.sec-lbl{font-family:'Cinzel',serif;font-size:8px;color:var(--c3);text-transform:uppercase;letter-spacing:2px;padding-bottom:4px;border-bottom:1px solid rgba(212,48,94,.15);}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="mov" id="m-offline"><div class="mbox"><div style="font-size:36px;margin-bottom:5px">🌙</div><h2>С возвращением!</h2><p>Гномы работали пока вас не было</p><div class="bignum" id="offN">+0 🍄</div><p style="font-size:9px;color:var(--c3)" id="offT"></p><button class="mbtn" onclick="cm('m-offline')">Забрать урожай</button></div></div>
+<div class="mov" id="m-name"><div class="mbox"><div style="font-size:36px;margin-bottom:5px">🍄</div><h2>Добро пожаловать!</h2><p>Как звать фермера?</p><input class="minput" id="nameIn" placeholder="Ваше имя..." maxlength="16" onkeydown="if(event.key==='Enter')saveName()"><button class="mbtn" onclick="saveName()">Войти на ферму</button></div></div>
+<div class="mov" id="m-prest"><div class="mbox"><div style="font-size:36px;margin-bottom:5px">♾️</div><h2>Перерождение</h2><p>Весь прогресс сбросится. Вы получите <span id="ptE" style="color:var(--gold2)">0 ✦</span> жетонов.</p><p style="margin-top:5px;font-size:9px;color:var(--c3)">Необратимо!</p><button class="mbtn" onclick="doPrestige()">Переродиться</button><button class="mbtn sec" onclick="cm('m-prest')">Отмена</button></div></div>
+<div class="mov" id="m-quest"><div class="mbox"><div style="font-size:36px;margin-bottom:5px" id="qmI">🏆</div><h2>Задание выполнено!</h2><p id="qmN" style="color:var(--pale)"></p><div class="bignum" id="qmR"></div><button class="mbtn" onclick="cm('m-quest')">Отлично!</button></div></div>
+<div class="mov" id="m-merge"><div class="mbox"><div id="mmSvg" style="margin-bottom:4px;display:flex;justify-content:center"></div><h2>Слияние!</h2><p id="mmD" style="color:var(--pale)"></p><p id="mmP" style="font-size:10px;color:var(--tx2);margin-top:4px"></p><button class="mbtn" onclick="cm('m-merge')">Супер!</button></div></div>
+<div class="cbar" id="cookieBar"><div class="cbar-tx">🍪 Игра использует <b>cookies и localStorage</b> для сохранения прогресса и отображения в таблице лидеров.</div><button class="cacc" onclick="acceptCookies()">Принять</button></div>
+<div class="toast" id="toast"></div>
+<div class="app">
+  <nav class="sidebar">
+    <div class="logo">🍄</div>
+    <button class="nb on" id="nb-farm" onclick="sw('farm',this)"><svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-5h2v5h6v-8h3L12 3z"/></svg><span>Ферма</span></button>
+    <button class="nb" id="nb-merge" onclick="sw('merge',this)"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-2 .9-2 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span>Сетка</span></button>
+    <button class="nb" id="nb-upgrades" onclick="sw('upgrades',this)"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.63-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z"/><circle cx="12" cy="12" r="3"/></svg><span>Апгрейд</span></button>
+    <button class="nb" id="nb-quests" onclick="sw('quests',this)" style="position:relative"><svg viewBox="0 0 24 24"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z"/></svg><span>Задания</span><span class="ndot" id="nd-q" style="display:none"></span></button>
+    <button class="nb" id="nb-prestige" onclick="sw('prestige',this)"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg><span>Престиж</span></button>
+    <button class="nb" id="nb-leaderboard" onclick="sw('leaderboard',this)"><svg viewBox="0 0 24 24"><path d="M7.5 21H2V9h5.5v12zm7.25-18h-5.5v18h5.5V3zM22 11h-5.5v10H22V11z"/></svg><span>Топ</span></button>
+    <button class="nb" id="nb-collection" onclick="sw('collection',this)"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg><span>Книга</span></button>
+    <button class="nb" id="nb-stats" onclick="sw('stats',this)"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg><span>Статы</span></button>
+    <div class="sidebar-spacer"></div>
+    <div class="credits">yurme</div>
+  </nav>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="panelTitle">🌾 Ферма</div>
+      <div class="chip" onclick="om('m-name')"><span class="chip-av" id="hAv">🧑‍🌾</span><span class="chip-name" id="hNm">...</span><span class="chip-st" id="hSt"></span><span class="chip-pid" id="hPd"></span></div>
+    </div>
+    <div class="panel on" id="panel-farm">
+      <div class="res-row">
+        <div class="rc"><div class="rc-l">Грибы</div><div class="rc-v" id="dM">0</div><div class="rc-s" id="dR">+0/сек</div></div>
+        <div class="rc"><div class="rc-l">Всего</div><div class="rc-v" id="dT">0</div><div class="rc-s" id="dCl">тап: +1</div></div>
+        <div class="rc"><div class="rc-l">✦ Жетоны</div><div class="rc-v" id="dTk">0</div><div class="rc-s" id="dRn">Запуск 1</div></div>
+      </div>
+      <div class="ev hidden" id="evB"><div class="ev-icon" id="evI">⚡</div><div class="ev-info"><div class="ev-name" id="evN">Событие</div><div class="ev-desc" id="evD"></div></div><div class="ev-timer" id="evTm">0:00</div></div>
+      <div class="combo"><div class="co-icon">⚡</div><div class="co-body"><div class="co-lbl">Комбо</div><div class="co-val" id="coV">×1.0</div><div class="co-bar"><div class="co-fill" id="coF" style="width:0%"></div></div></div><div style="text-align:right"><div style="font-size:8px;color:var(--tx2)">Тапов</div><div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold)" id="coCt">0</div></div></div>
+      <div class="hero">
+        <div class="hero-lbl">Главный гриб</div>
+        <div class="mwrap" id="mainWrap" onclick="handleClick(event)"><div class="m3d" id="mainMush"></div></div>
+        <div class="hero-sub" id="heroSub">+1 за тап &nbsp;<span style="color:var(--gold)">крит: 3%</span></div>
+      </div>
+      <div class="gnrow">
+        <div class="gn-ic">🧙</div>
+        <div class="gn-info"><div class="gn-name">Гномы-фермеры</div><div class="gn-sub" id="gnSub">Нанято: 0</div></div>
+        <button class="gn-btn" id="gnBtn" onclick="hireGnome()">Нанять<br><span id="gnCost">50 🍄</span></button>
+      </div>
+    </div>
+    <div class="panel" id="panel-merge">
+      <div class="mgrid-hd">
+        <div><div class="mgh-t">Поле слияния</div><div class="mgh-s" id="mCostLbl">Ящик: 20 🍄</div><div class="mgh-h">Нажми гриб → выдели → нажми такой же</div></div>
+        <button class="mbox-btn" id="mBoxBtn" onclick="buyBox()">+ Ящик</button>
+      </div>
+      <div class="mgrid" id="mgrid"></div>
+      <div class="mstat-row">
+        <div class="mst"><div class="mst-l">Боксы</div><div class="mst-v" id="msB">0</div><div class="mst-s">открыто</div></div>
+        <div class="mst"><div class="mst-l">Слияний</div><div class="mst-v" id="msM">0</div><div class="mst-s">выполнено</div></div>
+        <div class="mst"><div class="mst-l">Макс. ур.</div><div class="mst-v" id="msX">0</div><div class="mst-s">достигнут</div></div>
+      </div>
+      <div class="sec-lbl">История слияний</div>
+      <div class="mlog" id="mlog"><div style="font-size:9px;color:var(--tx3);padding:3px 0">Нет слияний...</div></div>
+    </div>
+    <div class="panel" id="panel-upgrades"><div class="sec-lbl">Улучшения фермы</div><div class="ulist" id="ulist"></div></div>
+    <div class="panel" id="panel-quests"><div class="sec-lbl">Задания</div><div class="qlist" id="qlist"></div></div>
+    <div class="panel" id="panel-prestige">
+      <div class="phero">
+        <div class="ph-t">♾️ Перерождение</div>
+        <div class="ph-d">Сбросьте прогресс и получите жетоны (✦). Каждый усиливает ферму на 2% навсегда.</div>
+        <div class="ph-e" id="phE">Вы получите: 0 ✦</div>
+        <button class="ph-btn" id="phBtn" onclick="confPrestige()">Переродиться</button>
+      </div>
+      <div class="sec-lbl" style="margin-top:4px">Перки <span style="color:var(--gold2);font-size:8px" id="ptL"></span></div>
+      <div class="pklist" id="pklist"></div>
+    </div>
+    <div class="panel" id="panel-leaderboard">
+      <div class="lbhd"><div class="sec-lbl" style="margin:0;border:none;padding:0">Лучшие фермеры</div><button class="lb-ref" onclick="loadLB()">↻ Обновить</button></div>
+      <div class="lb-mr hidden" id="lbMR"></div>
+      <div class="lblist" id="lblist"><div class="lb-ld">Загрузка...</div></div>
+    </div>
+    <div class="panel" id="panel-collection"><div class="sec-lbl">Книга грибов <span style="color:var(--tx3);font-size:7px" id="collCount"></span></div><div class="cgrid" id="cgrid"></div></div>
+    <div class="panel" id="panel-stats"><div class="sec-lbl">Статистика</div><div class="sgrid" id="sgrid"></div></div>
+  </div>
+</div>
+<script>
+// ═══════════════════════════════════════════════════════
+// 60 POP-CULTURE MUSHROOMS — каждый гриб имеет:
+//   - Уникальный цвет+форму шляпки
+//   - Нарисованное лицо/маску/символ персонажа SVG
+//   - Ножку с цветом серии
+// ═══════════════════════════════════════════════════════
+function makeMush(capFill, capDark, stemFill, capExtra, faceExtra, name, cat) {
+  const svg = `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="40" cy="86" rx="16" ry="4" fill="rgba(0,0,0,.4)"/>
+  <rect x="33" y="52" width="14" height="32" rx="6" fill="${stemFill}"/>
+  <rect x="35" y="54" width="4" height="26" rx="2" fill="rgba(255,255,255,.18)"/>
+  <ellipse cx="40" cy="52" rx="32" ry="9" fill="${capDark}" opacity=".45"/>
+  <path d="M8,52 Q6,16 40,8 Q74,16 72,52 Q58,62 40,62 Q22,62 8,52Z" fill="${capFill}"/>
+  <ellipse cx="24" cy="24" rx="10" ry="6" fill="rgba(255,255,255,.3)" transform="rotate(-18 24 24)"/>
+  ${capExtra}
+  ${faceExtra}
+  </svg>`;
+  return { svg, name, cat };
+}
+
+// Shorthand face parts
+const eyes = (lx,ly,rx,ry,r=5,fill='#111',pr=2,pf='white') =>
+  `<circle cx="${lx}" cy="${ly}" r="${r}" fill="${fill}" opacity=".88"/>
+   <circle cx="${rx}" cy="${ry}" r="${r}" fill="${fill}" opacity=".88"/>
+   <circle cx="${lx+1}" cy="${ly-1}" r="${pr}" fill="${pf}"/>
+   <circle cx="${rx+1}" cy="${ry-1}" r="${pr}" fill="${pf}"/>`;
+const smile = (y=48) => `<path d="M30,${y} Q40,${y+6} 50,${y}" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`;
+const frown = (y=48) => `<path d="M30,${y+4} Q40,${y} 50,${y+4}" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`;
+const dots = (cols,rows,ox,oy,r,fill,gap) => {
+  let s='';for(let i=0;i<rows;i++)for(let j=0;j<cols;j++)s+=`<circle cx="${ox+j*gap}" cy="${oy+i*gap}" r="${r}" fill="${fill}" opacity=".8"/>`;return s;
+};
+
+const MUSH_DATA = [
+
+// ── MARIO UNIVERSE ──
+makeMush('#E8192C','#8A0010','#E8C87A',
+  `${dots(5,2,16,18,4.5,'white',12)}<circle cx="16" cy="46" r="3" fill="white" opacity=".8"/><circle cx="64" cy="46" r="3" fill="white" opacity=".8"/>`,
+  ``,
+  'Супер Гриб','Mario'),
+
+makeMush('#F5F5F5','#CCCCCC','#F5DEB3',
+  `<circle cx="26" cy="22" r="6" fill="#E83030" opacity=".85"/><circle cx="44" cy="16" r="5.5" fill="#E83030" opacity=".85"/><circle cx="60" cy="26" r="5.5" fill="#E83030" opacity=".85"/><circle cx="14" cy="34" r="4" fill="#E83030" opacity=".8"/><circle cx="64" cy="38" r="4" fill="#E83030" opacity=".8"/>`,
+  `${eyes(30,42,50,42)}<ellipse cx="40" cy="52" rx="12" ry="4" fill="#4466CC" opacity=".75"/><circle cx="36" cy="52" r="3" fill="white" opacity=".7"/><circle cx="44" cy="52" r="3" fill="white" opacity=".7"/>`,
+  'Тоад','Mario'),
+
+makeMush('#228B22','#0A5A0A','#6AAA50',
+  `<ellipse cx="40" cy="30" rx="24" ry="8" fill="rgba(0,80,0,.2)"/>`,
+  `<circle cx="30" cy="36" r="5" fill="#111" opacity=".85"/><circle cx="50" cy="36" r="5" fill="#111" opacity=".85"/><circle cx="31" cy="35" r="2" fill="white"/><circle cx="51" cy="35" r="2" fill="white"/><path d="M22,47 Q28,44 30,48 Q34,42 40,46 Q46,42 50,48 Q52,44 58,47" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/>`,
+  'Пиранья','Mario'),
+
+makeMush('#FFD700','#AA8800','#E8C030',
+  `<path d="M40,10 L43,20 L54,20 L45,26 L48,36 L40,30 L32,36 L35,26 L26,20 L37,20Z" fill="rgba(255,255,255,.65)"/>`,
+  `<circle cx="30" cy="42" r="5" fill="#333" opacity=".8"/><circle cx="50" cy="42" r="5" fill="#333" opacity=".8"/><circle cx="31" cy="41" r="2" fill="rgba(255,255,255,.9)"/><circle cx="51" cy="41" r="2" fill="rgba(255,255,255,.9)"/>${smile(47)}`,
+  'Звёздочка','Mario'),
+
+makeMush('#FF6600','#AA2200','#D06030',
+  `<polygon points="22,12 18,2 26,10" fill="#FF6600" stroke="#882200" stroke-width="1"/><polygon points="40,8 36,0 44,0" fill="#FF6600" stroke="#882200" stroke-width="1"/><polygon points="58,12 62,2 54,10" fill="#FF6600" stroke="#882200" stroke-width="1"/>`,
+  `${eyes(30,36,50,36,5,'#331100')}<path d="M28,48 Q40,42 52,48" stroke="#331100" stroke-width="2" fill="none"/>`,
+  'Боузер','Mario'),
+
+// ── POKEMON ──
+makeMush('#FFD700','#AA8800','#E8C840',
+  `<ellipse cx="20" cy="38" rx="7" ry="5" fill="#FF3030" opacity=".75"/><ellipse cx="60" cy="38" rx="7" ry="5" fill="#FF3030" opacity=".75"/><polygon points="20,12 16,2 24,10" fill="#FFD700" stroke="#AA8800" stroke-width="1"/><polygon points="60,12 64,2 56,10" fill="#FFD700" stroke="#AA8800" stroke-width="1"/>`,
+  `${eyes(30,34,50,34)}<path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Пикачу','Pokemon'),
+
+makeMush('#FF7733','#CC3300','#D07040',
+  `<path d="M58,8 Q64,0 62,4 Q68,-4 64,10 Q60,16 56,18" fill="#FF9020" stroke="#CC5000" stroke-width="1.2"/>`,
+  `${eyes(30,34,50,34)}<path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Чармандер','Pokemon'),
+
+makeMush('#3CB371','#1A7040','#50A060',
+  `<ellipse cx="54" cy="16" rx="13" ry="11" fill="#2A6030" opacity=".9"/><ellipse cx="54" cy="14" rx="8" ry="6" fill="#50C040" opacity=".8"/>`,
+  `${eyes(30,36,50,36)}<path d="M32,46 Q40,50 48,46" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Бульбазавр','Pokemon'),
+
+makeMush('#9B59B6','#5A0090','#8040B0',
+  `<circle cx="40" cy="16" r="7" fill="#FF80C0" opacity=".9"/><circle cx="40" cy="16" r="3.5" fill="white" opacity=".8"/><path d="M18,24 Q14,16 20,18" stroke="#FF80C0" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M62,24 Q66,16 60,18" stroke="#FF80C0" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
+  `<circle cx="30" cy="34" r="5" fill="#1A0030" opacity=".9"/><circle cx="50" cy="34" r="5" fill="#1A0030" opacity=".9"/><circle cx="31" cy="33" r="2.5" fill="rgba(180,120,255,.9)"/><circle cx="51" cy="33" r="2.5" fill="rgba(180,120,255,.9)"/><path d="M33,44 Q40,42 47,44" stroke="#1A0030" stroke-width="1.4" fill="none"/>`,
+  'Мьюту','Pokemon'),
+
+makeMush('#FF80A0','#CC3060','#F06080',
+  `<circle cx="40" cy="14" r="5" fill="#E070A0" opacity=".8"/>`,
+  `<circle cx="30" cy="28" r="6.5" fill="#333" opacity=".85"/><circle cx="50" cy="28" r="6.5" fill="#333" opacity=".85"/><circle cx="31" cy="27" r="3.5" fill="rgba(100,200,255,.9)"/><circle cx="51" cy="27" r="3.5" fill="rgba(100,200,255,.9)"/><ellipse cx="25" cy="40" rx="6" ry="3.5" fill="#E060A0" opacity=".7"/><ellipse cx="55" cy="40" rx="6" ry="3.5" fill="#E060A0" opacity=".7"/><path d="M32,46 Q40,50 48,46" stroke="#AA3060" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Джиглипуфф','Pokemon'),
+
+makeMush('#4A90D9','#1A5090','#5080B0',
+  `<rect cx="28" cy="14" width="24" height="14" rx="3" fill="#6A4020" opacity=".9"/>`,
+  `<ellipse cx="20" cy="38" rx="6" ry="4" fill="#FF3030" opacity=".7"/><ellipse cx="60" cy="38" rx="6" ry="4" fill="#FF3030" opacity=".7"/>${eyes(30,34,50,34)}<path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Эш','Pokemon'),
+
+makeMush('#5030A0','#200060','#6040B0',
+  `<path d="M14,54 L20,47 L26,54 L32,46 L40,54 L48,46 L54,54 L60,47 L66,54" stroke="#401080" stroke-width="1.5" fill="none"/>`,
+  `<circle cx="30" cy="32" r="7" fill="#1A003A" opacity=".9"/><circle cx="50" cy="32" r="7" fill="#1A003A" opacity=".9"/><circle cx="31" cy="31" r="4" fill="#FF4090" opacity=".9"/><circle cx="51" cy="31" r="4" fill="#FF4090" opacity=".9"/><path d="M26,46 Q40,40 54,46" stroke="#1A003A" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+  'Генгар','Pokemon'),
+
+// ── SPONGEBOB ──
+makeMush('#FFE500','#C8A800','#FFE060',
+  `<rect x="14" y="20" width="52" height="32" rx="4" fill="none" stroke="#C8A800" stroke-width="1.5"/><circle cx="24" cy="26" r="3" fill="#C8A800" opacity=".5"/><circle cx="40" cy="22" r="3" fill="#C8A800" opacity=".5"/><circle cx="56" cy="28" r="3" fill="#C8A800" opacity=".5"/><circle cx="30" cy="36" r="2.5" fill="#C8A800" opacity=".5"/><circle cx="50" cy="34" r="2.5" fill="#C8A800" opacity=".5"/>`,
+  `<circle cx="29" cy="36" r="5.5" fill="#4A80FF" opacity=".9"/><circle cx="51" cy="36" r="5.5" fill="#4A80FF" opacity=".9"/><circle cx="29" cy="36" r="3" fill="#111"/><circle cx="51" cy="36" r="3" fill="#111"/><circle cx="28" cy="35" r="1.2" fill="white"/><circle cx="50" cy="35" r="1.2" fill="white"/><path d="M28,46 Q40,52 52,46" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/><rect x="36" y="44" width="8" height="2.5" rx="1" fill="#CC2020" opacity=".8"/>`,
+  'Губка Боб','SpongeBob'),
+
+makeMush('#FFB6C1','#DD7090','#F090A0',
+  `<ellipse cx="26" cy="32" rx="10" ry="7" fill="#FF5080" opacity=".45"/><ellipse cx="54" cy="32" rx="10" ry="7" fill="#FF5080" opacity=".45"/>`,
+  `<circle cx="30" cy="36" r="5.5" fill="#222" opacity=".8"/><circle cx="50" cy="36" r="5.5" fill="#222" opacity=".8"/><circle cx="31" cy="35" r="2.5" fill="white"/><circle cx="51" cy="35" r="2.5" fill="white"/>${smile(48)}`,
+  'Патрик','SpongeBob'),
+
+makeMush('#8FAD88','#3A6A30','#7A9870',
+  `<path d="M20,54 Q17,62 15,68" stroke="#3A6A30" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M28,56 Q26,64 24,70" stroke="#3A6A30" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M52,56 Q54,64 56,70" stroke="#3A6A30" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M60,54 Q63,62 65,68" stroke="#3A6A30" stroke-width="3" stroke-linecap="round" fill="none"/>`,
+  `${eyes(30,36,50,36)}<path d="M32,44 Q40,40 48,44" stroke="#111" stroke-width="1.5" fill="none"/>`,
+  'Сквидвард','SpongeBob'),
+
+// ── STAR WARS ──
+makeMush('#1A1A1A','#000000','#303030',
+  `<path d="M14,34 Q40,24 66,34 L62,46 Q40,40 18,46Z" fill="#0A0A0A"/>
+   <rect x="28" y="42" width="24" height="12" rx="4" fill="#2A2A2A"/>
+   <circle cx="36" cy="48" r="2.5" fill="#CC0000" opacity=".8"/><circle cx="44" cy="48" r="2.5" fill="#CC0000" opacity=".8"/>`,
+  `<circle cx="30" cy="30" r="5.5" fill="#0A0A0A" opacity=".95"/><circle cx="50" cy="30" r="5.5" fill="#0A0A0A" opacity=".95"/><circle cx="31" cy="29" r="2.5" fill="rgba(180,40,40,.5)"/><circle cx="51" cy="29" r="2.5" fill="rgba(180,40,40,.5)"/>`,
+  'Дарт Вейдер','Star Wars'),
+
+makeMush('#4A8A30','#1A5A00','#508030',
+  `<ellipse cx="16" cy="26" rx="7" ry="12" fill="#3A7A20" stroke="#1A5A00" stroke-width="1.2"/><ellipse cx="64" cy="26" rx="7" ry="12" fill="#3A7A20" stroke="#1A5A00" stroke-width="1.2"/><ellipse cx="16" cy="24" rx="3.5" ry="8" fill="#D0A0B0" opacity=".7"/><ellipse cx="64" cy="24" rx="3.5" ry="8" fill="#D0A0B0" opacity=".7"/>`,
+  `<circle cx="30" cy="38" r="5" fill="#333" opacity=".8"/><circle cx="50" cy="38" r="5" fill="#333" opacity=".8"/><circle cx="31" cy="37" r="2.5" fill="rgba(180,255,100,.75)"/><circle cx="51" cy="37" r="2.5" fill="rgba(180,255,100,.75)"/><path d="M32,47 Q40,51 48,47" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+  'Йода','Star Wars'),
+
+// ── MARVEL ──
+makeMush('#CC2020','#880000','#CC3030',
+  `<line x1="40" y1="8" x2="10" y2="54" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/><line x1="40" y1="8" x2="70" y2="54" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/><line x1="40" y1="8" x2="40" y2="62" stroke="rgba(0,0,0,.4)" stroke-width="1.2"/><ellipse cx="40" cy="22" rx="14" ry="5" stroke="rgba(0,0,0,.4)" stroke-width="1" fill="none"/><ellipse cx="40" cy="36" rx="22" ry="7" stroke="rgba(0,0,0,.4)" stroke-width="1" fill="none"/>`,
+  `<ellipse cx="30" cy="34" rx="10" ry="7" fill="white" opacity=".9"/><ellipse cx="50" cy="34" rx="10" ry="7" fill="white" opacity=".9"/>`,
+  'Человек-Паук','Marvel'),
+
+makeMush('#CC2020','#880000','#CC3030',
+  `<ellipse cx="30" cy="32" rx="11" ry="8" fill="#111" opacity=".88"/><ellipse cx="50" cy="32" rx="11" ry="8" fill="#111" opacity=".88"/>`,
+  `<ellipse cx="30" cy="32" rx="8" ry="5.5" fill="white" opacity=".88"/><ellipse cx="50" cy="32" rx="8" ry="5.5" fill="white" opacity=".88"/>`,
+  'Дэдпул','Marvel'),
+
+makeMush('#003087','#001A5A','#0040A0',
+  `<circle cx="40" cy="30" r="20" fill="#CC2020" opacity=".3"/><circle cx="40" cy="30" r="14" fill="white" opacity=".25"/><circle cx="40" cy="30" r="8" fill="#003087" opacity=".35"/><path d="M40,18 L42,23 L49,23 L43,27 L46,33 L40,29 L34,33 L37,27 L31,23 L38,23Z" fill="white" opacity=".85"/>`,
+  `<ellipse cx="40" cy="40" rx="16" ry="6" fill="rgba(255,255,255,.12)"/>`,
+  'Капитан Америка','Marvel'),
+
+makeMush('#CC2020','#880000','#CC4020',
+  `<rect x="20" y="22" width="40" height="14" rx="3" fill="#FFB020" opacity=".8"/><rect x="24" y="26" width="14" height="7" rx="2" fill="#CC2020" opacity=".9"/><rect x="42" y="26" width="14" height="7" rx="2" fill="#CC2020" opacity=".9"/><rect x="30" y="34" width="20" height="8" rx="2" fill="#FFB020" opacity=".7"/>`,
+  `<circle cx="40" cy="48" r="5" fill="#4080FF" opacity=".85"/><circle cx="40" cy="48" r="2.5" fill="rgba(150,200,255,.85)"/>`,
+  'Железный Человек','Marvel'),
+
+makeMush('#9B59B6','#5A189A','#8040B0',
+  `<circle cx="28" cy="22" r="4" fill="#FFD020" opacity=".9"/><circle cx="40" cy="15" r="4" fill="#CC2020" opacity=".9"/><circle cx="52" cy="22" r="4" fill="#4060FF" opacity=".9"/><circle cx="58" cy="36" r="4" fill="#40CC40" opacity=".9"/><circle cx="22" cy="36" r="4" fill="#FF8020" opacity=".9"/>`,
+  `<circle cx="30" cy="38" r="4.5" fill="#220044" opacity=".9"/><circle cx="50" cy="38" r="4.5" fill="#220044" opacity=".9"/><circle cx="31" cy="37" r="2" fill="rgba(200,150,255,.7)"/><circle cx="51" cy="37" r="2" fill="rgba(200,150,255,.7)"/>`,
+  'Танос','Marvel'),
+
+// ── DC ──
+makeMush('#1A1A1A','#000005','#202020',
+  `<path d="M10,52 Q8,18 40,10 L48,2 L44,14 Q72,18 70,52" fill="#111"/><path d="M10,52 Q8,18 40,10 L32,2 L36,14 Q8,18 10,52" fill="#111"/>`,
+  `<circle cx="30" cy="36" r="5" fill="#0A0A0A" opacity=".95"/><circle cx="50" cy="36" r="5" fill="#0A0A0A" opacity=".95"/><circle cx="31" cy="35" r="2.5" fill="rgba(255,220,50,.5)"/><circle cx="51" cy="35" r="2.5" fill="rgba(255,220,50,.5)"/>`,
+  'Бэтмен','DC'),
+
+makeMush('#7B2D8B','#3D006B','#8040A0',
+  `<path d="M22,16 L18,4 L26,12 L28,4 L32,12 L36,6 L38,14" stroke="#50C020" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M58,16 L62,4 L54,12 L52,4 L48,12 L44,6 L42,14" stroke="#50C020" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+  `<circle cx="30" cy="36" r="5" fill="#1A0030" opacity=".88"/><circle cx="50" cy="36" r="5" fill="#1A0030" opacity=".88"/><circle cx="31" cy="35" r="2.5" fill="rgba(255,200,50,.7)"/><circle cx="51" cy="35" r="2.5" fill="rgba(255,200,50,.7)"/><path d="M26,46 Q40,40 54,46" stroke="#CC2020" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M24,45 Q22,42 26,46" stroke="#CC2020" stroke-width="1.5" fill="none"/><path d="M56,45 Q58,42 54,46" stroke="#CC2020" stroke-width="1.5" fill="none"/>`,
+  'Джокер','DC'),
+
+// ── NARUTO ──
+makeMush('#FF8C00','#CC4400','#E07030',
+  `<rect x="28" y="14" width="24" height="14" rx="4" fill="#CC6010" opacity=".75"/><path d="M35,20 Q40,16 45,20 Q40,24 35,20Z" fill="rgba(255,255,255,.6)"/>`,
+  `<circle cx="30" cy="36" r="5" fill="#111" opacity=".85"/><circle cx="50" cy="36" r="5" fill="#111" opacity=".85"/><circle cx="31" cy="35" r="2.5" fill="rgba(255,200,100,.75)"/><circle cx="51" cy="35" r="2.5" fill="rgba(255,200,100,.75)"/><line x1="24" y1="38" x2="20" y2="42" stroke="#FF6020" stroke-width="1.6"/><line x1="24" y1="40" x2="20" y2="44" stroke="#FF6020" stroke-width="1.6"/><line x1="56" y1="38" x2="60" y2="42" stroke="#FF6020" stroke-width="1.6"/><line x1="56" y1="40" x2="60" y2="44" stroke="#FF6020" stroke-width="1.6"/><path d="M32,47 Q40,51 48,47" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Наруто','Наруто'),
+
+makeMush('#1C3A7A','#0A1A5A','#2040A0',
+  `<circle cx="40" cy="20" r="8" fill="#CC0000" opacity=".9"/><circle cx="40" cy="20" r="4.5" fill="#880000"/><path d="M37,20 Q40,17 43,20 Q40,23 37,20Z" fill="#FF4040" opacity=".8"/>`,
+  `<circle cx="30" cy="36" r="5" fill="#0A0A1A" opacity=".9"/><circle cx="50" cy="36" r="5" fill="#0A0A1A" opacity=".9"/><circle cx="31" cy="35" r="2.5" fill="rgba(100,100,255,.75)"/><circle cx="51" cy="35" r="2.5" fill="rgba(100,100,255,.75)"/><path d="M32,46 Q40,44 48,46" stroke="#0A0A1A" stroke-width="1.4" fill="none"/>`,
+  'Саске','Наруто'),
+
+makeMush('#3B5BA5','#1A3080','#405090',
+  `<line x1="22" y1="14" x2="58" y2="52" stroke="#2A5080" stroke-width="3.5" opacity=".5"/><line x1="34" y1="10" x2="70" y2="46" stroke="#2A5080" stroke-width="3.5" opacity=".5"/><line x1="10" y1="26" x2="46" y2="54" stroke="#2A5080" stroke-width="3.5" opacity=".5"/><rect x="30" y="16" width="20" height="12" rx="2" fill="#CC2020" opacity=".7"/>`,
+  `${eyes(30,36,50,36)}<path d="M32,46 Q40,50 48,46" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+  'Танджиро','Demon Slayer'),
+
+makeMush('#3CB371','#1A7040','#40A060',
+  `<path d="M36,8 L32,20 L38,18 L30,34 L38,28 L32,44" stroke="#FFD020" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M44,8 L48,20 L42,18 L50,34 L42,28 L48,44" stroke="#FFD020" stroke-width="2.8" fill="none" stroke-linecap="round"/>`,
+  `<circle cx="30" cy="38" r="5" fill="#0A1A0A" opacity=".88"/><circle cx="50" cy="38" r="5" fill="#0A1A0A" opacity=".88"/><circle cx="31" cy="37" r="2.5" fill="rgba(80,255,120,.75)"/><circle cx="51" cy="37" r="2.5" fill="rgba(80,255,120,.75)"/><path d="M32,48 Q40,52 48,48" stroke="#0A1A0A" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+  'Деку','MHA'),
+
+// ── DRAGON BALL ──
+makeMush('#FF7C00','#CC3A00','#E06030',
+  `<path d="M22,16 L18,4 L26,12 L28,4 L32,12 L36,6 L38,14" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M58,16 L62,4 L54,12 L52,4 L48,12 L44,6 L42,14" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>`,
+  `${eyes(30,36,50,36)}<path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Гоку','Драгонбол'),
+
+makeMush('#5B4FCF','#2A1A9F','#5040B0',
+  `<path d="M22,16 L18,4 L26,12 L28,4 L32,12 L36,6 L38,14" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M58,16 L62,4 L54,12 L52,4 L48,12 L44,6 L42,14" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M34,16 L40,8 L46,16" fill="#111" opacity=".6"/>`,
+  `${eyes(30,36,50,36)}<path d="M32,44 Q40,40 48,44" stroke="#111" stroke-width="1.4" fill="none"/>`,
+  'Вегета','Драгонбол'),
+
+// ── MINECRAFT ──
+makeMush('#5A9A30','#2A6A00','#5A9030',
+  `<rect x="10" y="14" width="60" height="38" rx="3" fill="none"/><line x1="10" y1="26" x2="70" y2="26" stroke="#2A6A00" stroke-width="1.6" opacity=".5"/><line x1="10" y1="38" x2="70" y2="38" stroke="#2A6A00" stroke-width="1.6" opacity=".5"/><line x1="23" y1="14" x2="23" y2="52" stroke="#2A6A00" stroke-width="1.6" opacity=".5"/><line x1="40" y1="14" x2="40" y2="52" stroke="#2A6A00" stroke-width="1.6" opacity=".5"/><line x1="57" y1="14" x2="57" y2="52" stroke="#2A6A00" stroke-width="1.6" opacity=".5"/>`,
+  `<rect x="22" y="26" width="12" height="10" rx="1" fill="#2A6A00" opacity=".9"/><rect x="46" y="26" width="12" height="10" rx="1" fill="#2A6A00" opacity=".9"/><rect x="30" y="36" width="6" height="4" rx="0.5" fill="#2A6A00" opacity=".85"/><rect x="44" y="36" width="6" height="4" rx="0.5" fill="#5A9A30"/><rect x="26" y="40" width="28" height="8" rx="1" fill="#2A6A00" opacity=".85"/><rect x="32" y="40" width="16" height="8" rx="0.5" fill="#5A9A30"/>`,
+  'Крипер','Minecraft'),
+
+makeMush('#8B7355','#5A4020','#A09070',
+  `<rect x="12" y="12" width="56" height="40" rx="3" fill="none" stroke="#5A4020" stroke-width="2"/>`,
+  `<rect x="18" y="22" width="18" height="12" rx="1" fill="#5B8DB8" opacity=".9"/><rect x="44" y="22" width="18" height="12" rx="1" fill="#5B8DB8" opacity=".9"/><circle cx="27" cy="28" r="4" fill="#333"/><circle cx="53" cy="28" r="4" fill="#333"/><circle cx="26" cy="27" r="2" fill="white"/><circle cx="52" cy="27" r="2" fill="white"/><rect x="28" y="40" width="24" height="8" rx="1" fill="#8B4513" opacity=".7"/>`,
+  'Стив','Minecraft'),
+
+// ── GHIBLI / ANIME ──
+makeMush('#A0A0A0','#606060','#909090',
+  `<ellipse cx="18" cy="22" rx="5" ry="9" fill="#A0A0A0" stroke="#707070" stroke-width="1.2"/><ellipse cx="62" cy="22" rx="5" ry="9" fill="#A0A0A0" stroke="#707070" stroke-width="1.2"/><ellipse cx="18" cy="21" rx="2.5" ry="5.5" fill="#D0A0B0" opacity=".7"/><ellipse cx="62" cy="21" rx="2.5" ry="5.5" fill="#D0A0B0" opacity=".7"/>`,
+  `<circle cx="30" cy="34" r="6" fill="#333" opacity=".85"/><circle cx="50" cy="34" r="6" fill="#333" opacity=".85"/><circle cx="31" cy="33" r="3" fill="white"/><circle cx="51" cy="33" r="3" fill="white"/><line x1="26" y1="44" x2="20" y2="48" stroke="#555" stroke-width="1.3"/><line x1="26" y1="46" x2="20" y2="50" stroke="#555" stroke-width="1.3"/><line x1="54" y1="44" x2="60" y2="48" stroke="#555" stroke-width="1.3"/><line x1="54" y1="46" x2="60" y2="50" stroke="#555" stroke-width="1.3"/>`,
+  'Тоторо','Гибли'),
+
+makeMush('#F8F8FF','#AAAACC','#D0D0E0',
+  ``,
+  `<ellipse cx="32" cy="32" rx="7" ry="9" fill="rgba(0,0,0,.82)"/><ellipse cx="48" cy="32" rx="7" ry="9" fill="rgba(0,0,0,.82)"/><circle cx="32" cy="34" r="3.5" fill="white" opacity=".65"/><circle cx="48" cy="34" r="3.5" fill="white" opacity=".65"/><path d="M32,47 Q40,51 48,47" stroke="rgba(0,0,0,.5)" stroke-width="1.5" fill="none"/>`,
+  'Безликий','Гибли'),
+
+// ── CLASSIC GAMES ──
+makeMush('#FFD700','#AA8800','#E8C840',
+  ``,
+  `<path d="M40,14 L70,36 L40,46Z" fill="rgba(0,0,0,.85)" opacity=".9"/><circle cx="40" cy="18" r="4" fill="#333" opacity=".75"/><circle cx="16" cy="38" r="5" fill="white" opacity=".9"/><circle cx="18" cy="30" r="4.5" fill="white" opacity=".9"/><circle cx="20" cy="22" r="3.5" fill="white" opacity=".9"/>`,
+  'Пак-Мен','Игры'),
+
+makeMush('#1C6BB5','#0A3A80','#2050A0',
+  `<polygon points="20,12 14,2 24,10" fill="#1C6BB5" stroke="#0A3A80" stroke-width="1"/><polygon points="32,8 26,0 36,8" fill="#1C6BB5" stroke="#0A3A80" stroke-width="1"/><polygon points="48,8 54,0 44,8" fill="#1C6BB5" stroke="#0A3A80" stroke-width="1"/><polygon points="60,12 66,2 56,10" fill="#1C6BB5" stroke="#0A3A80" stroke-width="1"/>`,
+  `${eyes(30,34,50,34)}<path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="50" rx="10" ry="4" fill="#CC2020" opacity=".75"/><ellipse cx="40" cy="50" rx="6" ry="2" fill="white" opacity=".55"/>`,
+  'Соник','Sonic'),
+
+makeMush('#3CB371','#1A7040','#50A860',
+  `<path d="M40,8 L54,24" stroke="#228830" stroke-width="2.5" stroke-linecap="round"/><circle cx="54" cy="24" r="4.5" fill="#228830" opacity=".85"/>`,
+  `${eyes(30,36,50,36,4.5,'#1A4A1A')}<circle cx="31" cy="35" r="2" fill="rgba(180,255,120,.75)"/><circle cx="51" cy="35" r="2" fill="rgba(180,255,120,.75)"/><path d="M38,18 L40,12 L42,18 L36,14 L44,14Z" fill="#FFD020" opacity=".85"/><path d="M32,46 Q40,50 48,46" stroke="#1A4A1A" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+  'Линк','Zelda'),
+
+makeMush('#607050','#304830','#608050',
+  `<rect x="12" y="12" width="56" height="42" rx="6" fill="none"/><rect x="18" y="20" width="44" height="20" rx="4" fill="#FFB020" opacity=".72"/><rect x="18" y="20" width="44" height="20" rx="4" fill="none" stroke="#A08010" stroke-width="1"/>`,
+  `<rect x="22" y="28" width="14" height="8" rx="2" fill="#607050" opacity=".85"/><rect x="44" y="28" width="14" height="8" rx="2" fill="#607050" opacity=".85"/>`,
+  'Мастер Чиф','Halo'),
+
+// ── MOVIES / TV ──
+makeMush('#78A840','#305A10','#609040',
+  `<ellipse cx="18" cy="24" rx="9" ry="13" fill="#78A840" stroke="#305A10" stroke-width="1.5"/><ellipse cx="62" cy="24" rx="9" ry="13" fill="#78A840" stroke="#305A10" stroke-width="1.5"/><ellipse cx="18" cy="22" rx="5" ry="8" fill="#C07080" opacity=".7"/><ellipse cx="62" cy="22" rx="5" ry="8" fill="#C07080" opacity=".7"/>`,
+  `${eyes(30,38,50,38,5,'#111')}<circle cx="31" cy="37" r="2.5" fill="rgba(180,255,100,.55)"/><circle cx="51" cy="37" r="2.5" fill="rgba(180,255,100,.55)"/><ellipse cx="40" cy="50" rx="12" ry="5" fill="#60A020" opacity=".65"/>`,
+  'Шрек','Мультфильм'),
+
+makeMush('#FFE500','#C8A800','#FFE060',
+  `<rect x="12" y="14" width="56" height="38" rx="5" fill="rgba(0,0,0,.0)"/><rect x="12" y="14" width="56" height="38" rx="5" fill="none" stroke="#C8A800" stroke-width="1.5"/>`,
+  `<rect x="20" y="22" width="40" height="20" rx="5" fill="#8B7355" opacity=".9"/><ellipse cx="40" cy="32" rx="14" ry="11" fill="#CCCCCC"/><ellipse cx="40" cy="32" rx="10" ry="8" fill="#4080FF" opacity=".9"/><ellipse cx="40" cy="32" rx="6" ry="5" fill="#111"/><circle cx="38" cy="30" r="2" fill="white"/><circle cx="40" cy="32" r="1" fill="rgba(255,255,255,.5)"/>`,
+  'Миньон','Мультфильм'),
+
+makeMush('#FFE500','#C0A000','#E8C040',
+  `<path d="M20,22 Q22,14 40,12 Q58,14 60,22" stroke="#C0A040" stroke-width="2" fill="none"/>`,
+  `<circle cx="30" cy="30" r="5.5" fill="#333" opacity=".82"/><circle cx="50" cy="30" r="5.5" fill="#333" opacity=".82"/><circle cx="31" cy="29" r="2.5" fill="rgba(255,255,255,.88)"/><circle cx="51" cy="29" r="2.5" fill="rgba(255,255,255,.88)"/><ellipse cx="40" cy="44" rx="12" ry="5" fill="#E0B060" opacity=".65"/><path d="M30,42 Q40,48 50,42" stroke="#333" stroke-width="1.7" fill="none" stroke-linecap="round"/>`,
+  'Гомер','Симпсоны'),
+
+makeMush('#70A0D0','#2A6898','#5090B0',
+  `<path d="M22,18 L18,6 L26,14 L28,4 L32,12 L36,6 L38,16" stroke="#E0E0E0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M58,18 L62,6 L54,14 L52,4 L48,12 L44,6 L42,16" stroke="#E0E0E0" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+  `<circle cx="30" cy="34" r="5" fill="#333" opacity=".82"/><circle cx="50" cy="34" r="5" fill="#333" opacity=".82"/><circle cx="31" cy="33" r="2.5" fill="rgba(100,200,255,.82)"/><circle cx="51" cy="33" r="2.5" fill="rgba(100,200,255,.82)"/><circle cx="64" cy="38" r="3.5" fill="#22BB22" opacity=".85"/>`,
+  'Рик','Rick & Morty'),
+
+makeMush('#808090','#404050','#909090',
+  `<rect x="14" y="12" width="52" height="42" rx="5" fill="rgba(0,0,0,.0)"/><rect x="14" y="12" width="52" height="42" rx="5" fill="none" stroke="#505060" stroke-width="1.5"/>`,
+  `<rect x="20" y="22" width="40" height="20" rx="4" fill="#2A2A2A"/><circle cx="30" cy="32" r="5.5" fill="#FFE060" opacity=".9"/><circle cx="50" cy="32" r="5.5" fill="#FFE060" opacity=".9"/><circle cx="30" cy="32" r="2.5" fill="#111"/><circle cx="50" cy="32" r="2.5" fill="#111"/><rect x="28" y="46" width="24" height="8" rx="3" fill="#808090"/>`,
+  'Бендер','Футурама'),
+
+// ── GAMING ──
+makeMush('#2E86AB','#0A4060','#3080A0',
+  `<path d="M40,0 L60,52 L20,52Z" fill="#808080" opacity=".82"/><ellipse cx="40" cy="52" rx="24" ry="8" fill="#707070" opacity=".82"/><path d="M30,32 Q28,26 32,30" fill="none" stroke="rgba(255,220,80,.7)" stroke-width="1.6"/>`,
+  ``,
+  'Гэндальф','LOTR'),
+
+makeMush('#D4A830','#9A7010','#C8A030',
+  `<ellipse cx="40" cy="36" rx="38" ry="7" fill="#C8A020"/><ellipse cx="40" cy="30" rx="28" ry="18" fill="rgba(0,0,0,0)"/><rect x="28" y="34" width="24" height="4" fill="#D4A830"/><circle cx="40" cy="28" r="3.5" fill="#CC0000" opacity=".9"/>`,
+  `<circle cx="30" cy="48" r="4.5" fill="#333" opacity=".82"/><circle cx="50" cy="48" r="4.5" fill="#333" opacity=".82"/><circle cx="31" cy="47" r="2" fill="rgba(255,255,255,.8)"/><circle cx="51" cy="47" r="2" fill="rgba(255,255,255,.8)"/>`,
+  'Луффи','One Piece'),
+
+makeMush('#CC2020','#880000','#CC3030',
+  `<ellipse cx="30" cy="30" rx="9" ry="7" fill="#111" opacity=".88"/><ellipse cx="50" cy="30" rx="9" ry="7" fill="#111" opacity=".88"/>`,
+  `<ellipse cx="30" cy="30" rx="6" ry="4.5" fill="white" opacity=".88"/><ellipse cx="50" cy="30" rx="6" ry="4.5" fill="white" opacity=".88"/>`,
+  'Дэдпул 2','Marvel'),
+
+makeMush('#3A8A30','#1A6000','#50A040',
+  ``,
+  `<circle cx="40" cy="26" r="22" fill="#E8E8E8" opacity=".0"/><ellipse cx="32" cy="26" rx="9" ry="7" fill="#1A1A1A"/><ellipse cx="48" cy="26" rx="9" ry="7" fill="#1A1A1A"/><circle cx="30" cy="26" r="4.5" fill="#333" opacity=".9"/><circle cx="50" cy="26" r="4.5" fill="#333" opacity=".9"/><circle cx="29" cy="25" r="2" fill="white"/><circle cx="49" cy="25" r="2" fill="white"/><path d="M32,40 Q40,46 48,40" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+  'По (Панда)','Мультфильм'),
+
+// ── DEATH NOTE ──
+makeMush('#C0A860','#806820','#C0A030',
+  `<rect x="24" y="14" width="32" height="20" rx="3" fill="#FFF8E0" opacity=".9"/>`,
+  `<circle cx="30" cy="38" r="5" fill="#333" opacity=".85"/><circle cx="50" cy="38" r="5" fill="#333" opacity=".85"/><circle cx="31" cy="37" r="2.5" fill="rgba(200,180,100,.75)"/><circle cx="51" cy="37" r="2.5" fill="rgba(200,180,100,.75)"/><path d="M32,48 Q40,46 48,48" stroke="#333" stroke-width="1.4" fill="none"/><path d="M38,10 L40,4 L42,10" fill="#555" opacity=".65"/>`,
+  'Лайт','Death Note'),
+
+makeMush('#C0C0C0','#808080','#D0D0D0',
+  `<rect x="16" y="16" width="48" height="32" rx="4" fill="#E8E8E8" opacity=".85"/>`,
+  `<circle cx="30" cy="34" r="5.5" fill="#333" opacity=".9"/><circle cx="50" cy="34" r="5.5" fill="#333" opacity=".9"/><circle cx="31" cy="33" r="3" fill="rgba(255,255,255,.9)"/><circle cx="51" cy="33" r="3" fill="rgba(255,255,255,.9)"/><path d="M32,46 Q40,44 48,46" stroke="#333" stroke-width="1.8" fill="none"/><path d="M33,46 Q31,50 33,52" stroke="#666" stroke-width="1.2" fill="none"/><path d="M47,46 Q49,50 47,52" stroke="#666" stroke-width="1.2" fill="none"/>`,
+  'Л','Death Note'),
+
+// ── UNDERTALE ──
+makeMush('#4A90C8','#1A5898','#5080B0',
+  ``,
+  `<circle cx="30" cy="30" r="8.5" fill="white" opacity=".92"/><circle cx="50" cy="30" r="8.5" fill="white" opacity=".92"/><circle cx="30" cy="30" r="4.5" fill="#88CCFF" opacity=".92"/><circle cx="50" cy="30" r="4.5" fill="#88CCFF" opacity=".92"/><path d="M22,46 Q40,40 58,46" stroke="#888" stroke-width="2.2" fill="none" stroke-dasharray="4,3"/>`,
+  'Санс','Undertale'),
+
+// ── GAME ICONS ──
+makeMush('#E08020','#B05000','#D07030',
+  `<path d="M20,20 L14,10 L22,16 L24,8 L28,16 L32,10 L34,18" stroke="#E08020" stroke-width="2.8" fill="none" stroke-linecap="round"/>`,
+  `<ellipse cx="30" cy="30" rx="8" ry="6" fill="#2040A0" opacity=".88"/><ellipse cx="50" cy="30" rx="8" ry="6" fill="#2040A0" opacity=".88"/><circle cx="30" cy="30" r="4.5" fill="#60C0FF" opacity=".9"/><circle cx="50" cy="30" r="4.5" fill="#60C0FF" opacity=".9"/><path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Трейсер','Overwatch'),
+
+makeMush('#FF80A0','#CC2060','#E04080',
+  `<circle cx="40" cy="18" r="6.5" fill="#FF2080" opacity=".75"/>`,
+  `<circle cx="30" cy="32" r="5.5" fill="#111" opacity=".85"/><circle cx="50" cy="32" r="5.5" fill="#111" opacity=".85"/><circle cx="31" cy="31" r="2.5" fill="rgba(255,150,200,.85)"/><circle cx="51" cy="31" r="2.5" fill="rgba(255,150,200,.85)"/><line x1="24" y1="36" x2="20" y2="40" stroke="#FF2080" stroke-width="1.8"/><line x1="56" y1="36" x2="60" y2="40" stroke="#FF2080" stroke-width="1.8"/><path d="M32,44 Q40,48 48,44" stroke="#111" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Д.Ва','Overwatch'),
+
+makeMush('#CC2020','#880000','#CC3030',
+  ``,
+  `<ellipse cx="40" cy="26" rx="16" ry="14" fill="#FFD030"/><ellipse cx="40" cy="26" rx="14" ry="12" fill="#4488FF" opacity=".9"/><ellipse cx="40" cy="26" rx="10" ry="9" fill="#333"/><circle cx="36" cy="24" r="2.5" fill="white"/><circle cx="38" cy="26" r="1.5" fill="rgba(255,255,255,.5)"/>`,
+  'Among Us','Among Us'),
+
+makeMush('#5030A0','#200060','#6040B0',
+  `<circle cx="40" cy="22" r="20" fill="rgba(0,0,0,0)"/><circle cx="40" cy="22" r="14" fill="rgba(0,0,0,0)"/>`,
+  `${eyes(30,38,50,38,5.5,'#2A0050')}<circle cx="31" cy="37" r="3" fill="rgba(180,100,255,.85)"/><circle cx="51" cy="37" r="3" fill="rgba(180,100,255,.85)"/><path d="M26,48 Q40,42 54,48" stroke="#2A0050" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,
+  'Гэнгар 2','Pokemon'),
+
+// ── CLASSICS ──
+makeMush('#1A1A2E','#000010','#302840',
+  ``,
+  `<ellipse cx="31" cy="30" rx="6" ry="8" fill="rgba(0,0,0,.82)"/><ellipse cx="49" cy="30" rx="6" ry="8" fill="rgba(0,0,0,.82)"/><circle cx="31" cy="32" r="3.5" fill="white" opacity=".68"/><circle cx="49" cy="32" r="3.5" fill="white" opacity=".68"/>`,
+  'Безликий 2','Гибли'),
+
+makeMush('#F0D860','#C0A820','#E0C040',
+  `<rect x="22" y="16" width="36" height="16" rx="3" fill="#CC2020" opacity=".88"/>`,
+  `<circle cx="30" cy="36" r="5.5" fill="#333" opacity=".82"/><circle cx="50" cy="36" r="5.5" fill="#333" opacity=".82"/><circle cx="31" cy="35" r="2.5" fill="rgba(200,180,100,.75)"/><circle cx="51" cy="35" r="2.5" fill="rgba(200,180,100,.75)"/><path d="M32,47 Q40,51 48,47" stroke="#333" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Морти','Rick & Morty'),
+
+// ── FINAL LEGENDARY ──
+makeMush('#FFD700','#AA6600','#E8B000',
+  `<path d="M20,18 L12,10 Q18,20 10,22" stroke="#8B6000" stroke-width="2" fill="none"/><path d="M60,18 L68,10 Q62,20 70,22" stroke="#8B6000" stroke-width="2" fill="none"/><polygon points="40,8 44,18 54,18 46,24 48,34 40,28 32,34 34,24 26,18 36,18" fill="rgba(255,255,255,.6)"/>`,
+  `<circle cx="30" cy="40" r="5" fill="#333" opacity=".82"/><circle cx="50" cy="40" r="5" fill="#333" opacity=".82"/><circle cx="31" cy="39" r="2.5" fill="rgba(255,230,100,.8)"/><circle cx="51" cy="39" r="2.5" fill="rgba(255,230,100,.8)"/><path d="M32,50 Q40,54 48,50" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>`,
+  'Гэндальф Белый','LOTR'),
+
+makeMush('#E8C0FF','#9040C0','#C080E0',
+  `<circle cx="40" cy="16" r="7" fill="rgba(255,255,255,.7)"/><line x1="40" y1="8" x2="40" y2="24" stroke="#AA60FF" stroke-width="1.5"/><line x1="32" y1="12" x2="48" y2="20" stroke="#AA60FF" stroke-width="1.5"/><line x1="32" y1="20" x2="48" y2="12" stroke="#AA60FF" stroke-width="1.5"/>`,
+  `<circle cx="30" cy="36" r="5.5" fill="#1A003A" opacity=".9"/><circle cx="50" cy="36" r="5.5" fill="#1A003A" opacity=".9"/><circle cx="31" cy="35" r="3" fill="rgba(220,180,255,.9)"/><circle cx="51" cy="35" r="3" fill="rgba(220,180,255,.9)"/><path d="M30,46 Q40,52 50,46" stroke="#1A003A" stroke-width="1.6" fill="none" stroke-linecap="round"/>`,
+  'Вечный','Мистик'),
+
+];
+
+const MSVG = MUSH_DATA.map(m => m.svg);
+const MUSH_NAMES = MUSH_DATA.map(m => [m.name, m.cat]);
+const COLL_COUNT = MSVG.length;
+
+// ══════════════════════════════════════════
+// GAME DATA
+// ══════════════════════════════════════════
+// Апгрейды сгруппированы в цепочки. Каждый следующий открывается после покупки предыдущего.
+// Поля: id, icon, name, desc, cost, boost, эффект (clickMult/passive/passiveMult/gnomeMult/critChance/critMult/offlineMult/boxDiscount), chain, tier
+const UPGRADE_CHAINS = [
+  {
+    id:'spores', icon:'🌿', name:'Споры',
+    desc:['Тап ×2','Тап ×4','Тап ×10','Тап ×20','Тап ×50'],
+    cost:[80, 4000, 80000, 1500000, 30000000],
+    boost:['×2 тап','×4 тап','×10 тап','×20 тап','×50 тап'],
+    effect:[{clickMult:2},{clickMult:2},{clickMult:2.5},{clickMult:2},{clickMult:2.5}],
+  },
+  {
+    id:'lamp', icon:'💡', name:'Лампы',
+    desc:['+2/сек','+10/сек','+50/сек','+200/сек','+1000/сек'],
+    cost:[200, 8000, 150000, 3000000, 60000000],
+    boost:['+2/сек','+10/сек','+50/сек','+200/сек','+1000/сек'],
+    effect:[{passive:2},{passive:10},{passive:50},{passive:200},{passive:1000}],
+  },
+  {
+    id:'fert', icon:'🌱', name:'Удобрение',
+    desc:['Авто ×2','Авто ×3','Авто ×5','Авто ×8','Авто ×15'],
+    cost:[600, 20000, 400000, 8000000, 150000000],
+    boost:['×2 авто','×3 авто','×5 авто','×8 авто','×15 авто'],
+    effect:[{passiveMult:2},{passiveMult:3},{passiveMult:5},{passiveMult:8},{passiveMult:15}],
+  },
+  {
+    id:'gnome', icon:'🧙', name:'Гномы',
+    desc:['Гномы ×2','Гномы ×3','Гномы ×5','Гномы ×8','Гномы ×15'],
+    cost:[8000, 100000, 2000000, 40000000, 800000000],
+    boost:['×2 гномы','×3 гномы','×5 гномы','×8 гномы','×15 гномы'],
+    effect:[{gnomeMult:2},{gnomeMult:3},{gnomeMult:5},{gnomeMult:8},{gnomeMult:15}],
+  },
+  {
+    id:'crit', icon:'⚡', name:'Крит',
+    desc:['+8% крит','+15% крит','Крит ×8','+25% крит','Крит ×15'],
+    cost:[12000, 200000, 1000000, 20000000, 400000000],
+    boost:['+8% крит','+15% крит','×8 крит','+25% крит','×15 крит'],
+    effect:[{critChance:8},{critChance:15},{critMult:3},{critChance:25},{critMult:7}],
+  },
+  {
+    id:'merge', icon:'🔗', name:'Слияние',
+    desc:['Ящик -25%','Ящик -40%','Ящик -55%','Ящик -65%','Ящик -75%'],
+    cost:[40000, 300000, 2500000, 20000000, 150000000],
+    boost:['-25% ящик','-40% ящик','-55% ящик','-65% ящик','-75% ящик'],
+    effect:[{boxDiscount:.25},{boxDiscount:.15},{boxDiscount:.15},{boxDiscount:.10},{boxDiscount:.10}],
+  },
+  {
+    id:'offline', icon:'⏳', name:'Офлайн',
+    desc:['Офлайн ×2','Офлайн ×4','Офлайн ×8','Офлайн ×16'],
+    cost:[350000, 5000000, 80000000, 1200000000],
+    boost:['×2 офлайн','×4 офлайн','×8 офлайн','×16 офлайн'],
+    effect:[{offlineMult:2},{offlineMult:2},{offlineMult:2},{offlineMult:2}],
+  },
+];
+
+// Разворачиваем в плоский массив для recalc
+const UPGRADES = [];
+UPGRADE_CHAINS.forEach(ch => {
+  ch.cost.forEach((cost, i) => {
+    const uid = ch.id+'_'+i;
+    UPGRADES.push({
+      id: uid, icon: ch.icon,
+      name: ch.name + ' ' + ['I','II','III','IV','V'][i],
+      desc: ch.desc[i], cost, boost: ch.boost[i],
+      chain: ch.id, tier: i, totalTiers: ch.cost.length,
+      ...ch.effect[i]
+    });
+  });
+});
+
+// Генератор цепочки квестов
+function makeChain(icon, chain, type, targets, rewards, rTypes) {
+  return targets.map((t, i) => {
+    const label = t >= 1e9 ? (t/1e9).toFixed(0)+'B'
+                : t >= 1e6 ? (t/1e6).toFixed(0)+'M'
+                : t >= 1000 ? (t/1000).toFixed(0)+'K' : String(t);
+    return {
+      id: type+'_'+i, icon,
+      name: chain+': '+label,
+      type, target: t,
+      reward: rewards[i],
+      rt: rTypes[i],
+      chain, tier: i+1,
+      totalTiers: targets.length
+    };
+  });
+}
+
+const QUESTS = [
+  // ТАПЫ: лёгкие грибовые награды → поздние жетоны
+  ...makeChain('👆','Тапы','clicks',
+    [100,    500,    2000,   10000,   50000,    200000,   1000000,  5000000],
+    [200,    800,    3000,   15000,   75000,    400000,   2,        5],
+    ['m',    'm',    'm',    'm',     'm',      'm',      't',      't']),
+
+  // ГРИБЫ ВСЕГО: награды ~ 5% от цели, поздние → жетоны
+  ...makeChain('🍄','Грибы','total',
+    [500,    5000,   50000,  500000,  5000000,  50000000,  500000000, 5000000000],
+    [200,    2000,   20000,  200000,  1000000,  1,         3,         8],
+    ['m',    'm',    'm',    'm',     'm',       't',       't',       't']),
+
+  // ГНОМЫ: нанять N гномов
+  ...makeChain('🧙','Гномы','gnomes',
+    [3,      8,      20,     40,      80,       150,      300,      600],
+    [500,    2000,   8000,   25000,   100000,   1,        3,        6],
+    ['m',    'm',    'm',    'm',     'm',       't',      't',      't']),
+
+  // СЛИЯНИЯ: сделать N слияний
+  ...makeChain('🔗','Слияния','merges',
+    [3,      10,     30,     75,      200,      500,      1500,     5000],
+    [400,    1500,   5000,   20000,   80000,    1,        3,        8],
+    ['m',    'm',    'm',    'm',     'm',       't',      't',      't']),
+
+  // КОЛЛЕКЦИЯ: открыть N видов
+  ...makeChain('📚','Коллекция','collection',
+    [5,      12,     25,     40,      55,       59],
+    [1000,   5000,   1,      3,       7,        20],
+    ['m',    'm',    't',    't',     't',       't']),
+
+  // УРОВЕНЬ ГРИБА в сетке
+  ...makeChain('🌟','Гриб в сетке','maxMush',
+    [3,      7,      12,     20,      30,       45,       55,       59],
+    [600,    3000,   12000,  1,       3,        6,        12,       25],
+    ['m',    'm',    'm',    't',     't',       't',      't',      't']),
+
+  // ПЕРЕРОЖДЕНИЯ
+  ...makeChain('♾️','Перерождения','prestige',
+    [1,      3,      7,      15],
+    [5,      15,     40,     100],
+    ['t',    't',    't',    't']),
+];
+
+const COLLECTION=MSVG.map((_,i)=>({id:'m'+i,idx:i,unlockAt:i===0?1:Math.floor(10*Math.pow(2.8,i))}));
+
+const PERKS=[
+  {id:'pk1',icon:'🌱',name:'Быстрый старт',desc:'Начало: +500 грибов',cost:1},
+  {id:'pk2',icon:'👆',name:'Сила мицелия',desc:'Тап ×2 навсегда',cost:2},
+  {id:'pk3',icon:'⏱️',name:'Вечный урожай',desc:'Авто ×1.5 навсегда',cost:2},
+  {id:'pk4',icon:'🌙',name:'Ночная смена',desc:'Офлайн ×3',cost:3},
+  {id:'pk5',icon:'🧙',name:'Армия гномов',desc:'Гномы ×2',cost:3},
+  {id:'pk6',icon:'💥',name:'Глаз критика',desc:'+25% крит навсегда',cost:4},
+  {id:'pk7',icon:'🔗',name:'Дар слияния',desc:'Бонус слияний ×4',cost:4},
+  {id:'pk8',icon:'⚡',name:'Вечное комбо',desc:'Комбо затухает ×3 медленнее',cost:5},
+];
+
+const EVENTS=[
+  {id:'e1',icon:'🌙',name:'Лунный дождь',desc:'×4 к авто-доходу!',dur:90,passiveMult:4},
+  {id:'e2',icon:'⛈️',name:'Споровая буря',desc:'×6 к тапам!',dur:60,clickMult:6},
+  {id:'e3',icon:'🧙',name:'День гномов',desc:'Гномы ×15!',dur:45,gnomeMult:15},
+  {id:'e4',icon:'⭐',name:'Золотой гриб',desc:'×3 ко всему!',dur:120,allMult:3},
+  {id:'e5',icon:'💥',name:'Критическая волна',desc:'Крит всегда ×20!',dur:30,critAlways:true},
+];
+const AVATARS=['🧑‍🌾','👨‍🌾','👩‍🌾','🧙','🧝','🎮','👾','🦸','🧑‍🔬','🤺'];
+
+// ══ STATE ══
+let G={mushrooms:0,total:0,totalClicks:0,gnomes:0,gnomeCost:50,clickPower:1,passiveRate:0,critChance:3,critMult:5,comboCount:0,comboMult:1,comboDecay:0,maxCombo:0,prestigeCount:0,prestigeTokens:0,grid:new Array(16).fill(null),boxesBought:0,mergesDone:0,maxMushLvl:0,upgrades:{},collFound:{},questsDone:{},perks:{},activeEvent:null,eventEnd:0,lastSave:Date.now(),mergeLog:[]};
+let PID='',PNAME='',PAVATAR='🧑‍🌾';let selCell=-1;
+const PT={farm:'🌾 Ферма',merge:'🔗 Поле слияния',upgrades:'⚙️ Апгрейды',quests:'📋 Задания',prestige:'♾️ Престиж',leaderboard:'🏆 Топ',collection:'📚 Книга грибов',stats:'📊 Статистика'};
+
+// ══ COOKIE / ID ══
+function acceptCookies(){localStorage.setItem('mf_ok','1');document.cookie='mf_ok=1;max-age=31536000;path=/';document.getElementById('cookieBar').classList.add('hidden');}
+function checkCookies(){if(localStorage.getItem('mf_ok')||document.cookie.indexOf('mf_ok=1')>=0)document.getElementById('cookieBar').classList.add('hidden');}
+function genId(){return 'FM-'+Math.random().toString(36).substr(2,4).toUpperCase()+Math.random().toString(36).substr(2,4).toUpperCase();}
+function loadIdentity(){PID=localStorage.getItem('mfp')||'';PNAME=localStorage.getItem('mfn')||'';PAVATAR=localStorage.getItem('mfa')||'🧑‍🌾';if(!PID){PID=genId();localStorage.setItem('mfp',PID);}document.cookie='mf_pid='+PID+';max-age=31536000;path=/';updateHeader();if(!PNAME)setTimeout(()=>om('m-name'),900);}
+function saveName(){const v=document.getElementById('nameIn').value.trim();if(!v)return;PNAME=v;PAVATAR=AVATARS[Math.floor(Math.random()*AVATARS.length)];localStorage.setItem('mfn',PNAME);localStorage.setItem('mfa',PAVATAR);document.cookie='mf_name='+encodeURIComponent(PNAME)+';max-age=31536000;path=/';updateHeader();cm('m-name');toast('Добро пожаловать, '+PNAME+'!','gold');}
+function updateHeader(){document.getElementById('hNm').textContent=PNAME||'Аноним';document.getElementById('hAv').textContent=PAVATAR;document.getElementById('hPd').textContent='#'+PID;document.getElementById('hSt').textContent='✦'.repeat(Math.min(G.prestigeCount,5));}
+function loadState(){const s=localStorage.getItem('mfg8');if(s){try{const d=JSON.parse(s);Object.assign(G,d);if(!Array.isArray(G.grid)||G.grid.length!==16)G.grid=new Array(16).fill(null);if(!Array.isArray(G.mergeLog))G.mergeLog=[];}catch(e){}}}
+async function saveState(){G.lastSave=Date.now();localStorage.setItem('mfg8',JSON.stringify(G));document.cookie='mf_score='+Math.floor(G.total)+';max-age=31536000;path=/';await pushLB();}
+function fmt(n){n=Math.floor(n);if(n>=1e15)return(n/1e15).toFixed(2)+'Q';if(n>=1e12)return(n/1e12).toFixed(2)+'T';if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toString();}
+function om(id){document.getElementById(id).classList.add('on');}
+function cm(id){document.getElementById(id).classList.remove('on');}
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast on'+(type?' '+type:'');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2500);}
+
+function recalc(){
+  let cB=1,pB=0,pM=1,gP=1,oM=1,crC=3,crM=5,cbB=1,bDsc=0;
+  const pb=1+G.prestigeTokens*.02;
+  UPGRADES.forEach(u=>{if(!G.upgrades[u.id])return;if(u.clickMult)cB*=u.clickMult;if(u.passive)pB+=u.passive;if(u.passiveMult)pM*=u.passiveMult;if(u.gnomeMult)gP*=u.gnomeMult;if(u.critChance)crC+=u.critChance;if(u.critMult)crM+=u.critMult;if(u.offlineMult)oM*=u.offlineMult;if(u.comboBoost)cbB*=u.comboBoost;if(u.boxDiscount)bDsc+=u.boxDiscount;});
+  if(G.perks.pk2)cB*=2;if(G.perks.pk3)pM*=1.5;if(G.perks.pk4)oM*=3;if(G.perks.pk5)gP*=2;if(G.perks.pk6)crC+=25;
+  let eCM=1,ePM=1,eGM=1,eCritAlways=false;
+  if(G.activeEvent&&Date.now()<G.eventEnd){const ev=EVENTS.find(e=>e.id===G.activeEvent);if(ev){if(ev.clickMult)eCM=ev.clickMult;if(ev.passiveMult)ePM=ev.passiveMult;if(ev.gnomeMult)eGM=ev.gnomeMult;if(ev.allMult){eCM=ev.allMult;ePM=ev.allMult;eGM=ev.allMult;}if(ev.critAlways)eCritAlways=true;}}
+  G.clickPower=Math.max(1,Math.floor(cB*G.comboMult*pb*eCM));
+  G.passiveRate=(pB*pM*pb*ePM)+(G.gnomes*.5*gP*pb*eGM);
+  G.critChance=eCritAlways?100:Math.min(crC,70);G.critMult=crM;
+  G._offM=oM;G._cbB=cbB;G._boxBase=Math.max(10,Math.floor(20*(1-Math.min(bDsc,.8))));
+  document.getElementById('dR').textContent='+'+G.passiveRate.toFixed(1)+'/сек';
+  document.getElementById('dCl').textContent='тап: +'+fmt(G.clickPower);
+  document.getElementById('heroSub').innerHTML='+'+fmt(G.clickPower)+' за тап &nbsp;<span style="color:var(--gold)">крит: '+G.critChance+'%</span>';
+  document.getElementById('gnSub').textContent='Нанято: '+G.gnomes;
+  const bc=Math.floor(G._boxBase*Math.pow(1.18,G.boxesBought));
+  document.getElementById('mCostLbl').textContent='Ящик: '+fmt(bc)+' 🍄';
+  document.getElementById('mBoxBtn').disabled=G.mushrooms<bc;
+  const heroIdx=Math.min(G.maxMushLvl,MSVG.length-1);
+  document.getElementById('mainMush').innerHTML=`<div style="width:90px;height:90px;display:flex;align-items:center;justify-content:center">${MSVG[heroIdx]}</div>`;
+}
+
+function handleClick(e){
+  const isCrit=Math.random()*100<G.critChance;const power=G.clickPower*(isCrit?G.critMult:1);
+  G.mushrooms+=power;G.total+=power;G.totalClicks++;
+  G.comboCount++;G.comboDecay=Date.now()+(G.perks.pk8?6000:2000);
+  if(G.comboCount>G.maxCombo)G.maxCombo=G.comboCount;
+  G.comboMult=Math.min(1+G.comboCount*.04*(G._cbB||1),100);updateCombo();
+  const el=document.getElementById('mainMush');el.classList.remove('mc','mcrit');void el.offsetWidth;el.classList.add(isCrit?'mcrit':'mc');
+  const fl=document.createElement('div');fl.className='fn'+(isCrit?' crit':'');fl.textContent=(isCrit?'КРИТ! ':'')+'+'+fmt(power);fl.style.left=(e.clientX-28)+'px';fl.style.top=(e.clientY-28)+'px';document.body.appendChild(fl);setTimeout(()=>fl.remove(),800);
+  updateDisplay();checkColl();checkQ();
+}
+function updateCombo(){document.getElementById('coF').style.width=Math.min(100,(G.comboCount/200)*100)+'%';document.getElementById('coV').textContent='×'+G.comboMult.toFixed(1);document.getElementById('coCt').textContent=G.comboCount;}
+function hireGnome(){const cost=Math.floor(G.gnomeCost*Math.pow(1.5,G.gnomes));if(G.mushrooms<cost)return;G.mushrooms-=cost;G.gnomes++;recalc();updateDisplay();renderUpgrades();checkQ();}
+function buyUpgrade(id){if(G.upgrades[id])return;const u=UPGRADES.find(x=>x.id===id);if(!u||G.mushrooms<u.cost)return;G.mushrooms-=u.cost;G.upgrades[id]=true;recalc();updateDisplay();renderUpgrades();toast(u.name+' куплено!');}
+function buyBox(){
+  const cost=Math.floor(G._boxBase*Math.pow(1.18,G.boxesBought));if(G.mushrooms<cost)return;
+  const empty=G.grid.findIndex(c=>c===null);if(empty===-1){toast('Сетка полна!');return;}
+  G.mushrooms-=cost;
+  const maxIdx=Math.min(COLL_COUNT-1,Math.floor(Math.log2(Math.max(1,G.total/100))));
+  const pool=Array.from({length:maxIdx+1},(_,i)=>i);
+  const weights=pool.map((_,i)=>Math.pow(0.65,i));const total=weights.reduce((a,b)=>a+b,0);
+  let r=Math.random()*total,chosen=0;for(let i=0;i<pool.length;i++){r-=weights[i];if(r<=0){chosen=pool[i];break;}}
+  const lvl=chosen+1;G.grid[empty]={lvl};G.boxesBought++;
+  if(lvl-1>G.maxMushLvl){G.maxMushLvl=lvl-1;recalc();}
+  updateDisplay();recalc();renderGrid();checkQ();
+  const nm=MUSH_NAMES[chosen]||['?','?'];toast('Ящик: '+nm[0]+' ('+nm[1]+')','green');
+}
+function selectCell(idx){
+  const cell=G.grid[idx];
+  if(selCell===-1){if(!cell)return;selCell=idx;renderGrid();return;}
+  if(selCell===idx){selCell=-1;renderGrid();return;}
+  const src=G.grid[selCell];const dst=G.grid[idx];
+  if(!dst){G.grid[idx]=src;G.grid[selCell]=null;selCell=-1;renderGrid();return;}
+  if(src&&dst&&src.lvl===dst.lvl){
+    const newLvl=Math.min(src.lvl+1,COLL_COUNT);
+    G.grid[idx]={lvl:newLvl};G.grid[selCell]=null;G.mergesDone++;
+    if(newLvl-1>G.maxMushLvl){G.maxMushLvl=newLvl-1;recalc();}
+    const nm=MUSH_NAMES[newLvl-1]||['???','???'];
+    const entry='→ '+nm[0]+' ('+nm[1]+') ур.'+newLvl;
+    G.mergeLog.unshift(entry);if(G.mergeLog.length>25)G.mergeLog.pop();
+    const colE=COLLECTION[newLvl-1];if(colE&&!G.collFound[colE.id]){G.collFound[colE.id]=true;checkColl();}
+    if(newLvl>=10){
+      document.getElementById('mmSvg').innerHTML=`<div style="width:64px;height:64px">${MSVG[newLvl-1]||MSVG[0]}</div>`;
+      document.getElementById('mmD').textContent=nm[0]+' (уровень '+newLvl+')';
+      document.getElementById('mmP').textContent=nm[1];om('m-merge');
+    }else{toast('Слияние: '+nm[0]+'! ('+nm[1]+')','gold');}
+    checkQ();renderLog();renderGrid();
+  }else{toast('Нужны одинаковые грибы!');}
+  selCell=-1;renderGrid();
+}
+function renderGrid(){
+  const grid=document.getElementById('mgrid');grid.innerHTML='';
+  G.grid.forEach((cell,i)=>{
+    const div=document.createElement('div');
+    if(cell){
+      const idx=Math.min(cell.lvl-1,COLL_COUNT-1);const canMerge=selCell!==-1&&selCell!==i&&G.grid[selCell]&&G.grid[selCell].lvl===cell.lvl;
+      const nm=MUSH_NAMES[idx]||['?','?'];
+      div.className='mcell has'+(i===selCell?' sel':'')+(canMerge?' cm':'');
+      div.innerHTML=`<div class="cell-inner"><div class="cell-svg-wrap">${MSVG[idx]||MSVG[0]}</div><div class="cell-lvl">ур.${cell.lvl}</div></div>`;
+      div.title=nm[0]+' ('+nm[1]+')';
+    }else{div.className='mcell emp'+(selCell!==-1?' can-drop':'');div.innerHTML='<div class="cell-plus">+</div>';}
+    div.onclick=()=>selectCell(i);grid.appendChild(div);
+  });
+  document.getElementById('msB').textContent=G.boxesBought;document.getElementById('msM').textContent=G.mergesDone;document.getElementById('msX').textContent=G.maxMushLvl;
+}
+function renderLog(){const log=document.getElementById('mlog');if(!G.mergeLog||!G.mergeLog.length){log.innerHTML='<div style="font-size:9px;color:var(--tx3);padding:3px 0">Нет слияний...</div>';return;}log.innerHTML=G.mergeLog.map(e=>`<div class="mle">${e}</div>`).join('');}
+function qp(q){if(q.type==='clicks')return G.totalClicks;if(q.type==='total')return G.total;if(q.type==='gnomes')return G.gnomes;if(q.type==='prestige')return G.prestigeCount;if(q.type==='maxCombo')return G.maxCombo;if(q.type==='merges')return G.mergesDone;if(q.type==='maxMush')return G.maxMushLvl;if(q.type==='collection')return Object.values(G.collFound).filter(Boolean).length;return 0;}
+function claimQ(id){const q=QUESTS.find(x=>x.id===id);if(!q||G.questsDone[id])return;G.questsDone[id]=true;if(q.rt==='m'){G.mushrooms+=q.reward;G.total+=q.reward;}else G.prestigeTokens+=q.reward;document.getElementById('qmI').textContent=q.icon;document.getElementById('qmN').textContent=q.name;document.getElementById('qmR').textContent=q.rt==='m'?'+'+fmt(q.reward)+' 🍄':'+'+q.reward+' ✦';om('m-quest');updateDisplay();renderQuests();renderPrestige();}
+function checkQ(){let any=false;QUESTS.forEach(q=>{if(!G.questsDone[q.id]&&qp(q)>=q.target)any=true;});const dot=document.getElementById('nd-q');if(dot)dot.style.display=any?'':'none';}
+function calcPT(){return Math.floor(Math.pow(G.total/100000,.6));}
+function confPrestige(){document.getElementById('ptE').textContent=calcPT()+' ✦';om('m-prest');}
+function doPrestige(){const earn=calcPT();if(earn<1){cm('m-prest');return;}G.prestigeTokens+=earn;G.prestigeCount++;G.mushrooms=0;G.total=0;G.totalClicks=0;G.gnomes=0;G.comboCount=0;G.comboMult=1;G.maxCombo=0;G.upgrades={};G.questsDone={};G.grid=new Array(16).fill(null);G.boxesBought=0;G.mergesDone=0;G.maxMushLvl=0;if(G.perks.pk1)G.mushrooms=500;recalc();updateDisplay();renderUpgrades();renderQuests();renderPrestige();updateHeader();renderGrid();renderLog();cm('m-prest');toast('Перерождение! +'+earn+' ✦','gold');}
+function buyPerk(id){if(G.perks[id])return;const p=PERKS.find(x=>x.id===id);if(!p||G.prestigeTokens<p.cost)return;G.prestigeTokens-=p.cost;G.perks[id]=true;recalc();updateDisplay();renderPrestige();toast(p.name+' активирован!','gold');}
+function maybeEvent(){if(G.activeEvent&&Date.now()<G.eventEnd)return;if(G.activeEvent&&Date.now()>=G.eventEnd){G.activeEvent=null;document.getElementById('evB').classList.add('hidden');recalc();}if(Math.random()<.0025){const ev=EVENTS[Math.floor(Math.random()*EVENTS.length)];G.activeEvent=ev.id;G.eventEnd=Date.now()+ev.dur*1000;document.getElementById('evI').textContent=ev.icon;document.getElementById('evN').textContent=ev.name;document.getElementById('evD').textContent=ev.desc;document.getElementById('evB').classList.remove('hidden');toast('Событие: '+ev.name+'!','gold');recalc();}}
+function updateEventTimer(){if(!G.activeEvent)return;const rem=Math.max(0,Math.floor((G.eventEnd-Date.now())/1000));if(rem===0){G.activeEvent=null;document.getElementById('evB').classList.add('hidden');recalc();return;}const m=Math.floor(rem/60),s=rem%60;document.getElementById('evTm').textContent=m+':'+(s<10?'0':'')+s;}
+function checkColl(){let ch=false;COLLECTION.forEach(col=>{if(!G.collFound[col.id]&&G.total>=col.unlockAt){G.collFound[col.id]=true;ch=true;const nm=MUSH_NAMES[col.idx]||['???'];toast('Новый вид: '+nm[0]+'!','green');}});if(ch)renderColl();}
+async function pushLB(){if(!PNAME||!PID)return;try{const e={name:PNAME,avatar:PAVATAR,score:Math.floor(G.total),prestige:G.prestigeCount,ts:Date.now()};await window.storage.set('lb:'+PID,JSON.stringify(e),true);}catch(er){}}
+async function loadLB(){const list=document.getElementById('lblist');const mr=document.getElementById('lbMR');list.innerHTML='<div class="lb-ld">Загружаю...</div>';mr.className='lb-mr hidden';try{const res=await window.storage.list('lb:',true);const keys=(res.keys||[]);const entries=[];await Promise.all(keys.slice(0,80).map(async k=>{try{const r=await window.storage.get(k,true);if(r&&r.value){const d=JSON.parse(r.value);d._pid=k.replace('lb:','');entries.push(d);}}catch(e){}}));entries.sort((a,b)=>b.score-a.score);if(!entries.length){list.innerHTML='<div class="lb-ld">Пока никого! 🍄</div>';return;}const mi=entries.findIndex(e=>e._pid===PID);if(mi>=0){mr.innerHTML='Ваше место: <span>#'+(mi+1)+'</span> из '+entries.length;mr.className='lb-mr';}list.innerHTML=entries.slice(0,20).map((e,i)=>{const me=e._pid===PID,r=i+1;const rc=r===1?'r1':r===2?'r2':r===3?'r3':'rn';const ri=r===1?'🥇':r===2?'🥈':r===3?'🥉':'#'+r;const st=e.prestige>0?' <span class="lb-ps">'+'✦'.repeat(Math.min(e.prestige,5))+'</span>':'';return`<div class="lbrow ${me?'me':''}"><div class="lb-rk ${rc}">${ri}</div><div class="lb-av">${e.avatar||'🧑‍🌾'}</div><div class="lb-inf"><div class="lb-nm">${(e.name||'Аноним').substring(0,16)}${st}</div><div class="lb-id">#${e._pid}</div></div><div class="lb-sc">${fmt(e.score)} 🍄</div></div>`;}).join('');}catch(e){list.innerHTML='<div class="lb-ld">Ошибка. Попробуйте позже.</div>';}}
+function renderUpgrades() {
+  // Гномы
+  const gc = Math.floor(G.gnomeCost * Math.pow(1.5, G.gnomes));
+  document.getElementById('gnCost').textContent = fmt(gc) + ' 🍄';
+  document.getElementById('gnBtn').disabled = G.mushrooms < gc;
+
+  // Строим HTML по цепочкам
+  let html = '';
+  UPGRADE_CHAINS.forEach(ch => {
+    // Найти текущий активный тир: первый некупленный
+    const activeTier = ch.cost.findIndex((_, i) => !G.upgrades[ch.id + '_' + i]);
+    // Сколько куплено
+    const boughtCount = activeTier === -1 ? ch.cost.length : activeTier;
+    const maxed = activeTier === -1;
+
+    // Показываем карточку цепочки
+    const u = maxed
+      ? null
+      : UPGRADES.find(x => x.id === ch.id + '_' + activeTier);
+
+    const pct = Math.round(boughtCount / ch.cost.length * 100);
+    const tierLabel = maxed
+      ? `<span style="color:var(--grn2);font-size:8px">МАКС</span>`
+      : `<span style="color:var(--tx3);font-size:8px">${boughtCount}/${ch.cost.length}</span>`;
+
+    if (maxed) {
+      // Показываем как выполненное
+      html += `<div class="uc mx">
+        <div class="u-ic">${ch.icon}</div>
+        <div class="u-info">
+          <div class="u-name">${ch.name} ${tierLabel}</div>
+          <div class="u-desc" style="color:var(--grn2)">Полностью улучшено!</div>
+          <div class="u-prog-bar"><div class="u-prog-fill" style="width:100%;background:linear-gradient(90deg,var(--grn),var(--grn2))"></div></div>
+        </div>
+        <div class="u-right"><div class="u-cost n">✓</div></div>
+      </div>`;
+    } else {
+      const can = G.mushrooms >= u.cost;
+      html += `<div class="uc ${can ? 'aff' : ''}" onclick="buyUpgrade('${u.id}')">
+        <div class="u-ic">${ch.icon}</div>
+        <div class="u-info">
+          <div class="u-name">${ch.name} ${tierLabel}</div>
+          <div class="u-desc">${u.desc}</div>
+          <div class="u-prog-bar"><div class="u-prog-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="u-right">
+          <div class="u-cost ${can ? 'y' : 'n'}">${fmt(u.cost)} 🍄</div>
+          <div class="u-boost">${u.boost}</div>
+        </div>
+      </div>`;
+    }
+  });
+
+  document.getElementById('ulist').innerHTML = html;
+}
+function renderQuests() {
+  // Одна карточка на цепочку — показывает только текущий активный этап
+  const chains = {};
+  QUESTS.forEach(q => {
+    if (!chains[q.chain]) chains[q.chain] = [];
+    chains[q.chain].push(q);
+  });
+
+  let html = '';
+  Object.values(chains).forEach(qs => {
+    // Найти первый невыполненный (текущий активный)
+    const active = qs.find(q => !G.questsDone[q.id]);
+    const doneTiers = qs.filter(q => G.questsDone[q.id]).length;
+    const maxed = !active;
+
+    if (maxed) {
+      // Вся цепочка завершена — одна зелёная карточка
+      const last = qs[qs.length - 1];
+      html += `<div class="qc done">
+        <div class="q-ic">${last.icon}</div>
+        <div class="q-info">
+          <div class="q-name">${last.chain} <span style="color:var(--tx3);font-size:8px">${qs.length}/${qs.length}</span></div>
+          <div class="q-prog" style="color:var(--grn2)">Выполнено полностью!</div>
+          <div class="q-bar"><div class="q-fill" style="width:100%;background:linear-gradient(90deg,var(--grn),var(--grn2))"></div></div>
+        </div>
+        <div class="q-rw" style="color:var(--grn2)">✓</div>
+      </div>`;
+      return;
+    }
+
+    const p = qp(active);
+    const claim = p >= active.target;
+    const pct = Math.min(100, (p / active.target) * 100);
+    const rw = active.rt === 'm' ? fmt(active.reward) + ' 🍄' : active.reward + ' ✦';
+    const tierLabel = `<span style="color:var(--tx3);font-size:8px">${doneTiers}/${qs.length}</span>`;
+
+    html += `<div class="qc ${claim ? 'ready' : ''}">
+      <div class="q-ic">${active.icon}</div>
+      <div class="q-info">
+        <div class="q-name">${active.chain} ${tierLabel}</div>
+        <div class="q-prog">${active.name.split(': ')[1] || active.name} · ${fmt(Math.min(p, active.target))} / ${fmt(active.target)}</div>
+        <div class="q-bar"><div class="q-fill" style="width:${pct}%"></div></div>
+      </div>
+      ${claim
+        ? `<button class="cbtn" onclick="claimQ('${active.id}')">+${rw}</button>`
+        : `<div class="q-rw">${rw}</div>`}
+    </div>`;
+  });
+
+  document.getElementById('qlist').innerHTML = html || '<div style="color:var(--tx3);font-size:11px;text-align:center;padding:20px">Все задания выполнены! 🎉</div>';
+}
+function renderPrestige(){const earn=calcPT();document.getElementById('phE').textContent='Вы получите: '+earn+' ✦';document.getElementById('phBtn').disabled=earn<1;document.getElementById('ptL').textContent=G.prestigeTokens+' ✦';document.getElementById('pklist').innerHTML=PERKS.map(p=>{const owned=!!G.perks[p.id],can=!owned&&G.prestigeTokens>=p.cost;return`<div class="pkc ${owned?'pw':''}" onclick="${owned?'':('buyPerk(\''+p.id+'\')')}"><div class="pk-ic">${p.icon}</div><div class="pk-info"><div class="pk-name">${p.name}</div><div class="pk-desc">${p.desc}</div></div><div class="pk-cost">${owned?'✓':p.cost+' ✦'}</div></div>`;}).join('');}
+function renderColl(){const found=Object.values(G.collFound).filter(Boolean).length;document.getElementById('collCount').textContent=found+'/'+COLL_COUNT;document.getElementById('cgrid').innerHTML=COLLECTION.map((col,i)=>{const f=!!G.collFound[col.id];const nm=MUSH_NAMES[col.idx]||['???','???'];return`<div class="cc ${f?'fnd':'lck'}" title="${f?nm[0]+' · '+nm[1]:'???'}"><div class="cc-svg">${f?MSVG[col.idx]:'<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg"><text x="40" y="55" text-anchor="middle" font-size="36">❓</text></svg>'}</div><div class="cc-name">${f?nm[0]:fmt(col.unlockAt)+' 🍄'}</div>${f?`<div class="cc-cat">${nm[1]}</div>`:''}</div>`;}).join('');}
+function renderStats(){const coll=Object.values(G.collFound).filter(Boolean).length;document.getElementById('sgrid').innerHTML=`<div class="scard"><div class="s-lbl">Всего собрано</div><div class="s-val">${fmt(G.total)}</div></div><div class="scard"><div class="s-lbl">Всего тапов</div><div class="s-val">${fmt(G.totalClicks)}</div></div><div class="scard"><div class="s-lbl">Гномы</div><div class="s-val">${G.gnomes}</div></div><div class="scard"><div class="s-lbl">Авто/сек</div><div class="s-val">${G.passiveRate.toFixed(1)}</div></div><div class="scard"><div class="s-lbl">Книга</div><div class="s-val">${coll}/${COLL_COUNT}</div></div><div class="scard"><div class="s-lbl">Слияний</div><div class="s-val">${G.mergesDone}</div></div><div class="scard"><div class="s-lbl">Перерождений</div><div class="s-val">${G.prestigeCount}</div></div><div class="scard"><div class="s-lbl">✦ Жетоны</div><div class="s-val">${G.prestigeTokens}</div></div><div class="scard"><div class="s-lbl">Макс. комбо</div><div class="s-val">${G.maxCombo}</div></div><div class="scard"><div class="s-lbl">Макс. гриб</div><div class="s-val">${G.maxMushLvl}</div></div>`;}
+function updateDisplay(){document.getElementById('dM').textContent=fmt(G.mushrooms);document.getElementById('dT').textContent=fmt(G.total);document.getElementById('dTk').textContent=fmt(G.prestigeTokens);document.getElementById('dRn').textContent='Запуск '+(G.prestigeCount+1);}
+function sw(name,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));document.getElementById('panel-'+name).classList.add('on');(btn||document.getElementById('nb-'+name)).classList.add('on');document.getElementById('panelTitle').textContent=PT[name]||name;if(name==='upgrades')renderUpgrades();if(name==='quests')renderQuests();if(name==='merge'){renderGrid();renderLog();}if(name==='prestige')renderPrestige();if(name==='leaderboard')loadLB();if(name==='collection')renderColl();if(name==='stats')renderStats();}
+function checkOffline(){const diff=(Date.now()-(G.lastSave||Date.now()))/1000;if(diff>30&&G.passiveRate>0){const earned=Math.floor(G.passiveRate*diff*.5*(G._offM||1));if(earned>0){G.mushrooms+=earned;G.total+=earned;document.getElementById('offN').textContent='+'+fmt(earned)+' 🍄';document.getElementById('offT').textContent='Прошло: '+(Math.floor(diff/60)<1?'<1 мин':Math.floor(diff/60)+' мин');om('m-offline');}}}
+let lastTick=Date.now();
+function tick(){const now=Date.now(),dt=(now-lastTick)/1000;lastTick=now;if(G.passiveRate>0){G.mushrooms+=G.passiveRate*dt;G.total+=G.passiveRate*dt;updateDisplay();checkColl();}if(G.comboCount>0&&now>G.comboDecay){G.comboCount=Math.max(0,G.comboCount-1);G.comboMult=Math.max(1,1+G.comboCount*.04*(G._cbB||1));updateCombo();recalc();}maybeEvent();updateEventTimer();if(Math.floor(now/800)!==Math.floor((now-dt*1000)/800)){renderUpgrades();checkQ();const ap=document.querySelector('.panel.on');if(ap){if(ap.id==='panel-merge')renderGrid();if(ap.id==='panel-quests')renderQuests();if(ap.id==='panel-prestige')renderPrestige();if(ap.id==='panel-stats')renderStats();}}}
+function initSpores(){const bg=document.getElementById('bg');for(let i=0;i<18;i++){const s=document.createElement('div');s.className='sp';const sz=2+Math.random()*8;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;animation-duration:${10+Math.random()*20}s;animation-delay:${-Math.random()*24}s;opacity:${.2+Math.random()*.4};`;bg.appendChild(s);}}
+loadState();loadIdentity();checkCookies();checkOffline();recalc();updateDisplay();renderUpgrades();renderGrid();renderLog();renderColl();renderQuests();initSpores();checkQ();
+setInterval(tick,50);setInterval(saveState,9000);
+</script>
+</body>
+</html>
