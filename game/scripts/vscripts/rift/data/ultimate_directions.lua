@@ -94,6 +94,8 @@ return {
     affected_abilities = { "nevermore_requiem", "nevermore_shadowraze1", "nevermore_shadowraze2", "nevermore_shadowraze3" },
     preserved_effects = { "shadowraze_magic_damage" }, replaced_effects = { "requiem_native_blast", "requiem_on_death" },
     balance_ref = "sf.requiem_physical", active_handler = "sf_red_spheres",
+    -- native Requiem (incl. on-death release) is fully disabled in this direction (prototype setting)
+    swaps = { { from = "nevermore_requiem", to = "sf_requiem_physical", disable_from = true } },
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_sf_requiem_physical", loc_desc = "rift_dir_sf_requiem_physical_desc",
     icon = "nevermore_requiem", status = "planned",
@@ -144,6 +146,7 @@ return {
     reorder = { { "ta_refraction_magical", "ta_psi_wave" }, { "ta_refraction_magical", "ta_meld_dash" } }, -- Q/W/E order
     remove = { "templar_assassin_trap_teleport" },
     modifiers = { "modifier_rift_ta_no_attack" },
+    excluded_upgrade_tags = { "attack", "crit", "lifesteal_attack" },  -- no normal attacks in this direction
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_ta_waves_magical", loc_desc = "rift_dir_ta_waves_magical_desc",
     icon = "templar_assassin_psi_blades", status = "planned",

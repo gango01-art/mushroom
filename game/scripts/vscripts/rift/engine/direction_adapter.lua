@@ -55,6 +55,8 @@ function Adapter:_swap(hero, swap, policy)
       or { level = from:GetLevel(), cooldown_remaining = from:GetCooldownTimeRemaining() },
     { max_level = to:GetMaxLevel(), full_cooldown_at = function(l) return to:GetCooldown(l - 1) end })
   hero:SwapAbilities(swap.from, swap.to, false, true)
+  -- disable_from: the hidden native must not keep working (e.g. SF death Requiem in physical direction).
+  if swap.disable_from then from:SetLevel(0) end
   to:SetLevel(plan.level)
   to:SetActivated(true)
   if plan.cooldown > 0 then to:StartCooldown(plan.cooldown) end

@@ -11,10 +11,13 @@
 | Crit / bash / cleave / armor reduction (предметы) | разрешить проверенные с обычными ICD, без двойного on-hit | unknown |
 | Инвентарь | не копируется настоящими предметами | — (правило) |
 
-## SF physical — сферы
+## SF physical — сферы (реализация: сессия 13)
+Сфера тратится в OnAttack (выпуск атаки по врагу, не здание), запоминается attack record; при OnAttackLanded того же
+record — отдельный `ApplyDamage` PHYSICAL (60% `GetAverageTrueAttackDamage`, без крита), inflictor = способность ульты.
+Промах/disjoint: OnAttackRecordDestroy без попадания — сфера не возвращается. Иллюзии: модификатор не живёт на иллюзии.
 | Эффект | Политика | Статус |
 |---|---|---|
-| Crit | урон сферы от атаки без крит-множителя, без своего броска | правило в ядре; движок unknown |
+| Crit | урон сферы от среднего урона атаки без крит-множителя, без своего броска | реализовано; unknown → OP-016 |
 | Bash / молния / item proc | один шанс на атаку, сфера не даёт второй | unknown |
 | Lifesteal | по фактическому урону сферы, без двойного heal | unknown |
 | Cleave / multishot / reflect / redirect | проверять отдельно | unknown |

@@ -54,6 +54,15 @@ function Offers:is_allowed(p, u)
   if u.hero ~= "universal" and u.hero ~= p.hero then return false end
   if (p.build[u.id] or 0) >= u.max_rank then return false end
   if u.required_direction ~= "any" and u.required_direction ~= p.direction then return false end
+  -- Directions may exclude upgrade tags that are useless for them (e.g. TA magical: no attacks).
+  local d = p.direction_id and self.reg:direction(p.direction_id)
+  if d and d.excluded_upgrade_tags then
+    for _, tag in ipairs(u.tags or {}) do
+      for _, ex in ipairs(d.excluded_upgrade_tags) do
+        if tag == ex then return false end
+      end
+    end
+  end
   for _, pre in ipairs(u.prerequisites or {}) do
     if (p.build[pre] or 0) < 1 then return false end
   end

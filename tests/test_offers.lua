@@ -228,3 +228,16 @@ T.case("dev_set_direction: own hero only, once, resolves pending offer", functio
   T.eq(select(2, s:dev_set_direction(0, "pa_phantom_execution")), "already_chosen")
   T.eq(s:on_ability_learned(0, F.ULT, 1, "player", 5), nil, "no offer after forced direction")
 end)
+
+T.case("direction excluded_upgrade_tags filter offers (TA magical: no attack upgrades)", function()
+  local ups, dirs = F.data()
+  local reg_dirs = dirs
+  local s = Offers.new(T.config(), Registry.new(ups, reg_dirs), 1)
+  s:add_player(0, "npc_dota_hero_templar_assassin")
+  local p = s:player(0)
+  local function has(id) for _, u in ipairs(s:candidates(p)) do if u.id == id then return true end end end
+  T.ok(has("u_swift_hands"), "attack upgrade before direction")
+  s:dev_set_direction(0, "ta_waves_magical")
+  T.ok(not has("u_swift_hands"), "attack-tagged upgrade excluded")
+  T.ok(has("u_arcane_edge"), "spell upgrade still offered")
+end)

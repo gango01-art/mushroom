@@ -84,4 +84,20 @@
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
 	}
+
+	// ---- SF physical direction (docs/BRIEF_HEROES_LC_SF_TA.md 6). Numbers from Lua (hero_balance). ----
+	"sf_requiem_physical"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/sf_requiem_physical"
+		"AbilityTextureName"	"nevermore_requiem"
+		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"				"3"
+		"RequiredLevel"			"6"
+		"LevelsBetweenUpgrades"	"6"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastPoint"		"0.3"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_6"
+	}
 }

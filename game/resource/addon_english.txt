@@ -110,5 +110,12 @@
 		"rift_err_rooted"	"Cannot while rooted"
 		"rift_dir_ta_waves_magical"	"Psionic Trap"
 		"rift_dir_ta_waves_magical_desc"	"Magical: no normal attacks. Q - defence and wave, W - dash with wave, E - active wave, R - trap blast under an enemy."
+			"DOTA_Tooltip_ability_sf_requiem_physical"	"Requiem of Souls · phys."
+		"DOTA_Tooltip_ability_sf_requiem_physical_Description"	"For 15 s four red spheres float behind you. Each attack on an enemy spends one sphere for an extra physical hit (60% attack damage, no crit). Spheres regenerate over time. Shadowraze hits add physical damage from your attack. The normal Requiem blast and death Requiem are disabled."
+		"DOTA_Tooltip_Ability_sf_requiem_physical_SummaryDescription"	"Red spheres empower attacks and Shadowraze."
+		"DOTA_Tooltip_modifier_rift_sf_spheres"	"Requiem spheres"
+		"DOTA_Tooltip_modifier_rift_sf_spheres_Description"	"Number = spheres available."
+		"rift_dir_sf_requiem_physical"	"Requiem of Souls"
+		"rift_dir_sf_requiem_physical_desc"	"Physical: instead of a blast - 15 s of red spheres empowering attacks, and a physical bonus on Shadowraze."
 	}
 }

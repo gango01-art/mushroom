@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.1-a — 2026-11-12 (сессия 13, авто-старт)
+- Обычные улучшения фильтруются по `excluded_upgrade_tags` направления (TA magical: без attack/crit/lifesteal_attack).
+- SF physical в движке: `sf_requiem_physical`, `modifier_rift_sf_spheres` (4 сферы, 1 на атаку по attack record,
+  восстановление, 60% урона атаки без крита, физическая добавка Shadowraze раз на каст и цель); native Requiem
+  отключён (`disable_from`, включая Requiem при смерти). Задание OP-016.
+
 ## 0.7.0-a — 2026-11-12 (сессия 12)
 - TA magical в движке: Q `ta_refraction_magical` (заряды защиты + волна), W `ta_meld_dash` (рывок + волна),
   E `ta_psi_wave` (активная волна), R `ta_psionic_blast` (взрыв под целью, урон + замедление), запрет обычных атак

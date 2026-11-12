@@ -110,5 +110,12 @@
 		"rift_err_rooted"	"Нельзя под корнями"
 		"rift_dir_ta_waves_magical"	"Psionic Trap"
 		"rift_dir_ta_waves_magical_desc"	"Магическое: без обычных атак. Q — защита и волна, W — рывок с волной, E — активная волна, R — взрыв ловушки под врагом."
+			"DOTA_Tooltip_ability_sf_requiem_physical"	"Requiem of Souls · физ."
+		"DOTA_Tooltip_ability_sf_requiem_physical_Description"	"На 15 с за спиной появляются 4 красные сферы. Каждая атака по врагу тратит одну сферу и наносит дополнительный физический удар (60% урона атаки, без крита). Сферы постепенно восстанавливаются. Попадание Shadowraze добавляет физический урон от атаки. Обычный взрыв Requiem и Requiem при смерти отключены."
+		"DOTA_Tooltip_Ability_sf_requiem_physical_SummaryDescription"	"Красные сферы усиливают атаки и Shadowraze."
+		"DOTA_Tooltip_modifier_rift_sf_spheres"	"Requiem · сферы"
+		"DOTA_Tooltip_modifier_rift_sf_spheres_Description"	"Число — доступные сферы."
+		"rift_dir_sf_requiem_physical"	"Requiem of Souls"
+		"rift_dir_sf_requiem_physical_desc"	"Физическое: вместо взрыва — 15 с красных сфер, усиливающих атаки, и физическая добавка к Shadowraze."
 	}
 }

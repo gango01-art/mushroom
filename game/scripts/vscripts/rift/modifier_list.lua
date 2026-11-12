@@ -15,6 +15,7 @@ local M = {
   "modifier_rift_ta_refraction",
   "modifier_rift_ta_dash",
   "modifier_rift_ta_trap_slow",
+  "modifier_rift_sf_spheres",
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).

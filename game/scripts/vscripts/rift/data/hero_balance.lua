@@ -57,6 +57,9 @@ B.sf = {
     raze_bonus_fraction = { 0.40, 0.60, 0.80 },-- [ult] PD of attack damage, physical (DR: 80% at max)
     cooldown = { 80, 70, 60 },                -- [ult] PD
     mana = { 150, 175, 200 },                 -- [ult] PD
+    -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
+    wings_particle = "",
+    sphere_particle = "",
   },
   requiem_magical = {
     ring_radius = { 300, 500, 700 },          -- [ring] PD (NOT ultimate ranks)
