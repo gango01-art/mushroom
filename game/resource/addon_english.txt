@@ -19,7 +19,7 @@
 		"rift_board_player"			"Player"
 		"rift_board_kda"			"K/D/A"
 		"rift_onboard_title"		"DUALITY"
-		"rift_onboard_text"			"Free for all. Kill +3, assist +1. After 18 minutes the score leader wins. A tie goes to overtime: first point wins."
+		"rift_onboard_text"			"Free for all. Kill +3, assist +1. After 18 minutes the score leader wins. A tie goes to overtime: first point wins. From 3:00, every 3 minutes the Heart of the Rift appears: hold it to earn points."
 		"rift_onboard_close"		"Got it"
 		"rift_result_title"			"Match results"
 		"rift_result_winner"		"Winner"
@@ -74,5 +74,12 @@
 		"rift_offer_error_expired"	"Choice time expired"
 		"rift_offer_error_already_resolved"	"Already chosen"
 		"rift_offer_error_generic"	"Choice rejected"
+			"rift_relic_title"	"Heart of the Rift"
+		"rift_relic_next"	"Heart of the Rift: {time}"
+		"rift_relic_warning"	"Appears in {seconds} s — location marked on the map"
+		"rift_relic_on_ground"	"On the ground — grab it!"
+		"rift_relic_carrier"	"Carrier: {name} · next point in {seconds} s"
+		"rift_relic_you"	"you"
+		"rift_relic_status"	"{time} left · points remaining: {budget}"
 	}
 }

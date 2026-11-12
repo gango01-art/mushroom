@@ -13,8 +13,15 @@
 				<Label id="ScoreLabel" class="StatLabel" text="" />
 				<Label id="PlaceLabel" class="StatLabel" text="" />
 			</Panel>
+			<Label id="NextEventLabel" class="StatLabel" text="" />
 			<Label id="DevLabel" class="DevLabel" text="#rift_hud_dev" />
 			<Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
+		</Panel>
+
+		<Panel id="RelicPanel" class="RelicPanel" hittest="false">
+			<Label id="RelicTitle" class="RelicTitle" text="#rift_relic_title" />
+			<Label id="RelicLine1" class="RelicLine" text="" />
+			<Label id="RelicLine2" class="RelicLine" text="" />
 		</Panel>
 
 		<Panel id="Board" class="Board" hittest="false">

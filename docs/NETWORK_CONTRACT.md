@@ -9,6 +9,9 @@
   reason ∈ score, overtime_first_point, tiebreak_kills, tiebreak_deaths, tiebreak_earlier_score,
   tiebreak_player_order, no_players.
 
+- `relic`: `{ state: idle|warned|ground|carried, carrier (pid|-1), point (1..4|-1), x, y, remaining, budget_left,
+  next_point_in, next_event_in (-1 если событий больше нет) }` — публичное, ≤ 2 раз/с.
+
 ## Net table `rift_scores`
 - `board`: `{ rows{ "1": { pid, score, kills, deaths, assists, hero, direction } } }`, отсортировано.
 

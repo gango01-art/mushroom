@@ -174,6 +174,15 @@ function Debug.register(gm)
     end
   end)
 
+  cmd("rift_relic_now", "Spawn an extra Heart of the Rift now (dev, ACTIVE only)", function()
+    if not gm.director.state:is("ACTIVE") then Log.warn("DEV", "only in ACTIVE"); return end
+    Log.info("DEV", "relic_now -> " .. tostring(gm.relic:DevSpawn(gm:Now())))
+  end)
+
+  cmd("rift_relic_end", "End the current Heart of the Rift event (dev)", function()
+    gm.relic:DevEnd(gm:Now())
+  end)
+
   cmd("rift_verbose", "Toggle verbose debug logging", function()
     Log.verbose = not Log.verbose
     Log.info("DEV", "verbose=" .. tostring(Log.verbose))

@@ -277,3 +277,35 @@ function offerTick() {
   GameEvents.SendCustomGameEventToServer("rift_private_request", {});
   offerTick();
 })();
+
+// ---------------------------------------------------------------------------
+// Heart of the Rift (public state)
+// ---------------------------------------------------------------------------
+function onRelic(v) {
+  if (!v) return;
+  var panel = $("#RelicPanel");
+  var next = $("#NextEventLabel");
+  next.text = v.next_event_in >= 0 && v.state === "idle"
+    ? locFill("rift_relic_next", { time: fmtTime(v.next_event_in) }) : "";
+  if (v.state === "idle") { panel.RemoveClass("Visible"); return; }
+  panel.AddClass("Visible");
+  if (v.state === "warned") {
+    $("#RelicLine1").text = locFill("rift_relic_warning", { seconds: Math.ceil(v.next_event_in) });
+    $("#RelicLine2").text = "";
+    return;
+  }
+  if (v.state === "ground") {
+    $("#RelicLine1").text = $.Localize("#rift_relic_on_ground");
+  } else {
+    var who = v.carrier === localPid ? $.Localize("#rift_relic_you") : playerName(v.carrier);
+    $("#RelicLine1").text = locFill("rift_relic_carrier", { name: who, seconds: Math.ceil(v.next_point_in) });
+  }
+  $("#RelicLine2").text = locFill("rift_relic_status", { time: fmtTime(v.remaining), budget: v.budget_left });
+}
+
+(function () {
+  CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
+    if (key === "relic") onRelic(data);
+  });
+  onRelic(CustomNetTables.GetTableValue("rift_match", "relic"));
+})();

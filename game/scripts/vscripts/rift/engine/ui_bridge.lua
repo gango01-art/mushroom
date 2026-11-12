@@ -42,6 +42,10 @@ function UiBridge:Publish(force)
     contenders = contenders,
   })
 
+  if gm.relic then
+    CustomNetTables:SetTableValue("rift_match", "relic", gm.relic:View(now, st:active_elapsed(now)))
+  end
+
   if force then self:PublishScores() end
 end
 

@@ -19,7 +19,7 @@
 		"rift_board_player"			"Игрок"
 		"rift_board_kda"			"У/С/П"
 		"rift_onboard_title"		"DUALITY"
-		"rift_onboard_text"			"Каждый сам за себя. Убийство +3, помощь +1. Через 18 минут побеждает лидер по очкам. Ничья — овертайм до первого очка."
+		"rift_onboard_text"			"Каждый сам за себя. Убийство +3, помощь +1. Через 18 минут побеждает лидер по очкам. Ничья — овертайм до первого очка. С 3:00 каждые 3 минуты появляется Сердце разлома: держите его, чтобы получать очки."
 		"rift_onboard_close"		"Понятно"
 		"rift_result_title"			"Итоги матча"
 		"rift_result_winner"		"Победитель"
@@ -74,5 +74,12 @@
 		"rift_offer_error_expired"	"Время выбора истекло"
 		"rift_offer_error_already_resolved"	"Выбор уже сделан"
 		"rift_offer_error_generic"	"Выбор не принят"
+			"rift_relic_title"	"Сердце разлома"
+		"rift_relic_next"	"Сердце разлома: {time}"
+		"rift_relic_warning"	"Появится через {seconds} с — точка отмечена на карте"
+		"rift_relic_on_ground"	"Лежит на земле — подберите!"
+		"rift_relic_carrier"	"Носитель: {name} · следующее очко через {seconds} с"
+		"rift_relic_you"	"вы"
+		"rift_relic_status"	"Осталось {time} · очков в запасе: {budget}"
 	}
 }

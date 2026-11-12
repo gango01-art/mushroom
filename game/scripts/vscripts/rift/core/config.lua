@@ -84,6 +84,13 @@ Config.relic = {
   duration_seconds = 75,
   score_interval_seconds = 12,
   score_budget = 4,
+  pickup_radius = 150,           -- HYPOTHESIS
+  reveal_interval = 1.0,         -- carrier position revealed to everyone this often
+  reveal_radius = 350,
+  carrier_move_slow_pct = 0,     -- separate tunable; 0 until tested
+  -- Particle paths: VERIFY in Asset Browser (OP-008). Missing paths only lose visuals.
+  particle_ground = "particles/ui_mouseactions/ping_world.vpcf",
+  particle_carrier = "particles/items_fx/aegis_timer.vpcf",
 }
 
 Config.dev = {

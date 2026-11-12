@@ -146,3 +146,18 @@
 .BuildDirection { font-size: 14px; color: #f0d890; }
 .BuildRows { flow-children: down; width: 100%; }
 .BuildRow { font-size: 13px; color: #e0d8ee; }
+
+/* ---- Heart of the Rift ---- */
+.RelicPanel {
+	horizontal-align: center;
+	margin-top: 96px;
+	flow-children: down;
+	padding: 6px 14px;
+	background-color: #1a0c12dd;
+	border: 1px solid #e05070;
+	border-radius: 6px;
+	visibility: collapse;
+}
+.RelicPanel.Visible { visibility: visible; }
+.RelicTitle { font-size: 17px; color: #ff8aa0; horizontal-align: center; }
+.RelicLine { font-size: 15px; color: #f0e0e8; horizontal-align: center; }

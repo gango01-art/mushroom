@@ -10,6 +10,7 @@ local Log = require("rift.engine.log")
 local MapContract = require("rift.engine.map_contract")
 local UiBridge = require("rift.engine.ui_bridge")
 local UpgradeBridge = require("rift.engine.upgrade_bridge")
+local RelicService = require("rift.engine.relic_service")
 local CombatIds = require("rift.core.combat_ids")
 
 local GameMode = {}
@@ -57,6 +58,7 @@ function GameMode:Activate()
   self:ConfigureRules()
   self.map = MapContract.load(self.dev)
   self.upgrades = UpgradeBridge.new(self)
+  self.relic = RelicService.new(self, self.upgrades.seed)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
   ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
@@ -155,6 +157,10 @@ end
 
 function GameMode:OnStateChanged(from, to, now)
   Log.info("STATE", from .. " -> " .. to .. " t=" .. string.format("%.1f", now))
+  if (to == "OVERTIME" or to == "FINISHED") and self.relic then
+    -- relic is cleared immediately and permanently; no awards after this point
+    self.relic:Tick(now, self.director.state:active_elapsed(now), false)
+  end
   if to == "FINISHED" then self:OnFinished() end
   self.ui:Publish(true)
 end
@@ -324,6 +330,7 @@ function GameMode:OnEntityKilled(keys)
 
   victim:SetTimeUntilRespawn(Rules.respawn_seconds(self.cfg, self.director.state:active_elapsed(now)))
   self.ids:on_death(victim:entindex())
+  self.relic:OnHeroDied(vpid, victim:GetAbsOrigin(), now)
 
   if not self.director.state:rewards_open() then return end
   self:PlayerState(vpid)
@@ -357,6 +364,10 @@ function GameMode:Think()
   if st:rewards_open() then
     -- regular offers only during ACTIVE (not after 18:00 / in overtime); expiry keeps running
     self.upgrades:Tick(now, st:active_elapsed(now), st:is("ACTIVE"))
+  end
+  -- relic only in ACTIVE; overtime/finished clears it permanently
+  if st:rewards_open() or st:is("FINISHED") then
+    self.relic:Tick(now, st:active_elapsed(now), st:is("ACTIVE"))
   end
   self.director:tick(now)
   self.ui:Publish(false)
