@@ -151,6 +151,29 @@ function Debug.register(gm)
     if not existed then h:RemoveAbility(name) end
   end)
 
+  cmd("rift_probe_attacks", "rift_probe_attacks [pid]: toggle attack/damage event logging on the hero (dev)", function(pid)
+    pid = tonumber(pid or "0")
+    local h = PlayerResource:GetSelectedHeroEntity(pid)
+    if not h then return end
+    if h:HasModifier("modifier_rift_attack_probe") then
+      h:RemoveModifierByName("modifier_rift_attack_probe"); Log.info("DEV", "attack probe OFF")
+    else
+      h:AddNewModifier(h, nil, "modifier_rift_attack_probe", {}); Log.info("DEV", "attack probe ON")
+    end
+  end)
+
+  cmd("rift_spawn_dummy", "rift_spawn_dummy [unit_name] [distance]: spawn an enemy test unit in front of hero 0 (dev)", function(unit, dist)
+    local h = PlayerResource:GetSelectedHeroEntity(0)
+    if not h then return end
+    unit = unit or "npc_dota_hero_axe"
+    local pos = h:GetAbsOrigin() + h:GetForwardVector() * (tonumber(dist or "300") or 300)
+    local team = DOTA_TEAM_NEUTRALS
+    local u = CreateUnitByName(unit, pos, true, nil, nil, team)
+    if u then
+      Log.info("DEV", "spawned " .. unit .. " #" .. u:entindex() .. " (neutral team, not a match participant)")
+    end
+  end)
+
   cmd("rift_verbose", "Toggle verbose debug logging", function()
     Log.verbose = not Log.verbose
     Log.info("DEV", "verbose=" .. tostring(Log.verbose))

@@ -10,6 +10,7 @@ local Log = require("rift.engine.log")
 local MapContract = require("rift.engine.map_contract")
 local UiBridge = require("rift.engine.ui_bridge")
 local UpgradeBridge = require("rift.engine.upgrade_bridge")
+local CombatIds = require("rift.core.combat_ids")
 
 local GameMode = {}
 GameMode.__index = GameMode
@@ -40,6 +41,7 @@ function GameMode.new()
   self.players = {}              -- pid -> { initialized, acc, team }
   self.spawn_recent = {}
   self.teams = ffa_teams()
+  self.ids = CombatIds.new()       -- victim life-cycle keys, unique effect ids
   self.ui = UiBridge.new(self)
   self.director.state:on(function(from, to, now) self:OnStateChanged(from, to, now) end)
   return self
@@ -229,10 +231,12 @@ function GameMode:OnNPCSpawned(keys)
     if not is_main_hero(unit) then return nil end
     local pid = unit:GetPlayerOwnerID()
     local p = self:PlayerState(pid)
+    self.ids:on_spawn(unit:entindex(), tostring(unit))
     if not p.initialized then
       p.initialized = true
       self:InitHero(unit, pid)
     else
+      self.upgrades:EnsureHero(pid, unit)
       self:PlaceAtSpawn(unit, pid)
     end
     unit:AddNewModifier(unit, nil, "modifier_rift_spawn_shield", { duration = self.cfg.respawn.shield_seconds })
@@ -319,6 +323,7 @@ function GameMode:OnEntityKilled(keys)
   local kpid = owner_pid(attacker)
 
   victim:SetTimeUntilRespawn(Rules.respawn_seconds(self.cfg, self.director.state:active_elapsed(now)))
+  self.ids:on_death(victim:entindex())
 
   if not self.director.state:rewards_open() then return end
   self:PlayerState(vpid)

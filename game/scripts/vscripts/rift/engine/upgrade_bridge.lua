@@ -8,6 +8,7 @@ local Registry = require("rift.core.upgrade_registry")
 local Offers = require("rift.core.offer_service")
 local Effects = require("rift.core.upgrade_effects")
 local Log = require("rift.engine.log")
+local DirectionAdapter = require("rift.engine.direction_adapter")
 
 local Bridge = {}
 Bridge.__index = Bridge
@@ -24,6 +25,7 @@ function Bridge.new(gm)
   for _, e in ipairs(self.registry:validate()) do Log.error("UPGRADES", "data: " .. e) end
   self.offers = Offers.new(Config, self.registry, self.seed)
   self.last_request = {}
+  self.directions = DirectionAdapter.new(self)
   Log.info("UPGRADES", "seed=" .. self.seed)
 
   ListenToGameEvent("dota_player_learned_ability", Dynamic_Wrap(Bridge, "OnLearnedAbility"), self)
@@ -38,6 +40,14 @@ function Bridge:AddPlayer(pid, hero)
     hero:AddNewModifier(hero, nil, "modifier_rift_upgrade_stats", {})
   end
   self:SendPrivate(pid)
+end
+
+-- Respawn / reconnect: restore direction state on the hero entity.
+function Bridge:EnsureHero(pid, hero)
+  if not hero:HasModifier("modifier_rift_upgrade_stats") then
+    hero:AddNewModifier(hero, nil, "modifier_rift_upgrade_stats", {})
+  end
+  self.directions:Ensure(pid, hero)
 end
 
 function Bridge:StatTotals(pid)
@@ -59,6 +69,7 @@ function Bridge:ProcessEvents()
   local dirty = {}
   for _, ev in ipairs(self.offers:events()) do
     dirty[ev.pid] = true
+    if ev.kind == "offer_created" and ev.offer.type == "ultimate_direction" then self.directions:Lock(ev.pid) end
     if ev.kind == "offer_resolved" then self:Apply(ev.pid, ev.applied, ev.offer) end
     if ev.kind == "dev_granted" then self:Apply(ev.pid, ev.applied, nil) end
   end
@@ -77,8 +88,8 @@ function Bridge:Apply(pid, applied, offer)
       if m then m:ForceRefresh() end
     end
   elseif applied.kind == "direction" then
-    -- Engine handlers for directions arrive in stage C part 2b; offers for
-    -- directions are refused by the core until both are implemented.
+    local def = self.registry:direction(applied.direction_id)
+    if def then self.directions:Apply(pid, def) end
     Log.info("UPGRADES", "direction " .. tostring(applied.direction_id) .. " pid=" .. pid)
   end
   if offer then

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.1-a — 2026-11-12 (сессия 5)
+- Ростер альфы подтверждён владельцем: PA, LC, SF, TA.
+- `direction_adapter`: блок ульты на время выбора, замена способностей с переносом уровня/cooldown
+  (`core/ability_transfer`), восстановление после respawn/reconnect.
+- `core/combat_ids`: ключи жизненного цикла жертвы, уникальные id эффектов, правило запрета рекурсии proc.
+- Dev: `rift_probe_attacks` (логирование attack/damage событий), `rift_spawn_dummy`. Задание OP-007. 100 тестов.
+
 ## 0.4.0-a — 2026-11-12 (сессия 4)
 - Новое ТЗ: Legion Commander, Shadow Fiend, Templar Assassin (docs/BRIEF_HEROES_LC_SF_TA.md). Отображаемое название — DUALITY
   (addon ID и папки `rift_arena` не менялись).
