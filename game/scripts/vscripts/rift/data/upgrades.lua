@@ -35,13 +35,13 @@ return {
      effect_handler = "pa_crit_chance_bonus", icon = "phantom_assassin_coup_de_grace" },
   U{ id = "pa_spirit_haste", hero = "npc_dota_hero_phantom_assassin", rarity = "rare", tags = { "spirit" },
      required_direction = "physical", max_rank = 2, values_by_rank = { spirit_cooldown_reduction = { 2, 4 } },
-     effect_handler = "pa_spirit_cooldown", icon = "phantom_assassin_coup_de_grace" },
+     effect_handler = "pa_spirit_cooldown", status = "implemented", icon = "phantom_assassin_coup_de_grace" },
   U{ id = "pa_static_edge", hero = "npc_dota_hero_phantom_assassin", rarity = "rare", tags = { "chain" },
      required_direction = "magical", max_rank = 2, values_by_rank = { chain_damage_bonus = { 60, 120 } },
-     effect_handler = "pa_chain_damage", icon = "phantom_assassin_stifling_dagger" },
+     effect_handler = "pa_chain_damage", status = "implemented", icon = "phantom_assassin_stifling_dagger" },
   U{ id = "pa_conductive_blade", hero = "npc_dota_hero_phantom_assassin", rarity = "epic", tags = { "chain" },
-     required_direction = "magical", max_rank = 1, values_by_rank = { chain_chance_bonus = { 0.05 } },
-     prerequisites = { "pa_static_edge" }, effect_handler = "pa_chain_chance", icon = "phantom_assassin_stifling_dagger" },
+     required_direction = "magical", max_rank = 1, values_by_rank = { chain_chance_bonus_pct = { 5 } },
+     prerequisites = { "pa_static_edge" }, effect_handler = "pa_chain_chance", status = "implemented", icon = "phantom_assassin_stifling_dagger" },
 
   -- Universal ---------------------------------------------------------------
   U{ id = "u_vitality", hero = "universal", rarity = "common", tags = { "defense" }, max_rank = 3,

@@ -22,9 +22,12 @@ function Storm.new(seed)
 end
 
 -- Values for the current ultimate rank from the balance table (hero_balance.pa.storm_magical).
-function Storm.values_at(balance, rank)
+-- bonus (optional, from upgrades): { chain_damage, chain_chance } added on top.
+function Storm.values_at(balance, rank, bonus)
   rank = math.max(1, math.min(3, rank or 1))
-  return { chain_chance = balance.chain_chance[rank], chain_damage = balance.chain_damage[rank],
+  bonus = bonus or {}
+  return { chain_chance = math.min(1, balance.chain_chance[rank] + (bonus.chain_chance or 0)),
+           chain_damage = balance.chain_damage[rank] + (bonus.chain_damage or 0),
            cast_context_seconds = balance.cast_context_seconds }
 end
 

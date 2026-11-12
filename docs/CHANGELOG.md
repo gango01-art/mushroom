@@ -14,3 +14,6 @@
 ## Сессия 20 (2026-11-12)
 - Отчёт OP-023/024 применён. Кинжал PA magical: урон через ApplyDamage по формуле native (модификатор атаки убран).
 - Обе ветки PA → `implemented`: у PA появилось меню выбора. OP-025.
+
+## Сессия 21 (2026-11-12, авто-старт)
+- Улучшения PA под ветки: `pa_spirit_haste`, `pa_static_edge`, `pa_conductive_blade` → implemented. Общий механизм бонусов способностей (`Effects.bonus_total`, `engine/build_bonus`). 119 тестов. OP-026.

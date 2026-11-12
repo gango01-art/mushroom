@@ -57,6 +57,12 @@ function Bridge:StatTotals(pid)
   return Effects.stat_totals(self.registry, p and p.build or {})
 end
 
+-- Ability bonus from the player's build (core/upgrade_effects.bonus_total).
+function Bridge:Bonus(pid, key)
+  local p = self.offers:player(pid)
+  return Effects.bonus_total(self.registry, p and p.build or {}, key)
+end
+
 function Bridge:Direction(pid)
   local p = self.offers:player(pid)
   return p and p.direction or nil

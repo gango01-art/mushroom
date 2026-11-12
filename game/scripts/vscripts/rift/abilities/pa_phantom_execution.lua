@@ -12,7 +12,11 @@ pa_phantom_execution = pa_phantom_execution or ((type(class) == "function") and 
 
 local function r(l) return math.max(1, math.min(3, l)) end
 
-function pa_phantom_execution:GetCooldown(l) return B.cooldown[r(l + 1)] end
+-- Upgrade "pa_spirit_haste" shortens the cooldown (server value; the client tooltip shows the base).
+function pa_phantom_execution:GetCooldown(l)
+  local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "spirit_cooldown_reduction")
+  return math.max(1, B.cooldown[r(l + 1)] - cut)
+end
 function pa_phantom_execution:GetManaCost(l) return B.mana[r(l + 1)] end
 function pa_phantom_execution:GetCastRange() return B.range end
 

@@ -11,6 +11,10 @@ Effects.HANDLERS = {
   ta_psi_waves = true,         -- TA magical (verified OP-015)
   pa_phantom_spirit = true,    -- PA physical (verified OP-020/024)
   pa_storm_daggers = true,     -- PA magical (verified OP-023; dagger damage OP-025)
+  -- direction upgrades read by the abilities through Effects.bonus_total (OP-026)
+  pa_spirit_cooldown = true,
+  pa_chain_damage = true,
+  pa_chain_chance = true,
 }
 
 Effects.STAT_KEYS = { "attack_damage", "move_speed", "armor", "health", "mana", "attack_speed",
@@ -39,6 +43,19 @@ function Effects.stat_totals(registry, build)
     end
   end
   return totals
+end
+
+-- Sum of one value key over all implemented upgrades of a build (ability bonuses such as
+-- "chain_damage_bonus"). Abilities read these instead of holding their own copies.
+function Effects.bonus_total(registry, build, key)
+  local total = 0
+  for id, rank in pairs(build or {}) do
+    local u = registry:get(id)
+    if u and u.status == "implemented" and rank > 0 then
+      total = total + (Effects.values_at(u, rank)[key] or 0)
+    end
+  end
+  return total
 end
 
 return Effects

@@ -74,7 +74,9 @@ function pa_storm_dagger:OnSpellStart()
   local sid = Storm.pick_secondary(target:entindex(), { x = tp.x, y = tp.y }, cands, B.second_target_radius)
   local second = sid and EntIndexToHScript(sid) or nil
   local ult = c:FindAbilityByName("pa_storm_charge")
-  local values = Storm.values_at(B, ult and ult:GetLevel() or 1)
+  local Bonus = require("rift.engine.build_bonus")
+  local values = Storm.values_at(B, ult and ult:GetLevel() or 1, {
+    chain_damage = Bonus.get(c, "chain_damage_bonus"), chain_chance = Bonus.get(c, "chain_chance_bonus_pct") / 100 })
   local cast_id, proc = store:begin_cast(c:entindex(), target:entindex(), second and sid or nil, values, now)
   launch(self, c, target, cast_id)
   if second then launch(self, c, second, cast_id) end

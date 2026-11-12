@@ -136,5 +136,11 @@
 		"DOTA_Tooltip_Ability_pa_storm_dagger_SummaryDescription"	"Кинжал в две цели с шансом цепной молнии."
 		"DOTA_Tooltip_modifier_rift_pa_dagger_slow"	"Stifling Dagger"
 		"DOTA_Tooltip_modifier_rift_pa_dagger_slow_Description"	"Замедление."
+		"rift_up_pa_spirit_haste"	"Спешка духа"
+		"rift_up_pa_spirit_haste_desc"	"Кулдаун «Призрачной казни» меньше на {spirit_cooldown_reduction} с."
+		"rift_up_pa_static_edge"	"Статическая кромка"
+		"rift_up_pa_static_edge_desc"	"+{chain_damage_bonus} к урону цепной молнии по каждой цели."
+		"rift_up_pa_conductive_blade"	"Проводящий клинок"
+		"rift_up_pa_conductive_blade_desc"	"+{chain_chance_bonus_pct}% к шансу цепной молнии."
 	}
 }
