@@ -1,0 +1,16 @@
+[RIFT][INFO][HERO] init pid=0 hero=npc_dota_hero_templar_assassin level=3
+[RIFT][INFO][DEV] hero=npc_dota_hero_templar_assassin abilities=19
+[RIFT][DUMP] slot=0 name=templar_assassin_meld level=0/4 type=0
+[RIFT][DUMP] slot=1 name=templar_assassin_psi_blades level=0/4 type=0
+[RIFT][DUMP] slot=2 name=templar_assassin_trap level=0/3 type=0
+[RIFT][DUMP] slot=3 name=templar_assassin_trap_teleport level=0/3 type=0
+[RIFT][DUMP] slot=4 name=templar_assassin_psionic_trap level=0/3 type=1
+[RIFT][DUMP] slot=5 name=templar_assassin_inner_peace level=1/1 type=0
+[RIFT][DUMP] slot=6..13 special_bonus_unique_templar_assassin_* (talents), 14 special_bonus_attributes, 15-18 ability_capture/portal_warp/twin_gate/lamp_use
+[RIFT][INFO][DEV] force_direction ta_crystal_physical: ok
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_meld 1:templar_assassin_psi_blades 2:templar_assassin_trap 3:templar_assassin_trap_teleport(h) 4:templar_assassin_psionic_trap 5:templar_assassin_inner_peace
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_crystal level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_physical level=0 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_meld_physical 1:templar_assassin_psi_blades 2:templar_assassin_trap(h) 3:templar_assassin_trap_teleport(h) 4:ta_psionic_crystal 5:templar_assassin_inner_peace
+[RIFT][INFO][UPGRADES] direction ta_crystal_physical pid=0
+(no [RIFT][ERROR][DIRECTION] lines)

@@ -277,3 +277,27 @@ addon называется **`duality`**, файлы скопированы (н�
      `[RIFT][ERROR][DIRECTION]`. Скриншот панели способностей: должны быть Refraction (Q), Meld (W), Psi Blades (E),
      кристалл (R), без Trap.
   3. Дальше шаги 3–8 исходного задания (манекены: `rift_spawn_dummy 250`, `rift_spawn_dummy 450`).
+- Отчёт 2026-11-12, повтор (сессия 11, агент): частично, основное — verified.
+  - Шаг 6: `rift_dump_hero 0` — в этой версии у TA **нет Refraction**: slot 0 `templar_assassin_meld`, 1 `psi_blades`,
+    2 `trap`, 3 `trap_teleport`, 4 `psionic_trap` (ульта), 5 `inner_peace` (врождённая). Лог: `operator_logs/2026-11-12_OP-013b_layout.log`.
+  - Шаг 7: `layout before/after` записаны, `[RIFT][ERROR][DIRECTION]` нет. after: `0:ta_meld_physical 1:templar_assassin_psi_blades
+    2:templar_assassin_trap(h) 3:templar_assassin_trap_teleport(h) 4:ta_psionic_crystal 5:templar_assassin_inner_peace`.
+    Панель: Meld (хоткей Q), Psi Blades, кристалл (F); **Trap в панели больше нет**. Q=Refraction ожидать не следует.
+  - Шаг 8: W/E/R прокачаны. Подсказка Meld «MELD - ФИЗ.»: cd 11/9/7/5, мана 35/40/45…
+  - Шаг 9: манекены `spawned passive dummy Axe #411/#439`, модели видны, сами не атакуют. **Но TA всё равно теряла HP
+    и один раз умерла** (`[RIFT][INFO][KILL] victim=0 killer=nil ... reason=no_credit`, t=284) — вероятно, пассивка
+    Axe Counter Helix при атаках по манекену. Нужно отключать способности манекена.
+  - Шаг 10: кристалл далеко от манекенов — `pulse=2001..2003 source=95–96 coef=0.80 damage=76–77 type=4 hits=0`,
+    после 3-го удара исчез. Рядом с манекенами — `pulse=3001 source=104 coef=0.80 damage=83.2 hits=2`,
+    `3002 source=100 damage=80.0 hits=2`, `3003 source=104 damage=83.2 hits=2`; в зонде урон по обоим Axe
+    с `inflictor=ta_psionic_crystal` (84/80/84). Кристалл без ударов исчез сам примерно через 6 с, строки pulse нет.
+    Полоску HP 3→2→1 глазами разглядеть не удалось (кристалл маленький, перекрыт манекенами).
+  - Шаг 11: при каждом ударе по кристаллу есть событие native `take_damage ... inflictor=templar_assassin_psi_blades`
+    по Axe#439, но **damage=0** (в 3-м original=83.2, damage=0) — дополнительного урона нет.
+  - Шаг 12: Meld — удар `attack_landed damage=262` → `take_damage 223` (обычные 100–105 → 70–85); следующие удары
+    103 → 74 — броня манекена не снижена. Полупрозрачность на скриншоте едва заметна, уверенно не подтверждаю.
+    Meld + удар по кристаллу **не проверено**.
+  - Шаг 13: прямые атаки по Axe#411 дают native-разлёт по Axe#439: `take_damage damage=52–54 inflictor=templar_assassin_psi_blades` — работает.
+  - Шаг 14: `rift_clear_dummies` → `removed dummies: 0` (манекены ещё стояли) — **ошибка команды**. herolist.txt в копии addon возвращён.
+  - Полный лог: `operator_logs/2026-11-12_OP-013b_rift_probe.log`.
+

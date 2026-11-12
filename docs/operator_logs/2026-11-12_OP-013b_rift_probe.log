@@ -1,0 +1,392 @@
+[RIFT][INFO][BOOT] RIFT ARENA 0.1.0-a dev=true
+[RIFT][INFO][UPGRADES] seed=1277861857
+[RIFT][INFO][STATE] BOOT -> SETUP t=2.4
+[RIFT][INFO][TEAM] player 0 -> team 2
+[RIFT][INFO][STATE] SETUP -> HERO_SELECTION t=42.7
+[RIFT][INFO][STATE] HERO_SELECTION -> PREPARATION t=69.9
+[RIFT][INFO][HERO] init pid=0 hero=npc_dota_hero_templar_assassin level=3
+[RIFT][INFO][STATE] PREPARATION -> ACTIVE t=79.9
+[RIFT][INFO][DEV] hero=npc_dota_hero_templar_assassin abilities=19
+[RIFT][DUMP] slot=0 name=templar_assassin_meld level=0/4 type=0
+[RIFT][DUMP] slot=1 name=templar_assassin_psi_blades level=0/4 type=0
+[RIFT][DUMP] slot=2 name=templar_assassin_trap level=0/3 type=0
+[RIFT][DUMP] slot=3 name=templar_assassin_trap_teleport level=0/3 type=0
+[RIFT][DUMP] slot=4 name=templar_assassin_psionic_trap level=0/3 type=1
+[RIFT][DUMP] slot=5 name=templar_assassin_inner_peace level=1/1 type=0
+[RIFT][DUMP] slot=6 name=special_bonus_unique_templar_assassin_meld_duration level=0/4 type=2
+[RIFT][DUMP] slot=7 name=special_bonus_unique_templar_assassin_3 level=0/4 type=2
+[RIFT][DUMP] slot=8 name=special_bonus_unique_templar_assassin_meld_attack_range_bonus level=0/4 type=2
+[RIFT][DUMP] slot=9 name=special_bonus_unique_templar_assassin_6 level=0/4 type=2
+[RIFT][DUMP] slot=10 name=special_bonus_unique_templar_assassin_4 level=0/4 type=2
+[RIFT][DUMP] slot=11 name=special_bonus_unique_templar_assassin_8 level=0/4 type=2
+[RIFT][DUMP] slot=12 name=special_bonus_unique_templar_assassin_7 level=0/4 type=2
+[RIFT][DUMP] slot=13 name=special_bonus_unique_templar_assassin level=0/4 type=2
+[RIFT][DUMP] slot=14 name=special_bonus_attributes level=0/7 type=0
+[RIFT][DUMP] slot=15 name=ability_capture level=1/1 type=0
+[RIFT][DUMP] slot=16 name=abyssal_underlord_portal_warp level=1/1 type=0
+[RIFT][DUMP] slot=17 name=twin_gate_portal_warp level=1/1 type=0
+[RIFT][DUMP] slot=18 name=ability_lamp_use level=1/1 type=0
+[RIFT][INFO][DEV] force_direction ta_crystal_physical: ok
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_meld 1:templar_assassin_psi_blades 2:templar_assassin_trap 3:templar_assassin_trap_teleport(h) 4:templar_assassin_psionic_trap 5:templar_assassin_inner_peace
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_crystal level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_physical level=0 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_meld_physical 1:templar_assassin_psi_blades 2:templar_assassin_trap(h) 3:templar_assassin_trap_teleport(h) 4:ta_psionic_crystal 5:templar_assassin_inner_peace
+[RIFT][INFO][UPGRADES] direction ta_crystal_physical pid=0
+[RIFT][INFO][UPGRADES] pid=0 dev grant ta_crystal_physical 
+[RIFT][INFO][UPGRADES] pid=0 offer=1 regular -> u_swift_hands by=timeout
+[RIFT][INFO][DEV] spawned passive dummy Axe #411 (not a match participant)
+[RIFT][INFO][DEV] spawned passive dummy Axe #439 (not a match participant)
+[RIFT][INFO][DEV] attack probe ON
+[RIFT][PROBE] attack_start t=161.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=161.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=1024 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=161.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=1024 damage=94 original=94 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=161.833 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=1025 damage=53 original=52.881359100342 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=161.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=1025 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=161.833 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=1024 damage=67 original=94 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=161.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=1024 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=162.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=162.500 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2048 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=162.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2048 damage=92 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=162.733 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=2049 damage=52 original=51.525428771973 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=162.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=2049 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=162.733 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=2048 damage=65 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=162.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2048 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=163.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=163.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3072 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=163.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3072 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=163.600 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=3073 damage=54 original=53.559326171875 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=163.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=3073 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=163.600 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=3072 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=163.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3072 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=164.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=164.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=164.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=92 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=164.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=4097 damage=52 original=51.525428771973 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=164.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=4097 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=164.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=4096 damage=65 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=164.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=165.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=165.200 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5120 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=165.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5120 damage=92 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=165.433 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=5121 damage=52 original=51.525428771973 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=165.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=5121 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=165.433 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=5120 damage=65 original=92 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=165.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5120 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=165.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=166.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=6144 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=166.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=6144 damage=91 original=91 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=166.367 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=6145 damage=51 original=50.847457885742 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=166.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=6145 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=166.367 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=6144 damage=64 original=91 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=166.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=6144 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=166.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=166.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=7168 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=167.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=7168 damage=93 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=167.233 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=7169 damage=64 original=63.050849914551 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=167.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=7169 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=167.233 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=7168 damage=79 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=167.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=7168 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=167.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=167.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=8192 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=168.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=8192 damage=94 original=94 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=168.167 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=8193 damage=64 original=63.728816986084 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=168.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=8193 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=168.167 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=8192 damage=80 original=94 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=168.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=8192 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=168.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=168.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=9216 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=169.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=9216 damage=91 original=91 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=169.033 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=9217 damage=51 original=50.847457885742 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=169.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=9217 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=169.033 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=9216 damage=64 original=91 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=169.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=9216 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=169.500 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=169.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=10240 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=169.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=10240 damage=93 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=169.933 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=10241 damage=53 original=52.203395843506 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=169.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=10241 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=169.933 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=10240 damage=38 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=169.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=10240 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=170.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=170.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=11264 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=170.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=11264 damage=93 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=170.967 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=11264 damage=66 original=93 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=170.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=11264 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=171.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=171.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12288 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=171.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12288 damage=96 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=171.867 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=12288 damage=60 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=171.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12288 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=174.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#897 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=174.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#897 unit=nil record=13312 damage=0 original=0 type=1477 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=183.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=183.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15360 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=183.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15360 damage=99 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=183.367 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=15360 damage=71 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=183.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15360 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=183.900 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=184.067 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=11265 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=184.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=11265 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=184.267 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=17408 damage=54 original=53.559326171875 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=184.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=17408 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=184.267 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=11265 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=184.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=11265 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=184.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=184.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=12289 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=185.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=12289 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=185.100 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=12289 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=185.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=12289 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=185.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=185.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=14337 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=186.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=14337 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=186.033 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=14337 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=186.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=14337 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=186.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=186.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=19456 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=186.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=19456 damage=98 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=186.933 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=19456 damage=84 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=186.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=19456 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=187.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=187.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=20480 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=187.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=20480 damage=99 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=187.767 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=20480 damage=71 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=187.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=20480 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=188.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=188.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2050 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=188.633 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2050 damage=97 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=188.633 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=2050 damage=83 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=188.633 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=2050 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=189.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=189.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3074 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=189.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3074 damage=96 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=189.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=3074 damage=82 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=189.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=3074 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=190.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=190.200 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=17409 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=190.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=17409 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=190.400 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=17409 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=190.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=17409 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=190.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=191.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4098 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=191.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4098 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=191.300 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=4098 damage=58 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=191.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4098 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=191.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=191.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=5122 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=192.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=5122 damage=98 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=192.133 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=5122 damage=70 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=192.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=5122 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=192.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=192.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=25600 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=193.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=25600 damage=96 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=193.000 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=25600 damage=82 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=193.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=25600 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=193.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=193.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=6146 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=193.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=6146 damage=96 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=193.867 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=6146 damage=68 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=193.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=6146 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=194.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=194.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=7170 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=194.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=7170 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=194.800 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=7170 damage=67 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=194.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=7170 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][KILL] victim=0 killer=nil score=nil repeat=nil assists=0 reason=no_credit
+[RIFT][INFO][RELIC] warning point=3 in 14.966659545898 s
+[RIFT][INFO][UPGRADES] pid=0 offer=2 regular -> u_steadfast by=timeout
+[RIFT][PROBE] attack_start t=245.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=245.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=28674 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=2001 source=96.0 coef=0.80 damage=76.8 type=4 hits=0
+[RIFT][PROBE] attack_landed t=245.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=28674 damage=96 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=245.833 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_rift_ta_crystal#1599 record=28674 damage=0 original=96 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=245.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=28674 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=246.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=246.500 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=29698 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=2002 source=95.0 coef=0.80 damage=76.0 type=4 hits=0
+[RIFT][PROBE] attack_landed t=246.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=29698 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=246.733 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_rift_ta_crystal#1599 record=29698 damage=0 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=246.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=29698 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=247.200 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=247.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=20481 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=2003 source=95.0 coef=0.80 damage=76.0 type=4 hits=0
+[RIFT][PROBE] attack_landed t=247.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=20481 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=247.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1599 unit=nil record=20481 damage=0 original=0 type=32767 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=248.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=248.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=30722 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=248.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=30722 damage=95 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=248.567 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=30722 damage=81 original=95 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=248.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=30722 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=249.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=249.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=31746 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=249.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=31746 damage=97 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=249.467 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=31746 damage=83 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=249.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=31746 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=250.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=250.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=23553 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=250.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=23553 damage=97 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=250.400 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=23553 damage=69 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=250.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=23553 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=250.900 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=251.067 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=32770 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=251.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=32770 damage=98 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=251.267 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=32770 damage=70 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=251.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=32770 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=251.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=251.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=33794 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=252.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=33794 damage=99 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=252.167 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=33794 damage=84 original=99 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=252.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=33794 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=252.633 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=252.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=47104 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=252.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=47104 damage=97 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=252.967 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=47104 damage=69 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=252.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=47104 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=253.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=253.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=48128 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=253.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=48128 damage=97 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=253.867 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=48128 damage=83 original=97 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=253.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=48128 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=254.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=254.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=26625 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=254.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=26625 damage=98 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=254.767 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=26625 damage=70 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=254.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=26625 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=255.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=255.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=49152 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=255.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=49152 damage=98 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=255.667 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=49152 damage=84 original=98 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=255.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=49152 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=256.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=256.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=50176 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=256.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=50176 damage=101 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=256.467 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=50176 damage=12 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=256.467 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=50176 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=257.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=257.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=52224 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=257.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=52224 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=257.300 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=52224 damage=72 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=257.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=52224 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=257.833 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=258.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=53248 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=258.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=53248 damage=103 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=258.167 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=53248 damage=74 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=258.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=53248 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=258.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=258.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=38914 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=259.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=38914 damage=101 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=259.033 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=38914 damage=73 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=259.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=38914 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][RELIC] spawn point=3
+[RIFT][PROBE] attack_start t=281.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=281.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=54272 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=28673 damage=84 original=83.199996948242 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=28673 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=29697 damage=84 original=83.199996948242 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=29697 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=3001 source=104.0 coef=0.80 damage=83.2 type=4 hits=2
+[RIFT][PROBE] attack_landed t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=54272 damage=104 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=30721 damage=0 original=0 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=30721 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_rift_ta_crystal#1600 record=54272 damage=0 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=281.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=54272 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=282.233 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=282.400 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=1026 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=31745 damage=80 original=80 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=31745 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=32769 damage=80 original=80 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=32769 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=3002 source=100.0 coef=0.80 damage=80.0 type=4 hits=2
+[RIFT][PROBE] attack_landed t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=1026 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=33793 damage=0 original=0 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=33793 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_rift_ta_crystal#1600 record=1026 damage=0 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=282.533 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=1026 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=283.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=283.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=56320 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=34817 damage=84 original=83.199996948242 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=34817 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=35841 damage=84 original=83.199996948242 type=4 cat=0 flags=1024 inflictor=ta_psionic_crystal
+[RIFT][PROBE] record_destroy t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=35841 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][TA] pulse=3003 source=104.0 coef=0.80 damage=83.2 type=4 hits=2
+[RIFT][PROBE] attack_landed t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=56320 damage=104 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=36865 damage=0 original=83.200004577637 type=4 cat=0 flags=1024 inflictor=templar_assassin_psi_blades
+[RIFT][PROBE] record_destroy t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=36865 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=283.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_rift_ta_crystal#1600 unit=nil record=56320 damage=0 original=0 type=32767 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=283.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=284.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=57344 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][INFO][KILL] victim=0 killer=nil score=nil repeat=nil assists=0 reason=no_credit
+[RIFT][PROBE] attack_landed t=284.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=57344 damage=104 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=284.367 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=57344 damage=89 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=284.367 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=57344 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=300.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=301.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5122 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=301.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5122 damage=101 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=301.267 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=5122 damage=86 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=301.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5122 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=301.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=301.900 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=60416 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=302.067 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=60416 damage=105 original=105 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=302.067 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=60416 damage=89 original=105 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=302.067 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=60416 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=302.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=302.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=61440 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=302.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=61440 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=302.933 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=61440 damage=85 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=302.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=61440 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=303.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=303.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=38913 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=303.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=38913 damage=104 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=303.767 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=38913 damage=75 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=303.767 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=38913 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=304.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=304.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=62464 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=304.633 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=62464 damage=101 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=304.633 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=62464 damage=73 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=304.633 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=62464 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=305.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=305.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=63488 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=305.500 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=63488 damage=101 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=305.500 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=63488 damage=33 original=101 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=305.500 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=63488 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=306.000 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=306.167 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=9218 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=306.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=9218 damage=103 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=306.300 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=9218 damage=74 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=306.300 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=9218 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=306.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=307.033 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=10242 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=307.200 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=10242 damage=104 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=307.200 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=10242 damage=75 original=104 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=307.200 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=10242 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=307.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=307.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=1024 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=308.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=1024 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=308.100 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=1024 damage=72 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=308.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=1024 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=308.567 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=308.700 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=2048 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=308.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=2048 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=308.867 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=2048 damage=85 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=308.867 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=2048 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=309.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=309.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12290 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=309.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12290 damage=100 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=309.733 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=12290 damage=85 original=100 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=309.733 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=12290 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=310.267 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=310.433 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=3072 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=310.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=3072 damage=105 original=105 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=310.600 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#439 record=3072 damage=70 original=105 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=310.600 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#439 unit=nil record=3072 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=317.933 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=318.100 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=318.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=262 original=262 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=318.333 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=4096 damage=223 original=262 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=318.333 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=4096 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=318.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack t=318.967 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15362 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_landed t=319.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15362 damage=103 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] take_damage t=319.133 attacker=npc_dota_hero_templar_assassin#1247 target=nil unit=npc_dota_hero_axe#411 record=15362 damage=74 original=103 type=1 cat=1 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=319.133 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=15362 damage=0 original=0 type=1 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] attack_start t=319.667 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=65535 damage=0 original=0 type=0 cat=0 flags=0 inflictor=nil
+[RIFT][PROBE] record_destroy t=319.800 attacker=npc_dota_hero_templar_assassin#1247 target=npc_dota_hero_axe#411 unit=nil record=5120 damage=0 original=0 type=1477 cat=0 flags=0 inflictor=nil
