@@ -2,15 +2,15 @@ local Registry = require("rift.core.upgrade_registry")
 local F = require("fixtures")
 
 T.case("shipped data validates (structure)", function()
-  local ups, dirs = F.data(false)
+  local ups, dirs = F.data("shipped")
   local errs = Registry.new(ups, dirs):validate()
   T.eq(#errs, 0, table.concat(errs, "; "))
 end)
 
 T.case("hero disabled while directions are planned", function()
-  local ups, dirs = F.data(false)
+  local ups, dirs = F.data("shipped")
   T.ok(not Registry.new(ups, dirs):hero_enabled(F.PA))
-  local ups2, dirs2 = F.data(true)
+  local ups2, dirs2 = F.data()
   T.ok(Registry.new(ups2, dirs2):hero_enabled(F.PA))
 end)
 

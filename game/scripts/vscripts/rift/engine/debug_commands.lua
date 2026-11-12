@@ -93,6 +93,43 @@ function Debug.register(gm)
     end
   end)
 
+  cmd("rift_give_upgrade", "rift_give_upgrade <pid> <upgrade_id>: grant a valid upgrade (dev)", function(pid, id)
+    pid = tonumber(pid or "0")
+    local ok, why = gm.upgrades.offers:dev_grant(pid, tostring(id), gm:Now())
+    Log.info("DEV", "give_upgrade " .. tostring(id) .. ": " .. tostring(why))
+    gm.upgrades:ProcessEvents()
+  end)
+
+  cmd("rift_offer_now", "rift_offer_now [pid]: issue an extra regular offer now (dev)", function(pid)
+    pid = tonumber(pid or "0")
+    local st = gm.director.state
+    local o = gm.upgrades.offers:dev_issue_regular(pid, gm:Now(), st:active_elapsed(gm:Now()))
+    Log.info("DEV", "offer_now -> " .. tostring(o and o.id))
+    gm.upgrades:ProcessEvents()
+  end)
+
+  cmd("rift_learn_ult", "rift_learn_ult [pid]: simulate a real first learn of the ultimate (dev)", function(pid)
+    pid = tonumber(pid or "0")
+    local p = gm.upgrades.offers:player(pid)
+    if not p then Log.warn("DEV", "unknown pid"); return end
+    local ult = gm.upgrades.registry:ultimate_ability(p.hero)
+    local o, why = gm.upgrades.offers:on_ability_learned(pid, ult, 1, "dev_simulate_learn", gm:Now())
+    Log.info("DEV", "learn_ult -> " .. tostring(o and ("offer " .. o.id) or why))
+    gm.upgrades:ProcessEvents()
+  end)
+
+  cmd("rift_upgrades", "rift_upgrades [pid]: print build, direction and pending offers", function(pid)
+    pid = tonumber(pid or "0")
+    local snap = gm.upgrades.offers:snapshot(pid)
+    if not snap then Log.warn("DEV", "unknown pid"); return end
+    Log.info("DEV", "seed=" .. gm.upgrades.seed .. " direction=" .. tostring(snap.direction_id))
+    for _, b in ipairs(snap.build) do Log.info("DEV", "  " .. b.id .. " rank " .. b.rank) end
+    for _, o in ipairs(snap.pending) do
+      Log.info("DEV", string.format("  offer %d %s [%s] left=%.1f", o.id, o.type, table.concat(o.options, ","),
+        o.deadline - gm:Now()))
+    end
+  end)
+
   cmd("rift_verbose", "Toggle verbose debug logging", function()
     Log.verbose = not Log.verbose
     Log.info("DEV", "verbose=" .. tostring(Log.verbose))

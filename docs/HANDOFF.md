@@ -1,14 +1,14 @@
 # HANDOFF
 
-Обновлено: 2026-11-12, сессия 2 (авто-старт 07:11 МСК).
+Обновлено: 2026-11-12, сессия 3.
 
 ## Текущий этап
 A/B — код написан, в Dota **не запускался**. Ждём OP-001/OP-002 от оператора.
 
 ## Что реально работает (подтверждено)
-- `bash tools/check.sh` зелёный: синтаксис, KV, локализация, 57 чистых тестов.
-- Сессия 2: чистая логика этапа C готова и протестирована (rng, upgrade_registry, offer_service,
-  pa_storm_daggers; данные rift/data/*). В движок ещё НЕ подключена.
+- `bash tools/check.sh` — 63 теста.
+- Сессия 2: чистая логика этапа C (rng, upgrade_registry, offer_service, pa_storm_daggers).
+- Сессия 3: улучшения характеристик подключены к движку и UI (код написан, в Dota не проверен, OP-005).
 
 ## Что написано, но не проверено в игре
 Весь движковый слой: стадии, команды FFA, стартовые уровень/золото, фильтры наград, пассивный доход,
@@ -19,25 +19,21 @@ A/B — код написан, в Dota **не запускался**. Ждём O
 22:11) будит эту сессию: продолжать по этому файлу.
 
 ## Следующие конкретные шаги (по порядку)
-1. Если в SCREEN_OPERATOR_TASKS.md есть отчёты OP-002/003/004 — сначала исправить ошибки; по OP-004
-   зафиксировать реальные значения PA в ULTIMATE_DIRECTIONS.md и data.
-2. Этап C ч. 2a — подключить offer_service к движку (не зависит от OP-004):
-   - `rift/engine/upgrade_bridge.lua`: создать Offers с серверным seed (RandomInt на старте, лог seed),
-     add_player при инициализации героя, tick в thinker (regular_open = state ACTIVE), слушатель
-     `dota_player_learned_ability` (проверить имя события и поля в текущем API; PlayerID брать из события),
-     применение applied (gold через Grant; upgrade → handler), CustomGameEventManager для
-     `rift_offer_choose` (PlayerID из аргументов callback движка), адресная отправка
-     `rift_offer_update` через `CustomGameEventManager:Send_ServerToPlayer`, `rift_snapshot_request`.
-   - Обработчик `stat_bonus`: один Lua-модификатор `modifier_rift_upgrade_stats`, читающий суммы из сборки
-     игрока (attack_damage, move_speed, armor, health, mana, attack_speed, spell_amp, health_regen,
-     status_resistance). После реализации — перевести u_* и pa_keen_edge/veil_step/shadow_guard в implemented.
-   - Panorama: панель выбора (карточки, редкость, ранг, таймер, pending после клика, свернуть/открыть),
-     индикатор очереди; ключи локализации rift_up_* и rift_dir_*.
-   - Добавить reason codes и события в NETWORK_CONTRACT.md.
-3. Этап C ч. 2b (после OP-004): блок ульты до выбора (SetActivated/модификатор), PA physical (дух → крит),
-   PA magical (2-й кинжал + отключение native-крита + цепь через pa_storm_daggers), перевести направления
-   PA в implemented; только тогда PA считается полноценно поддержанной.
-4. Задания оператору для Hammer-карты (этап D) — после проверки цикла матча.
+1. Если есть отчёты OP-002..005 — сначала исправить ошибки (особенно имена событий/полей:
+   `dota_player_learned_ability` → `PlayerID`, `abilityname`; transmitter data модификатора).
+2. Этап C ч. 2b — направления PA (нужен OP-004 для native-значений; до него можно писать код с чтением
+   значений через `ability:GetSpecialValueFor(key)` и логировать отсутствующие ключи):
+   - блок новой версии ульты до выбора (`offers:ultimate_locked`) — модификатор/SetActivated;
+   - физическое «Призрачная казнь»: активное применение, снаряд-дух (`ProjectileManager:CreateTrackingProjectile`),
+     один физический удар с крит-множителем ранга, без item procs, guard повторного попадания;
+   - магическое «Грозовые кинжалы»: отключение native-крита, второй кинжал по `Storm.pick_secondary`,
+     cast context из `pa_storm_daggers`, цепь 300 magic каждой цели, частица;
+   - перевести оба направления в implemented, добавить rift_dir_* локализацию, тесты валидатора пройдут.
+   Ограничение реализации: подмена поведения native-способностей PA — выяснить по OP-004, можно ли
+   перехватить урон крита через модификатор (например, MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE
+   у native-способности) или нужна своя копия способности с тем же слотом.
+3. Остальные улучшения PA (handlers ability_cooldown_flat, pa_*), до 6c/3r/3e.
+4. Этап D: задания оператору для Hammer-карты; событие «Сердце разлома» (чистая логика + тесты сначала).
 
 ## Блокеры
 - Нет доступа к Dota у агента: всё игровое — через оператора/владельца.

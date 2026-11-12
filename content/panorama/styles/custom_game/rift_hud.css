@@ -69,3 +69,80 @@
 .ResultTitle { font-size: 30px; color: #ffffff; horizontal-align: center; }
 .ResultWinner { font-size: 22px; color: #f0d890; horizontal-align: center; margin-top: 8px; }
 .ResultReason { font-size: 16px; color: #c9b6e8; horizontal-align: center; margin-bottom: 12px; }
+
+/* ---- Upgrade offers ---- */
+.OfferPanel {
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 190px; /* keep HP/mana/abilities visible */
+	flow-children: down;
+	padding: 10px 14px;
+	background-color: #0d0a12ee;
+	border: 1px solid #8a5fd0aa;
+	border-radius: 8px;
+	visibility: collapse;
+}
+.OfferPanel.Visible { visibility: visible; }
+.OfferPanel.Ultimate { border: 2px solid #f0d890; }
+.OfferHeader { flow-children: right; width: 100%; margin-bottom: 8px; }
+.OfferTitle { font-size: 20px; color: #ffffff; vertical-align: center; }
+.OfferTimer { font-size: 16px; color: #f0d890; margin-left: 14px; vertical-align: center; }
+.OfferCollapse { horizontal-align: right; padding: 3px 10px; background-color: #3a2a55; border-radius: 4px; margin-left: 20px; }
+.OfferCollapse Label { font-size: 14px; color: #e0d8ee; }
+.OfferCards { flow-children: right; }
+.OfferStatus { font-size: 14px; color: #ff9070; horizontal-align: center; margin-top: 4px; }
+
+.OfferCard {
+	width: 250px;
+	min-height: 150px;
+	flow-children: down;
+	margin: 0 6px;
+	padding: 10px;
+	background-color: #1c1428;
+	border: 2px solid #4a3a60;
+	border-radius: 6px;
+}
+.OfferCard:hover { background-color: #2a1e3c; }
+.OfferCard.common { border-color: #9aa0a8; }
+.OfferCard.rare { border-color: #4a90e8; }
+.OfferCard.epic { border-color: #b050e8; }
+/* Physical vs magical differ by label, icon and frame style, not only color */
+.OfferCard.physical { border-color: #e07040; border-style: solid; }
+.OfferCard.magical { border-color: #50b0f0; border-style: dashed; }
+.OfferCard.Pending { opacity: 0.6; }
+.OfferCard.Disabled { opacity: 0.4; }
+.CardTop { flow-children: right; width: 100%; }
+.CardIcon { width: 40px; height: 40px; margin-right: 8px; }
+.CardName { font-size: 17px; color: #ffffff; width: fill-parent-flow(1); vertical-align: center; }
+.CardRarity { font-size: 13px; color: #b0a8c0; margin-top: 4px; }
+.CardDesc { font-size: 15px; color: #e8e0f0; margin-top: 6px; width: 100%; }
+.CardRank { font-size: 13px; color: #c9b6e8; margin-top: 6px; }
+.CardDefault { font-size: 12px; color: #f0d890; margin-top: 4px; }
+
+.OfferOpenButton {
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 190px;
+	padding: 6px 16px;
+	background-color: #6a3fa0;
+	border-radius: 4px;
+	visibility: collapse;
+}
+.OfferOpenButton.Visible { visibility: visible; }
+.OfferOpenButton Label { font-size: 16px; color: #ffffff; }
+
+/* ---- Build overview ---- */
+.BuildPanel {
+	horizontal-align: left;
+	vertical-align: center;
+	margin-left: 8px;
+	width: 220px;
+	flow-children: down;
+	padding: 6px 8px;
+	background-color: #0d0a12aa;
+	border-radius: 6px;
+}
+.BuildTitle { font-size: 15px; color: #c9b6e8; }
+.BuildDirection { font-size: 14px; color: #f0d890; }
+.BuildRows { flow-children: down; width: 100%; }
+.BuildRow { font-size: 13px; color: #e0d8ee; }

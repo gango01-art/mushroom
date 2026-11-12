@@ -167,6 +167,10 @@ function Offers:on_ability_learned(pid, ability_name, new_level, source, now)
   if p.direction or p.ultimate_offered then return nil, "already_offered" end
   local dirs = self.reg:hero_directions(p.hero)
   if not dirs or not dirs.physical or not dirs.magical then return nil, "hero_not_supported" end
+  -- Never offer a direction whose implementation is not complete.
+  if dirs.physical.status ~= "implemented" or dirs.magical.status ~= "implemented" then
+    return nil, "directions_not_implemented"
+  end
   p.ultimate_offered = true
   local default = dirs.physical.default_on_timeout and dirs.physical.id or dirs.magical.id
   return self:_new_offer(p, "ultimate_direction", { dirs.physical.id, dirs.magical.id }, default, now)
@@ -235,6 +239,30 @@ function Offers:choose(pid, offer_id, option_id, now)
   end
   if o.type == "ultimate_direction" and p.direction then return false, "already_resolved" end
   return true, "ok", self:_apply(o, option_id, "player", now)
+end
+
+-- Dev only (engine checks dev mode): grant a valid upgrade directly, no offer.
+function Offers:dev_grant(pid, upgrade_id, now)
+  local p = self.players[pid]
+  if not p then return false, "unknown_player" end
+  local u = self.reg:get(upgrade_id)
+  if not self:is_allowed(p, u) then return false, "not_allowed" end
+  p.build[u.id] = (p.build[u.id] or 0) + 1
+  table.insert(p.build_order, u.id)
+  local applied = { kind = "upgrade", upgrade_id = u.id, rank = p.build[u.id] }
+  push(self, { kind = "dev_granted", pid = pid, applied = applied })
+  return true, "ok", applied
+end
+
+-- Dev only: issue an extra regular offer now (does not consume the schedule).
+function Offers:dev_issue_regular(pid, now, active_elapsed)
+  local p = self.players[pid]
+  if not p then return nil end
+  local saved = p.regular_issued
+  p.regular_issued = 1000 + self.seq -- separate RNG stream, never "first offer"
+  local o = self:_issue_regular(p, now, active_elapsed)
+  p.regular_issued = saved
+  return o
 end
 
 -- Offer to show now: ultimate direction has display priority; others keep their own deadline.

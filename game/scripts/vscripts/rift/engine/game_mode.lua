@@ -9,6 +9,7 @@ local Rules = require("rift.core.rules")
 local Log = require("rift.engine.log")
 local MapContract = require("rift.engine.map_contract")
 local UiBridge = require("rift.engine.ui_bridge")
+local UpgradeBridge = require("rift.engine.upgrade_bridge")
 
 local GameMode = {}
 GameMode.__index = GameMode
@@ -53,6 +54,7 @@ function GameMode:Activate()
   Log.info("BOOT", "RIFT ARENA " .. Config.VERSION .. " dev=" .. tostring(self.dev))
   self:ConfigureRules()
   self.map = MapContract.load(self.dev)
+  self.upgrades = UpgradeBridge.new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
   ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
@@ -246,6 +248,7 @@ function GameMode:InitHero(hero, pid)
   PlayerResource:SetGold(pid, e.start_gold, true)
   self.granting = false
   hero:AddNewModifier(hero, nil, "modifier_rift_damage_tracker", {})
+  self.upgrades:AddPlayer(pid, hero)
   self:PlaceAtSpawn(hero, pid)
   Log.info("HERO", string.format("init pid=%d hero=%s level=%d", pid, hero:GetUnitName(), hero:GetLevel()))
   self.ui:Publish(true)
@@ -345,7 +348,12 @@ function GameMode:Think()
       end
     end
   end
-  self.director:tick(self:Now())
+  local now = self:Now()
+  if st:rewards_open() then
+    -- regular offers only during ACTIVE (not after 18:00 / in overtime); expiry keeps running
+    self.upgrades:Tick(now, st:active_elapsed(now), st:is("ACTIVE"))
+  end
+  self.director:tick(now)
   self.ui:Publish(false)
   if st:is("FINISHED") then return nil end
   return THINK_INTERVAL

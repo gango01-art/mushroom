@@ -32,7 +32,7 @@ function T.case(name, fn)
 end
 
 local suites = { "test_match_state", "test_scoring", "test_director", "test_rules",
-                 "test_rng", "test_registry", "test_offers", "test_storm" }
+                 "test_rng", "test_registry", "test_offers", "test_storm", "test_effects" }
 for _, s in ipairs(suites) do
   T.current = s
   require(s)

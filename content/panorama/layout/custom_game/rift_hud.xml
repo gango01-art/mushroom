@@ -22,6 +22,28 @@
 			<Panel id="BoardRows" class="BoardRows" hittest="false" />
 		</Panel>
 
+		<Panel id="OfferPanel" class="OfferPanel">
+			<Panel class="OfferHeader">
+				<Label id="OfferTitle" class="OfferTitle" text="" />
+				<Label id="OfferTimer" class="OfferTimer" text="" />
+				<Button class="OfferCollapse" onactivate="RiftCollapseOffer()">
+					<Label text="#rift_offer_collapse" />
+				</Button>
+			</Panel>
+			<Panel id="OfferCards" class="OfferCards" />
+			<Label id="OfferStatus" class="OfferStatus" text="" />
+		</Panel>
+
+		<Button id="OfferOpenButton" class="OfferOpenButton" onactivate="RiftOpenOffer()">
+			<Label id="OfferOpenLabel" text="" />
+		</Button>
+
+		<Panel id="BuildPanel" class="BuildPanel" hittest="false">
+			<Label id="BuildTitle" class="BuildTitle" text="#rift_build_title" />
+			<Label id="BuildDirection" class="BuildDirection" text="" />
+			<Panel id="BuildRows" class="BuildRows" hittest="false" />
+		</Panel>
+
 		<Panel id="Onboarding" class="Onboarding">
 			<Label class="OnboardTitle" text="#rift_onboard_title" />
 			<Label class="OnboardText" text="#rift_onboard_text" />

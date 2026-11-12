@@ -12,7 +12,22 @@
 ## Net table `rift_scores`
 - `board`: `{ rows{ "1": { pid, score, kills, deaths, assists, hero, direction } } }`, отсортировано.
 
-## Custom events
-Пока нет. Этап C добавит: клиент→сервер `rift_offer_choose { offer_id, option_id }`
-(отправитель — из PlayerID callback-контекста движка, не из payload), сервер→клиент адресно
-`rift_offer_update`, запрос снапшота `rift_snapshot_request`.
+## Custom events (schema_version 1)
+Отправитель client→server определяется только по `PlayerID`, который движок добавляет в args callback.
+Массивы передаются объектами с ключами "1".."n".
+
+| Событие | Направление | Payload | Ограничения |
+|---|---|---|---|
+| `rift_offer_choose` | client → server | `{ offer_id:number, option_id:string }` | id ≤ 64 символов; ≥ 0.1 с между запросами игрока; после FINISHED отклоняется |
+| `rift_private_request` | client → server | `{}` | ответ — `rift_private_state` только этому игроку |
+| `rift_private_state` | server → один игрок | `{ schema, direction, direction_id, visible_offer, pending{…}, build{…} }` | приватно; отправляется при каждом изменении его предложений/сборки |
+| `rift_offer_result` | server → один игрок | `{ offer_id, ok(0/1), reason }` | после каждого `rift_offer_choose` |
+
+`pending[i]`: `{ id, type: regular|ultimate_direction|compensation, remaining(сек), options{…} }`.
+`options[i]`: `{ id, kind: upgrade|direction|compensation, rarity?, direction?, loc_name, loc_desc, icon,
+rank_now?, rank_next?, max_rank?, required_direction?, values{ key: number }, is_default(0/1) }`.
+Тексты карточек — ключи локализации с `{key}`; числа приходят в `values` (не дублируются в UI).
+`build[i]`: `{ id, rank, max_rank, loc_name, icon, values }`.
+
+### Reason codes `rift_offer_result`
+ok, unknown_offer, not_owner, already_resolved, expired, invalid_option, not_allowed, match_finished, bad_payload.

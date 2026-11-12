@@ -95,3 +95,185 @@ function RiftHideOnboarding() {
   onScores(CustomNetTables.GetTableValue("rift_scores", "board"));
   onResult(CustomNetTables.GetTableValue("rift_match", "result"));
 })();
+
+// ---------------------------------------------------------------------------
+// Upgrade offers (private, addressed to this player only)
+// ---------------------------------------------------------------------------
+var RiftOffer = {
+  state: null,          // last server-confirmed private state
+  receivedAt: 0,        // Game.GetGameTime() when state arrived
+  collapsedOfferId: -1, // player collapsed this offer
+  pendingOfferId: -1,   // clicked, waiting for server confirmation
+  statusText: ""
+};
+
+function objToArray(o) {
+  var out = [];
+  if (!o) return out;
+  for (var i = 1; o[String(i)] !== undefined; i++) out.push(o[String(i)]);
+  return out;
+}
+
+function fmtNumber(v) {
+  if (typeof v !== "number") return String(v);
+  if (Math.abs(v - Math.round(v)) < 1e-6) return String(Math.round(v));
+  return (Math.round(v * 100) / 100).toString();
+}
+
+// Localized text with {key} placeholders filled from server-provided values.
+function locFill(token, values) {
+  var text = $.Localize("#" + token);
+  if (values) {
+    for (var k in values) text = text.split("{" + k + "}").join(fmtNumber(values[k]));
+  }
+  return text;
+}
+
+function visibleOffer() {
+  var st = RiftOffer.state;
+  if (!st || st.visible_offer < 0) return null;
+  var list = objToArray(st.pending);
+  for (var i = 0; i < list.length; i++) if (list[i].id === st.visible_offer) return list[i];
+  return null;
+}
+
+function buildCard(parent, offer, opt) {
+  var card = $.CreatePanel("Button", parent, "");
+  card.AddClass("OfferCard");
+  if (opt.rarity) card.AddClass(opt.rarity);
+  if (opt.direction) card.AddClass(opt.direction);
+  var top = $.CreatePanel("Panel", card, "");
+  top.AddClass("CardTop");
+  var icon = $.CreatePanel("Image", top, "");
+  icon.AddClass("CardIcon");
+  if (opt.icon) {
+    var isItem = opt.icon.indexOf("item_") === 0;
+    icon.SetImage(isItem ? "file://{images}/items/" + opt.icon.substring(5) + ".png"
+                         : "file://{images}/spellicons/" + opt.icon + ".png");
+  }
+  var name = $.CreatePanel("Label", top, "");
+  name.AddClass("CardName");
+  name.text = $.Localize("#" + opt.loc_name);
+  var tag = $.CreatePanel("Label", card, "");
+  tag.AddClass("CardRarity");
+  if (opt.kind === "direction") tag.text = $.Localize("#rift_dir_" + opt.direction);
+  else if (opt.rarity) tag.text = $.Localize("#rift_rarity_" + opt.rarity);
+  var desc = $.CreatePanel("Label", card, "");
+  desc.AddClass("CardDesc");
+  desc.text = locFill(opt.loc_desc, opt.values);
+  if (opt.kind === "upgrade") {
+    var rank = $.CreatePanel("Label", card, "");
+    rank.AddClass("CardRank");
+    rank.text = locFill("rift_rank", { now: opt.rank_now, next: opt.rank_next, max: opt.max_rank });
+  }
+  if (opt.is_default === 1) {
+    var def = $.CreatePanel("Label", card, "");
+    def.AddClass("CardDefault");
+    def.text = $.Localize("#rift_offer_default");
+  }
+  var pending = RiftOffer.pendingOfferId === offer.id;
+  card.SetHasClass("Pending", pending);
+  card.enabled = !pending;
+  card.SetPanelEvent("onactivate", function () {
+    if (RiftOffer.pendingOfferId === offer.id) return;
+    RiftOffer.pendingOfferId = offer.id;
+    RiftOffer.statusText = $.Localize("#rift_offer_pending");
+    GameEvents.SendCustomGameEventToServer("rift_offer_choose", { offer_id: offer.id, option_id: opt.id });
+    renderOffer();
+  });
+}
+
+function renderOffer() {
+  var panel = $("#OfferPanel");
+  var openBtn = $("#OfferOpenButton");
+  var offer = visibleOffer();
+  var count = RiftOffer.state ? objToArray(RiftOffer.state.pending).length : 0;
+  if (!offer) {
+    panel.RemoveClass("Visible");
+    openBtn.RemoveClass("Visible");
+    return;
+  }
+  var collapsed = RiftOffer.collapsedOfferId === offer.id;
+  panel.SetHasClass("Visible", !collapsed);
+  panel.SetHasClass("Ultimate", offer.type === "ultimate_direction");
+  openBtn.SetHasClass("Visible", collapsed);
+  $("#OfferOpenLabel").text = locFill("rift_offer_open", { count: count });
+  var title = offer.type === "ultimate_direction" ? "rift_offer_title_ultimate"
+            : offer.type === "compensation" ? "rift_offer_title_compensation" : "rift_offer_title";
+  $("#OfferTitle").text = $.Localize("#" + title);
+  var cards = $("#OfferCards");
+  cards.RemoveAndDeleteChildren();
+  var opts = objToArray(offer.options);
+  for (var i = 0; i < opts.length; i++) buildCard(cards, offer, opts[i]);
+  $("#OfferStatus").text = RiftOffer.statusText;
+  updateOfferTimer();
+}
+
+function updateOfferTimer() {
+  var offer = visibleOffer();
+  if (!offer) return;
+  var left = offer.remaining - (Game.GetGameTime() - RiftOffer.receivedAt);
+  $("#OfferTimer").text = locFill("rift_offer_timeout", { seconds: Math.max(0, Math.ceil(left)) });
+}
+
+function renderBuild() {
+  var st = RiftOffer.state;
+  if (!st) return;
+  $("#BuildDirection").text = st.direction ? $.Localize("#rift_dir_" + st.direction) : "";
+  var rows = $("#BuildRows");
+  rows.RemoveAndDeleteChildren();
+  var list = objToArray(st.build);
+  if (list.length === 0) {
+    var empty = $.CreatePanel("Label", rows, "");
+    empty.AddClass("BuildRow");
+    empty.text = $.Localize("#rift_build_empty");
+  }
+  for (var i = 0; i < list.length; i++) {
+    var l = $.CreatePanel("Label", rows, "");
+    l.AddClass("BuildRow");
+    l.text = $.Localize("#" + list[i].loc_name) + " " + list[i].rank + "/" + list[i].max_rank;
+  }
+}
+
+function RiftCollapseOffer() {
+  var offer = visibleOffer();
+  if (offer) RiftOffer.collapsedOfferId = offer.id;
+  renderOffer();
+}
+
+function RiftOpenOffer() {
+  RiftOffer.collapsedOfferId = -1;
+  renderOffer();
+}
+
+function offerTick() {
+  updateOfferTimer();
+  $.Schedule(0.25, offerTick);
+}
+
+(function () {
+  GameEvents.Subscribe("rift_private_state", function (data) {
+    RiftOffer.state = data;
+    RiftOffer.receivedAt = Game.GetGameTime();
+    var offer = visibleOffer();
+    // confirmed state arrived: clear pending if that offer is no longer pending
+    if (!offer || offer.id !== RiftOffer.pendingOfferId) {
+      RiftOffer.pendingOfferId = -1;
+      RiftOffer.statusText = "";
+    }
+    renderOffer();
+    renderBuild();
+  });
+  GameEvents.Subscribe("rift_offer_result", function (data) {
+    if (data.ok !== 1) {
+      var key = "rift_offer_error_" + data.reason;
+      var text = $.Localize("#" + key);
+      RiftOffer.statusText = (text === key || text === "#" + key) ? $.Localize("#rift_offer_error_generic") : text;
+      RiftOffer.pendingOfferId = -1;
+      renderOffer();
+    }
+  });
+  // Late panel / reconnect: ask the server for our private snapshot.
+  GameEvents.SendCustomGameEventToServer("rift_private_request", {});
+  offerTick();
+})();

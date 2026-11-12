@@ -52,7 +52,7 @@ function UiBridge:PublishScores()
     rows[tostring(i)] = {
       pid = r.pid, score = r.score, kills = r.kills, deaths = r.deaths, assists = r.assists,
       hero = (hero and not hero:IsNull()) and hero:GetUnitName() or "",
-      direction = "",   -- filled once ultimate directions exist (stage C)
+      direction = (self.gm.upgrades and self.gm.upgrades:Direction(r.pid)) or "",
     }
   end
   CustomNetTables:SetTableValue("rift_scores", "board", { rows = rows })
