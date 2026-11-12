@@ -118,6 +118,7 @@ return {
     balance_ref = "ta.crystal_physical", active_handler = "ta_psionic_crystal",
     swaps = { { from = "templar_assassin_psionic_trap", to = "ta_psionic_crystal" },
               { from = "templar_assassin_meld", to = "ta_meld_physical" } },
+    hide = { "templar_assassin_trap" },  -- native trap sub-ability has no use without Psionic Trap
     -- Meld replacement (no armor reduction, bigger bonus) is listed below once implemented;
     -- the direction stays "planned" until every part is verified in Dota.
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",

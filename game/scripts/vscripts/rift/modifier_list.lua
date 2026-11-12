@@ -10,6 +10,7 @@ local M = {
   "modifier_rift_upgrade_stats",
   "modifier_rift_ta_crystal",
   "modifier_rift_ta_meld",
+  "modifier_rift_dummy",
 }
 
 function M.link(verbose)

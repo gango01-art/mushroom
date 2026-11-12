@@ -89,5 +89,7 @@
 		"DOTA_Tooltip_modifier_rift_ta_meld_Description"	"Невидимость; следующая атака усилена."
 		"rift_dir_ta_crystal_physical"	"Psionic Crystal"
 		"rift_dir_ta_crystal_physical_desc"	"Физическое: ловушка заменена кристаллом-передатчиком Psi Blades. Meld без снижения брони, но с большим уроном."
+			"DOTA_Tooltip_Ability_ta_psionic_crystal_SummaryDescription"	"Удар по кристаллу выпускает Psi Blades во все стороны."
+		"DOTA_Tooltip_Ability_ta_meld_physical_SummaryDescription"	"Невидимость на месте и усиленный удар без снижения брони."
 	}
 }

@@ -228,7 +228,7 @@ addon называется **`duality`**, файлы скопированы (н�
 - Зависимость: этап D.
 
 ## OP-013 — TA физическое: кристалл и Meld (вместе с зондом OP-007)
-- Статус: pending
+- Статус: in_progress (частично 2026-11-12; повтор с исправлениями сессии 11 — см. «Повтор»)
 - Инструмент: Dota 2 Workshop Tools, консоль, чат игры.
 - Подготовка (только локально, НЕ коммитить): в копии addon `game\scripts\npc\herolist.txt` добавить строку
   `"npc_dota_hero_templar_assassin"	"1"`. `git pull`, `tools\sync_addon.ps1`, **полный перезапуск Tools**,
@@ -267,3 +267,13 @@ addon называется **`duality`**, файлы скопированы (н�
   - Шаг 5: кристалл поставлен (мана/кд списаны), но ударить его не успел — герой умирал; строк `[RIFT][INFO][TA]` нет.
   - Шаги 6–8 не выполнены. Блокеры: агрессивные манекены и не прекешированный Axe.
 
+- Повтор (сессия 11, после `git pull` + sync + **полный перезапуск Tools**):
+  исправлено: манекены `rift_spawn_dummy [дистанция]` теперь пассивные (обезоружены, неподвижны) и Axe прекеширован в
+  Tools; `rift_clear_dummies` убирает их; подспособность Trap скрывается; добавлена подсказка SummaryDescription;
+  адаптер пишет `[RIFT][INFO][DIRECTION] layout before/after` и чинит пропавшие способности (Refraction пропадала —
+  владелец заметил на скриншоте).
+  1. До `rift_force_direction` выполнить `rift_dump_hero 0` (только строки `[RIFT][DUMP] slot=...`) — как были слоты.
+  2. `rift_force_direction ta_crystal_physical 0`; прислать строки `layout before`, `layout after` и любые
+     `[RIFT][ERROR][DIRECTION]`. Скриншот панели способностей: должны быть Refraction (Q), Meld (W), Psi Blades (E),
+     кристалл (R), без Trap.
+  3. Дальше шаги 3–8 исходного задания (манекены: `rift_spawn_dummy 250`, `rift_spawn_dummy 450`).

@@ -89,5 +89,7 @@
 		"DOTA_Tooltip_modifier_rift_ta_meld_Description"	"Invisible; next attack empowered."
 		"rift_dir_ta_crystal_physical"	"Psionic Crystal"
 		"rift_dir_ta_crystal_physical_desc"	"Physical: the trap becomes a Psi Blades transmitter crystal. Meld loses armor reduction but deals more damage."
+			"DOTA_Tooltip_Ability_ta_psionic_crystal_SummaryDescription"	"Attacking the crystal releases Psi Blades in all directions."
+		"DOTA_Tooltip_Ability_ta_meld_physical_SummaryDescription"	"Stationary invisibility and an empowered strike without armor reduction."
 	}
 }

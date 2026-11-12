@@ -61,12 +61,56 @@ function Adapter:_swap(hero, swap, policy)
   return true
 end
 
+-- Visible ability layout (first slots only; talents/hidden ignored) for diagnostics
+-- and for restoring abilities hidden as a side effect of a swap (OP-013: Refraction
+-- disappeared from the bar after the TA physical swaps).
+local function layout(hero)
+  local out, visible = {}, {}
+  for i = 0, math.min(hero:GetAbilityCount() - 1, 9) do
+    local a = hero:GetAbilityByIndex(i)
+    if a and not a:IsNull() then
+      local name = a:GetAbilityName()
+      if name:find("special_bonus_", 1, true) ~= 1 then
+        table.insert(out, string.format("%d:%s%s", i, name, a:IsHidden() and "(h)" or ""))
+        if not a:IsHidden() then visible[name] = a:GetLevel() end
+      end
+    end
+  end
+  return table.concat(out, " "), visible
+end
+
 function Adapter:Apply(pid, def)
   self.locked[pid] = nil
   self.applied[pid] = def.id
   local hero = hero_of(pid)
   if not hero then return end
-  for _, swap in ipairs(def.swaps or {}) do self:_swap(hero, swap, def.transfer_policy) end
+  local before, was_visible = layout(hero)
+  Log.info("DIRECTION", "layout before: " .. before)
+  local swapped = {}
+  for _, swap in ipairs(def.swaps or {}) do
+    swapped[swap.from] = true
+    self:_swap(hero, swap, def.transfer_policy)
+  end
+  for _, name in ipairs(def.hide or {}) do
+    local a = hero:FindAbilityByName(name)
+    if a then a:SetHidden(true); swapped[name] = true end
+  end
+  -- Self-heal: anything visible before that we did not replace or hide must stay visible.
+  for name, level in pairs(was_visible) do
+    local a = hero:FindAbilityByName(name)
+    if not swapped[name] then
+      if not a then
+        -- Removed/overwritten by the swap: put it back with its level (points are not refunded twice).
+        a = hero:AddAbility(name)
+        if a then a:SetLevel(level) end
+        Log.error("DIRECTION", "swap removed an unrelated ability, re-added: " .. name .. " level=" .. level)
+      elseif a:IsHidden() then
+        a:SetHidden(false)
+        Log.error("DIRECTION", "swap hid an unrelated ability, restored: " .. name)
+      end
+    end
+  end
+  Log.info("DIRECTION", "layout after: " .. (layout(hero)))
   local ult = self:_ultimate(pid, hero)
   if ult then ult:SetActivated(true) end
   self:_ensure_modifiers(hero, def)

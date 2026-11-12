@@ -187,16 +187,25 @@ function Debug.register(gm)
     end
   end)
 
-  cmd("rift_spawn_dummy", "rift_spawn_dummy [unit_name] [distance]: spawn an enemy test unit in front of hero 0 (dev)", function(unit, dist)
-    local h = PlayerResource:GetSelectedHeroEntity(0)
+  cmd("rift_spawn_dummy", "rift_spawn_dummy [distance] [pid]: spawn a passive enemy hero dummy (Axe) in front of the hero (dev)", function(dist, pid)
+    pid = tonumber(pid or "0")
+    local h = PlayerResource:GetSelectedHeroEntity(pid)
     if not h then return end
-    unit = unit or "npc_dota_hero_axe"
     local pos = h:GetAbsOrigin() + h:GetForwardVector() * (tonumber(dist or "300") or 300)
-    local team = DOTA_TEAM_NEUTRALS
-    local u = CreateUnitByName(unit, pos, true, nil, nil, team)
-    if u then
-      Log.info("DEV", "spawned " .. unit .. " #" .. u:entindex() .. " (neutral team, not a match participant)")
+    -- Neutral team: enemy to every player team. Disarmed/rooted/silenced by modifier_rift_dummy.
+    local u = CreateUnitByName("npc_dota_hero_axe", pos, true, nil, nil, DOTA_TEAM_NEUTRALS)
+    if not u then Log.warn("DEV", "dummy spawn failed (is npc_dota_hero_axe precached? tools mode only)"); return end
+    require("rift.engine.mods").add(u, u, nil, "modifier_rift_dummy", {})
+    u:SetIdleAcquire(false)
+    Log.info("DEV", "spawned passive dummy Axe #" .. u:entindex() .. " (not a match participant)")
+  end)
+
+  cmd("rift_clear_dummies", "Remove all test dummies (dev)", function()
+    local n = 0
+    for _, u in ipairs(Entities:FindAllByClassname("npc_dota_hero_axe")) do
+      if u:HasModifier("modifier_rift_dummy") then UTIL_Remove(u); n = n + 1 end
     end
+    Log.info("DEV", "removed dummies: " .. n)
   end)
 
   cmd("rift_relic_now", "Spawn an extra Heart of the Rift now (dev, ACTIVE only)", function()
