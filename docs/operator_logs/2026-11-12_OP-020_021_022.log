@@ -1,0 +1,41 @@
+# OP-020 / OP-021 / OP-022 (operator, 2026-11-12) — строки [RIFT] из VConsole (rift_verbose 1)
+# --- OP-020: Phantom Assassin, физическая ветка (rift_force_direction pa_phantom_execution 0)
+[RIFT][INFO][HERO] init pid=0 hero=npc_dota_hero_phantom_assassin level=3
+[RIFT][DEBUG][UPGRADES] learned pid=0 phantom_assassin_coup_de_grace lvl=1 -> directions_not_implemented
+[RIFT][INFO][DEV] force_direction pa_phantom_execution: ok
+[RIFT][INFO][DIRECTION] layout before: 0:phantom_assassin_stifling_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:phantom_assassin_coup_de_grace
+[RIFT][INFO][DIRECTION] swap phantom_assassin_coup_de_grace -> pa_phantom_execution level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:phantom_assassin_stifling_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:pa_phantom_execution
+[RIFT][INFO][UPGRADES] direction pa_phantom_execution pid=0
+[RIFT][INFO][UPGRADES] pid=0 dev grant pa_phantom_execution
+[RIFT][INFO][DEV] spawned passive dummy Axe #237 team=11 (not a match participant)
+[RIFT][DEBUG][PA] execution hit raw=200 dealt=169 crit=200
+[RIFT][DEBUG][PA] execution hit raw=208 dealt=163 crit=200
+[RIFT][DEBUG][PA] execution hit raw=220 dealt=186 crit=200
+# 2-й ранг (-lvlup 6 + очко в ульту): подсказка кд 20, мана 100, дальность 800
+[RIFT][DEBUG][PA] execution hit raw=494 dealt=405 crit=325
+# rift_probe_attacks 0 — обычные атаки по манекену (фрагмент: 29 ударов, криты Coup de Grace отмечены *)
+attack_landed damage=118 original=118 ... 119, 119, 118, 119, 118, 234*, 119, 118, 119, 118, 117, 117, 238*, 118, 119, 118, 119, 236*, 121, 123, 123, 121, 123, 121, 244*, 122, 121
+# --- OP-021: Phantom Assassin, магическая ветка (Stifling Dagger 2 ур.)
+[RIFT][INFO][DEV] force_direction pa_storm_daggers: ok
+[RIFT][INFO][DIRECTION] layout before: 0:phantom_assassin_stifling_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:phantom_assassin_coup_de_grace
+[RIFT][INFO][DIRECTION] swap phantom_assassin_coup_de_grace -> pa_storm_charge level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap phantom_assassin_stifling_dagger -> pa_storm_dagger level=2 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:pa_storm_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:pa_storm_charge
+[RIFT][INFO][UPGRADES] direction pa_storm_daggers pid=0
+[RIFT][DEBUG][PA] storm cast=1 targets=2 proc=false
+[RIFT][DEBUG][PA] storm cast=2 targets=2 proc=false
+[RIFT][INFO][DEV] pa_storm_always=1
+# --- OP-022: Templar Assassin, прокачка Q1/W1/E3
+# магическая ветка
+[RIFT][INFO][DIRECTION] swap templar_assassin_refraction -> ta_refraction_magical level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_dash level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psi_blades -> ta_psi_wave level=3 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_blast level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:templar_assassin_inner_peace 5:ta_psionic_blast
+[RIFT][INFO][UPGRADES] pid=0 offer=2 ultimate_direction -> ta_waves_magical by=player
+# физическая ветка (новый матч)
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_crystal level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_physical level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:templar_assassin_refraction 1:ta_meld_physical 2:templar_assassin_psi_blades 4:templar_assassin_inner_peace 5:ta_psionic_crystal
+[RIFT][INFO][UPGRADES] pid=0 offer=2 ultimate_direction -> ta_crystal_physical by=player

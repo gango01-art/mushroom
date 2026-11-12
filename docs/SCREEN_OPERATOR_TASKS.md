@@ -460,7 +460,7 @@ addon называется **`duality`**, файлы скопированы (н�
   - Лог: `operator_logs/2026-11-12_OP-019.log`. Не проверено: поглощение урона Refraction, шаг 6 OP-018 (респавн).
 
 ## OP-020 — PA физическая «Призрачная казнь»
-- Статус: pending
+- Статус: verified частично (шаги 1–4, 6; шаг 5 не проверен)
 - Подготовка: `git pull`, sync, **полный перезапуск Tools**, выбрать Phantom Assassin. `rift_verbose 1`.
   Направления PA пока `planned`: меню выбора не появится, ветка включается dev-командой.
 - Шаги:
@@ -476,9 +476,16 @@ addon называется **`duality`**, файлы скопированы (н�
   6. `-lvlup 6`, вложить второе очко в ульту: кулдаун 20, мана 100; строка `execution hit` с `crit=325`.
   7. Красные ошибки Lua в консоли — дословно.
 - Успех: шаги 1–4 и 6. Отдельно записать: виден ли дух (если нет — «снаряд невидим», это ожидаемый риск пути частицы).
+- Отчёт 2026-11-12 (агент): лог `docs/operator_logs/2026-11-12_OP-020_021_022.log`.
+  - Шаг 1 ✔: `force_direction pa_phantom_execution: ok`, `swap phantom_assassin_coup_de_grace -> pa_phantom_execution level=1 cd=0.0`, `layout after` с `5:pa_phantom_execution`.
+  - Шаги 2–3 ✔: R — активная кнопка, подсказка кд/мана/дальность по ТЗ; `[PA] execution hit raw=200 dealt=169 crit=200` (ещё raw=208/220).
+  - Шаг 4 ✔: обычные атаки ~117–123, криты Coup de Grace 234/238/236/244 (4 из ~29) — криты сохранились.
+  - Шаг 5 не проверен: за ~0.8 с полёта оператор не успевает убрать манекен (задержка инструментов > времени полёта).
+  - Шаг 6 ✔: 2-й ранг, кд 20/мана 100, `execution hit raw=494 dealt=405 crit=325`.
+  - Ошибок Lua не замечено. Баг: манекены враждебны (атакуют, Berserker's Call, убили PA) — нужен по-настоящему пассивный манекен (код не правил).
 
 ## OP-021 — PA магическая «Грозовые кинжалы»
-- Статус: pending
+- Статус: verified частично (шаги 1–3; 4–8 не проверены)
 - Подготовка: новый матч, Phantom Assassin, `rift_verbose 1`.
 - Шаги:
   1. Прокачать Stifling Dagger до 2 ур., `-lvlup 5`, очко в ульту, `rift_force_direction pa_storm_daggers`.
@@ -497,9 +504,14 @@ addon называется **`duality`**, файлы скопированы (н�
      70 + 45% урона атаки, до брони).
   9. Красные ошибки Lua — дословно.
 - Успех: шаги 1–5 и 7.
+- Отчёт 2026-11-12 (агент):
+  - Шаги 1–2 ✔: `swap phantom_assassin_coup_de_grace -> pa_storm_charge level=1`, `swap phantom_assassin_stifling_dagger -> pa_storm_dagger level=2`; `layout after`: 0:pa_storm_dagger … 5:pa_storm_charge.
+  - Шаг 3 ✔ частично: `[PA] storm cast=1 targets=2 proc=false`, `cast=2 targets=2 proc=false`.
+  - Шаг 5: `rift_pa_storm_always 1` выставлен (`[DEV] pa_storm_always=1`), но строка `storm chain` в логе не появилась — НЕ подтверждено, требует повтора.
+  - Шаги 4, 6, 7, 8 не выполнены: агрессивные манекены убивали героя / мешали измерениям.
 
 ## OP-022 — перенос прокачки на новую ветку (просьба владельца)
-- Статус: pending
+- Статус: verified (шаги 1–3); шаг 4 не проверен
 - Подготовка: TA, `rift_verbose 1`.
 - Шаги:
   1. До выбора прокачать Q 1, W 1, E 3 (`-lvlup 5`), затем очко в ульту → выбрать МАГИЧЕСКОЕ.
@@ -508,3 +520,8 @@ addon называется **`duality`**, файлы скопированы (н�
   3. Новый матч, та же прокачка 1/1/3 → ФИЗИЧЕСКОЕ: Q 1 и E 3 без изменений, W (физический Meld) `level=1`. Скриншот.
   4. Если уже проверена PA (OP-021): кинжал 3 ур. → `pa_storm_dagger level=3`.
 - Успех: уровни совпадают во всех случаях.
+- Отчёт 2026-11-12 (агент):
+  - Магическая ✔: refraction→`level=1`, meld→`level=1`, psi_blades→`level=3`, psionic_trap→`ta_psionic_blast level=1`; `ultimate_direction -> ta_waves_magical by=player`.
+  - Физическая ✔ (новый матч): `ta_meld_physical level=1`, `ta_psionic_crystal level=1`, Q и E без изменений (Q1/W1/E3 на панели); `ultimate_direction -> ta_crystal_physical`.
+  - Точное число свободных очков не сверено. Шаг 4 (кинжал 3 ур.) не проверен — зависит от OP-021.
+
