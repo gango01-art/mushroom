@@ -211,6 +211,7 @@ function Debug.register(gm)
     if not u then Log.warn("DEV", "dummy spawn failed (is npc_dota_hero_axe precached? tools mode only)"); return end
     require("rift.engine.mods").add(u, u, nil, "modifier_rift_dummy", {})
     u:SetIdleAcquire(false)
+    u:Stop()
     -- Belt and braces against reflected damage: also unlearn the dummy's abilities.
     for i = 0, u:GetAbilityCount() - 1 do
       local a = u:GetAbilityByIndex(i)
