@@ -1,0 +1,20 @@
+# OP-019 (operator, 2026-11-12) — строки [RIFT][INFO][DIRECTION]/[UPGRADES] из VConsole
+# Матч 1: TA, физическая ветка (игрок)
+[RIFT][INFO][DIRECTION] kit applied for npc_dota_hero_templar_assassin: 0:templar_assassin_refraction 1:templar_assassin_meld 2:templar_assassin_psi_blades 3:templar_assassin_trap 4:templar_assassin_inner_peace 5:templar_assassin_psionic_trap
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_refraction 1:templar_assassin_meld 2:templar_assassin_psi_blades 3:templar_assassin_trap 4:templar_assassin_inner_peace 5:templar_assassin_psionic_trap
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_crystal level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_physical level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:templar_assassin_refraction 1:ta_meld_physical 2:templar_assassin_psi_blades 4:templar_assassin_inner_peace 5:ta_psionic_crystal
+[RIFT][INFO][UPGRADES] direction ta_crystal_physical pid=0
+[RIFT][INFO][UPGRADES] pid=0 offer=3 ultimate_direction -> ta_crystal_physical by=player
+[RIFT][INFO][DEV] spawned passive dummy Axe #1143 team=11 (not a match participant)
+# Матч 2: TA, магическая ветка (игрок), Refraction ур.1
+[RIFT][INFO][DIRECTION] kit applied for npc_dota_hero_templar_assassin: 0:templar_assassin_refraction 1:templar_assassin_meld 2:templar_assassin_psi_blades 3:templar_assassin_trap 4:templar_assassin_inner_peace 5:templar_assassin_psionic_trap
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_refraction 1:templar_assassin_meld 2:templar_assassin_psi_blades 3:templar_assassin_trap 4:templar_assassin_inner_peace 5:templar_assassin_psionic_trap
+[RIFT][INFO][DIRECTION] swap templar_assassin_refraction -> ta_refraction_magical level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_dash level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psi_blades -> ta_psi_wave level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_blast level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:templar_assassin_inner_peace 5:ta_psionic_blast
+[RIFT][INFO][UPGRADES] direction ta_waves_magical pid=0
+[RIFT][INFO][UPGRADES] pid=0 offer=2 ultimate_direction -> ta_waves_magical by=player
