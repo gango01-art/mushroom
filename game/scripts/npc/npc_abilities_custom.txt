@@ -30,4 +30,58 @@
 		"AbilityCastPoint"		"0"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
 	}
+
+	// ---- TA magical direction (docs/BRIEF_HEROES_LC_SF_TA.md 9). Numbers from Lua (hero_balance). ----
+	"ta_refraction_magical"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_refraction_magical"
+		"AbilityTextureName"	"templar_assassin_refraction"
+		"MaxLevel"				"4"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastRange"		"700"
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"ta_meld_dash"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_meld_dash"
+		"AbilityTextureName"	"templar_assassin_meld"
+		"MaxLevel"				"4"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastPoint"		"0"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+	}
+	"ta_psi_wave"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_psi_wave"
+		"AbilityTextureName"	"templar_assassin_psi_blades"
+		"MaxLevel"				"4"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityCastRange"		"700"
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+	}
+	"ta_psionic_blast"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_psionic_blast"
+		"AbilityTextureName"	"templar_assassin_psionic_trap"
+		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"				"3"
+		"RequiredLevel"			"6"
+		"LevelsBetweenUpgrades"	"6"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastPoint"		"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+	}
 }

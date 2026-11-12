@@ -11,11 +11,19 @@ local M = {
   "modifier_rift_ta_crystal",
   "modifier_rift_ta_meld",
   "modifier_rift_dummy",
+  "modifier_rift_ta_no_attack",
+  "modifier_rift_ta_refraction",
+  "modifier_rift_ta_dash",
+  "modifier_rift_ta_trap_slow",
 }
+
+-- Modifiers that need a motion type other than NONE (engine constant name).
+M.MOTION = { modifier_rift_ta_dash = "LUA_MODIFIER_MOTION_HORIZONTAL" }
 
 function M.link(verbose)
   for _, name in ipairs(M) do
-    LinkLuaModifier(name, "rift/modifiers/" .. name, LUA_MODIFIER_MOTION_NONE)
+    local motion = M.MOTION[name] and _G[M.MOTION[name]] or LUA_MODIFIER_MOTION_NONE
+    LinkLuaModifier(name, "rift/modifiers/" .. name, motion)
     if verbose then print("[RIFT][INFO][MODS] link " .. name .. (IsServer() and " (server)" or " (client)")) end
   end
 end

@@ -12,7 +12,7 @@
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | нет | blocked | OP-006, проверка attack record API |
 | Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | нет | blocked | OP-006, политика fear через debuff immunity |
 | Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | runtime_checked (основное, OP-013) | мелочи OP-014; в выбор — только вместе с магической веткой |
-| Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | нет | blocked | OP-006 |
+| Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | **да**: ta_refraction_magical, ta_meld_dash, ta_psi_wave, ta_psionic_blast, запрет атак | statically_checked | OP-015 |
 
 Ни один герой не готов для публичного выбора. В herolist только PA — как тестовый герой цикла матча
 (без направлений: меню направления не открывается, ядро отклоняет его, пока обе версии не implemented).

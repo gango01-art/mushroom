@@ -27,8 +27,9 @@ A/B — код написан, в Dota **не запускался**. Ждём O
 
 ## Следующие конкретные шаги (по порядку)
 00. Модификаторы работают на сервере и клиенте (OP-011/012 verified).
-01. TA physical: основное verified в Dota (OP-013). Остаток — OP-014. Следующее: TA magical (KNOWN_ISSUES 19:
-    своя Q «Refraction», т.к. в наборе героя её нет). По отчёту: проверить `params.damage` (включает ли Meld/крит),
+01. TA physical: основное verified (OP-013), остаток OP-014. TA magical написан (сессия 12) — ждём OP-015.
+    После OP-014/015: перевести оба направления TA в implemented, добавить TA в herolist, отфильтровать обычные
+    улучшения для magical (теги: без AS/crit/lifesteal), затем SF physical (BRIEF_HEROES §6). По отчёту: проверить `params.damage` (включает ли Meld/крит),
     блок native spill, работу Meld; затем TA magical (BRIEF_HEROES §9: запрет атак, волны Q/W/E, рывок, ловушка
     под целью) — ядро волн уже есть (`core/heroes/ta_magical`). Только после обеих веток TA → herolist.
 0. Владелец использует копию addon `duality` → после изменений напоминать про `tools/sync_addon.ps1`.

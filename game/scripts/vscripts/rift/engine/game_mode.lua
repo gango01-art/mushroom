@@ -254,6 +254,15 @@ end
 
 function GameMode:OnNPCSpawned(keys)
   local unit = EntIndexToHScript(keys.entindex)
+  if unit and not unit:IsNull() and unit.IsIllusion and unit:IsIllusion() then
+    -- Illusions of a magical TA must not bring normal attacks back.
+    local pid = unit:GetPlayerOwnerID()
+    if pid and pid >= 0 and self.upgrades and self.upgrades.offers:player(pid)
+       and self.upgrades.offers:player(pid).direction_id == "ta_waves_magical" then
+      Mods.add(unit, unit, nil, "modifier_rift_ta_no_attack", {})
+    end
+    return
+  end
   if not unit or unit:IsNull() or not unit.IsRealHero or not unit:IsRealHero() then return end
   -- Selected hero entity may not be registered on the very first frame; defer.
   unit:SetContextThink("rift_spawned", function()

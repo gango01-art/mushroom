@@ -102,6 +102,11 @@ B.ta = {
     e_cooldown = { 6, 5, 4, 3 },              -- [e] PD
     e_mana = 45,                              -- PD
   },
+  refraction_magical = {                      -- custom Q (Refraction is not in TA's kit in this Dota version)
+    instances = { 3, 4, 5, 6 },               -- [q] copy of templar_assassin_refraction data (OP-006)
+    shield_per_instance = 30,                 -- copy of native data: damage blocked per instance
+    duration = 17,                            -- copy of native data
+  },
   trap_magical = {
     cast_range = 700,                         -- PD
     delay = 0.5,                              -- PD
@@ -111,7 +116,10 @@ B.ta = {
     damage = { 100, 160, 220 },               -- [ult] PD magic
     slow = { 30, 40, 50 },                    -- [ult] PD percent
     slow_duration = 3,                        -- PD
+    -- trap_debuff_policy: only damage + slow above. Native silence/extra effects (Scepter/talents) excluded.
   },
+  wave_particle = "particles/units/heroes/hero_magnataur/magnataur_shockwave.vpcf",   -- VERIFY (OP-015)
+  trap_telegraph_particle = "particles/ui_mouseactions/ping_world.vpcf",              -- VERIFY (OP-015)
 }
 
 return B

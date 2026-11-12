@@ -51,7 +51,8 @@ function Adapter:_swap(hero, swap, policy)
     return false
   end
   local plan = Transfer.plan(policy or "keep_rank_keep_cooldown",
-    { level = from:GetLevel(), cooldown_remaining = from:GetCooldownTimeRemaining() },
+    swap.fresh and { level = 0, cooldown_remaining = 0 }
+      or { level = from:GetLevel(), cooldown_remaining = from:GetCooldownTimeRemaining() },
     { max_level = to:GetMaxLevel(), full_cooldown_at = function(l) return to:GetCooldown(l - 1) end })
   hero:SwapAbilities(swap.from, swap.to, false, true)
   to:SetLevel(plan.level)
@@ -94,6 +95,16 @@ function Adapter:Apply(pid, def)
   for _, name in ipairs(def.hide or {}) do
     local a = hero:FindAbilityByName(name)
     if a then a:SetHidden(true); swapped[name] = true end
+  end
+  -- Useless natives are removed outright (a hidden ability can still leave an empty slot on the bar).
+  for _, name in ipairs(def.remove or {}) do
+    if hero:FindAbilityByName(name) then hero:RemoveAbility(name) end
+    swapped[name] = true
+  end
+  for _, pair in ipairs(def.reorder or {}) do
+    if hero:FindAbilityByName(pair[1]) and hero:FindAbilityByName(pair[2]) then
+      hero:SwapAbilities(pair[1], pair[2], true, true)
+    end
   end
   -- Self-heal: anything visible before that we did not replace or hide must stay visible.
   for name, level in pairs(was_visible) do
