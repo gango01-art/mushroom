@@ -81,5 +81,13 @@
 		"rift_relic_carrier"	"Carrier: {name} · next point in {seconds} s"
 		"rift_relic_you"	"you"
 		"rift_relic_status"	"{time} left · points remaining: {budget}"
+			"DOTA_Tooltip_ability_ta_psionic_crystal"	"Psionic Crystal · phys."
+		"DOTA_Tooltip_ability_ta_psionic_crystal_Description"	"Places a crystal within attack range. Your attack on the crystal releases Psi Blades at every enemy hero around it (damage = hit × Psi Blades coefficient). The crystal takes 3 attacks (enemies can break it too) and lasts 6 s."
+		"DOTA_Tooltip_ability_ta_meld_physical"	"Meld · phys."
+		"DOTA_Tooltip_ability_ta_meld_physical_Description"	"Invisible while standing still. The next attack deals bonus physical damage. Does not reduce armor."
+		"DOTA_Tooltip_modifier_rift_ta_meld"	"Meld"
+		"DOTA_Tooltip_modifier_rift_ta_meld_Description"	"Invisible; next attack empowered."
+		"rift_dir_ta_crystal_physical"	"Psionic Crystal"
+		"rift_dir_ta_crystal_physical_desc"	"Physical: the trap becomes a Psi Blades transmitter crystal. Meld loses armor reduction but deals more damage."
 	}
 }

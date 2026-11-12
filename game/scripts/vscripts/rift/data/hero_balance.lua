@@ -83,6 +83,8 @@ B.ta = {
   },
   meld_physical = {
     bonus_damage = { 100, 160, 220, 280 },    -- [w] PD, armor reduction removed (DR)
+    cooldown = { 11, 9, 7, 5 },               -- [w] native copy (OP-006 dump)
+    mana = { 35, 40, 45, 50 },                -- [w] native copy (OP-006 dump)
   },
   waves_magical = {
     length = 700,                             -- PD

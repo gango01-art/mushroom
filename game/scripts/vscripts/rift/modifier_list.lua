@@ -8,6 +8,8 @@ local M = {
   "modifier_rift_attack_probe",
   "modifier_rift_relic_carrier",
   "modifier_rift_upgrade_stats",
+  "modifier_rift_ta_crystal",
+  "modifier_rift_ta_meld",
 }
 
 function M.link(verbose)

@@ -27,10 +27,16 @@
 | Invulnerability | ничего | ядро ✔ |
 | Автоматический Requiem при смерти | без колец и без пробивающего fear | unknown |
 
-## TA physical — кристалл
+## TA physical — кристалл (реализация: сессия 10)
+Кристалл — юнит нейтральной команды (чтобы его могли атаковать и TA, и враги), урон по нему заблокирован,
+HP показывает прочность 3/2/1. Импульс: `ApplyDamage` от TA, тип урона = `GetAbilityDamageType()` Psi Blades
+(если NONE — PURE), флаг NO_SPELL_AMPLIFICATION, ability = кристалл; только настоящие вражеские герои,
+дедупликация по `ids:victim_key`. Коэффициент = `attack_spill_pct/100` текущего E.
 | Эффект | Политика | Статус |
 |---|---|---|
-| Native spill от удара по кристаллу | отключить, работает только radial pulse | unknown (нужна semantics Psi Blades) |
+| Native spill от удара по кристаллу | блокируется фильтром урона (inflictor Psi Blades в тот же кадр, что удар по кристаллу) | unknown → OP-013 |
+| Исходный удар | `params.damage` из OnAttackLanded (ожидается: с Meld/Refraction/критом этой атаки) | unknown → OP-013 |
+| Авто-атака кристалла | кристалл нейтральный — TA/враги могут авто-атаковать его, если стоят рядом без цели | известное поведение |
 | Meld / Refraction | бонус только к атаке, на которую потрачены | unknown |
 | Crit | участвует в исходном hit один раз; pulse без своих бросков | unknown |
 | Item on-hit / lifesteal с кристалла | нет | unknown |

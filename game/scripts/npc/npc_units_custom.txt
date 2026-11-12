@@ -1,0 +1,27 @@
+"DOTAUnits"
+{
+	// Psionic Crystal (TA physical). Spawned on the neutral team so both its owner and
+	// enemies can attack it. Damage is blocked by modifier_rift_ta_crystal; health shows
+	// the remaining durability (3/2/1). Model path: VERIFY in Asset Browser (OP-013).
+	"npc_rift_ta_crystal"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/lanaya/lanaya_trap_crystal.vmdl"
+		"ModelScale"				"1.4"
+		"Level"						"1"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"StatusHealth"				"3"
+		"StatusHealthRegen"			"0"
+		"StatusMana"				"0"
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"0"
+		"BountyXP"					"0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"VisionDaytimeRange"		"200"
+		"VisionNighttimeRange"		"200"
+		"HealthBarOffset"			"140"
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
+	}
+}

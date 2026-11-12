@@ -1,0 +1,33 @@
+// Custom abilities. Numbers (cooldown, mana, radius) come from Lua
+// (rift/data/hero_balance.lua) via GetCooldown/GetManaCost/GetAOERadius - not duplicated here.
+"DOTAAbilities"
+{
+	// TA physical direction: replaces templar_assassin_psionic_trap (docs/BRIEF_HEROES_LC_SF_TA.md 8)
+	"ta_psionic_crystal"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_psionic_crystal"
+		"AbilityTextureName"	"templar_assassin_psionic_trap"
+		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"				"3"
+		"RequiredLevel"			"6"
+		"LevelsBetweenUpgrades"	"6"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint"		"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+	}
+
+	// TA physical direction: replaces templar_assassin_meld - same stationary invisibility and
+	// empowered strike, NO armor reduction, bigger bonus damage.
+	"ta_meld_physical"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/ta_meld_physical"
+		"AbilityTextureName"	"templar_assassin_meld"
+		"MaxLevel"				"4"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
+		"AbilityCastPoint"		"0"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+	}
+}

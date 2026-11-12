@@ -72,7 +72,7 @@ function Bridge:ProcessEvents()
     dirty[ev.pid] = true
     if ev.kind == "offer_created" and ev.offer.type == "ultimate_direction" then self.directions:Lock(ev.pid) end
     if ev.kind == "offer_resolved" then self:Apply(ev.pid, ev.applied, ev.offer) end
-    if ev.kind == "dev_granted" then self:Apply(ev.pid, ev.applied, nil) end
+    if ev.kind == "dev_granted" then self:Apply(ev.pid, ev.applied, nil) end -- upgrade or direction
   end
   for pid in pairs(dirty) do self:SendPrivate(pid) end
 end
@@ -97,8 +97,8 @@ function Bridge:Apply(pid, applied, offer)
     Log.info("UPGRADES", string.format("pid=%d offer=%d %s -> %s by=%s", pid, offer.id, offer.type,
       tostring(offer.resolution.option), offer.resolution.by))
   else
-    Log.info("UPGRADES", string.format("pid=%d dev grant %s rank %s", pid, tostring(applied.upgrade_id),
-      tostring(applied.rank)))
+    Log.info("UPGRADES", string.format("pid=%d dev grant %s %s", pid,
+      tostring(applied.upgrade_id or applied.direction_id), tostring(applied.rank or "")))
   end
   self.gm.ui:Publish(true)
 end

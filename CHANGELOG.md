@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0-a — 2026-11-12 (сессия 10)
+- OP-012 verified: модификаторы на клиенте, статы улучшений и щит видны в игре.
+- TA physical «Psionic Crystal» в движке: `ta_psionic_crystal` (кристалл в пределах дальности атаки, 3 прочности,
+  радиальный импульс Psi Blades с коэффициентом `attack_spill_pct`), `ta_meld_physical` (без снижения брони,
+  бонус 100/160/220/280), блок native spill при ударе по кристаллу (damage filter), юнит `npc_rift_ta_crystal`.
+- Первые custom KV: npc_abilities_custom.txt, npc_units_custom.txt. Dev: `rift_force_direction`. Задание OP-013.
+
 ## 0.5.3-a — 2026-11-12 (сессия 9)
 - OP-011: модификаторы работают на сервере; предупреждение «unknown modifier type» — клиент.
 - `addon_init.lua` (клиент+сервер) регистрирует модификаторы; список — модуль `rift/modifier_list.lua`

@@ -11,7 +11,7 @@
 | Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | нет | blocked | OP-006 |
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | нет | blocked | OP-006, проверка attack record API |
 | Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | нет | blocked | OP-006, политика fear через debuff immunity |
-| Templar Assassin | physical Psionic Crystal | ta_physical (5) | нет | blocked | OP-006 (коэффициент Psi Blades, spill semantics) |
+| Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | statically_checked | OP-013 (проверка в Dota) |
 | Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | нет | blocked | OP-006 |
 
 Ни один герой не готов для публичного выбора. В herolist только PA — как тестовый герой цикла матча

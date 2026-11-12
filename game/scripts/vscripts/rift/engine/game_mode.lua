@@ -100,6 +100,7 @@ function GameMode:ConfigureRules()
   Log.try(ent, "GameMode", "SetTopBarTeamValuesVisible", false)
   Log.try(ent, "GameMode", "SetUseDefaultDOTARuneSpawnLogic", false)
   Log.try(ent, "GameMode", "SetModifyGoldFilter", Dynamic_Wrap(GameMode, "FilterGold"), self)
+  Log.try(ent, "GameMode", "SetDamageFilter", Dynamic_Wrap(GameMode, "FilterDamage"), self)
   Log.try(ent, "GameMode", "SetModifyExperienceFilter", Dynamic_Wrap(GameMode, "FilterXP"), self)
 
   -- Disable runes explicitly (design: no runes in alpha).
@@ -122,6 +123,27 @@ function GameMode:ConfigureRules()
                        "DOTA_ModifyXP_Outpost" }) do
     if _G[n] ~= nil then self.blocked_xp[_G[n]] = n end
   end
+end
+
+-- TA physical: an owner attack on a Psionic Crystal emits one custom radial pulse;
+-- the native Psi Blades spill from that same attack is blocked (one propagation path).
+-- VERIFY (OP-013): spill damage arrives in this filter with inflictor = Psi Blades in
+-- the same game frame as the crystal hit.
+function GameMode:MarkCrystalHit(owner)
+  self.crystal_hit = self.crystal_hit or {}
+  self.crystal_hit[owner:entindex()] = GameRules:GetGameTime()
+end
+
+function GameMode:FilterDamage(ev)
+  local t = self.crystal_hit and ev.entindex_attacker_const and self.crystal_hit[ev.entindex_attacker_const]
+  if t and ev.entindex_inflictor_const and GameRules:GetGameTime() - t < 0.05 then
+    local inflictor = EntIndexToHScript(ev.entindex_inflictor_const)
+    if inflictor and inflictor.GetAbilityName and inflictor:GetAbilityName() == "templar_assassin_psi_blades" then
+      Log.debug("TA", "blocked native spill from crystal hit")
+      return false
+    end
+  end
+  return true
 end
 
 function GameMode:FilterGold(ev)

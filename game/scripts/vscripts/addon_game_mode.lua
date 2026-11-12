@@ -8,6 +8,7 @@ ModifierList.link(false)
 
 function Precache(context)
   PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
+  PrecacheUnitByNameSync("npc_rift_ta_crystal", context)
 end
 
 function Activate()

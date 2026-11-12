@@ -254,6 +254,27 @@ function Offers:dev_grant(pid, upgrade_id, now)
   return true, "ok", applied
 end
 
+-- Dev only: force a direction of the player's hero, bypassing the offer and the
+-- implemented-status gate (for testing directions still marked "planned").
+function Offers:dev_set_direction(pid, direction_id)
+  local p = self.players[pid]
+  if not p then return false, "unknown_player" end
+  if p.direction then return false, "already_chosen" end
+  local d = self.reg:direction(direction_id)
+  if not d or d.hero_id ~= p.hero then return false, "wrong_hero" end
+  for _, o in pairs(self.offers) do
+    if o.owner == pid and o.type == "ultimate_direction" and o.status == "pending" then
+      o.status = "resolved"
+      o.resolution = { option = direction_id, by = "dev" }
+    end
+  end
+  p.ultimate_offered = true
+  p.direction, p.direction_id = d.direction, d.id
+  local applied = { kind = "direction", direction = d.direction, direction_id = d.id }
+  push(self, { kind = "dev_granted", pid = pid, applied = applied })
+  return true, "ok", applied
+end
+
 -- Dev only: issue an extra regular offer now (does not consume the schedule).
 function Offers:dev_issue_regular(pid, now, active_elapsed)
   local p = self.players[pid]

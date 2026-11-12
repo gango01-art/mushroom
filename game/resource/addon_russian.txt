@@ -81,5 +81,13 @@
 		"rift_relic_carrier"	"Носитель: {name} · следующее очко через {seconds} с"
 		"rift_relic_you"	"вы"
 		"rift_relic_status"	"Осталось {time} · очков в запасе: {budget}"
+			"DOTA_Tooltip_ability_ta_psionic_crystal"	"Psionic Crystal · физ."
+		"DOTA_Tooltip_ability_ta_psionic_crystal_Description"	"Ставит кристалл в пределах дальности атаки. Ваш удар по кристаллу выпускает Psi Blades по всем вражеским героям вокруг него (урон = удар × коэффициент Psi Blades). Кристалл выдерживает 3 атаки (враги тоже могут его разбить), живёт 6 с."
+		"DOTA_Tooltip_ability_ta_meld_physical"	"Meld · физ."
+		"DOTA_Tooltip_ability_ta_meld_physical_Description"	"Невидимость, пока стоите на месте. Следующая атака наносит дополнительный физический урон. Не снижает броню цели."
+		"DOTA_Tooltip_modifier_rift_ta_meld"	"Meld"
+		"DOTA_Tooltip_modifier_rift_ta_meld_Description"	"Невидимость; следующая атака усилена."
+		"rift_dir_ta_crystal_physical"	"Psionic Crystal"
+		"rift_dir_ta_crystal_physical_desc"	"Физическое: ловушка заменена кристаллом-передатчиком Psi Blades. Meld без снижения брони, но с большим уроном."
 	}
 }

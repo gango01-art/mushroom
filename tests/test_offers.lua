@@ -218,3 +218,13 @@ T.case("dev grant validates and does not touch schedule; dev offer is extra", fu
   s:tick(1, 30, true)
   T.eq(s:player(0).regular_issued, 1, "schedule still issues its own offer")
 end)
+
+T.case("dev_set_direction: own hero only, once, resolves pending offer", function()
+  local ups, dirs = F.data("shipped")
+  local s = setup(1, ups, dirs)
+  T.eq(select(2, s:dev_set_direction(0, "ta_crystal_physical")), "wrong_hero")
+  local ok = s:dev_set_direction(0, "pa_storm_daggers")
+  T.ok(ok); T.eq(s:player(0).direction, "magical")
+  T.eq(select(2, s:dev_set_direction(0, "pa_phantom_execution")), "already_chosen")
+  T.eq(s:on_ability_learned(0, F.ULT, 1, "player", 5), nil, "no offer after forced direction")
+end)
