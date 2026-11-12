@@ -1,0 +1,71 @@
+.RiftHudRoot { width: 100%; height: 100%; }
+
+.TopBar {
+	horizontal-align: center;
+	margin-top: 46px;
+	flow-children: right;
+	padding: 6px 16px;
+	background-color: #0d0a12dd;
+	border: 1px solid #6a3fa055;
+	border-radius: 6px;
+}
+.StateLabel { font-size: 18px; color: #c9b6e8; margin-right: 14px; vertical-align: center; }
+.TimerLabel { font-size: 26px; color: #ffffff; font-weight: bold; margin-right: 18px; vertical-align: center; }
+.TopStats { flow-children: right; vertical-align: center; }
+.StatLabel { font-size: 18px; color: #f0d890; margin-right: 14px; }
+.DevLabel { font-size: 14px; color: #ff7050; vertical-align: center; visibility: collapse; }
+.DevLabel.Visible { visibility: visible; }
+.FallbackLabel { font-size: 14px; color: #ffb040; vertical-align: center; margin-left: 10px; visibility: collapse; }
+.FallbackLabel.Visible { visibility: visible; }
+
+.Board {
+	horizontal-align: right;
+	margin-top: 120px;
+	margin-right: 12px;
+	width: 300px;
+	flow-children: down;
+	padding: 8px;
+	background-color: #0d0a12cc;
+	border-radius: 6px;
+}
+.BoardTitle { font-size: 16px; color: #c9b6e8; margin-bottom: 4px; }
+.BoardRows { flow-children: down; width: 100%; }
+.BoardRow { flow-children: right; width: 100%; padding: 2px 0; }
+.BoardRow.Self { background-color: #6a3fa044; }
+.BoardRow Label { font-size: 15px; color: #e8e0f0; }
+.BoardRow .Name { width: 160px; text-overflow: ellipsis; }
+.BoardRow .Score { width: 40px; color: #f0d890; font-weight: bold; }
+.BoardRow .KDA { width: 80px; color: #b0a8c0; }
+
+.Onboarding {
+	horizontal-align: center;
+	vertical-align: center;
+	width: 520px;
+	flow-children: down;
+	padding: 20px;
+	background-color: #120c1cf0;
+	border: 2px solid #8a5fd0;
+	border-radius: 8px;
+}
+.Onboarding.Hidden { visibility: collapse; }
+.OnboardTitle { font-size: 26px; color: #ffffff; horizontal-align: center; margin-bottom: 10px; }
+.OnboardText { font-size: 18px; color: #e0d8ee; width: 100%; margin-bottom: 14px; }
+.RiftButton { horizontal-align: center; padding: 6px 24px; background-color: #6a3fa0; border-radius: 4px; }
+.RiftButton:hover { background-color: #8a5fd0; }
+.RiftButton Label { font-size: 18px; color: #ffffff; }
+
+.Result {
+	horizontal-align: center;
+	vertical-align: center;
+	width: 560px;
+	flow-children: down;
+	padding: 24px;
+	background-color: #120c1cf5;
+	border: 2px solid #f0d890;
+	border-radius: 8px;
+	visibility: collapse;
+}
+.Result.Visible { visibility: visible; }
+.ResultTitle { font-size: 30px; color: #ffffff; horizontal-align: center; }
+.ResultWinner { font-size: 22px; color: #f0d890; horizontal-align: center; margin-top: 8px; }
+.ResultReason { font-size: 16px; color: #c9b6e8; horizontal-align: center; margin-bottom: 12px; }

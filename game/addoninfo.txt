@@ -1,0 +1,14 @@
+"AddonInfo"
+{
+	"TeamCount"		"8"
+	"maps"			"rift_arena dota"
+	"IsPlayable"	"1"
+	"rift_arena"
+	{
+		"MaxPlayers"	"8"
+	}
+	"dota"
+	{
+		"MaxPlayers"	"8"
+	}
+}

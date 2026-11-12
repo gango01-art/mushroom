@@ -1,0 +1,40 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/rift_hud.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/rift_hud.js" />
+	</scripts>
+	<Panel class="RiftHudRoot" hittest="false">
+		<Panel id="TopBar" class="TopBar" hittest="false">
+			<Label id="StateLabel" class="StateLabel" text="" />
+			<Label id="TimerLabel" class="TimerLabel" text="--:--" />
+			<Panel class="TopStats" hittest="false">
+				<Label id="ScoreLabel" class="StatLabel" text="" />
+				<Label id="PlaceLabel" class="StatLabel" text="" />
+			</Panel>
+			<Label id="DevLabel" class="DevLabel" text="#rift_hud_dev" />
+			<Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
+		</Panel>
+
+		<Panel id="Board" class="Board" hittest="false">
+			<Label class="BoardTitle" text="#rift_board_title" />
+			<Panel id="BoardRows" class="BoardRows" hittest="false" />
+		</Panel>
+
+		<Panel id="Onboarding" class="Onboarding">
+			<Label class="OnboardTitle" text="#rift_onboard_title" />
+			<Label class="OnboardText" text="#rift_onboard_text" />
+			<Button class="RiftButton" onactivate="RiftHideOnboarding()">
+				<Label text="#rift_onboard_close" />
+			</Button>
+		</Panel>
+
+		<Panel id="Result" class="Result">
+			<Label class="ResultTitle" text="#rift_result_title" />
+			<Label id="ResultWinner" class="ResultWinner" text="" />
+			<Label id="ResultReason" class="ResultReason" text="" />
+			<Panel id="ResultRows" class="BoardRows" />
+		</Panel>
+	</Panel>
+</root>

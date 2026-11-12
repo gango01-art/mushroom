@@ -1,0 +1,7 @@
+// Heroes available in hero selection. Only heroes with BOTH ultimate directions
+// implemented and verified may be enabled (docs/BRIEF.md section 11-12).
+// Stage A/B: Phantom Assassin only (directions arrive in stage C).
+"CustomHeroList"
+{
+	"npc_dota_hero_phantom_assassin"	"1"
+}
