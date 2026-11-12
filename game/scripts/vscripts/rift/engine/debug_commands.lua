@@ -192,8 +192,16 @@ function Debug.register(gm)
     local h = PlayerResource:GetSelectedHeroEntity(pid)
     if not h then return end
     local pos = h:GetAbsOrigin() + h:GetForwardVector() * (tonumber(dist or "300") or 300)
-    -- Neutral team: enemy to every player team. Disarmed/rooted/silenced by modifier_rift_dummy.
-    local u = CreateUnitByName("npc_dota_hero_axe", pos, true, nil, nil, DOTA_TEAM_NEUTRALS)
+    -- A hero on the NEUTRAL team was treated as an ally by some targeting (OP-015: "cannot cast on
+    -- allies", waves passed through). Use a free player team that no participant uses: a plain enemy.
+    local used = {}
+    for opid in pairs(gm.players) do used[PlayerResource:GetTeam(opid)] = true end
+    local team
+    for i = #gm.teams, 1, -1 do
+      if not used[gm.teams[i]] and gm.teams[i] ~= h:GetTeamNumber() then team = gm.teams[i]; break end
+    end
+    team = team or DOTA_TEAM_NEUTRALS
+    local u = CreateUnitByName("npc_dota_hero_axe", pos, true, nil, nil, team)
     if not u then Log.warn("DEV", "dummy spawn failed (is npc_dota_hero_axe precached? tools mode only)"); return end
     require("rift.engine.mods").add(u, u, nil, "modifier_rift_dummy", {})
     u:SetIdleAcquire(false)
@@ -204,7 +212,7 @@ function Debug.register(gm)
     end
     gm.dummies = gm.dummies or {}
     table.insert(gm.dummies, u)
-    Log.info("DEV", "spawned passive dummy Axe #" .. u:entindex() .. " (not a match participant)")
+    Log.info("DEV", "spawned passive dummy Axe #" .. u:entindex() .. " team=" .. tostring(team) .. " (not a match participant)")
   end)
 
   cmd("rift_clear_dummies", "Remove all test dummies (dev)", function()
