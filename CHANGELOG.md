@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0-a — 2026-11-12 (сессия 4)
+- Новое ТЗ: Legion Commander, Shadow Fiend, Templar Assassin (docs/BRIEF_HEROES_LC_SF_TA.md). Отображаемое название — DUALITY
+  (addon ID и папки `rift_arena` не менялись).
+- Единый баланс `rift/data/hero_balance.lua` с пометками DR/PD и индексами массивов.
+- 6 направлений в реестре (status planned, balance_ref без дублирования чисел).
+- Чистая логика: lc_duel, lc_magic (spell amp + статуя), sf_physical (сферы), sf_magical (кольца), ta_physical
+  (кристалл), ta_magical (волны). 32 новых теста (всего 95).
+- Dev-команда `rift_dump_ability`. Документы HERO_IMPLEMENTATION_STATUS, HERO_BALANCE, HERO_INTERACTIONS; задание OP-006.
+
 ## 0.3.0-a — 2026-11-12 (сессия 3)
 - Улучшения подключены к движку: `upgrade_bridge` (seed, тик предложений, событие изучения способности,
   `rift_offer_choose` с PlayerID из движка, адресная приватная рассылка, reason codes, rate limit).

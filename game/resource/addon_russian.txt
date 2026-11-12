@@ -3,7 +3,7 @@
 	"Language"	"Russian"
 	"Tokens"
 	{
-		"addon_game_name"			"RIFT ARENA"
+		"addon_game_name"			"DUALITY"
 		"rift_state_BOOT"			"Загрузка"
 		"rift_state_SETUP"			"Подготовка лобби"
 		"rift_state_HERO_SELECTION"	"Выбор героя"
@@ -18,7 +18,7 @@
 		"rift_board_title"			"Таблица"
 		"rift_board_player"			"Игрок"
 		"rift_board_kda"			"У/С/П"
-		"rift_onboard_title"		"RIFT ARENA"
+		"rift_onboard_title"		"DUALITY"
 		"rift_onboard_text"			"Каждый сам за себя. Убийство +3, помощь +1. Через 18 минут побеждает лидер по очкам. Ничья — овертайм до первого очка."
 		"rift_onboard_close"		"Понятно"
 		"rift_result_title"			"Итоги матча"

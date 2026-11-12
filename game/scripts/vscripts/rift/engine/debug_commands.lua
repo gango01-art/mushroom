@@ -130,6 +130,27 @@ function Debug.register(gm)
     end
   end)
 
+  cmd("rift_dump_ability", "rift_dump_ability <ability_name> [pid]: temporarily add an ability to the hero, print its KV, remove it", function(name, pid)
+    pid = tonumber(pid or "0")
+    local h = PlayerResource:GetSelectedHeroEntity(pid)
+    if not h or not name then Log.warn("DEV", "usage: rift_dump_ability <ability_name> [pid]"); return end
+    local existed = h:FindAbilityByName(name) ~= nil
+    local a = h:FindAbilityByName(name) or h:AddAbility(name)
+    if not a then Log.warn("DEV", "ability not found in this client: " .. tostring(name)); return end
+    print(string.format("[RIFT][DUMP] ability=%s max_level=%d type=%s behavior=%s", name, a:GetMaxLevel(),
+      tostring(a:GetAbilityType()), tostring(a:GetBehavior())))
+    local kv = a.GetAbilityKeyValues and a:GetAbilityKeyValues()
+    local function dump(t, indent, depth)
+      if depth > 6 then return end
+      for k, v in pairs(t) do
+        if type(v) == "table" then print(indent .. tostring(k) .. " {"); dump(v, indent .. "  ", depth + 1); print(indent .. "}")
+        else print(indent .. tostring(k) .. " = " .. tostring(v)) end
+      end
+    end
+    if type(kv) == "table" then dump(kv, "    ", 0) else Log.warn("DEV", "GetAbilityKeyValues unavailable") end
+    if not existed then h:RemoveAbility(name) end
+  end)
+
   cmd("rift_verbose", "Toggle verbose debug logging", function()
     Log.verbose = not Log.verbose
     Log.info("DEV", "verbose=" .. tostring(Log.verbose))

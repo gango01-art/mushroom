@@ -69,3 +69,27 @@
 - Успех: все ожидания шагов 1–7 наблюдаются; нет ошибок Panorama/Lua.
 - Записать: строки `[RIFT]` консоли, скриншоты панели выбора (1920×1080 и, если возможно, 2560×1440), какие характеристики изменились и на сколько, любые ошибки дословно.
 - Зависимость: этап C ч. 2b (направления PA) можно писать параллельно; результаты нужны до перевода в «проверено».
+
+## OP-006 — Выгрузить реальные способности Legion Commander, Shadow Fiend, Templar Assassin
+- Статус: pending (после OP-002; можно в том же запуске, герой — PA)
+- Инструмент: консоль Dota Workshop Tools.
+- Шаги: в бою по очереди выполнить (команда временно добавляет способность своему герою, печатает данные и убирает её):
+  ```
+  rift_dump_ability legion_commander_overwhelming_odds
+  rift_dump_ability legion_commander_press_the_attack
+  rift_dump_ability legion_commander_moment_of_courage
+  rift_dump_ability legion_commander_duel
+  rift_dump_ability nevermore_shadowraze1
+  rift_dump_ability nevermore_necromastery
+  rift_dump_ability nevermore_dark_lord
+  rift_dump_ability nevermore_requiem
+  rift_dump_ability templar_assassin_refraction
+  rift_dump_ability templar_assassin_meld
+  rift_dump_ability templar_assassin_psi_blades
+  rift_dump_ability templar_assassin_psionic_trap
+  rift_dump_ability templar_assassin_trap
+  ```
+  Если какое-то имя выводит «ability not found in this client» — записать это (значит, в текущей версии иное имя).
+- Успех: для каждой способности есть строка `[RIFT][DUMP] ability=...` и её значения.
+- Записать: весь вывод дословно (или файл console.log).
+- Зависимость: блокирует движковую реализацию LC/SF/TA. Чистая логика уже готова и не ждёт.

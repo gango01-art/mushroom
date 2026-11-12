@@ -8,7 +8,7 @@ while IFS= read -r f; do
   luac5.1 -p "$f" || { echo "  syntax error: $f"; fail=1; }
 done < <(find game/scripts/vscripts tests -name '*.lua')
 echo "== Pure core must not touch engine globals"
-if grep -nE '\b(GameRules|PlayerResource|Entities|CustomNetTables|ListenToGameEvent|EntIndexToHScript|Convars|Vector)\b' game/scripts/vscripts/rift/core/*.lua game/scripts/vscripts/rift/data/*.lua; then
+if grep -nE '\b(GameRules|PlayerResource|Entities|CustomNetTables|ListenToGameEvent|EntIndexToHScript|Convars|Vector)\b' game/scripts/vscripts/rift/core/*.lua game/scripts/vscripts/rift/core/heroes/*.lua game/scripts/vscripts/rift/data/*.lua; then
   echo "  engine global used in rift/core"; fail=1
 fi
 echo "== JS syntax (node --check)"
