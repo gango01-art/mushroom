@@ -82,6 +82,36 @@ local function layout(hero)
   return table.concat(out, " "), visible
 end
 
+-- Put the named abilities into slots 0..n-1 in this order (hotkeys follow slots).
+local function apply_order(hero, order)
+  for i, name in ipairs(order or {}) do
+    local a = hero:FindAbilityByName(name)
+    if a then
+      local target = i - 1
+      if a:GetAbilityIndex() ~= target then
+        local other = hero:GetAbilityByIndex(target)
+        if other and not other:IsNull() then
+          hero:SwapAbilities(name, other:GetAbilityName(), not a:IsHidden(), not other:IsHidden())
+        end
+      end
+    end
+  end
+end
+
+-- Base kit on first spawn (data/hero_kits.lua).
+function Adapter:ApplyKit(hero)
+  local kit = require("rift.data.hero_kits")[hero:GetUnitName()]
+  if not kit then return end
+  for _, name in ipairs(kit.add or {}) do
+    if not hero:FindAbilityByName(name) then
+      local a = hero:AddAbility(name)
+      if not a then Log.error("DIRECTION", "kit ability missing in this client: " .. name) end
+    end
+  end
+  apply_order(hero, kit.order)
+  Log.info("DIRECTION", "kit applied for " .. hero:GetUnitName() .. ": " .. (layout(hero)))
+end
+
 function Adapter:Apply(pid, def)
   self.locked[pid] = nil
   self.applied[pid] = def.id
@@ -103,11 +133,7 @@ function Adapter:Apply(pid, def)
     if hero:FindAbilityByName(name) then hero:RemoveAbility(name) end
     swapped[name] = true
   end
-  for _, pair in ipairs(def.reorder or {}) do
-    if hero:FindAbilityByName(pair[1]) and hero:FindAbilityByName(pair[2]) then
-      hero:SwapAbilities(pair[1], pair[2], true, true)
-    end
-  end
+  apply_order(hero, def.order)
   -- Self-heal: anything visible before that we did not replace or hide must stay visible.
   for name, level in pairs(was_visible) do
     local a = hero:FindAbilityByName(name)

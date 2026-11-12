@@ -117,12 +117,13 @@ return {
     ultimate_ability_id = "templar_assassin_psionic_trap", learn_trigger_adapter = "first_point_in_ultimate",
     direction = "physical", display_base = "Psionic Crystal",
     affected_abilities = { "templar_assassin_psionic_trap", "templar_assassin_meld" },
-    preserved_effects = { "psi_blades_native" }, replaced_effects = { "psionic_trap", "meld_armor_reduction" },
+    preserved_effects = { "refraction_native", "psi_blades_native" }, replaced_effects = { "psionic_trap", "meld_armor_reduction" },
     balance_ref = "ta.crystal_physical", active_handler = "ta_psionic_crystal",
     swaps = { { from = "templar_assassin_psionic_trap", to = "ta_psionic_crystal" },
               { from = "templar_assassin_meld", to = "ta_meld_physical" } },
     -- native trap sub-abilities have no use without Psionic Trap: removed from the bar (owner request)
     remove = { "templar_assassin_trap", "templar_assassin_trap_teleport" },
+    order = { "templar_assassin_refraction", "ta_meld_physical", "templar_assassin_psi_blades" },  -- Refraction untouched
     -- Meld replacement (no armor reduction, bigger bonus) is listed below once implemented;
     -- the direction stays "planned" until every part is verified in Dota.
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
@@ -138,14 +139,14 @@ return {
     preserved_effects = { "refraction_defense" },
     replaced_effects = { "auto_attacks", "refraction_offense", "meld", "psi_blades_passive", "psionic_trap" },
     balance_ref = "ta.waves_magical", active_handler = "ta_psi_waves",
-    -- Level/cooldown come from the native each one replaces; the Q-Refraction is new (TA has no
-    -- Refraction in this Dota version) and takes the Trap sub-ability's slot at level 0.
-    swaps = { { from = "templar_assassin_meld", to = "ta_meld_dash" },
+    -- Level/cooldown come from the native each one replaces (native Refraction is added to TA's
+    -- base kit, data/hero_kits.lua).
+    swaps = { { from = "templar_assassin_refraction", to = "ta_refraction_magical" },
+              { from = "templar_assassin_meld", to = "ta_meld_dash" },
               { from = "templar_assassin_psi_blades", to = "ta_psi_wave" },
-              { from = "templar_assassin_trap", to = "ta_refraction_magical", fresh = true },
               { from = "templar_assassin_psionic_trap", to = "ta_psionic_blast" } },
-    reorder = { { "ta_refraction_magical", "ta_psi_wave" }, { "ta_refraction_magical", "ta_meld_dash" } }, -- Q/W/E order
-    remove = { "templar_assassin_trap_teleport" },
+    remove = { "templar_assassin_trap", "templar_assassin_trap_teleport" },
+    order = { "ta_refraction_magical", "ta_meld_dash", "ta_psi_wave" },
     modifiers = { "modifier_rift_ta_no_attack" },
     excluded_upgrade_tags = { "attack", "crit", "lifesteal_attack" },  -- no normal attacks in this direction
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",

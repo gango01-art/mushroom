@@ -37,6 +37,7 @@ end
 
 function Bridge:AddPlayer(pid, hero)
   self.offers:add_player(pid, hero:GetUnitName())
+  self.directions:ApplyKit(hero)
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
     Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end
