@@ -61,6 +61,38 @@ function Debug.register(gm)
     if h and h:IsAlive() then h:Kill(nil, nil) end
   end)
 
+  cmd("rift_dump_hero", "rift_dump_hero [pid]: print abilities and their KV (for verifying native values)", function(pid)
+    pid = tonumber(pid or "0")
+    local h = PlayerResource:GetSelectedHeroEntity(pid)
+    if not h then Log.warn("DEV", "no hero for pid " .. tostring(pid)); return end
+    Log.info("DEV", "hero=" .. h:GetUnitName() .. " abilities=" .. h:GetAbilityCount())
+    local function dump(t, indent, depth)
+      if depth > 6 then return end
+      local keys = {}
+      for k in pairs(t) do table.insert(keys, tostring(k)) end
+      table.sort(keys)
+      for _, k in ipairs(keys) do
+        local v = t[k] ~= nil and t[k] or t[tonumber(k)]
+        if type(v) == "table" then
+          print(indent .. k .. " {")
+          dump(v, indent .. "  ", depth + 1)
+          print(indent .. "}")
+        else
+          print(indent .. k .. " = " .. tostring(v))
+        end
+      end
+    end
+    for i = 0, h:GetAbilityCount() - 1 do
+      local a = h:GetAbilityByIndex(i)
+      if a and not a:IsNull() then
+        print(string.format("[RIFT][DUMP] slot=%d name=%s level=%d/%d type=%s", i, a:GetAbilityName(),
+          a:GetLevel(), a:GetMaxLevel(), tostring(a:GetAbilityType())))
+        local kv = a.GetAbilityKeyValues and a:GetAbilityKeyValues()
+        if type(kv) == "table" then dump(kv, "    ", 0) end
+      end
+    end
+  end)
+
   cmd("rift_verbose", "Toggle verbose debug logging", function()
     Log.verbose = not Log.verbose
     Log.info("DEV", "verbose=" .. tostring(Log.verbose))

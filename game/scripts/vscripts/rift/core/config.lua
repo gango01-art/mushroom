@@ -68,8 +68,9 @@ Config.respawn = {
 -- 12 regular upgrade offers, seconds of ACTIVE.
 Config.upgrades = {
   schedule = { 30, 120, 210, 300, 390, 480, 570, 660, 750, 840, 930, 1020 },
-  offer_seconds = 45,
+  offer_seconds = 45,             -- applies to regular and ultimate direction offers
   options_per_offer = 3,
+  exhaust_compensation_gold = 300, -- HYPOTHESIS: when no valid option exists (bounded by schedule)
   rarity_phases = {              -- upper bound of phase in ACTIVE seconds
     { until_seconds = 360,  weights = { common = 70, rare = 25, epic = 5 } },
     { until_seconds = 720,  weights = { common = 50, rare = 35, epic = 15 } },
