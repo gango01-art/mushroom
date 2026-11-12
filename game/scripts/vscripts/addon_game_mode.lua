@@ -10,6 +10,11 @@ function Precache(context)
   PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
   PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
   PrecacheUnitByNameSync("npc_rift_ta_crystal", context)
+  local pa = require("rift.data.hero_balance").pa
+  for _, path in ipairs({ pa.execution_physical.spirit_particle, pa.storm_magical.dagger_particle,
+                          pa.storm_magical.chain_particle }) do
+    PrecacheResource("particle", path, context)
+  end
   -- Dev-only test dummies (rift_spawn_dummy) are heroes so hero-only effects can hit them.
   if IsInToolsMode and IsInToolsMode() then
     PrecacheUnitByNameSync("npc_dota_hero_axe", context)

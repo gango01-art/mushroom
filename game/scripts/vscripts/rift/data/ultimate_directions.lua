@@ -16,19 +16,15 @@ return {
     affected_abilities = { "phantom_assassin_coup_de_grace" },
     preserved_effects = { "coup_de_grace_native_crit" },
     replaced_effects = {},
-    values_by_ultimate_rank = {
-      spirit_range = { 800, 800, 800 },            -- HYPOTHESIS
-      spirit_speed = { 900, 900, 900 },            -- HYPOTHESIS
-      cooldown = { 24, 20, 16 },                   -- HYPOTHESIS
-      mana_cost = { 80, 100, 120 },                -- HYPOTHESIS
-      crit_multiplier = "native:crit_bonus",       -- verified key: 200/325/450 % (OP-004)
-    },
+    balance_ref = "pa.execution_physical",
+    -- Native Coup de Grace stays leveled and hidden (native crits preserved); the R button becomes
+    -- the active spirit. Its level follows the custom ability (abilities/pa_phantom_execution).
+    swaps = { { from = "phantom_assassin_coup_de_grace", to = "pa_phantom_execution" } },
     active_handler = "pa_phantom_spirit",
     passive_handler = nil,
     default_on_timeout = true,
     transfer_policy = "keep_rank_keep_cooldown",
     item_proc_policy = "no_item_procs",
-    resources = { projectile_particle = "VERIFY: grimstroke-like spirit particle" },
     loc_name = "rift_dir_pa_phantom_execution",
     loc_desc = "rift_dir_pa_phantom_execution_desc",
     icon = "phantom_assassin_coup_de_grace",
@@ -43,19 +39,17 @@ return {
     affected_abilities = { "phantom_assassin_coup_de_grace", "phantom_assassin_stifling_dagger" },
     preserved_effects = { "stifling_dagger_base_effects" },
     replaced_effects = { "coup_de_grace_native_crit" },
-    values_by_ultimate_rank = {
-      extra_targets = { 1, 1, 1 },                 -- OWNER: max 2 different targets per cast
-      chain_chance = { 0.20, 0.20, 0.20 },         -- OWNER: 20% at rank 1; ranks 2-3 HYPOTHESIS keep 20%
-      chain_damage = { 300, 380, 460 },            -- OWNER: 300 at rank 1; 380/460 HYPOTHESIS
-      second_target_radius = { 600, 600, 600 },    -- HYPOTHESIS
-      cast_context_seconds = { 3, 3, 3 },          -- HYPOTHESIS: max wait for both daggers
-    },
+    balance_ref = "pa.storm_magical",
+    -- Native crit off (incl. dagger crit): Coup de Grace goes to level 0. The dagger is replaced by
+    -- a custom one that owns its projectiles (cast ids, 2 targets); the hidden native dagger stays
+    -- leveled as the value source (talents included).
+    swaps = { { from = "phantom_assassin_coup_de_grace", to = "pa_storm_charge", disable_from = true },
+              { from = "phantom_assassin_stifling_dagger", to = "pa_storm_dagger" } },
     active_handler = nil,
     passive_handler = "pa_storm_daggers",
     default_on_timeout = false,
     transfer_policy = "keep_rank_keep_cooldown",
     item_proc_policy = "item_effects_unchanged",
-    resources = { chain_particle = "VERIFY: lightning chain particle" },
     loc_name = "rift_dir_pa_storm_daggers",
     loc_desc = "rift_dir_pa_storm_daggers_desc",
     icon = "phantom_assassin_stifling_dagger",

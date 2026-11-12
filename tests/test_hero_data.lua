@@ -7,13 +7,13 @@ local function resolve(ref)
   return t
 end
 
-T.case("every LC/SF/TA direction has a resolvable balance_ref", function()
+T.case("every direction has a resolvable balance_ref", function()
   local _, dirs = F.data("shipped")
   local n = 0
   for _, d in ipairs(dirs) do
     if d.balance_ref then n = n + 1; T.ok(resolve(d.balance_ref), d.id .. " -> " .. d.balance_ref) end
   end
-  T.eq(n, 6)
+  T.eq(n, 8)
 end)
 
 T.case("rank-indexed arrays have the right length", function()

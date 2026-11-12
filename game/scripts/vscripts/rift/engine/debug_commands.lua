@@ -143,6 +143,12 @@ function Debug.register(gm)
     gm.ui:Publish(true)
   end)
 
+  cmd("rift_pa_storm_always", "rift_pa_storm_always <0|1>: PA magical chain lightning on every paired cast (dev)", function(on)
+    local store = require("rift.engine.pa_storm").store()
+    store.force_proc = (tostring(on or "1") ~= "0") or nil
+    Log.info("DEV", "pa_storm_always=" .. tostring(store.force_proc and 1 or 0))
+  end)
+
   cmd("rift_upgrades", "rift_upgrades [pid]: print build, direction and pending offers", function(pid)
     pid = tonumber(pid or "0")
     local snap = gm.upgrades.offers:snapshot(pid)

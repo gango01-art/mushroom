@@ -21,13 +21,21 @@ function Storm.new(seed)
   return self
 end
 
+-- Values for the current ultimate rank from the balance table (hero_balance.pa.storm_magical).
+function Storm.values_at(balance, rank)
+  rank = math.max(1, math.min(3, rank or 1))
+  return { chain_chance = balance.chain_chance[rank], chain_damage = balance.chain_damage[rank],
+           cast_context_seconds = balance.cast_context_seconds }
+end
+
 -- Returns cast_id. secondary may be nil (no valid extra target found).
 function Storm:begin_cast(caster, primary, secondary, values, now)
   assert(primary ~= nil, "primary target required")
   if secondary == primary then secondary = nil end
   self.seq = self.seq + 1
   local proc = false
-  if secondary ~= nil then proc = self.rng:chance(values.chain_chance) end
+  -- force_proc: dev/testing switch only (rift_pa_storm_always); never set in a normal match.
+  if secondary ~= nil then proc = self.force_proc or self.rng:chance(values.chain_chance) end
   local ctx = {
     id = self.seq, caster = caster, primary = primary, secondary = secondary,
     proc = proc, damage = values.chain_damage, hits = {}, hit_count = 0,

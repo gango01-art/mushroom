@@ -128,4 +128,36 @@ B.ta = {
   trap_telegraph_particle = "particles/ui_mouseactions/ping_world.vpcf",              -- VERIFY (OP-015)
 }
 
+-- Phantom Assassin (docs/BRIEF.md 13). Native values are read from the installed abilities at
+-- runtime; "native copy" numbers below are only fallbacks (OP-004 dump).
+B.pa = {
+  execution_physical = {
+    range = 800,                              -- PD (BRIEF start value)
+    speed = 900,                              -- PD (BRIEF start value)
+    cooldown = { 24, 20, 16 },                -- [ult] PD
+    mana = { 80, 100, 120 },                  -- [ult] PD
+    crit_fallback = { 200, 325, 450 },        -- [ult] native copy of Coup de Grace crit_bonus (OP-004)
+    -- VERIFY (OP-020): spirit-like tracking projectile; Grimstroke look is the visual target
+    spirit_particle = "particles/units/heroes/hero_necrolyte/necrolyte_pulse_enemy.vpcf",
+  },
+  storm_magical = {
+    extra_targets = 1,                        -- DR owner: max 2 different targets per cast
+    chain_chance = { 0.20, 0.20, 0.20 },      -- [ult] DR owner 20% at rank 1; ranks 2-3 PD keep 20%
+    chain_damage = { 300, 380, 460 },         -- [ult] DR owner 300 at rank 1; 380/460 PD
+    second_target_radius = 600,               -- PD
+    cast_context_seconds = 3,                 -- PD: max wait for both daggers
+    -- fallbacks when the hidden native Stifling Dagger cannot be read (native copy, OP-004)
+    dagger_cooldown = 6,
+    dagger_mana = 30,
+    dagger_range = { 700, 850, 1000, 1150 },  -- [q]
+    dagger_speed = 1200,
+    dagger_base_damage = { 65, 70, 75, 80 },  -- [q]
+    dagger_attack_factor = { -70, -55, -40, -25 }, -- [q] percent of attack damage
+    dagger_slow = -50,
+    dagger_slow_duration = { 2.1, 2.4, 2.7, 3.0 }, -- [q]
+    dagger_particle = "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger.vpcf",
+    chain_particle = "particles/items_fx/chain_lightning.vpcf",  -- VERIFY (OP-021)
+  },
+}
+
 return B
