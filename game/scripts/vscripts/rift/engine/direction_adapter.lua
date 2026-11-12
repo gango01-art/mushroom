@@ -112,6 +112,23 @@ local function apply_order(hero, order)
   end
 end
 
+-- Familiar layout guard (owner request): the visible ultimate always sits in slot 5,
+-- which is the R hotkey. Applies to every hero/direction, even without an order list.
+local ULT_SLOT = 5
+local function keep_ultimate_on_r(hero)
+  for i = 0, math.min(hero:GetAbilityCount() - 1, 9) do
+    local a = hero:GetAbilityByIndex(i)
+    if a and not a:IsNull() and not a:IsHidden() and a:GetAbilityType() == ABILITY_TYPE_ULTIMATE
+       and a:GetAbilityName():find("special_bonus_", 1, true) ~= 1 then
+      if i ~= ULT_SLOT then
+        apply_order(hero, { { name = a:GetAbilityName(), slot = ULT_SLOT } })
+        Log.info("DIRECTION", "ultimate moved to R slot: " .. a:GetAbilityName())
+      end
+      return
+    end
+  end
+end
+
 -- Base kit on first spawn (data/hero_kits.lua).
 function Adapter:ApplyKit(hero)
   local kit = require("rift.data.hero_kits")[hero:GetUnitName()]
@@ -123,6 +140,7 @@ function Adapter:ApplyKit(hero)
     end
   end
   apply_order(hero, kit.order)
+  keep_ultimate_on_r(hero)
   Log.info("DIRECTION", "kit applied for " .. hero:GetUnitName() .. ": " .. (layout(hero)))
 end
 
@@ -148,6 +166,7 @@ function Adapter:Apply(pid, def)
     swapped[name] = true
   end
   apply_order(hero, def.order)
+  keep_ultimate_on_r(hero)
   -- Self-heal: anything visible before that we did not replace or hide must stay visible.
   for name, level in pairs(was_visible) do
     local a = hero:FindAbilityByName(name)
