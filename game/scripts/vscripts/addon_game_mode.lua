@@ -8,6 +8,7 @@ ModifierList.link(false)
 
 function Precache(context)
   PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
+  PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
   PrecacheUnitByNameSync("npc_rift_ta_crystal", context)
   -- Dev-only test dummies (rift_spawn_dummy) are heroes so hero-only effects can hit them.
   if IsInToolsMode and IsInToolsMode() then

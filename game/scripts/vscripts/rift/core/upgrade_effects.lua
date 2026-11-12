@@ -6,6 +6,9 @@ local Effects = {}
 -- Handlers implemented in the engine. Registry validation uses this set.
 Effects.HANDLERS = {
   stat_bonus = true,
+  -- ultimate direction handlers implemented in the engine (abilities/modifiers)
+  ta_psionic_crystal = true,   -- TA physical (verified OP-013/015)
+  ta_psi_waves = true,         -- TA magical (verified OP-015)
 }
 
 Effects.STAT_KEYS = { "attack_damage", "move_speed", "armor", "health", "mana", "attack_speed",

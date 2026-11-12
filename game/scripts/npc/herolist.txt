@@ -1,7 +1,10 @@
 // Heroes available in hero selection. Only heroes with BOTH ultimate directions
 // implemented and verified may be enabled (docs/BRIEF.md section 11-12).
-// Stage A/B: Phantom Assassin only (directions arrive in stage C).
+// Templar Assassin: both directions implemented and verified in Dota (OP-013/015).
+// Phantom Assassin: TEMPORARY test hero for the match loop - its directions are not
+// implemented yet, so no direction offer appears for it (core refuses until both exist).
 "CustomHeroList"
 {
 	"npc_dota_hero_phantom_assassin"	"1"
+	"npc_dota_hero_templar_assassin"	"1"
 }

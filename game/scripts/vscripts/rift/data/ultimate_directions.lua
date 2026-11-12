@@ -127,7 +127,7 @@ return {
     -- the direction stays "planned" until every part is verified in Dota.
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_ta_crystal_physical", loc_desc = "rift_dir_ta_crystal_physical_desc",
-    icon = "templar_assassin_psionic_trap", status = "planned",
+    icon = "templar_assassin_psionic_trap", status = "implemented",
   },
   {
     id = "ta_waves_magical", hero_id = "npc_dota_hero_templar_assassin",
@@ -150,6 +150,6 @@ return {
     excluded_upgrade_tags = { "attack", "crit", "lifesteal_attack" },  -- no normal attacks in this direction
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_ta_waves_magical", loc_desc = "rift_dir_ta_waves_magical_desc",
-    icon = "templar_assassin_psi_blades", status = "planned",
+    icon = "templar_assassin_psi_blades", status = "implemented",
   },
 }

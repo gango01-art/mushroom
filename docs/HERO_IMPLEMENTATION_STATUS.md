@@ -11,11 +11,11 @@
 | Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | нет | blocked | OP-006 |
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | **да**: sf_requiem_physical, modifier_rift_sf_spheres, native Requiem отключён | statically_checked | OP-016; частицы крыльев/сфер не выбраны |
 | Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | **да**: modifier_rift_sf_rings (слушатель Requiem), modifier_rift_sf_fear | statically_checked | OP-017 |
-| Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | runtime_checked (основное, OP-013) | мелочи OP-014; в выбор — только вместе с магической веткой |
-| Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | **да**: ta_refraction_magical, ta_meld_dash, ta_psi_wave, ta_psionic_blast, запрет атак | statically_checked | OP-015 |
+| Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | **implemented** + runtime_checked (OP-013/015) | мелочи OP-014; путь через меню — OP-018 |
+| Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | **да**: ta_refraction_magical, ta_meld_dash, ta_psi_wave, ta_psionic_blast, запрет атак | **implemented** + runtime_checked (OP-015) | обрыв рывка, бафф Q, замедление R, иллюзии — не проверены |
 
-Ни один герой не готов для публичного выбора. В herolist только PA — как тестовый герой цикла матча
-(без направлений: меню направления не открывается, ядро отклоняет его, пока обе версии не implemented).
+**Templar Assassin — первый герой в выборе с обоими направлениями** (2026-11-12). PA остаётся в herolist как временный
+тестовый герой цикла матча без направлений (меню для PA не открывается).
 
 ## Порядок реализации в движке (BRIEF_HEROES §13)
 TA physical → TA magical → SF physical → SF magical → LC physical → LC magical → UI/локализация.
