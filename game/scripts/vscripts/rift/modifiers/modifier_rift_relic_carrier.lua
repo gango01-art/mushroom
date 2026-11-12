@@ -1,6 +1,8 @@
 -- Visible status of the Heart of the Rift carrier. Holds no state: the relic is
 -- server event state (rift/core/relic_event), never an item. Removed on drop.
-modifier_rift_relic_carrier = class({})
+-- Use the engine `class` helper when present, a plain table otherwise (a load-time
+-- error here makes the engine report "unknown modifier type").
+modifier_rift_relic_carrier = modifier_rift_relic_carrier or ((type(class) == "function") and class({}) or {})
 
 function modifier_rift_relic_carrier:IsHidden() return false end
 function modifier_rift_relic_carrier:IsPurgable() return false end

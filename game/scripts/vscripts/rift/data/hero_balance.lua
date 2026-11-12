@@ -78,7 +78,8 @@ B.ta = {
     durability = 3,                           -- DR
     lifetime = 6,                             -- PD
     mana = 60,                                -- PD
-    -- damage coefficient: from Psi Blades (E) real data at runtime - DR. No own coefficient.
+    -- damage coefficient: Psi Blades special "attack_spill_pct" / 100 at runtime (70/80/90/100 by E rank,
+    -- verified OP-006) - DR. No own coefficient.
   },
   meld_physical = {
     bonus_damage = { 100, 160, 220, 280 },    -- [w] PD, armor reduction removed (DR)

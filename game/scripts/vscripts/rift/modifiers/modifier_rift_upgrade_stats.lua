@@ -1,7 +1,9 @@
 -- Hidden permanent modifier holding the hero's summed stat_bonus upgrades.
 -- Server computes totals from the authoritative build and transmits them to
 -- clients (custom transmitter data) so client-side stat display matches.
-modifier_rift_upgrade_stats = class({})
+-- Use the engine `class` helper when present, a plain table otherwise (a load-time
+-- error here makes the engine report "unknown modifier type").
+modifier_rift_upgrade_stats = modifier_rift_upgrade_stats or ((type(class) == "function") and class({}) or {})
 
 local KEYS = { "attack_damage", "move_speed", "armor", "health", "mana", "attack_speed",
                "spell_amp", "health_regen", "status_resistance" }

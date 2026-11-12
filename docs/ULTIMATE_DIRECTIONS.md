@@ -27,3 +27,23 @@
 | Тесты | — (движок) | test_storm.lua: 10 тестов (пары, disjoint, истечение, смешивание кастов, 20% на 20000 кастах, бюджет) |
 
 Lina, Pudge, Axe — дизайн в BRIEF §13.3–13.5; таблицы чисел будут составлены после сверки их native-механик.
+
+## Реальные значения из клиента (OP-004/OP-006, 2026-11-12, лог `docs/operator_logs/2026-11-12_OP-004_OP-006.log`)
+**Phantom Assassin** — ульта подтверждена: `phantom_assassin_coup_de_grace` (слот 5, ULTIMATE, PASSIVE, 3 уровня).
+- `crit_bonus` 200/325/450 (%), `crit_chance` 17, **`dagger_crit_chance` 34** — native-крит есть и у Stifling Dagger,
+  магическое направление обязано отключать и его (как и требует BRIEF §13.2).
+- Facet `special_bonus_facet_phantom_assassin_methodical`: крит каждые 6 атак (4 по крипам) вместо шанса,
+  `crit_bonus` +100. Политика facets для направлений не определена — см. KNOWN_ISSUES 14.
+- Stifling Dagger: `base_damage` 65/70/75/80, `attack_factor` −70/−55/−40/−25 (% урона атаки), `dagger_speed` 1200,
+  cd 6, длительность замедления 2.1–3.0, `move_slow` −50; талант `extra_daggers` +2 (конфликт с «+1 цель» магической
+  ветки — нужна политика).
+- Другие способности PA в клиенте: phantom_strike, blur, fan_of_knives (Scepter), immaterial (innate).
+
+**Legion Commander:** ульта `legion_commander_duel` (3 ур.): duration 4/4.5/5, cd 60/55/50, cast range 200,
+`reward_damage` 10/20/30. Третий навык (заменяется статуей) — `legion_commander_moment_of_courage` (4 ур.).
+**Shadow Fiend:** ульта `nevermore_requiem` (3 ур.): cd 120/110/100 (Scepter −30), radius 1000, max_soul_release 20.
+Shadowraze: `shadowraze_damage` 85/150/215/280, radius 250, `stack_bonus_damage` 35/50/65/80.
+**Templar Assassin:** ульта `templar_assassin_psionic_trap` (3 ур.; отдельная `templar_assassin_trap` — подспособность
+взрыва, НЕ триггер выбора). Psi Blades: **`attack_spill_pct` 70/80/90/100** (коэффициент кристалла по ТЗ),
+`attack_spill_range` 400–700, `attack_spill_width` 90, `meld_strike_spills` 1. Meld: `bonus_damage` 50/100/150/200,
+`bonus_armor` −2/−4/−6/−8. Refraction: instances 3–6, bonus_damage 15–60.

@@ -10,7 +10,7 @@ return {
   {
     id = "pa_phantom_execution",
     hero_id = "npc_dota_hero_phantom_assassin",
-    ultimate_ability_id = "phantom_assassin_coup_de_grace", -- VERIFY in installed client
+    ultimate_ability_id = "phantom_assassin_coup_de_grace", -- verified OP-004 2026-11-12
     learn_trigger_adapter = "first_point_in_ultimate",
     direction = "physical",
     affected_abilities = { "phantom_assassin_coup_de_grace" },
@@ -21,7 +21,7 @@ return {
       spirit_speed = { 900, 900, 900 },            -- HYPOTHESIS
       cooldown = { 24, 20, 16 },                   -- HYPOTHESIS
       mana_cost = { 80, 100, 120 },                -- HYPOTHESIS
-      crit_multiplier = "native:crit_bonus",       -- from Coup de Grace rank, VERIFY key
+      crit_multiplier = "native:crit_bonus",       -- verified key: 200/325/450 % (OP-004)
     },
     active_handler = "pa_phantom_spirit",
     passive_handler = nil,
@@ -64,7 +64,7 @@ return {
 
   -- Legion Commander / Shadow Fiend / Templar Assassin: docs/BRIEF_HEROES_LC_SF_TA.md.
   -- Numbers live in rift/data/hero_balance.lua (balance_ref), never duplicated here.
-  -- ultimate_ability_id values must be verified in the installed client (OP-006).
+  -- ultimate_ability_id values verified in the installed client (OP-006, 2026-11-12).
   {
     id = "lc_duel_physical", hero_id = "npc_dota_hero_legion_commander",
     ultimate_ability_id = "legion_commander_duel", learn_trigger_adapter = "first_point_in_ultimate",

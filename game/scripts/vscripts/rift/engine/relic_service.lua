@@ -2,6 +2,7 @@
 -- particles and HUD state. Rules live in rift/core/relic_event.lua.
 
 local Config = require("rift.core.config")
+local Mods = require("rift.engine.mods")
 local Relic = require("rift.core.relic_event")
 local Log = require("rift.engine.log")
 
@@ -145,7 +146,7 @@ function Service:_try_pickup(now)
   end
   if best and self.relic:pickup(best, now) then
     local h = PlayerResource:GetSelectedHeroEntity(best)
-    h:AddNewModifier(h, nil, "modifier_rift_relic_carrier",
+    Mods.add(h, h, nil, "modifier_rift_relic_carrier",
       { slow = self.cfg.carrier_move_slow_pct, particle = self.cfg.particle_carrier })
     self:_fx_clear()
     self.ground_pos = nil

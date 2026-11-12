@@ -4,6 +4,7 @@
 -- from anything else. Private state is sent addressed to its owner only.
 
 local Config = require("rift.core.config")
+local Mods = require("rift.engine.mods")
 local Registry = require("rift.core.upgrade_registry")
 local Offers = require("rift.core.offer_service")
 local Effects = require("rift.core.upgrade_effects")
@@ -37,7 +38,7 @@ end
 function Bridge:AddPlayer(pid, hero)
   self.offers:add_player(pid, hero:GetUnitName())
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
-    hero:AddNewModifier(hero, nil, "modifier_rift_upgrade_stats", {})
+    Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end
   self:SendPrivate(pid)
 end
@@ -45,7 +46,7 @@ end
 -- Respawn / reconnect: restore direction state on the hero entity.
 function Bridge:EnsureHero(pid, hero)
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
-    hero:AddNewModifier(hero, nil, "modifier_rift_upgrade_stats", {})
+    Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end
   self.directions:Ensure(pid, hero)
 end

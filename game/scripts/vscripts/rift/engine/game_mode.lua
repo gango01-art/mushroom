@@ -3,6 +3,7 @@
 -- Rules live in rift/core/*. Numbers live in rift/core/config.lua.
 
 local Config = require("rift.core.config")
+local Mods = require("rift.engine.mods")
 local Scoring = require("rift.core.scoring")
 local Director = require("rift.core.match_director")
 local Rules = require("rift.core.rules")
@@ -245,7 +246,7 @@ function GameMode:OnNPCSpawned(keys)
       self.upgrades:EnsureHero(pid, unit)
       self:PlaceAtSpawn(unit, pid)
     end
-    unit:AddNewModifier(unit, nil, "modifier_rift_spawn_shield", { duration = self.cfg.respawn.shield_seconds })
+    Mods.add(unit, unit, nil, "modifier_rift_spawn_shield", { duration = self.cfg.respawn.shield_seconds })
     return nil
   end, 0)
 end
@@ -257,7 +258,7 @@ function GameMode:InitHero(hero, pid)
   PlayerResource:SetGold(pid, 0, false)
   PlayerResource:SetGold(pid, e.start_gold, true)
   self.granting = false
-  hero:AddNewModifier(hero, nil, "modifier_rift_damage_tracker", {})
+  Mods.add(hero, hero, nil, "modifier_rift_damage_tracker", {})
   self.upgrades:AddPlayer(pid, hero)
   self:PlaceAtSpawn(hero, pid)
   Log.info("HERO", string.format("init pid=%d hero=%s level=%d", pid, hero:GetUnitName(), hero:GetLevel()))

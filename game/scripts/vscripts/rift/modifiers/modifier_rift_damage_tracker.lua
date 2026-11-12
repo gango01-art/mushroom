@@ -1,6 +1,8 @@
 -- Hidden permanent modifier on every real hero. Reports post-mitigation damage
 -- taken to the game mode for assist / environment-kill attribution.
-modifier_rift_damage_tracker = class({})
+-- Use the engine `class` helper when present, a plain table otherwise (a load-time
+-- error here makes the engine report "unknown modifier type").
+modifier_rift_damage_tracker = modifier_rift_damage_tracker or ((type(class) == "function") and class({}) or {})
 
 function modifier_rift_damage_tracker:IsHidden() return true end
 function modifier_rift_damage_tracker:IsPurgable() return false end

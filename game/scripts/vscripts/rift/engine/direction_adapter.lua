@@ -10,6 +10,7 @@
 -- the hero handle, so it survives death and reconnect.
 
 local Transfer = require("rift.core.ability_transfer")
+local Mods = require("rift.engine.mods")
 local Log = require("rift.engine.log")
 
 local Adapter = {}
@@ -73,7 +74,7 @@ end
 
 function Adapter:_ensure_modifiers(hero, def)
   for _, m in ipairs(def.modifiers or {}) do
-    if not hero:HasModifier(m) then hero:AddNewModifier(hero, nil, m, {}) end
+    if not hero:HasModifier(m) then Mods.add(hero, hero, nil, m, {}) end
   end
 end
 

@@ -17,6 +17,8 @@ for f in $(find content/panorama/scripts -name '*.js'); do
 done
 echo "== KV / localization"
 node tools/check_kv.js || fail=1
+echo "== Modifier registration"
+node tools/check_mods.js || fail=1
 echo "== Pure logic tests"
 lua5.1 tests/run.lua || fail=1
 if [ $fail -eq 0 ]; then echo "ALL CHECKS PASSED"; else echo "CHECKS FAILED"; fi

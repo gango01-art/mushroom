@@ -1,7 +1,9 @@
 -- DEV ONLY. Logs attack/damage event fields of its parent so engine semantics
 -- (crit in OnAttackLanded damage, attack records, Psi Blades spill damage) can be
 -- verified in the installed client before dependent code is written.
-modifier_rift_attack_probe = class({})
+-- Use the engine `class` helper when present, a plain table otherwise (a load-time
+-- error here makes the engine report "unknown modifier type").
+modifier_rift_attack_probe = modifier_rift_attack_probe or ((type(class) == "function") and class({}) or {})
 
 function modifier_rift_attack_probe:IsHidden() return false end
 function modifier_rift_attack_probe:IsPurgable() return false end
