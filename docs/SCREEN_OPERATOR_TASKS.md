@@ -335,6 +335,20 @@ addon называется **`duality`**, файлы скопированы (н�
 - Успех: все ожидания. Записать: строки `[RIFT]`, урон, скриншоты панели обеих веток, ошибки дословно.
   `rift_clear_dummies`; вернуть herolist.txt.
 - Зависимость: после OP-014/015 TA можно включать в выбор героя.
+- Отчёт 2026-11-12 (агент): частично, магическая ветка — блокер.
+  - Шаг 1: `force_direction ta_waves_magical: ok`; swap meld→ta_meld_dash, psi_blades→ta_psi_wave, trap→ta_refraction_magical,
+    psionic_trap→ta_psionic_blast; `layout after: 0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:ta_psionic_blast
+    5:templar_assassin_inner_peace`. Панель: Q (80 маны), W (60), E (45), R (90) — Trap/Trap Teleport нет. Ошибок DIRECTION нет.
+    Подсказка E «PSI BLADES - МАГ.»: «магический урон по всем врагам на линии (каждому один раз) + 60% интеллекта», 45 маны, дальность 700.
+  - Шаг 3: правый клик и A+клик по манекену — герой **не атакует** (HP манекенов не меняется, HP героя не падает).
+  - Шаги 4–7: **блокер** — E, Q и R по манекенам урона не дали (в зонде нет take_damage по Axe), R по манекену:
+    сообщение «Невозможно применять на союзников». Похоже, пассивные манекены теперь в команде героя (союзники),
+    поэтому волны их пропускают. W (рывок) нанёс 159 магического урона нейтральному крипу
+    (`inflictor=ta_meld_dash`, prowler_acolyte) — волна рывка работает по врагам. Интеллект героя 44–46.
+  - `rift_clear_dummies` → `removed dummies: 2` — исправлено.
+  - Физическая ветка (отдельный запуск) **не проверена**: Tools перезапустил, но команда ушла до старта игры
+    (`'rift_force_direction' is not a recognized command`); при следующей попытке Steam начал обновление Dota 2.
+  - herolist.txt в копии addon возвращён. Лог: `operator_logs/2026-11-12_OP-015_magical.log`.
 
 ## OP-016 — SF физическое: красные сферы и Shadowraze (+ поиск частиц крыльев/сфер)
 - Статус: pending
