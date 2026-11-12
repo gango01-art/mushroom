@@ -117,5 +117,9 @@
 		"DOTA_Tooltip_modifier_rift_sf_spheres_Description"	"Число — доступные сферы."
 		"rift_dir_sf_requiem_physical"	"Requiem of Souls"
 		"rift_dir_sf_requiem_physical_desc"	"Физическое: вместо взрыва — 15 с красных сфер, усиливающих атаки, и физическая добавка к Shadowraze."
+			"DOTA_Tooltip_modifier_rift_sf_fear"	"Страх (Requiem)"
+		"DOTA_Tooltip_modifier_rift_sf_fear_Description"	"Короткий страх, проходящий сквозь иммунитет к дебаффам."
+		"rift_dir_sf_requiem_magical"	"Requiem of Souls"
+		"rift_dir_sf_requiem_magical_desc"	"Магическое: обычный Requiem + три кольца Shadowraze вокруг точки каста. Страх проходит сквозь иммунитет к дебаффам, урон по такой цели — нет."
 	}
 }

@@ -107,6 +107,7 @@ return {
     affected_abilities = { "nevermore_requiem" },
     preserved_effects = { "requiem_native_blast", "requiem_on_death" }, replaced_effects = {},
     balance_ref = "sf.requiem_magical", active_handler = "sf_raze_rings",
+    modifiers = { "modifier_rift_sf_rings" },  -- listens for successful manual Requiem casts
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_sf_requiem_magical", loc_desc = "rift_dir_sf_requiem_magical_desc",
     icon = "nevermore_requiem", status = "planned",

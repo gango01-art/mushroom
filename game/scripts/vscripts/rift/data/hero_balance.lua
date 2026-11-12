@@ -69,8 +69,11 @@ B.sf = {
     immune_fear = { 0.6, 0.8, 1.0 },          -- [ult] PD fear through debuff immunity, once per cast
     eruptions_per_ring = 8,                   -- PD
     eruption_radius = 120,                    -- PD
-    cooldown = { 110, 100, 90 },              -- [ult] PD
-    mana = { 150, 175, 200 },                 -- [ult] PD
+    cooldown = { 110, 100, 90 },              -- [ult] PD (native Requiem cooldown is kept in this prototype)
+    mana = { 150, 175, 200 },                 -- [ult] PD (native mana kept; see KNOWN_ISSUES)
+    requiem_radius = 1000,                    -- native requiem_radius (OP-006): immune-fear search radius
+    eruption_particle = "particles/units/heroes/hero_nevermore/nevermore_shadowraze.vpcf",  -- VERIFY (OP-017)
+    telegraph_particle = "particles/ui_mouseactions/ping_world.vpcf",                      -- VERIFY (OP-017)
   },
 }
 

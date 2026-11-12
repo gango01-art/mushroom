@@ -10,7 +10,7 @@
 | Legion Commander | physical Duel (чемпион) | lc_duel (10) | нет | blocked | OP-006 (способности LC), ассеты трона/воина |
 | Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | нет | blocked | OP-006 |
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | **да**: sf_requiem_physical, modifier_rift_sf_spheres, native Requiem отключён | statically_checked | OP-016; частицы крыльев/сфер не выбраны |
-| Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | нет | blocked | OP-006, политика fear через debuff immunity |
+| Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | **да**: modifier_rift_sf_rings (слушатель Requiem), modifier_rift_sf_fear | statically_checked | OP-017 |
 | Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | runtime_checked (основное, OP-013) | мелочи OP-014; в выбор — только вместе с магической веткой |
 | Templar Assassin | magical Psionic Trap / волны | ta_magical (1) | **да**: ta_refraction_magical, ta_meld_dash, ta_psi_wave, ta_psionic_blast, запрет атак | statically_checked | OP-015 |
 

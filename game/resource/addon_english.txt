@@ -117,5 +117,9 @@
 		"DOTA_Tooltip_modifier_rift_sf_spheres_Description"	"Number = spheres available."
 		"rift_dir_sf_requiem_physical"	"Requiem of Souls"
 		"rift_dir_sf_requiem_physical_desc"	"Physical: instead of a blast - 15 s of red spheres empowering attacks, and a physical bonus on Shadowraze."
+			"DOTA_Tooltip_modifier_rift_sf_fear"	"Fear (Requiem)"
+		"DOTA_Tooltip_modifier_rift_sf_fear_Description"	"Short fear that pierces debuff immunity."
+		"rift_dir_sf_requiem_magical"	"Requiem of Souls"
+		"rift_dir_sf_requiem_magical_desc"	"Magical: normal Requiem + three Shadowraze rings around the cast point. Fear pierces debuff immunity, damage to such targets does not."
 	}
 }
