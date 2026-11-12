@@ -47,7 +47,7 @@ addon называется **`duality`**, файлы скопированы (н�
 - Отчёт 2026-11-12 (агент через computer use): частично. `rift_status` работает: `state=ACTIVE ... map_fallback=true`, `pid=0 score=0 K/D/A=0/0/0`. Строк `[RIFT][WARN][API] missing` нет. **Ошибка:** при каждом AddNewModifier — `Attempted to create unknown modifier type modifier_rift_damage_tracker!` (и spawn_shield, upgrade_stats): Lua-модификаторы не регистрируются. `con_logfile` в Tools: `'con_logfile' is not a recognized command.` Таблица справа не проверена (перекрыта окном). Лог: `docs/operator_logs/2026-11-12_OP-002_rift.log`.
 
 ## OP-011 — ПЕРВЫМ: проверить исправление модификаторов
-- Статус: pending (самое срочное: без модификаторов не работают улучшения, щит и помощь)
+- Статус: verified частично 2026-11-12 (сервер работает); клиентская часть — OP-012
 - Инструмент: консоль Dota Workshop Tools.
 - Шаги:
   1. `git pull`, `tools\sync_addon.ps1` (сначала `-WhatIf`), полный перезапуск `dota_launch_custom_game duality dota`.
@@ -78,6 +78,21 @@ addon называется **`duality`**, файлы скопированы (н�
   через transmitter, tooltip). Шаги 5–6 (броня до/после, иконка щита) не проверены.
   Важно: `dota_launch_custom_game` не перезагружает уже загруженные `require`-модули — после правок Lua нужен
   полный перезапуск Tools.
+
+## OP-012 — ПЕРВЫМ: модификаторы на клиенте + видимые эффекты
+- Статус: pending
+- Инструмент: консоль Dota Workshop Tools.
+- Шаги:
+  1. `git pull`, `tools\sync_addon.ps1` (сначала `-WhatIf`). **Полностью закрыть и снова открыть Workshop Tools**
+     (иначе старые Lua-модули останутся в памяти). `dota_launch_custom_game duality dota`.
+  2. В консоли найти строки `[RIFT][INFO][MODS] link ... (client)` и `... (server)`. Записать, есть ли «(client)».
+  3. В бою: появляется ли ещё `Attempted to create unknown modifier type` (канал General)? Сколько раз?
+  4. Броня/скорость: открыть панель характеристик героя, записать броню и скорость; `rift_offer_now 0`, выбрать
+     улучшение на броню или скорость; записать новое значение.
+  5. `rift_kill 0`, после возрождения: видна ли на панели баффов иконка щита (2 с)? Скриншот.
+- Успех: есть строки «(client)», нет «unknown modifier type», характеристика изменилась на число из карточки, иконка щита видна.
+- Записать: строки `[RIFT][INFO][MODS]`, наличие/количество предупреждений, значения до/после, скриншоты.
+- Зависимость: OP-005/003/010/007 можно делать после, если сервер работает (уже подтверждено).
 
 ## OP-003 — Цикл матча с ботом/вторым игроком (сценарии 2, 8)
 - Статус: pending (после OP-002)

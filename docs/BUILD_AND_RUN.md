@@ -22,6 +22,9 @@ Workshop Tools → addon `duality` → консоль: `dota_launch_custom_game 
 Карта `rift_arena` появится после задания оператору по Hammer (этап D).
 
 ## Перезагрузка
+**Проверено в Dota:** `dota_launch_custom_game` повторно НЕ перезагружает уже загруженные Lua-модули (`require`
+кешируется). После изменений Lua — полностью закрыть и снова открыть Workshop Tools.
+
 - Lua-скрипты: `script_reload` в консоли перезагружает VScript, но bootstrap/слушатели событий
   уже зарегистрированы — надёжно только полный перезапуск (`dota_launch_custom_game ...`).
 - Panorama: изменения в `content/panorama` компилируются Tools при сохранении; панель

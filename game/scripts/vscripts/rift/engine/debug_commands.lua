@@ -36,9 +36,8 @@ function Debug.register(gm)
 
   cmd("rift_modtest", "rift_modtest [pid]: load each modifier file, relink, apply to hero and report", function(pid)
     local h = PlayerResource:GetSelectedHeroEntity(tonumber(pid or "0") or 0)
-    local names = { "modifier_rift_damage_tracker", "modifier_rift_spawn_shield", "modifier_rift_attack_probe",
-      "modifier_rift_relic_carrier", "modifier_rift_upgrade_stats" }
-    Log.info("DEV", "modtest start hero=" .. tostring(h) .. " global_list=" .. type(RIFT_MODIFIERS))
+    local names = require("rift.modifier_list")
+    Log.info("DEV", "modtest start hero=" .. tostring(h) .. " count=" .. #names)
     for _, name in ipairs(names) do
       local ok, err = pcall(require, "rift.modifiers." .. name)
       Log.info("DEV", string.format("modtest %s load=%s err=%s class=%s", name, tostring(ok),
