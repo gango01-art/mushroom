@@ -1,4 +1,4 @@
-# mushroom → DUALITY (addon `rift_arena`)
+# mushroom → DUALITY (addon `duality`)
 
 В репозитории два независимых проекта:
 
@@ -16,8 +16,8 @@
 ### Быстрый старт (Windows)
 1. Установить DLC «Dota 2 Workshop Tools» (Steam → Dota 2 → Свойства → DLC).
 2. `powershell -ExecutionPolicy Bypass -File tools\link_addon.ps1`
-3. Запустить Workshop Tools, выбрать addon `rift_arena`, в консоли:
-   `dota_launch_custom_game rift_arena dota`
+3. Запустить Workshop Tools, выбрать addon `duality`, в консоли:
+   `dota_launch_custom_game duality dota`
 
 Подробности: [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md).
 

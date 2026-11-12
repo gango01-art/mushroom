@@ -1,6 +1,14 @@
 # Сборка и запуск
 
-Статус процедуры: **не проверена в Dota** (агент без доступа к клиенту). Обновить после OP-002.
+Статус процедуры: **проверена владельцем 2026-11-12** (копия файлов в addon `duality`, запуск на карте `dota`).
+
+## Установка владельца (копии файлов)
+1. `git pull` в репозитории.
+2. `powershell -ExecutionPolicy Bypass -File tools\sync_addon.ps1 -WhatIf`, затем без `-WhatIf`
+   (ничего не удаляет; не перезаписывает более новые файлы в addon).
+3. Полный перезапуск кастомки: `dota_launch_custom_game duality dota`.
+
+Альтернатива без копирования — junction-ссылки (ниже), но существующую папку `duality` скрипт не тронет.
 
 ## Подключение
 `tools/link_addon.ps1` создаёт junction-ссылки:
@@ -8,7 +16,7 @@
 - `<dota>\content\dota_addons\rift_arena` → `<repo>\content`
 
 ## Запуск
-Workshop Tools → addon `rift_arena` → консоль: `dota_launch_custom_game rift_arena dota`.
+Workshop Tools → addon `duality` → консоль: `dota_launch_custom_game duality dota`.
 Карта `dota` — временная dev-карта (стандартная карта Dota). На ней нет сущностей
 контракта арены, поэтому HUD показывает предупреждение и используется DEV FALLBACK кольцо точек.
 Карта `rift_arena` появится после задания оператору по Hammer (этап D).

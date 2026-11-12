@@ -7,7 +7,7 @@
 
 param(
   [string]$DotaPath = "",
-  [string]$AddonName = "rift_arena",
+  [string]$AddonName = "duality",
   [switch]$WhatIf
 )
 

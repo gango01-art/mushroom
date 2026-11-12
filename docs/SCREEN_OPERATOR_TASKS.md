@@ -4,9 +4,14 @@
 критерий успеха, что записать, зависимость. Результаты дописывать под заданием (раздел «Отчёт»)
 — агент читает их в начале каждой сессии. Не выполнять Workshop-публикацию.
 
+**Установка владельца (по отчёту 2026-11-12):** Dota в `C:\Program Files (x86)\Steam\steamapps\common\dota 2 beta`,
+addon называется **`duality`**, файлы скопированы (не junction). Перед каждым тестом обновить копию:
+`git pull` в репозитории, затем `powershell -ExecutionPolicy Bypass -File tools\sync_addon.ps1 -WhatIf` (просмотр),
+потом без `-WhatIf`. Скрипт ничего не удаляет в addon. Запуск: `dota_launch_custom_game duality dota`.
+
 ---
 ## OP-001 — Обследовать установку Dota 2 и Workshop Tools
-- Статус: pending
+- Статус: verified (2026-11-12)
 - Инструмент: Steam, Проводник Windows.
 - Шаги:
   1. В Steam: Библиотека → Dota 2 → Управление → Просмотреть локальные файлы. Записать полный путь.
@@ -18,19 +23,25 @@
 - Зависимость: блокирует OP-002. Агент продолжает чистую логику без этого.
 
 ## OP-002 — Подключить addon и запустить до ACTIVE (сценарий 1)
-- Статус: pending (после OP-001)
+- Статус: in_progress — запуск до боя verified 2026-11-12; осталось: вывод `rift_status` и таблица справа (см. «Осталось»)
 - Инструмент: PowerShell, Dota 2 Workshop Tools, консоль Dota.
 - Пути: репо `<repo>\game` → `<dota>\game\dota_addons\rift_arena`; `<repo>\content` → `<dota>\content\dota_addons\rift_arena`.
 - Шаги:
   1. `git pull` в клоне репозитория (ветка `claude/pensive-curie-zvybbg`).
   2. `powershell -ExecutionPolicy Bypass -File tools\link_addon.ps1 -WhatIf` → прочитать вывод; затем без `-WhatIf`.
-  3. Запустить Dota 2 Workshop Tools (через Steam: «Запустить Dota 2 — Tools» или как предлагает текущий интерфейс; сначала осмотреть интерфейс). Выбрать addon `rift_arena`.
-  4. Открыть консоль (кнопка/клавиша консоли в Tools), выполнить `dota_launch_custom_game rift_arena dota`.
+  3. Запустить Dota 2 Workshop Tools (через Steam: «Запустить Dota 2 — Tools» или как предлагает текущий интерфейс; сначала осмотреть интерфейс). Выбрать addon `duality`.
+  4. Открыть консоль (кнопка/клавиша консоли в Tools), выполнить `dota_launch_custom_game duality dota`.
   5. Дождаться экрана лобби → выбор героя (должен быть доступен только Phantom Assassin) → подготовка 10 с → бой.
   6. В бою выполнить `rift_status`.
 - Успех: сверху по центру панель со стадией «Бой» и таймером, идущим от 18:00 вниз; справа таблица; в консоли строки `[RIFT][INFO][STATE] PREPARATION -> ACTIVE` и вывод `rift_status`; уровень героя 3, золото около 1200 в начале.
 - Записать: ВСЕ строки консоли с `[RIFT]`, любые красные/жёлтые ошибки Lua/Panorama/KV (дословно), скриншот HUD.
 - Зависимость: блокирует проверку этапов A/B в игре.
+- Отчёт 2026-11-12: VScript без ошибок Lua; лог BOOT 0.1.0-a, WARN MAP (DEV FALLBACK, ожидаемо), UPGRADES seed,
+  STATE BOOT -> SETUP, TEAM player 0 -> team 2; выбор только PA; HUD «Бой» с таймером от 18:00, очки/место,
+  панель «Сборка»; ур. 3, ~1200 золота; предложение улучшения появилось, «Быстрые руки» применились (1/3).
+- Осталось: (1) открыть консоль, выполнить `rift_status`, прислать вывод; (2) посмотреть, видна ли справа под
+  верхним краем таблица «Таблица» с игроком, очками и У/С/П — скриншот правой части экрана; (3) прислать
+  строки консоли `[RIFT]` целиком (особенно `[RIFT][WARN][API] missing ...` — список отсутствующих API).
 
 ## OP-003 — Цикл матча с ботом/вторым игроком (сценарии 2, 8)
 - Статус: pending (после OP-002)
@@ -99,7 +110,7 @@
 - Инструмент: консоль Dota Workshop Tools. Временный тест: герой TA добавляется в выбор только локально (см. шаг 1).
 - Шаги:
   1. В файле `game/scripts/npc/herolist.txt` локально (НЕ коммитить) добавить строку
-     `"npc_dota_hero_templar_assassin"	"1"`, перезапустить `dota_launch_custom_game rift_arena dota`, выбрать TA.
+     `"npc_dota_hero_templar_assassin"	"1"`, перезапустить `dota_launch_custom_game duality dota`, выбрать TA.
   2. В бою: `rift_spawn_dummy npc_dota_hero_axe 250` и ещё раз `rift_spawn_dummy npc_dota_hero_axe 600`
      (два вражеских юнита примерно на одной линии от героя).
   3. Прокачать Psi Blades (E) хотя бы на 1 уровень, `rift_probe_attacks 0`.
@@ -125,18 +136,18 @@
 
 ## OP-009 — Создать graybox-карту `rift_arena` в Hammer
 - Статус: pending (после OP-002 — нужен рабочий addon)
-- Инструмент: Dota 2 Workshop Tools → Hammer, addon `rift_arena`.
+- Инструмент: Dota 2 Workshop Tools → Hammer, addon `duality`.
 - Источник: `docs/MAP_SPEC.md` (зоны, координаты, имена сущностей), `docs/MAP_CONTRACT.md`.
 - Шаги:
   1. Осмотреть интерфейс Hammer текущей версии: как создать новую карту для Dota, как добавлять геометрию,
      как ставить точечные сущности и задавать им имя (targetname). Ничего не делать по догадке — сначала найти.
-  2. Создать карту, сохранить как `content/dota_addons/rift_arena/maps/rift_arena.vmap`.
+  2. Создать карту, сохранить как `content/dota_addons/duality/maps/rift_arena.vmap`.
   3. Построить пол-квадрат ±3800, границу, центр, 8 колонн, 4 стенки, 4 платформы с пандусами по MAP_SPEC.
   4. Поставить 19 именованных точечных сущностей контракта по таблице (точные имена и X/Y).
   5. Поставить 8 стартовых точек героев (по одной на команду) — класс и параметр команды найти в списке сущностей
      и записать.
   6. Собрать/скомпилировать карту средствами Hammer (найти команду сборки в интерфейсе). Записать ошибки сборки.
-  7. Запустить `dota_launch_custom_game rift_arena rift_arena`, в бою выполнить `rift_map_check`.
+  7. Запустить `dota_launch_custom_game duality rift_arena`, в бою выполнить `rift_map_check`.
 - Успех: карта загружается; `rift_map_check` печатает `missing=0 fallback=false`; на HUD нет жёлтого
   предупреждения о временных точках; герой появляется на одной из точек rift_spawn_*.
 - Записать: точные классы сущностей, путь к .vmap и скомпилированному файлу, вывод `rift_map_check`,
