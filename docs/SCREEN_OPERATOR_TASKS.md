@@ -60,6 +60,24 @@ addon называется **`duality`**, файлы скопированы (н�
 - Успех: нет «unknown modifier type» и `[RIFT][ERROR][MODS]`; характеристика изменилась; щит появился.
 - Записать: вывод `rift_modtest` целиком, строки `[RIFT][INFO][MODS]`, ошибки дословно, скриншоты характеристик до/после.
 - Зависимость: блокирует все проверки эффектов (OP-003, OP-005, OP-007, OP-010) и реализацию героев.
+- Отчёт 2026-11-12 (агент, после полного перезапуска Tools): частично. Строки `[RIFT][INFO][MODS] link ... -> nil` ×5
+  (nil — норма). `[RIFT][ERROR][MODS]` нет. `rift_modtest` (исправленная версия: глобал `RIFT_MODIFIERS` из
+  addon_game_mode.lua в модулях = nil, поэтому прежняя версия молчала):
+  ```
+  modtest start hero=table: ... global_list=nil
+  modtest modifier_rift_damage_tracker load=true err=- class=table / has = true
+  modtest modifier_rift_spawn_shield load=true class=table / has = false
+  modtest apply modifier_rift_spawn_shield -> table: ... has=true
+  modtest modifier_rift_attack_probe load=true / has = false
+  modtest modifier_rift_relic_carrier load=true / has = false
+  modtest modifier_rift_upgrade_stats load=true / has = true
+  ```
+  Вывод: **на сервере модификаторы работают** (трекер и статы висят на герое, щит накладывается). Предупреждение
+  `Attempted to create unknown modifier type ...` идёт по каналу **General** при каждом наложении — это, по всей
+  видимости, клиентская VM, где класс модификатора не известен (клиентские эффекты: иконка щита, отображение статов
+  через transmitter, tooltip). Шаги 5–6 (броня до/после, иконка щита) не проверены.
+  Важно: `dota_launch_custom_game` не перезагружает уже загруженные `require`-модули — после правок Lua нужен
+  полный перезапуск Tools.
 
 ## OP-003 — Цикл матча с ботом/вторым игроком (сценарии 2, 8)
 - Статус: pending (после OP-002)

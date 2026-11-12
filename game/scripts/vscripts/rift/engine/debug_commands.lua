@@ -36,11 +36,15 @@ function Debug.register(gm)
 
   cmd("rift_modtest", "rift_modtest [pid]: load each modifier file, relink, apply to hero and report", function(pid)
     local h = PlayerResource:GetSelectedHeroEntity(tonumber(pid or "0") or 0)
-    for _, name in ipairs(RIFT_MODIFIERS or {}) do
+    local names = { "modifier_rift_damage_tracker", "modifier_rift_spawn_shield", "modifier_rift_attack_probe",
+      "modifier_rift_relic_carrier", "modifier_rift_upgrade_stats" }
+    Log.info("DEV", "modtest start hero=" .. tostring(h) .. " global_list=" .. type(RIFT_MODIFIERS))
+    for _, name in ipairs(names) do
       local ok, err = pcall(require, "rift.modifiers." .. name)
       Log.info("DEV", string.format("modtest %s load=%s err=%s class=%s", name, tostring(ok),
         tostring(ok and "-" or err), type(_G[name])))
-      if RiftLinkModifiers then RiftLinkModifiers(false) end
+      LinkLuaModifier(name, "rift/modifiers/" .. name, LUA_MODIFIER_MOTION_NONE)
+      if h then Log.info("DEV", "modtest has " .. name .. " = " .. tostring(h:HasModifier(name))) end
       if h and name == "modifier_rift_spawn_shield" then
         local m = h:AddNewModifier(h, nil, name, { duration = 1 })
         Log.info("DEV", "modtest apply " .. name .. " -> " .. tostring(m) .. " has=" .. tostring(h:HasModifier(name)))
