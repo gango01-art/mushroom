@@ -7,8 +7,8 @@
 |---|---|---|---|---|---|
 | Phantom Assassin | physical «Призрачная казнь» | pa_physical (3) | verified OP-020/024 | implemented | OP-025 (меню) |
 | Phantom Assassin | magical «Грозовые кинжалы» | pa_storm_daggers (12) | verified OP-023 | implemented | OP-025 (урон кинжала) |
-| Legion Commander | physical Duel (чемпион) | lc_duel (10) | написан (сессия 22) | planned, ждёт проверки | OP-027 |
-| Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | нет | следующий шаг | — |
+| Legion Commander | physical Duel (чемпион) | lc_duel (10) | написан (сессия 22) | implemented, ждёт проверки | OP-027 |
+| Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | написан (сессия 23) | implemented, ждёт проверки | OP-028 |
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | **да**: sf_requiem_physical, modifier_rift_sf_spheres, native Requiem отключён | statically_checked | OP-016; частицы крыльев/сфер не выбраны |
 | Shadow Fiend | magical Requiem (кольца) | sf_magical (4) | **да**: modifier_rift_sf_rings (слушатель Requiem), modifier_rift_sf_fear | statically_checked | OP-017 |
 | Templar Assassin | physical Psionic Crystal | ta_physical (5) | **да**: ta_psionic_crystal, ta_meld_physical, блок native spill | **implemented** + runtime_checked (OP-013/015) | мелочи OP-014; путь через меню — OP-018 |

@@ -57,4 +57,28 @@
 		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
 		"HasInventory"				"0"
 	}
+
+	// LC magical archer statue. Health / armor / magic resistance are set at summon
+	// (engine/lc_magic). It never attacks by itself: arrows are scripted projectiles.
+	"npc_rift_lc_statue"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/legion_commander/legion_commander.vmdl"
+		"ModelScale"				"1.25"
+		"Level"						"1"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"StatusHealth"				"400"
+		"StatusHealthRegen"			"0"
+		"StatusMana"				"0"
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"25"
+		"BountyXP"					"0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"VisionDaytimeRange"		"700"
+		"VisionNighttimeRange"		"700"
+		"HealthBarOffset"			"240"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+	}
 }

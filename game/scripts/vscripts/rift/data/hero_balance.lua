@@ -52,6 +52,9 @@ B.lc = {
     magic_resistance = 25,                    -- PD percent
     cast_range = 500,                         -- PD
     attack_range = 650,                       -- PD
+    arrow_speed = 1200,                       -- PD
+    unit = "npc_rift_lc_statue",
+    arrow_particle = "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf",  -- VERIFY (OP-028)
     mana = 90,                                -- PD
   },
 }
@@ -66,7 +69,7 @@ B.sf = {
     cooldown = { 80, 70, 60 },                -- [ult] PD
     mana = { 150, 175, 200 },                 -- [ult] PD
     -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
-    wings_particle = "",
+    wings_particle = "particles/items2_fx/satanic_buff.vpcf",  -- placeholder red aura; VERIFY (OP-016)
     sphere_particle = "",
   },
   requiem_magical = {

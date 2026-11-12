@@ -23,6 +23,8 @@ local M = {
   "modifier_rift_lc_throne",
   "modifier_rift_lc_champion",
   "modifier_rift_lc_duel_damage",
+  "modifier_rift_lc_spell_amp",
+  "modifier_rift_lc_statue",
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).

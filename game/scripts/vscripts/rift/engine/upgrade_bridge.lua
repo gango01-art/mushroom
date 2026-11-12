@@ -64,6 +64,11 @@ function Bridge:Bonus(pid, key)
   return Effects.bonus_total(self.registry, p and p.build or {}, key)
 end
 
+function Bridge:DirectionId(pid)
+  local p = self.offers:player(pid)
+  return p and p.direction_id or nil
+end
+
 function Bridge:Direction(pid)
   local p = self.offers:player(pid)
   return p and p.direction or nil

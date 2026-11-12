@@ -69,7 +69,7 @@ return {
     swaps = { { from = "legion_commander_duel", to = "lc_duel_physical" } },
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_lc_duel_physical", loc_desc = "rift_dir_lc_duel_physical_desc",
-    icon = "legion_commander_duel", status = "planned",
+    icon = "legion_commander_duel", status = "implemented",
   },
   {
     id = "lc_duel_magical", hero_id = "npc_dota_hero_legion_commander",
@@ -78,9 +78,12 @@ return {
     affected_abilities = { "legion_commander_duel", "legion_commander_moment_of_courage" },
     preserved_effects = {}, replaced_effects = { "duel_native", "third_ability_replaced_by_statue" },
     balance_ref = "lc.duel_magical", passive_handler = "lc_spell_amp_duel",
+    swaps = { { from = "legion_commander_duel", to = "lc_duel_magical" },
+              { from = "legion_commander_moment_of_courage", to = "lc_statue" } },
+    modifiers = { "modifier_rift_lc_spell_amp" },
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_lc_duel_magical", loc_desc = "rift_dir_lc_duel_magical_desc",
-    icon = "legion_commander_duel", status = "planned",
+    icon = "legion_commander_duel", status = "implemented",
   },
   {
     id = "sf_requiem_physical", hero_id = "npc_dota_hero_nevermore",
@@ -93,7 +96,7 @@ return {
     swaps = { { from = "nevermore_requiem", to = "sf_requiem_physical", disable_from = true } },
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_sf_requiem_physical", loc_desc = "rift_dir_sf_requiem_physical_desc",
-    icon = "nevermore_requiem", status = "planned",
+    icon = "nevermore_requiem", status = "implemented",
   },
   {
     id = "sf_requiem_magical", hero_id = "npc_dota_hero_nevermore",
@@ -105,7 +108,7 @@ return {
     modifiers = { "modifier_rift_sf_rings" },  -- listens for successful manual Requiem casts
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_sf_requiem_magical", loc_desc = "rift_dir_sf_requiem_magical_desc",
-    icon = "nevermore_requiem", status = "planned",
+    icon = "nevermore_requiem", status = "implemented",
   },
   {
     id = "ta_crystal_physical", hero_id = "npc_dota_hero_templar_assassin",

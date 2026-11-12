@@ -11,6 +11,9 @@ Effects.HANDLERS = {
   ta_psi_waves = true,         -- TA magical (verified OP-015)
   pa_phantom_spirit = true,    -- PA physical (verified OP-020/024)
   pa_storm_daggers = true,     -- PA magical (verified OP-023; dagger damage OP-025)
+  sf_red_spheres = true,       -- SF physical (code complete; Dota check OP-016)
+  sf_raze_rings = true,        -- SF magical (code complete; Dota check OP-017)
+  lc_spell_amp_duel = true,    -- LC magical (code complete; Dota check OP-028)
   lc_champion_duel = true,     -- LC physical (code complete; Dota check OP-027)
   -- direction upgrades read by the abilities through Effects.bonus_total (OP-026)
   pa_spirit_cooldown = true,

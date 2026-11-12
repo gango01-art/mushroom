@@ -369,6 +369,7 @@ function GameMode:OnEntityKilled(keys)
   local token = tostring(keys.entindex_killed) .. "@" .. string.format("%.3f", GameRules:GetGameTime())
   local r, why = self.scoring:on_hero_death(vpid, kpid, now, victim:GetMaxHealth(), token)
   if not r then Log.debug("KILL", "ignored: " .. tostring(why)); return end
+  require("rift.engine.lc_magic").on_hero_death(self, r, token)  -- LC magical: spell amp points
   if r.killer then self:Grant(r.killer, r.kill_gold, r.kill_xp) end
   for _, a in ipairs(r.assists) do self:Grant(a.pid, a.gold, a.xp) end
   Log.info("KILL", string.format("victim=%d killer=%s score=%s repeat=%s assists=%d reason=%s",

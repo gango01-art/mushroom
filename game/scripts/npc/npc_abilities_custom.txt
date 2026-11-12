@@ -167,4 +167,31 @@
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
 	}
+
+	// ---- LC magical direction (docs/BRIEF_HEROES_LC_SF_TA.md 5). ----
+	"lc_duel_magical"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/lc_duel_magical"
+		"AbilityTextureName"	"legion_commander_duel"
+		"AbilityType"			"ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"				"3"
+		"RequiredLevel"			"6"
+		"LevelsBetweenUpgrades"	"6"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+	}
+	"lc_statue"
+	{
+		"BaseClass"				"ability_lua"
+		"ScriptFile"			"rift/abilities/lc_statue"
+		"AbilityTextureName"	"legion_commander_moment_of_courage"
+		"MaxLevel"				"4"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityCastRange"		"500"
+		"AbilityCastPoint"		"0.2"
+		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+	}
 }
