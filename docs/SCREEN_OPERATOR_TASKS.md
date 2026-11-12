@@ -585,9 +585,9 @@ addon называется **`duality`**, файлы скопированы (н�
 - Статус: pending
 - Подготовка: после OP-025. PA, `rift_verbose 1`, два манекена рядом (`rift_spawn_dummy 250`, `rift_spawn_dummy 400`).
 - Шаги:
-  1. Физическая ветка (очко в ульту → «Призрачная казнь»). `rift_give_upgrade pa_spirit_haste` дважды. Применить R:
+  1. Физическая ветка (очко в ульту → «Призрачная казнь»). `rift_give_upgrade 0 pa_spirit_haste` дважды. Применить R:
      кулдаун на кнопке идёт 20 с вместо 24 (подсказка может показывать 24 — это известно). Записать фактическое время.
-  2. Новый матч, магическая ветка. `rift_give_upgrade pa_static_edge` дважды, `rift_give_upgrade pa_conductive_blade`.
+  2. Новый матч, магическая ветка. `rift_give_upgrade 0 pa_static_edge` дважды, `rift_give_upgrade 0 pa_conductive_blade`.
      `rift_pa_storm_always 1`, Q по двум манекенам: `storm chain cast=N damage=420`.
   3. `rift_upgrades`: в сборке видны выданные улучшения; в панели сборки HUD — названия и описания с числами
      (не `{...}` и не ключи `rift_up_...`). Скриншот.
