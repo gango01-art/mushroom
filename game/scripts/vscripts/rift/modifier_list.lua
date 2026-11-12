@@ -18,7 +18,6 @@ local M = {
   "modifier_rift_sf_spheres",
   "modifier_rift_sf_rings",
   "modifier_rift_sf_fear",
-  "modifier_rift_pa_dagger_attack",
   "modifier_rift_pa_dagger_slow",
   "modifier_rift_pa_spirit",
 }

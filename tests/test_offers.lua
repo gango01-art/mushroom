@@ -200,7 +200,7 @@ T.case("events are emitted once per create/resolve", function()
 end)
 
 T.case("ultimate offer refused while directions are not implemented", function()
-  local ups, dirs = F.data("shipped")
+  local ups, dirs = F.data("planned")
   local s = setup(1, ups, dirs)
   local o, why = s:on_ability_learned(0, F.ULT, 1, "player", 5)
   T.eq(o, nil); T.eq(why, "directions_not_implemented")

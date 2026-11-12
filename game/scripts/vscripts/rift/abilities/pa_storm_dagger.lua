@@ -88,17 +88,14 @@ local function dagger_effects(self, c, target)
   local base = nval(self, "base_damage", B.dagger_base_damage[rank])
   local factor = nval(self, "attack_factor", B.dagger_attack_factor[rank])
   local Mods = require("rift.engine.mods")
-  if c:IsAlive() then
-    -- One real attack with the dagger's damage rules (as the native does); no native crit:
-    -- Coup de Grace is at level 0 in this direction.
-    local m = Mods.add(c, c, self, "modifier_rift_pa_dagger_attack", { base = base, factor = factor })
-    c:PerformAttack(target, true, true, true, true, false, false, true)
-    if m and not m:IsNull() then m:Destroy() end
-  else
-    ApplyDamage({ victim = target, attacker = c, damage_type = DAMAGE_TYPE_PHYSICAL, ability = self,
-      damage = base + c:GetAverageTrueAttackDamage(target) * (100 + factor) / 100,
-      damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION })
-  end
+  -- Explicit physical damage with the native dagger formula. (OP-023: a PerformAttack with a
+  -- temporary damage modifier did not change the attack's damage.) No native crit: Coup de Grace
+  -- is at level 0 in this direction. Attack effects of items are not applied by the dagger.
+  local raw = base + c:GetAverageTrueAttackDamage(target) * (100 + factor) / 100
+  local dealt = ApplyDamage({ victim = target, attacker = c, damage_type = DAMAGE_TYPE_PHYSICAL, ability = self,
+    damage = raw, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION })
+  require("rift.engine.log").debug("PA", string.format("dagger hit raw=%.0f dealt=%.0f base=%s factor=%s", raw,
+    dealt or -1, tostring(base), tostring(factor)))
   if target:IsAlive() and not target:IsMagicImmune() then
     local dur = nval(self, "duration", B.dagger_slow_duration[rank])
     if target.GetStatusResistance then dur = dur * (1 - target:GetStatusResistance()) end

@@ -8,7 +8,7 @@ T.case("shipped data validates (structure)", function()
 end)
 
 T.case("hero disabled while directions are planned", function()
-  local ups, dirs = F.data("shipped")
+  local ups, dirs = F.data("planned")
   T.ok(not Registry.new(ups, dirs):hero_enabled(F.PA))
   local ups2, dirs2 = F.data()
   T.ok(Registry.new(ups2, dirs2):hero_enabled(F.PA))

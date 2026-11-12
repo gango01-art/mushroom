@@ -9,8 +9,8 @@ Effects.HANDLERS = {
   -- ultimate direction handlers implemented in the engine (abilities/modifiers)
   ta_psionic_crystal = true,   -- TA physical (verified OP-013/015)
   ta_psi_waves = true,         -- TA magical (verified OP-015)
-  pa_phantom_spirit = true,    -- PA physical (code complete; Dota check OP-020)
-  pa_storm_daggers = true,     -- PA magical (code complete; Dota check OP-021)
+  pa_phantom_spirit = true,    -- PA physical (verified OP-020/024)
+  pa_storm_daggers = true,     -- PA magical (verified OP-023; dagger damage OP-025)
 }
 
 Effects.STAT_KEYS = { "attack_damage", "move_speed", "armor", "health", "mana", "attack_speed",

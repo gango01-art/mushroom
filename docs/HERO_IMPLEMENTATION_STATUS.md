@@ -5,8 +5,8 @@
 
 | Герой | Направление | Чистая логика (тесты) | Движок | Статус | Блокер |
 |---|---|---|---|---|---|
-| Phantom Assassin | physical «Призрачная казнь» | pa_physical (3) | написан (сессия 18) | planned, ждёт проверки | OP-020 |
-| Phantom Assassin | magical «Грозовые кинжалы» | pa_storm_daggers (12) | написан (сессия 18) | planned, ждёт проверки | OP-021 |
+| Phantom Assassin | physical «Призрачная казнь» | pa_physical (3) | verified OP-020/024 | implemented | OP-025 (меню) |
+| Phantom Assassin | magical «Грозовые кинжалы» | pa_storm_daggers (12) | verified OP-023 | implemented | OP-025 (урон кинжала) |
 | Legion Commander | physical Duel (чемпион) | lc_duel (10) | нет | blocked | OP-006 (способности LC), ассеты трона/воина |
 | Legion Commander | magical Duel (spell amp) + статуя | lc_magic (4) | нет | blocked | OP-006 |
 | Shadow Fiend | physical Requiem (сферы) | sf_physical (5) | **да**: sf_requiem_physical, modifier_rift_sf_spheres, native Requiem отключён | statically_checked | OP-016; частицы крыльев/сфер не выбраны |

@@ -28,7 +28,7 @@ return {
     loc_name = "rift_dir_pa_phantom_execution",
     loc_desc = "rift_dir_pa_phantom_execution_desc",
     icon = "phantom_assassin_coup_de_grace",
-    status = "planned",
+    status = "implemented",
   },
   {
     id = "pa_storm_daggers",
@@ -53,7 +53,7 @@ return {
     loc_name = "rift_dir_pa_storm_daggers",
     loc_desc = "rift_dir_pa_storm_daggers_desc",
     icon = "phantom_assassin_stifling_dagger",
-    status = "planned",
+    status = "implemented",
   },
 
   -- Legion Commander / Shadow Fiend / Templar Assassin: docs/BRIEF_HEROES_LC_SF_TA.md.
