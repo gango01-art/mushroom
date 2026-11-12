@@ -252,3 +252,18 @@ addon называется **`duality`**, файлы скопированы (н�
 - Записать: все строки `[RIFT][INFO][TA]`, `[RIFT][PROBE]`, swap-строки, урон над головами, скриншоты панели способностей,
   кристалла с полоской HP, ошибки дословно. Вернуть herolist.txt в копии addon как было.
 - Зависимость: блокирует перевод TA physical в implemented. Закрывает и OP-007.
+- Отчёт 2026-11-12 (агент): частично.
+  - Шаг 1: `-lvlup 10` в чат работает (уровень 13).
+  - Шаг 2: `force_direction ta_crystal_physical: ok`, `swap templar_assassin_psionic_trap -> ta_psionic_crystal level=0 cd=0.0`,
+    `swap templar_assassin_meld -> ta_meld_physical level=0 cd=0.0`, `direction ta_crystal_physical pid=0`.
+  - Шаг 3: подсказка R «PSIONIC CRYSTAL - ФИЗ.»: мана 60, cd 10/9/8, дальность 300 — совпадает. Нет локализации
+    `#DOTA_Tooltip_Ability_ta_psionic_crystal_SummaryDescription` (CLocalize failed). В слоте 4 панели — стандартная
+    подспособность `Trap` (templar_assassin_trap) — не убирается при swap. Psi Blades (E) в панели не нашёл: слот
+    с «+» слева открыл окно талантов.
+  - Шаг 4: `rift_spawn_dummy npc_dota_hero_axe` ×2 — юниты созданы (#1399, #1421), но **модели Axe не прекешированы**
+    (`ERROR: RESOURCE_TYPE_MODEL resource 'models/heroes/axe/axe_*.vmdl' ... requested is not loaded`, много раз), и
+    манекены нейтральной команды **атакуют героя**: TA с 1198 HP упала до 61 за ~40 с. Зонд работает: строки
+    `[RIFT][PROBE] attack / attack_landed / take_damage / record_destroy` идут (TA → Axe#1399, inflictor=nil).
+  - Шаг 5: кристалл поставлен (мана/кд списаны), но ударить его не успел — герой умирал; строк `[RIFT][INFO][TA]` нет.
+  - Шаги 6–8 не выполнены. Блокеры: агрессивные манекены и не прекешированный Axe.
+
