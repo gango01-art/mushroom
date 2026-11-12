@@ -20,6 +20,9 @@ local M = {
   "modifier_rift_sf_fear",
   "modifier_rift_pa_dagger_slow",
   "modifier_rift_pa_spirit",
+  "modifier_rift_lc_throne",
+  "modifier_rift_lc_champion",
+  "modifier_rift_lc_duel_damage",
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).

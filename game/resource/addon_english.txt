@@ -142,5 +142,14 @@
 		"rift_up_pa_static_edge_desc"	"+{chain_damage_bonus} chain lightning damage to each target."
 		"rift_up_pa_conductive_blade"	"Conductive Blade"
 		"rift_up_pa_conductive_blade_desc"	"+{chain_chance_bonus_pct}% chain lightning chance."
+		"DOTA_Tooltip_ability_lc_duel_physical"	"Duel · phys."
+		"DOTA_Tooltip_ability_lc_duel_physical_Description"	"Summons a champion against the chosen hero for up to 10 s. Legion Commander sits on a throne: invulnerable, cannot move, attack, cast or use items. The champion has her damage, armor and health and 90% of her attack rate. Each second of fighting (champion hit the target within the last 2 s) grants permanent damage 0.8 / 1.1 / 1.4. Defeating the target raises the reward to 12 / 16.5 / 21. If the champion is killed, Legion Commander loses 30% of max health and is stunned for 1 s. The link breaks if the target stays farther than 900 from the throne for over 1 s. Attack effects and items are not passed to the champion yet."
+		"DOTA_Tooltip_Ability_lc_duel_physical_SummaryDescription"	"A champion fights instead of Legion Commander and earns permanent damage."
+		"DOTA_Tooltip_modifier_rift_lc_throne"	"Throne"
+		"DOTA_Tooltip_modifier_rift_lc_throne_Description"	"Invulnerable and unable to act while the champion fights."
+		"DOTA_Tooltip_modifier_rift_lc_champion"	"Champion"
+		"DOTA_Tooltip_modifier_rift_lc_champion_Description"	"Fights only the chosen hero."
+		"DOTA_Tooltip_modifier_rift_lc_duel_damage"	"Duel: permanent damage"
+		"DOTA_Tooltip_modifier_rift_lc_duel_damage_Description"	"Number is the earned damage x10."
 	}
 }

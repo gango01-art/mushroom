@@ -26,6 +26,11 @@ A/B — код написан, в Dota **не запускался**. Ждём O
 22:11) будит эту сессию: продолжать по этому файлу.
 
 ## Следующие конкретные шаги (по порядку)
+00000000. Сессия 22 (авто-старт): **LC physical написана** — `abilities/lc_duel_physical`, `engine/lc_duel_session`
+    (один путь очистки `finish`), модификаторы трон/чемпион/постоянный урон, юнит `npc_rift_lc_champion` (снимок урона,
+    брони, HP, 90% атак в секунду). Статус `planned`, ждёт OP-027. Не сделано: визуал трона, передача эффектов атак
+    чемпиону (матрица в `hero_balance`: всё unsupported), HUD-индикатор поединка. Дальше: LC magical (spell amp +
+    статуя, ядро `core/heroes/lc_magic` готово), затем LC в herolist.
 0000000. Сессия 21 (авто-старт): улучшения PA под ветки — `pa_spirit_haste` (−2/−4 с кд духа), `pa_static_edge`
     (+60/120 урона молнии), `pa_conductive_blade` (+5% шанса) переведены в implemented через общий механизм
     `Effects.bonus_total` → `engine/build_bonus`. 119 тестов. Ждём OP-025, OP-026. Остались planned: `pa_dagger_whet`,

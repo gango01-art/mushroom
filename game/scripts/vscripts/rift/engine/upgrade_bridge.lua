@@ -50,6 +50,7 @@ function Bridge:EnsureHero(pid, hero)
     Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end
   self.directions:Ensure(pid, hero)
+  require("rift.engine.lc_duel_session").sync_damage(pid, hero)  -- LC physical: permanent duel damage
 end
 
 function Bridge:StatTotals(pid)

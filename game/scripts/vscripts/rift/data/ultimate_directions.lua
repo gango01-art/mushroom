@@ -66,6 +66,7 @@ return {
     affected_abilities = { "legion_commander_duel" },
     preserved_effects = {}, replaced_effects = { "duel_native" },
     balance_ref = "lc.duel_physical", active_handler = "lc_champion_duel",
+    swaps = { { from = "legion_commander_duel", to = "lc_duel_physical" } },
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_lc_duel_physical", loc_desc = "rift_dir_lc_duel_physical_desc",
     icon = "legion_commander_duel", status = "planned",

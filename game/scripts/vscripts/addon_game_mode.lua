@@ -10,6 +10,7 @@ function Precache(context)
   PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
   PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
   PrecacheUnitByNameSync("npc_rift_ta_crystal", context)
+  PrecacheUnitByNameSync("npc_rift_lc_champion", context)
   local pa = require("rift.data.hero_balance").pa
   PrecacheUnitByNameSync(pa.execution_physical.spirit_unit, context)
   for _, path in ipairs({ pa.execution_physical.spirit_particle, pa.storm_magical.dagger_particle,

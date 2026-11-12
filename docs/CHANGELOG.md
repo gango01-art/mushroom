@@ -17,3 +17,6 @@
 
 ## Сессия 21 (2026-11-12, авто-старт)
 - Улучшения PA под ветки: `pa_spirit_haste`, `pa_static_edge`, `pa_conductive_blade` → implemented. Общий механизм бонусов способностей (`Effects.bonus_total`, `engine/build_bonus`). 119 тестов. OP-026.
+
+## Сессия 22 (2026-11-13, авто-старт)
+- LC physical «Duel»: чемпион, трон, постоянный урон, штраф за смерть чемпиона, поводок, все окончания через один cleanup. Dev-команда `rift_lc_kill_champion`. OP-027. Статус `planned`.

@@ -142,5 +142,14 @@
 		"rift_up_pa_static_edge_desc"	"+{chain_damage_bonus} к урону цепной молнии по каждой цели."
 		"rift_up_pa_conductive_blade"	"Проводящий клинок"
 		"rift_up_pa_conductive_blade_desc"	"+{chain_chance_bonus_pct}% к шансу цепной молнии."
+		"DOTA_Tooltip_ability_lc_duel_physical"	"Duel · физ."
+		"DOTA_Tooltip_ability_lc_duel_physical_Description"	"Призывает воина-чемпиона против выбранного героя на срок до 10 с. Legion Commander садится на трон: неуязвима, не двигается, не атакует, не применяет способности и предметы. Чемпион получает её урон, броню и здоровье и 90% скорости атаки. За каждую секунду боя (чемпион попал по цели за последние 2 с) — постоянный урон 0.8 / 1.1 / 1.4. Победа над целью доводит награду до 12 / 16.5 / 21. Если чемпион убит, Legion Commander теряет 30% максимального здоровья и оглушается на 1 с. Связь рвётся, если цель дольше 1 с дальше 900 от трона. Эффекты атак и предметы чемпиону пока не передаются."
+		"DOTA_Tooltip_Ability_lc_duel_physical_SummaryDescription"	"Чемпион сражается вместо Legion Commander и приносит постоянный урон."
+		"DOTA_Tooltip_modifier_rift_lc_throne"	"Трон"
+		"DOTA_Tooltip_modifier_rift_lc_throne_Description"	"Неуязвима и не может действовать, пока сражается чемпион."
+		"DOTA_Tooltip_modifier_rift_lc_champion"	"Чемпион"
+		"DOTA_Tooltip_modifier_rift_lc_champion_Description"	"Сражается только с выбранным героем."
+		"DOTA_Tooltip_modifier_rift_lc_duel_damage"	"Duel: постоянный урон"
+		"DOTA_Tooltip_modifier_rift_lc_duel_damage_Description"	"Число — накопленный урон ×10."
 	}
 }

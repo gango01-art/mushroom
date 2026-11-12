@@ -167,6 +167,11 @@ function Service:DevEnd(now)
   if hero and not hero:IsNull() then hero:RemoveModifierByName("modifier_rift_relic_carrier") end
 end
 
+-- Forced safe drop (e.g. the carrier becomes invulnerable: LC throne).
+function Service:ForceDrop(pid, pos, now, why)
+  if self.relic:carrier() == pid then self:_drop(now, pos, why or "forced") end
+end
+
 -- Carrier death: drop at the death position (validated).
 function Service:OnHeroDied(pid, pos, now)
   if self.relic:carrier() == pid then self:_drop(now, pos, "death") end

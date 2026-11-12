@@ -149,6 +149,13 @@ function Debug.register(gm)
     Log.info("DEV", "pa_storm_always=" .. tostring(store.force_proc and 1 or 0))
   end)
 
+  cmd("rift_lc_kill_champion", "rift_lc_kill_champion [pid]: kill the LC duel champion of pid (dev, tests the penalty)", function(pid)
+    local s = require("rift.engine.lc_duel_session").sessions[tonumber(pid or "0")]
+    if not s or s.champion:IsNull() then Log.warn("DEV", "no live champion"); return end
+    s.champion:ForceKill(false)
+    Log.info("DEV", "champion killed")
+  end)
+
   cmd("rift_upgrades", "rift_upgrades [pid]: print build, direction and pending offers", function(pid)
     pid = tonumber(pid or "0")
     local snap = gm.upgrades.offers:snapshot(pid)

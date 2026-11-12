@@ -24,4 +24,37 @@
 		"HealthBarOffset"			"140"
 		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 	}
+
+	// LC physical Duel champion. Damage, armor, health, attack rate and move speed are set
+	// from a snapshot of Legion Commander at summon (engine/lc_duel_session). Model: VERIFY (OP-027).
+	"npc_rift_lc_champion"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/legion_commander/legion_commander.vmdl"
+		"ModelScale"				"1.0"
+		"Level"						"1"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"50"
+		"AttackDamageMax"			"50"
+		"AttackRate"				"1.7"
+		"AttackAnimationPoint"		"0.46"
+		"AttackAcquisitionRange"	"0"
+		"AttackRange"				"150"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"330"
+		"MovementTurnRate"			"0.6"
+		"StatusHealth"				"1000"
+		"StatusHealthRegen"			"0"
+		"StatusMana"				"0"
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"25"
+		"BountyXP"					"0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"
+		"HealthBarOffset"			"200"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"HasInventory"				"0"
+	}
 }

@@ -25,6 +25,14 @@ B.lc = {
     cooldown = { 85, 75, 65 },                -- [ult] PD from successful summon
     mana = { 150, 175, 200 },                 -- [ult] PD
     cast_range = 550,                         -- PD
+    champion_unit = "npc_rift_lc_champion",   -- custom unit, stats are snapshotted at summon
+    champion_attack_range = 150,              -- PD melee
+    think_interval = 0.1,                     -- PD session step
+    -- Attack effect matrix (BRIEF_HEROES 4.3). The champion is a separate unit with snapshotted
+    -- damage / armor / max HP / attack rate; LC's passives and items are NOT copied yet.
+    attack_effects = { moment_of_courage = "unsupported", lifesteal = "unsupported", crit = "unsupported",
+                       bash = "unsupported", cleave = "unsupported", armor_reduction = "unsupported",
+                       item_procs = "unsupported" },
   },
   duel_magical = {
     base_spell_amp = { 3, 5, 7 },             -- [ult] PD percent
