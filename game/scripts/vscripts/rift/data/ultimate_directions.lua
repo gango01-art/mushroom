@@ -114,7 +114,7 @@ return {
     ultimate_ability_id = "templar_assassin_psionic_trap", learn_trigger_adapter = "first_point_in_ultimate",
     direction = "physical", display_base = "Psionic Crystal",
     affected_abilities = { "templar_assassin_psionic_trap", "templar_assassin_meld" },
-    preserved_effects = { "refraction", "psi_blades_native" }, replaced_effects = { "psionic_trap", "meld_armor_reduction" },
+    preserved_effects = { "psi_blades_native" }, replaced_effects = { "psionic_trap", "meld_armor_reduction" },
     balance_ref = "ta.crystal_physical", active_handler = "ta_psionic_crystal",
     swaps = { { from = "templar_assassin_psionic_trap", to = "ta_psionic_crystal" },
               { from = "templar_assassin_meld", to = "ta_meld_physical" } },

@@ -46,4 +46,5 @@ Shadowraze: `shadowraze_damage` 85/150/215/280, radius 250, `stack_bonus_damage`
 **Templar Assassin:** ульта `templar_assassin_psionic_trap` (3 ур.; отдельная `templar_assassin_trap` — подспособность
 взрыва, НЕ триггер выбора). Psi Blades: **`attack_spill_pct` 70/80/90/100** (коэффициент кристалла по ТЗ),
 `attack_spill_range` 400–700, `attack_spill_width` 90, `meld_strike_spills` 1. Meld: `bonus_damage` 50/100/150/200,
-`bonus_armor` −2/−4/−6/−8. Refraction: instances 3–6, bonus_damage 15–60.
+`bonus_armor` −2/−4/−6/−8. Refraction: данные способности есть (instances 3–6, bonus_damage 15–60), но в наборе героя
+в этой версии её нет (OP-013): набор — Meld, Psi Blades, Trap, Trap Teleport, Psionic Trap, Inner Peace (врождённая).

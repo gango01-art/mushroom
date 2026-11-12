@@ -197,14 +197,23 @@ function Debug.register(gm)
     if not u then Log.warn("DEV", "dummy spawn failed (is npc_dota_hero_axe precached? tools mode only)"); return end
     require("rift.engine.mods").add(u, u, nil, "modifier_rift_dummy", {})
     u:SetIdleAcquire(false)
+    -- Belt and braces against reflected damage: also unlearn the dummy's abilities.
+    for i = 0, u:GetAbilityCount() - 1 do
+      local a = u:GetAbilityByIndex(i)
+      if a and not a:IsNull() then a:SetLevel(0) end
+    end
+    gm.dummies = gm.dummies or {}
+    table.insert(gm.dummies, u)
     Log.info("DEV", "spawned passive dummy Axe #" .. u:entindex() .. " (not a match participant)")
   end)
 
   cmd("rift_clear_dummies", "Remove all test dummies (dev)", function()
+    -- Track spawned dummies directly (class-name search found none in OP-013).
     local n = 0
-    for _, u in ipairs(Entities:FindAllByClassname("npc_dota_hero_axe")) do
-      if u:HasModifier("modifier_rift_dummy") then UTIL_Remove(u); n = n + 1 end
+    for _, u in ipairs(gm.dummies or {}) do
+      if u and not u:IsNull() then UTIL_Remove(u); n = n + 1 end
     end
+    gm.dummies = {}
     Log.info("DEV", "removed dummies: " .. n)
   end)
 
