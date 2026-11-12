@@ -29,17 +29,45 @@ function pa_phantom_execution:OnSpellStart()
   local n = c:FindAbilityByName(NATIVE)
   local rank = r(self:GetLevel())
   local crit = Exec.crit_percent(n and n:GetSpecialValueFor("crit_bonus") or 0, rank, B.crit_fallback)
+  local spirit = self:SpawnSpirit(c, target)
   ProjectileManager:CreateTrackingProjectile({
-    Target = target, Source = c, Ability = self, EffectName = B.spirit_particle,
+    Target = target, Source = c, Ability = self, EffectName = spirit and "" or B.spirit_particle,
     iMoveSpeed = B.speed, bDodgeable = true, bProvidesVision = false,
     iSourceAttachment = DOTA_PROJECTILE_ATTACHMENT_HITLOCATION,
-    ExtraData = { crit = crit },
+    ExtraData = { crit = crit, spirit = spirit and spirit:entindex() or -1 },
   })
   EmitSoundOn("Hero_PhantomAssassin.Strike.Start", c)
 end
 
+-- Visual spirit: flies to the target at the projectile's speed. Hit logic stays in the
+-- projectile (dodge, spell block); the unit is removed when the projectile ends.
+function pa_phantom_execution:SpawnSpirit(c, target)
+  local u = CreateUnitByName(B.spirit_unit, c:GetAbsOrigin(), false, c, c, c:GetTeamNumber())
+  if not u then return nil end
+  require("rift.engine.mods").add(u, c, self, "modifier_rift_pa_spirit", {})
+  local dt, deadline = 0.03, GameRules:GetGameTime() + B.range / B.speed * 3 + 2
+  u:SetContextThink("rift_pa_spirit_fly", function()
+    if u:IsNull() then return nil end
+    if target:IsNull() or GameRules:GetGameTime() > deadline then UTIL_Remove(u); return nil end
+    local pos, goal = u:GetAbsOrigin(), target:GetAbsOrigin()
+    local d = goal - pos
+    d.z = 0
+    local len = d:Length2D()
+    if len > 1 then
+      local dir = d / len
+      u:SetForwardVector(dir)
+      local np = pos + dir * math.min(len, B.speed * dt)
+      u:SetAbsOrigin(Vector(np.x, np.y, GetGroundHeight(np, u) + 60))
+    end
+    return dt
+  end, 0)
+  return u
+end
+
 function pa_phantom_execution:OnProjectileHit_ExtraData(target, _, data)
   local c = self:GetCaster()
+  local spirit = tonumber(data.spirit) and tonumber(data.spirit) >= 0 and EntIndexToHScript(tonumber(data.spirit)) or nil
+  if spirit and not spirit:IsNull() then UTIL_Remove(spirit) end
   if not c or c:IsNull() then return true end
   local exists = target ~= nil and not target:IsNull()
   local ok = Exec.can_hit({

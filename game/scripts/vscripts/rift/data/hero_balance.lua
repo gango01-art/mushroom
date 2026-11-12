@@ -137,7 +137,10 @@ B.pa = {
     cooldown = { 24, 20, 16 },                -- [ult] PD
     mana = { 80, 100, 120 },                  -- [ult] PD
     crit_fallback = { 200, 325, 450 },        -- [ult] native copy of Coup de Grace crit_bonus (OP-004)
-    -- VERIFY (OP-020): spirit-like tracking projectile; Grimstroke look is the visual target
+    -- Owner request: the spirit looks like Grimstroke's Phantom's Embrace. The native unit is spawned
+    -- as a visual that flies with the (invisible) projectile. VERIFY (OP-024).
+    spirit_unit = "npc_dota_grimstroke_ink_creature",
+    -- fallback projectile effect when the unit cannot be created
     spirit_particle = "particles/units/heroes/hero_necrolyte/necrolyte_pulse_enemy.vpcf",
   },
   storm_magical = {
