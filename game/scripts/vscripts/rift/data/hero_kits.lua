@@ -6,6 +6,9 @@ return {
     -- Owner decision 2026-11-12: Refraction stays exactly as in Dota (this client's kit lacks it,
     -- but the ability data exists - OP-006 dump).
     add = { "templar_assassin_refraction" },
-    order = { "templar_assassin_refraction", "templar_assassin_meld", "templar_assassin_psi_blades" },
+    -- Before the direction choice the hero is a normal Dota TA on familiar hotkeys:
+    -- Q Refraction, W Meld, E Psi Blades, D Trap, R Psionic Trap.
+    order = { "templar_assassin_refraction", "templar_assassin_meld", "templar_assassin_psi_blades",
+              "templar_assassin_trap", { name = "templar_assassin_psionic_trap", slot = 5 } },
   },
 }

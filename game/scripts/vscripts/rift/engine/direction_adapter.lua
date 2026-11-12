@@ -82,19 +82,33 @@ local function layout(hero)
   return table.concat(out, " "), visible
 end
 
--- Put the named abilities into slots 0..n-1 in this order (hotkeys follow slots).
+-- Put abilities into slots (hotkeys follow slots: 0 Q, 1 W, 2 E, 3 D, 4 F, 5 R).
+-- order entries: "name" -> slot = position-1, or { name = "...", slot = n }.
+-- Visibility is restored explicitly afterwards: SwapAbilities' enable flags hid
+-- abilities that passed through high slots (OP-018: Meld/Psi Blades became hidden).
 local function apply_order(hero, order)
-  for i, name in ipairs(order or {}) do
+  if not order or #order == 0 then return end
+  local hidden0 = {}
+  for i = 0, hero:GetAbilityCount() - 1 do
+    local a = hero:GetAbilityByIndex(i)
+    if a and not a:IsNull() then hidden0[a:GetAbilityName()] = a:IsHidden() end
+  end
+  local wanted = {}
+  for i, e in ipairs(order) do
+    local name = type(e) == "table" and e.name or e
+    local slot = type(e) == "table" and e.slot or (i - 1)
+    wanted[name] = true
     local a = hero:FindAbilityByName(name)
-    if a then
-      local target = i - 1
-      if a:GetAbilityIndex() ~= target then
-        local other = hero:GetAbilityByIndex(target)
-        if other and not other:IsNull() then
-          hero:SwapAbilities(name, other:GetAbilityName(), not a:IsHidden(), not other:IsHidden())
-        end
+    if a and a:GetAbilityIndex() ~= slot then
+      local other = hero:GetAbilityByIndex(slot)
+      if other and not other:IsNull() then
+        hero:SwapAbilities(name, other:GetAbilityName(), true, not hidden0[other:GetAbilityName()])
       end
     end
+  end
+  for name, was_hidden in pairs(hidden0) do
+    local a = hero:FindAbilityByName(name)
+    if a then a:SetHidden(not wanted[name] and was_hidden) end
   end
 end
 

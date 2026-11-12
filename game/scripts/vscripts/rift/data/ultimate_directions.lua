@@ -123,7 +123,9 @@ return {
               { from = "templar_assassin_meld", to = "ta_meld_physical" } },
     -- native trap sub-abilities have no use without Psionic Trap: removed from the bar (owner request)
     remove = { "templar_assassin_trap", "templar_assassin_trap_teleport" },
-    order = { "templar_assassin_refraction", "ta_meld_physical", "templar_assassin_psi_blades" },  -- Refraction untouched
+    -- Refraction and Psi Blades untouched (OP-018: Psi Blades must stay visible)
+    order = { "templar_assassin_refraction", "ta_meld_physical", "templar_assassin_psi_blades",
+              { name = "ta_psionic_crystal", slot = 5 } },
     -- Meld replacement (no armor reduction, bigger bonus) is listed below once implemented;
     -- the direction stays "planned" until every part is verified in Dota.
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
@@ -146,7 +148,7 @@ return {
               { from = "templar_assassin_psi_blades", to = "ta_psi_wave" },
               { from = "templar_assassin_psionic_trap", to = "ta_psionic_blast" } },
     remove = { "templar_assassin_trap", "templar_assassin_trap_teleport" },
-    order = { "ta_refraction_magical", "ta_meld_dash", "ta_psi_wave" },
+    order = { "ta_refraction_magical", "ta_meld_dash", "ta_psi_wave", { name = "ta_psionic_blast", slot = 5 } },
     modifiers = { "modifier_rift_ta_no_attack" },
     excluded_upgrade_tags = { "attack", "crit", "lifesteal_attack" },  -- no normal attacks in this direction
     default_on_timeout = false, transfer_policy = "keep_rank_keep_cooldown",
