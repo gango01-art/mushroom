@@ -19,3 +19,6 @@
 11. Пути частиц события (ping_world, aegis_timer) не проверены — OP-008. Без них событие работает, но хуже читается.
 12. `MODIFIER_PROPERTY_PROVIDES_FOW_POSITION` у носителя может не раскрывать позицию врагам — надёжное раскрытие
     сделано периодическим `AddFOWViewer` для всех команд.
+13. Lua-модификаторы не регистрировались при LinkLuaModifier только на уровне файла `addon_game_mode.lua`
+    («Attempted to create unknown modifier type»). Фикс-кандидат: повторная регистрация в `Activate()`; проверка —
+    `rift_modtest` (печатает загрузку файла каждого модификатора и результат AddNewModifier).

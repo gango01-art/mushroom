@@ -34,6 +34,20 @@ function Debug.register(gm)
     end
   end)
 
+  cmd("rift_modtest", "rift_modtest [pid]: load each modifier file, relink, apply to hero and report", function(pid)
+    local h = PlayerResource:GetSelectedHeroEntity(tonumber(pid or "0") or 0)
+    for _, name in ipairs(RIFT_MODIFIERS or {}) do
+      local ok, err = pcall(require, "rift.modifiers." .. name)
+      Log.info("DEV", string.format("modtest %s load=%s err=%s class=%s", name, tostring(ok),
+        tostring(ok and "-" or err), type(_G[name])))
+      if RiftLinkModifiers then RiftLinkModifiers(false) end
+      if h and name == "modifier_rift_spawn_shield" then
+        local m = h:AddNewModifier(h, nil, name, { duration = 1 })
+        Log.info("DEV", "modtest apply " .. name .. " -> " .. tostring(m) .. " has=" .. tostring(h:HasModifier(name)))
+      end
+    end
+  end)
+
   cmd("rift_skip", "rift_skip <seconds>: advance match clock (logic only)", function(sec)
     local s = tonumber(sec or "60") or 60
     if s <= 0 then return end

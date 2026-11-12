@@ -1,0 +1,1796 @@
+] con_logfile rift_console.log
+'con_logfile' is not a recognized command.
+] rift_status
+] rift_dump_hero 0
+[RIFT][INFO][DEV] version=0.1.0-a state=ACTIVE elapsed=554.0 remaining=526.0 offset=0.0 map_fallback=true
+[RIFT][INFO][DEV]   pid=0 score=0 K/D/A=0/0/0 streak=0
+[RIFT][INFO][DEV] hero=npc_dota_hero_phantom_assassin abilities=19
+[RIFT][DUMP] slot=0 name=phantom_assassin_stifling_dagger level=3/4 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_1
+    AbilityCastPoint = 0.3 0.3 0.3 0.3
+    AbilityCastRange = 700 850 1000 1150
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 30
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilitySound = Hero_PhantomAssassin.Dagger.Cast
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitDamageType = DAMAGE_TYPE_PHYSICAL
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityUnitTargetType = DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP
+    AbilityValues {
+      AbilityCooldown {
+        special_bonus_unique_phantom_assassin_7 = -2.000000
+        value = 6
+      }
+      attack_factor {
+        special_bonus_unique_phantom_assassin_5 = 15
+        value = -70 -55 -40 -25
+      }
+      attack_factor_tooltip {
+        DamageTypeTooltip = DAMAGE_TYPE_PHYSICAL
+        special_bonus_unique_phantom_assassin_5 = 15
+        value = 30 45 60 75
+      }
+      base_damage = 65 70 75 80
+      dagger_recast_time {
+        special_bonus_shard = 0
+      }
+      dagger_secondary_reduce {
+        special_bonus_shard = 0
+      }
+      dagger_speed = 1200
+      duration = 2.1 2.4 2.7 3
+      extra_daggers {
+        special_bonus_unique_phantom_assassin = 2
+      }
+      move_slow = -50
+    }
+    FightRecapLevel = 0
+    ID = 5190
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+[RIFT][DUMP] slot=1 name=phantom_assassin_phantom_strike level=3/4 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_2
+    AbilityCastPoint = 0.250000
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 21 18 15 12
+    AbilityCharges = 2
+    AbilityCooldown = 0.100000
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 35 40 45 50
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilitySound = Hero_PhantomAssassin.Strike.Start
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_CUSTOM
+    AbilityUnitTargetType = DOTA_UNIT_TARGET_CUSTOM
+    AbilityValues {
+      AbilityCastRange {
+        special_bonus_unique_phantom_assassin_6 = 200
+        value = 650 750 850 950
+      }
+      bonus_attack_speed {
+        special_bonus_unique_phantom_assassin_strike_aspd = 60
+        value = 80 120 160 200
+      }
+      creep_lifesteal_penalty = 40
+      duration {
+        special_bonus_unique_phantom_assassin_4 = 0.800000
+        value = 3.000000
+      }
+    }
+    FightRecapLevel = 0
+    ID = 5191
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+[RIFT][DUMP] slot=2 name=phantom_assassin_blur level=1/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_3
+    AbilityCastPoint = 0.300000
+    AbilityCastRange = 500
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 50
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
+    AbilityUnitTargetType = DOTA_UNIT_TARGET_HERO
+    AbilityValues {
+      AbilityCooldown {
+        special_bonus_shard = -10
+        value = 45
+      }
+      active_movespeed_bonus {
+        hero_levelup = 0.500000
+        value = 9.500000
+      }
+      break_on_attack = 0
+      buff_duration_after_break {
+        value = 0
+      }
+      cooldown_refund_pct {
+        special_bonus_shard = 60
+      }
+      duration = 30
+      fade_duration = 0.800000
+      immediate_cast {
+        special_bonus_shard = 0
+      }
+      manacost_reduction_after_blur_pct {
+        value = 0
+      }
+      manacost_reduction_during_blur_pct {
+        value = 0
+      }
+      purge_on_cast {
+        special_bonus_shard = 0
+      }
+      radius = 500
+    }
+    FightRecapLevel = 0
+    HasShardUpgrade = 1
+    ID = 5192
+    Innate = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+    SpellDispellableType = SPELL_DISPELLABLE_NO
+[RIFT][DUMP] slot=3 name=phantom_assassin_fan_of_knives level=0/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_4
+    AbilityCastPoint = 0.150000
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 14
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 80
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilitySound = Ability.Torrent
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitDamageType = DAMAGE_TYPE_PHYSICAL
+    AbilityValues {
+      degen = -50
+      duration = 4
+      max_damage_initial = -1
+      pct_health_damage = 2
+      pct_health_damage_initial = 30
+      projectile_speed = 1000
+      radius {
+        affected_by_aoe_increase = 1
+        value = 550
+      }
+    }
+    FightRecapLevel = 1
+    ID = 662
+    IsGrantedByScepter = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+    SpellDispellableType = SPELL_DISPELLABLE_NO
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+[RIFT][DUMP] slot=4 name=phantom_assassin_immaterial level=1/4 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_3
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityValues {
+      evasion {
+        special_bonus_unique_phantom_assassin_3 = 20
+        value = 25 35 45 55
+      }
+    }
+    FightRecapLevel = 0
+    ID = 1287
+    IsBreakable = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 4
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=5 name=phantom_assassin_coup_de_grace level=1/3 type=1
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_4
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDraftExtraAbilities {
+      phantom_assassin_blur = 
+      phantom_assassin_fan_of_knives = scepter
+    }
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilitySound = Hero_PhantomAssassin.CoupDeGrace
+    AbilityType = ABILITY_TYPE_ULTIMATE
+    AbilityValues {
+      attacks_to_proc {
+        special_bonus_facet_phantom_assassin_methodical {
+          special_bonus_unique_phantom_assassin_2 = -1
+          value = 6
+        }
+      }
+      attacks_to_proc_creeps {
+        special_bonus_facet_phantom_assassin_methodical {
+          special_bonus_unique_phantom_assassin_2 = -1
+          value = 4
+        }
+      }
+      crit_bonus {
+        special_bonus_facet_phantom_assassin_methodical = 100
+        value = 200 325 450
+      }
+      crit_chance {
+        special_bonus_facet_phantom_assassin_methodical = =0
+        special_bonus_unique_phantom_assassin_2 = 10
+        value = 17
+      }
+      dagger_crit_chance {
+        special_bonus_facet_phantom_assassin_methodical = =0
+        special_bonus_unique_phantom_assassin_2 = 10
+        value = 34
+      }
+      duration = 6 8 10
+      two_tooltip {
+        special_bonus_facet_phantom_assassin_methodical = 2
+      }
+    }
+    FightRecapLevel = 0
+    ID = 5193
+    IsBreakable = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+[RIFT][DUMP] slot=6 name=special_bonus_unique_phantom_assassin_4 level=1/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 483
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=7 name=special_bonus_unique_phantom_assassin_7 level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 559
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=8 name=special_bonus_unique_phantom_assassin_3 level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 6848
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=9 name=special_bonus_unique_phantom_assassin_5 level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 491
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=10 name=special_bonus_unique_phantom_assassin_6 level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 490
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=11 name=special_bonus_unique_phantom_assassin_strike_aspd level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 1074
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=12 name=special_bonus_unique_phantom_assassin_2 level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 6847
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=13 name=special_bonus_unique_phantom_assassin level=0/4 type=2
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_ATTRIBUTES
+    BaseClass = special_bonus_base
+    FightRecapLevel = 0
+    ID = 6192
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=14 name=special_bonus_attributes level=0/7 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN
+    AbilityCastPoint = 0
+    AbilityCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityValues {
+      value = 2 4 6 8 10 12 14
+    }
+    FightRecapLevel = 0
+    ID = 730
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 7
+    OnCastbar = 1
+    OnLearnbar = 1
+    RequiredLevel = 2
+[RIFT][DUMP] slot=15 name=ability_capture level=1/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN
+    AbilityCastAnimation = ACT_DOTA_GENERIC_CHANNEL_1
+    AbilityCastPoint = 0
+    AbilityCastRange = 300
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityValues {
+      allow_mixed_capture = 0
+      ally_exponent = 1.000000
+      base_capture_tick = 0.100000
+      base_capture_time = 6.000000
+    }
+    FightRecapLevel = 0
+    ID = 5669
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=16 name=abyssal_underlord_portal_warp level=1/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+    AbilityCastAnimation = ACT_DOTA_GENERIC_CHANNEL_1
+    AbilityCastPoint = 0
+    AbilityCastRange = 300
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 3.500000
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityValues {
+      animation_rate = 0.800000
+      stop_distance = 100
+    }
+    FightRecapLevel = 0
+    ID = 842
+    IsCastableWhileHidden = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=17 name=twin_gate_portal_warp level=1/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE
+    AbilityCastAnimation = ACT_DOTA_GENERIC_CHANNEL_1
+    AbilityCastPoint = 0
+    AbilityCastRange = 200
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 4.000000
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 30
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityValues {
+      animation_rate = 0.800000
+      stop_distance = 500
+    }
+    FightRecapLevel = 0
+    ID = 8873
+    IsCastableWhileHidden = 1
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+[RIFT][DUMP] slot=18 name=ability_lamp_use level=1/1 type=0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_SILENCE | DOTA_ABILITY_BEHAVIOR_HIDDEN
+    AbilityCastAnimation = ACT_DOTA_GENERIC_CHANNEL_1
+    AbilityCastPoint = 0
+    AbilityCastRange = 200
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 1.000000
+    AbilityChargeRestoreTime = 0
+    AbilityCharges = 0
+    AbilityCooldown = 0
+    AbilityDamage = 0 0 0 0
+    AbilityDuration = 0
+    AbilityManaCost = 0
+    AbilityModifierSupportBonus = 0
+    AbilityModifierSupportValue = 1
+    AbilityOvershootCastRange = 0
+    AbilitySharedCooldown = 
+    AbilityTextureName = watcher_channel
+    AbilityType = ABILITY_TYPE_BASIC
+    AbilityUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_BOTH
+    AbilityValues {
+      active_duration = 420
+      duration = 420
+      inactive_duration = 120
+    }
+    FightRecapLevel = 0
+    ID = 2610
+    ItemCombinable = 1
+    ItemCost = 0
+    ItemDeclaresPurchase = 0
+    ItemDisassemblable = 0
+    ItemDroppable = 1
+    ItemInitialCharges = 0
+    ItemIsNeutralDrop = 0
+    ItemKillable = 1
+    ItemPermanent = 1
+    ItemPurchasable = 1
+    ItemRecipe = 0
+    ItemRequiresCharges = 0
+    ItemSellable = 1
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemStackable = 0
+    MaxLevel = 1
+    OnCastbar = 1
+    OnLearnbar = 1
+] rift_dump_ability legion_commander_overwhelming_odds
+[RIFT][DUMP] ability=legion_commander_overwhelming_odds max_level=4 type=0 behavior=134217764
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+    AbilityUnitDamageType = DAMAGE_TYPE_MAGICAL
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilitySound = Hero_LegionCommander.Overwhelming.Location
+    AbilityCastRange = 0
+    AbilityCastPoint = 0.3 0.3 0.3 0.3
+    AbilityManaCost = 90 105 120 135
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_1
+    ID = 5595
+    HasShardUpgrade = 1
+    AbilityValues {
+      damage_per_hero {
+        value = 40 70 100 130
+        special_bonus_unique_legion_commander_4 = 35
+      }
+      radius {
+        special_bonus_shard = 100
+        value = 600
+        affected_by_aoe_increase = 1
+      }
+      shield_duration {
+        special_bonus_shard = 6
+        RequiresShard = 1
+      }
+      duration = 6.000000
+      shield_per_damage_pct {
+        special_bonus_shard = 50
+        RequiresShard = 1
+      }
+      damage_per_unit = 14 16 18 20
+      bonus_armor_heroes = 0
+      bonus_armor_creeps = 0
+      bonus_attack_speed_creeps = 0
+      bonus_attack_speed = 50 75 100 125
+      damage = 40 70 100 130
+      movement_slow = 100
+      shield_counts_non_hero_damage = 0
+      AbilityCooldown {
+        value = 18
+        special_bonus_unique_legion_commander_9 = -2
+      }
+      slow_duration = 0.300000
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 1
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_NO
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability legion_commander_press_the_attack
+[RIFT][DUMP] ability=legion_commander_press_the_attack max_level=4 type=0 behavior=8
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_FRIENDLY
+    AbilityUnitTargetType = DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilitySound = Hero_LegionCommander.PressTheAttack
+    AbilityCastRange = 700
+    AbilityUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES
+    AbilityCastPoint = 0.200000
+    AbilityManaCost = 90
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_2
+    ID = 5596
+    HasScepterUpgrade = 1
+    AbilityValues {
+      immunity_duration {
+        special_bonus_unique_legion_commander_8 = 1.500000
+      }
+      radius {
+        affected_by_aoe_increase = 1
+        value = 0
+        special_bonus_scepter = 500
+      }
+      duration {
+        value = 5.000000
+      }
+      immunity_resist {
+        special_bonus_unique_legion_commander_8 = 40
+      }
+      move_speed {
+        value = 13 16 19 22
+        special_bonus_scepter = 12
+      }
+      hp_regen {
+        value = 24 36 48 60
+        special_bonus_unique_legion_commander_6 = 40
+      }
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 16.0 15.0 14.0 13.0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ALLIES_NO
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 3
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability legion_commander_moment_of_courage
+[RIFT][DUMP] ability=legion_commander_moment_of_courage max_level=4 type=0 behavior=2
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilitySound = Hero_LegionCommander.Courage
+    AbilityCastRange = 0
+    AbilityCastPoint = 0
+    AbilityManaCost = 0
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_3
+    ID = 5597
+    IsBreakable = 1
+    AbilityValues {
+      trigger_attacks {
+        value = 7 6 5 4
+        special_bonus_unique_legion_commander_3 = -1
+      }
+      hp_leech_percent {
+        value = 55 65 75 85
+        special_bonus_unique_legion_commander_7 = 100
+      }
+      buff_duration = 1.000000
+      secondary_attack_damage = 100
+    }
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0.300000
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    ItemStackable = 0
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability legion_commander_duel
+[RIFT][DUMP] ability=legion_commander_duel max_level=3 type=1 behavior=8
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityUnitTargetType = DOTA_UNIT_TARGET_HERO
+    SpellDispellableType = SPELL_DISPELLABLE_NO
+    AbilitySound = Hero_LegionCommander.Duel
+    AbilityCastRange = 0
+    AbilityUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES | DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO
+    AbilityCastPoint = 0.3 0.3 0.3 0.3
+    AbilityManaCost = 80 100 120
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_4
+    ID = 5598
+    HasScepterUpgrade = 1
+    AbilityValues {
+      duration {
+        value = 4.0 4.5 5.0
+        special_bonus_unique_legion_commander_duel_duration = 0.750000
+      }
+      duel_refresh_on_victory {
+        value = 0
+        special_bonus_unique_legion_commander_duel_refresh_on_victory = 30
+      }
+      damage_reduction_pct {
+        value = 0
+      }
+      team_duel {
+        value = 0
+        special_bonus_scepter = 0
+      }
+      team_duel_damage_pct {
+        value = 0
+        special_bonus_scepter = 0
+      }
+      team_duel_radius {
+        value = 0
+        special_bonus_scepter = 0
+      }
+      AbilityCastRange = 200
+      AbilityCooldown = 60 55 50
+      trigger_pta_on_victory {
+        value = 0
+        special_bonus_scepter = 1
+      }
+      reward_damage = 10 20 30
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_ULTIMATE
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 2
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 3
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability nevermore_shadowraze1
+[RIFT][DUMP] ability=nevermore_shadowraze1 max_level=4 type=0 behavior=134217732
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+    LinkedAbility = nevermore_shadowraze2
+    AbilityUnitDamageType = DAMAGE_TYPE_MAGICAL
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilitySound = Hero_Nevermore.Shadowraze
+    AbilityCastRange = 0
+    AbilityCastPoint = 0.550000
+    AbilityManaCost = 75
+    AbilityCastAnimation = ACT_DOTA_RAZE_1
+    ID = 5059
+    HasShardUpgrade = 1
+    AbilityValues {
+      shadowraze_damage {
+        value = 85 150 215 280
+      }
+      shadowraze_radius {
+        value = 250
+        affected_by_aoe_increase = 1
+      }
+      duration {
+        value = 6
+      }
+      stack_bonus_damage {
+        CalculateSpellDamageTooltip = 0
+        special_bonus_unique_nevermore_7 = 30
+        value = 35 50 65 80
+      }
+      procs_attack {
+        value = 0
+        special_bonus_unique_nevermore_raze_procsattacks = 1
+      }
+      cooldown_reduction_on_hero_hit {
+        value = 0
+        special_bonus_shard = 2.000000
+      }
+      movement_speed_debuff {
+        value = 0 0 0 0
+        special_bonus_shard = =12
+      }
+      AbilityCooldown {
+        value = 9
+      }
+      shadowraze_range = 200
+      shadowraze_cooldown = 3
+      turn_rate_pct = 0
+      damage_per_soul = 2
+    }
+    AbilityCastGestureSlot = DEFAULT
+    ItemPermanent = 1
+    ItemStackable = 0
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 1
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_NO
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability nevermore_necromastery
+[RIFT][DUMP] ability=nevermore_necromastery max_level=1 type=0 behavior=5.6294995342138e+14
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_FORCE_NO_INNATE_UI | DOTA_ABILITY_BEHAVIOR_HIDDEN
+    AbilityCastRange = 0
+    AbilityCastPoint = 0
+    AbilityManaCost = 0
+    ID = 5062
+    IsBreakable = 1
+    Innate = 1
+    MaxLevel = 1
+    AbilityValues {
+      souls_per_hero_kill = 4
+      necromastery_soul_release = 0.700000
+      attack_range_bonus = 0
+      soul_release_tooltip = 30.000000
+      necromastery_damage_per_soul {
+        CalculateSpellDamageTooltip = 0
+        levelup_interval = 6
+        value = 1
+        hero_levelup = 0.800000
+      }
+      current_max_souls_tooltip {
+        dynamic_value = true
+      }
+      necromastery_max_souls {
+        value = 20
+        special_bonus_unique_nevermore_1 = 5
+      }
+      shard_souls_per_kill {
+        special_bonus_shard = 2
+      }
+      max_soul_increase_on_hero_kill {
+        value = 0
+      }
+      shard_crit_pct {
+        special_bonus_shard = 190
+      }
+      shard_fear_duration {
+        special_bonus_shard = 0.400000
+      }
+      souls_per_kill = 1
+    }
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    ItemStackable = 0
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability nevermore_dark_lord
+[RIFT][DUMP] ability=nevermore_dark_lord max_level=4 type=0 behavior=65538
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA
+    AbilityUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY
+    AbilityCastRange = 1200
+    AbilityCastPoint = 0
+    AbilityManaCost = 0
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_5
+    ID = 5063
+    IsBreakable = 1
+    AbilityValues {
+      bonus_armor_per_stack {
+        value = 0
+      }
+      kill_buff_duration {
+        value = 0
+      }
+      presence_armor_reduction {
+        value = -2.5 -4 -5.5 -7
+        special_bonus_unique_nevermore_3 = -1.500000
+      }
+      presence_radius {
+        value = 1200
+        affected_by_aoe_increase = 1
+      }
+    }
+    ItemPermanent = 1
+    ItemStackable = 0
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 0
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability nevermore_requiem
+[RIFT][DUMP] ability=nevermore_requiem max_level=3 type=1 behavior=67108868
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN
+    AbilityUnitDamageType = DAMAGE_TYPE_MAGICAL
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilitySound = Hero_Nevermore.RequiemOfSouls
+    AbilityCastRange = 0
+    AbilityCastPoint = 1.67 1.67 1.67
+    AbilityManaCost = 150 175 200
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_6
+    ID = 5064
+    HasScepterUpgrade = 1
+    AbilityValues {
+      requiem_line_speed = 700 700 700
+      soul_death_release = 0.500000
+      requiem_radius {
+        value = 1000
+        affected_by_aoe_increase = 1
+      }
+      max_soul_release {
+        value = 20
+      }
+      requiem_reduction_ms = -20 -25 -30
+      requiem_slow_duration {
+        value = 0.600000
+        special_bonus_unique_nevermore_6 = 0.200000
+      }
+      requiem_heal_pct_scepter {
+        special_bonus_scepter = 100
+      }
+      requiem_line_width_end {
+        value = 300
+        affected_by_aoe_increase = 1
+      }
+      requiem_slow_duration_max {
+        value = 2.150000
+        special_bonus_unique_nevermore_6 = 0.450000
+      }
+      AbilityCooldown {
+        value = 120 110 100
+        special_bonus_scepter = -30
+      }
+      requiem_line_width_start {
+        value = 125
+        affected_by_aoe_increase = 1
+      }
+      requiem_reduction_mres = -5 -10 -15
+      requiem_soul_conversion = 1
+      requiem_damage_pct_scepter {
+        CalculateSpellDamageTooltip = 0
+        special_bonus_scepter = 100
+      }
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_ULTIMATE
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 2
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_NO
+    AbilityDamage = 80 120 160
+    AbilityModifierSupportValue = 0.5
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability templar_assassin_refraction
+[RIFT][DUMP] ability=templar_assassin_refraction max_level=4 type=0 behavior=2052
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE
+    AbilityUnitDamageType = DAMAGE_TYPE_PHYSICAL
+    SpellDispellableType = SPELL_DISPELLABLE_NO
+    AbilitySound = Hero_TemplarAssassin.Refraction
+    AbilityCastRange = 0
+    AbilityCastPoint = 0.0 0.0 0.0 0.0
+    AbilityManaCost = 95
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_1
+    ID = 5194
+    HasShardUpgrade = 1
+    AbilityValues {
+      bonus_damage_per_instance_burn {
+        special_bonus_facet_templar_assassin_refractor = 1
+      }
+      cast_while_disabled {
+        special_bonus_shard = 1
+      }
+      instances {
+        CalculateSpellDamageTooltip = 0
+        DamageTypeTooltip = DAMAGE_TYPE_NONE
+        value = 3 4 5 6
+        special_bonus_unique_templar_assassin = 4
+      }
+      shield_per_instance {
+        value = 30
+      }
+      dispels {
+        special_bonus_unique_templar_assassin_4 = 1
+      }
+      bonus_damage {
+        value = 15 30 45 60
+        special_bonus_shard = 30
+      }
+      duration {
+        value = 17
+      }
+    }
+    ItemPermanent = 1
+    ItemStackable = 0
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 14.000000
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability templar_assassin_meld
+[RIFT][DUMP] ability=templar_assassin_meld max_level=4 type=0 behavior=33816580
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK
+    AbilityUnitDamageType = DAMAGE_TYPE_PHYSICAL
+    SpellDispellableType = SPELL_DISPELLABLE_NO
+    AbilitySound = Hero_TemplarAssassin.Meld
+    AbilityCastRange = 0
+    AbilityCastPoint = 0.0 0.0 0.0 0.0
+    AbilityManaCost = 35 40 45 50
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_2
+    ID = 5195
+    AbilityValues {
+      debuff_duration {
+        value = 6
+        special_bonus_unique_templar_assassin_meld_duration = 1.500000
+      }
+      attack_range_bonus {
+        value = 0
+        special_bonus_unique_templar_assassin_meld_attack_range_bonus = 225
+      }
+      bonus_armor {
+        value = -2 -4 -6 -8
+        special_bonus_unique_templar_assassin_8 = -4
+      }
+      bash_duration {
+        value = 0
+        special_bonus_unique_templar_assassin_7 = =0.8
+      }
+      bonus_damage {
+        value = 50 100 150 200
+      }
+    }
+    ItemPermanent = 1
+    ItemStackable = 0
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 11 9 7 5
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability templar_assassin_psi_blades
+[RIFT][DUMP] ability=templar_assassin_psi_blades max_level=4 type=0 behavior=2
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_PASSIVE
+    AbilityUnitDamageType = DAMAGE_TYPE_PURE
+    AbilityCastRange = 0
+    AbilityCastPoint = 0
+    AbilityManaCost = 0
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_3
+    ID = 5196
+    IsBreakable = 1
+    AbilityValues {
+      attack_spill_pct = 70 80 90 100
+      bonus_attack_range {
+        value = 50 100 150 200
+      }
+      attack_spill_range {
+        value = 400 500 600 700
+      }
+      attack_spill_width {
+        value = 90
+        affected_by_aoe_increase = 1
+      }
+      meld_strike_spills {
+        value = 1.000000
+      }
+      spill_slow_duration {
+        value = 0.000000
+      }
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_YES
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability templar_assassin_psionic_trap
+[RIFT][DUMP] ability=templar_assassin_psionic_trap max_level=3 type=1 behavior=134217744
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+    AbilityUnitDamageType = DAMAGE_TYPE_MAGICAL
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilitySound = Hero_TemplarAssassin.Trap
+    AbilityCastRange = 1800
+    AbilityCastPoint = 0.3 0.3 0.3 0.3
+    AbilityManaCost = 15 15 15
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_5
+    ID = 5197
+    HasScepterUpgrade = 1
+    AbilityValues {
+      trap_fade_time = 2.0 2.0 2.0
+      instant_trap_damage = 0
+      extra_damage = 400
+      damage_tick_rate = 0.500000
+      trap_max_charge_duration = 3.500000
+      trap_radius {
+        value = 400
+        affected_by_aoe_increase = 1
+      }
+      bonus_vision {
+        special_bonus_scepter = 0
+      }
+      max_traps {
+        value = 5 8 11
+        special_bonus_unique_templar_assassin_6 = 3
+      }
+      max_silence_duration {
+        special_bonus_scepter = 3.000000
+      }
+      movement_speed_min {
+        value = 20
+        special_bonus_unique_templar_assassin_3 = 15
+      }
+      movement_speed_max {
+        value = 50
+        special_bonus_unique_templar_assassin_3 = 15
+      }
+      trap_bonus_damage {
+        value = 200 300 400
+      }
+      trap_duration = 5.000000
+      min_silence_duration {
+        special_bonus_scepter = 0.250000
+      }
+    }
+    AbilityDraftExtraAbilities {
+      templar_assassin_trap = 
+      templar_assassin_trap_teleport = scepter
+    }
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_ULTIMATE
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 11.0 8.0 5.0
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_NO
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 0
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+] rift_dump_ability templar_assassin_trap
+[RIFT][DUMP] ability=templar_assassin_trap max_level=3 type=0 behavior=1099515824196
+    ItemIsNeutralDrop = 0
+    AbilityBehavior = DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_ALT_CASTABLE
+    SpellDispellableType = SPELL_DISPELLABLE_YES
+    AbilityCastRange = 0
+    AbilityCastPoint = 0.000000
+    AbilityManaCost = 0
+    AbilityCastAnimation = ACT_DOTA_CAST_ABILITY_4
+    ID = 5198
+    MaxLevel = 3
+    ItemStackable = 0
+    ItemPermanent = 1
+    AbilityType = ABILITY_TYPE_BASIC
+    OnCastbar = 1
+    OnLearnbar = 1
+    FightRecapLevel = 0
+    AbilityOvershootCastRange = 0
+    AbilityCastRangeBuffer = 250
+    AbilityChannelTime = 0
+    AbilityCooldown = 0.500000
+    AbilityDuration = 0
+    AbilityCharges = 0
+    AbilityChargeRestoreTime = 0
+    AbilitySharedCooldown = 
+    SpellImmunityType = SPELL_IMMUNITY_ENEMIES_NO
+    AbilityDamage = 0 0 0 0
+    AbilityModifierSupportValue = 1
+    AbilityModifierSupportBonus = 100
+    ItemCost = 0
+    ItemInitialCharges = 0
+    ItemCombinable = 1
+    ItemRecipe = 0
+    ItemDroppable = 1
+    ItemPurchasable = 1
+    ItemSellable = 1
+    ItemRequiresCharges = 0
+    ItemKillable = 1
+    ItemDisassemblable = 0
+    ItemShareability = ITEM_NOT_SHAREABLE
+    ItemDeclaresPurchase = 0
+Certificate expires in 33h59m at 1794584712 (current time 1794462343), will renew in 31h59m
+] con_logfile ""
+'con_logfile' is not a recognized command.
+--- Sent CMsgGameServerInfo to GC
+server_public_ip_addr: 3260517690
+server_private_ip_addr: 3232259692
+server_port: 27015
+server_tv_port: 0
