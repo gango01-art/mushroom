@@ -26,6 +26,9 @@ A/B — код написан, в Dota **не запускался**. Ждём O
 22:11) будит эту сессию: продолжать по этому файлу.
 
 ## Следующие конкретные шаги (по порядку)
+0000. OP-019 verified (обычный набор TA до выбора, Psi Blades видна, ульта на R во всех состояниях). Перенос уровней
+    при выборе ветки уже работает через `core/ability_transfer` (в логах: Refraction 2→2, Meld 1→1); полная проверка
+    сборки 1/1/3 — OP-022.
 000. **Владелец (сессия 18): сначала Phantom Assassin.** Обе ветки PA написаны (`abilities/pa_phantom_execution`,
     `pa_storm_dagger`, `pa_storm_charge`, `engine/pa_storm`, `core/heroes/pa_physical`), статус `planned`, 117 тестов.
     Ждём OP-020 (физическая) и OP-021 (магическая). После verified: статус обеих → `implemented` в
