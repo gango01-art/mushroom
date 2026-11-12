@@ -1,0 +1,18 @@
+# match 1 (physical by player)
+[RIFT][INFO][DIRECTION] kit applied for npc_dota_hero_templar_assassin: 0:templar_assassin_refraction 1:templar_assassin_meld(h) 2:templar_assassin_psi_blades(h) 3:templar_assassin_trap_teleport(h) 4:templar_assassin_psionic_trap 5:templar_assassin_inner_peace
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_refraction 1:templar_assassin_meld(h) 2:templar_assassin_psi_blades(h) 3:templar_assassin_trap_teleport(h) 4:templar_assassin_psionic_trap 5:templar_assassin_inner_peace
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_crystal level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_physical level=0 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:templar_assassin_refraction 1:ta_meld_physical 2:templar_assassin_psi_blades(h) 4:ta_psionic_crystal 5:templar_assassin_inner_peace
+[RIFT][INFO][UPGRADES] direction ta_crystal_physical pid=0
+[RIFT][INFO][UPGRADES] pid=0 offer=2 ultimate_direction -> ta_crystal_physical by=player
+# match 2 (magical by player, Refraction at level 2 before choice)
+[RIFT][INFO][DIRECTION] kit applied for npc_dota_hero_templar_assassin: (same as above)
+[RIFT][INFO][DIRECTION] swap templar_assassin_refraction -> ta_refraction_magical level=2 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_dash level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psi_blades -> ta_psi_wave level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_blast level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:ta_psionic_blast 5:templar_assassin_inner_peace
+[RIFT][INFO][UPGRADES] pid=0 offer=2 ultimate_direction -> ta_waves_magical by=player
+# match 3 (no choice for 45 s)
+[RIFT][INFO][UPGRADES] pid=0 offer=1 ultimate_direction -> ta_crystal_physical by=timeout
