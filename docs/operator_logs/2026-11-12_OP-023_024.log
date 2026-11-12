@@ -1,0 +1,33 @@
+# OP-023 / OP-024 (operator, 2026-11-12) — строки [RIFT] из VConsole (rift_verbose 1)
+# --- OP-023 шаг 1: неподвижные манекены
+[RIFT][INFO][DEV] spawned passive dummy Axe #1412 team=11 (not a match participant)
+[RIFT][INFO][DEV] spawned passive dummy Axe #1434 team=11 (not a match participant)
+# ~3,5 мин наблюдения + ~25 ударов героя: манекены на месте, не атаковали, не умирали, строк respawn/death нет; HP героя не менялось.
+# --- OP-021 шаги 4-8 / OP-023 шаги 2-4 (магическая ветка, Q 3 ур., ульта 1 ур.)
+[RIFT][INFO][DEV] force_direction pa_storm_daggers: ok
+[RIFT][INFO][DIRECTION] swap phantom_assassin_coup_de_grace -> pa_storm_charge level=0 cd=0.0   # очко в ульту вложено ПОСЛЕ force (в этом прогоне)
+[RIFT][INFO][DIRECTION] swap phantom_assassin_stifling_dagger -> pa_storm_dagger level=3 cd=0.0   # OP-022 шаг 4
+[RIFT][INFO][DIRECTION] layout after: 0:pa_storm_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:pa_storm_charge
+[RIFT][INFO][DEV] pa_storm_always=1
+[RIFT][DEBUG][PA] storm cast=1 targets=2 proc=true
+[RIFT][INFO][PA] storm chain cast=1 damage=300
+# rift_pa_storm_always 0, 10 кастов Q по двум манекенам (касты 2-11):
+[RIFT][DEBUG][PA] storm cast=2 targets=2 proc=false
+[RIFT][DEBUG][PA] storm cast=3 targets=2 proc=true
+[RIFT][INFO][PA] storm chain cast=3 damage=300
+[RIFT][DEBUG][PA] storm cast=4..11 targets=2 proc=false   (8 строк)
+[RIFT][DEBUG][PA] storm cast=12 targets=2 proc=false
+[RIFT][DEBUG][PA] storm cast=13 targets=2 proc=false
+# один манекен (rift_clear_dummies + rift_spawn_dummy 400):
+[RIFT][DEBUG][PA] storm cast=14 targets=1 proc=false
+# rift_probe_attacks 0 (атаки + 2 каста кинжала): 53 + далее attack_landed, значения 103-109, криты (~210) отсутствуют; ~93 attack_landed без критов.
+# кинжал в пробе: take_damage original=108.6-109.2 damage=93 (обычная атака: original=108.6 damage=79), type=1 cat=1, inflictor=nil
+# --- OP-024: PA физическая (новый матч, -lvlup 5, очко в ульту, force_direction pa_phantom_execution 0)
+[RIFT][INFO][DEV] force_direction pa_phantom_execution: ok
+[RIFT][INFO][DIRECTION] swap phantom_assassin_coup_de_grace -> pa_phantom_execution level=1 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:phantom_assassin_stifling_dagger 1:phantom_assassin_phantom_strike 2:phantom_assassin_blur 3:phantom_assassin_fan_of_knives(h) 4:phantom_assassin_immaterial 5:pa_phantom_execution
+[RIFT][INFO][DEV] spawned passive dummy Axe #507 team=11 (not a match participant)
+[RIFT][DEBUG][PA] execution hit raw=170 dealt=131 crit=200
+[RIFT][DEBUG][PA] execution hit raw=170 dealt=131 crit=200
+[RIFT][DEBUG][PA] execution hit raw=176 dealt=136 crit=200   (x3, всего 5 попаданий за 5 кастов, -refresh между ними)
+# Lua-ошибок и упоминаний npc_dota_grimstroke_ink_creature в консоли нет (фильтры rror/rimstroke/attempt: только движковые shader/staging).
