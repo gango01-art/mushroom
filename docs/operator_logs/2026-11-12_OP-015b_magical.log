@@ -1,0 +1,23 @@
+[RIFT][INFO][DEV] force_direction ta_waves_magical: ok
+[RIFT][INFO][DIRECTION] layout before: 0:templar_assassin_meld 1:templar_assassin_psi_blades 2:templar_assassin_trap 3:templar_assassin_trap_teleport(h) 4:templar_assassin_psionic_trap 5:templar_assassin_inner_peace
+[RIFT][INFO][DIRECTION] swap templar_assassin_meld -> ta_meld_dash level=1 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psi_blades -> ta_psi_wave level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_trap -> ta_refraction_magical level=0 cd=0.0
+[RIFT][INFO][DIRECTION] swap templar_assassin_psionic_trap -> ta_psionic_blast level=0 cd=0.0
+[RIFT][INFO][DIRECTION] layout after: 0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:ta_psionic_blast 5:templar_assassin_inner_peace
+[RIFT][INFO][DEV] spawned passive dummy Axe #845 team=11 (not a match participant)
+[RIFT][INFO][DEV] spawned passive dummy Axe #867 team=11 (not a match participant)
+[RIFT][INFO][DEV] attack probe ON
+[RIFT][PROBE] take_damage t=277.467 attacker=npc_dota_hero_templar_assassin#1247 unit=npc_dota_hero_axe#845 damage=140 original=190 type=2 inflictor=ta_psi_wave
+[RIFT][PROBE] take_damage t=277.533 attacker=npc_dota_hero_templar_assassin#1247 unit=npc_dota_hero_axe#867 damage=140 original=190 type=2 inflictor=ta_psi_wave
+[RIFT][PROBE] take_damage t=384.867 unit=npc_dota_hero_axe#867 damage=74 original=100 type=2 inflictor=ta_psionic_blast
+[RIFT][PROBE] take_damage t=384.867 unit=npc_dota_hero_axe#845 damage=74 original=100 type=2 inflictor=ta_psionic_blast
+[RIFT][PROBE] take_damage t=387.200 unit=npc_dota_hero_axe#867 damage=141 original=192.4 type=2 inflictor=ta_psi_wave
+[RIFT][PROBE] take_damage t=387.400 unit=npc_dota_hero_axe#845 damage=141 original=192.4 type=2 inflictor=ta_psi_wave
+[RIFT][PROBE] take_damage t=389.000 unit=npc_dota_hero_axe#867 damage=112 original=152.4 type=2 inflictor=ta_refraction_magical
+[RIFT][PROBE] take_damage t=389.167 unit=npc_dota_hero_axe#845 damage=112 original=152.4 type=2 inflictor=ta_refraction_magical
+[RIFT][PROBE] take_damage t=397.433 unit=npc_dota_hero_axe#867 damage=112 original=152.4 type=2 inflictor=ta_meld_dash
+[RIFT][PROBE] take_damage t=397.467 unit=npc_dota_hero_axe#845 damage=112 original=152.4 type=2 inflictor=ta_meld_dash
+[RIFT][PROBE] take_damage t=400.367 unit=npc_dota_hero_axe#867 damage=74 original=100 type=2 inflictor=ta_psionic_blast
+[RIFT][PROBE] take_damage t=400.367 unit=npc_dota_hero_axe#845 damage=74 original=100 type=2 inflictor=ta_psionic_blast
+(no psionic_blast line found for the t~280 R cast in this excerpt; casts after t=384 partly came from keystrokes that landed in the game as hotkeys)

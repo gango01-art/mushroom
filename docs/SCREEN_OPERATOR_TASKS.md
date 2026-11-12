@@ -349,6 +349,18 @@ addon называется **`duality`**, файлы скопированы (н�
   - Физическая ветка (отдельный запуск) **не проверена**: Tools перезапустил, но команда ушла до старта игры
     (`'rift_force_direction' is not a recognized command`); при следующей попытке Steam начал обновление Dota 2.
   - herolist.txt в копии addon возвращён. Лог: `operator_logs/2026-11-12_OP-015_magical.log`.
+- Отчёт 2026-11-12, повтор (агент): **verified** (кроме шагов 6-обрыв, 8).
+  - Манекены `team=11` — враги, сами не атакуют.
+  - Магическая: layout after `0:ta_refraction_magical 1:ta_meld_dash 2:ta_psi_wave 4:ta_psionic_blast 5:inner_peace`, ошибок нет.
+    Урон по каждому из двух манекенов (original → после сопротивления, type=2 магический):
+    E `ta_psi_wave` 190 → 140 (второй каст 192.4 → 141), по одному разу на цель; Q `ta_refraction_magical` 152.4 → 112;
+    W `ta_meld_dash` (волна рывка) 152.4 → 112; R `ta_psionic_blast` 100 → 74 по обоим (взрыв на месте цели виден).
+    Интеллект героя ~50: 160 + 0.6×50 ≈ 190 — совпадает. Атак героя нет.
+    Не проверено: обрыв рывка у стены, бафф Refraction со счётчиком (визуально), замедление R 3 с, иллюзии.
+  - Физическая (отдельный запуск): layout after `0:ta_meld_physical 1:templar_assassin_psi_blades 4:ta_psionic_crystal
+    5:templar_assassin_inner_peace` — Trap/Trap Teleport удалены. Панель: Meld (35), Psi Blades, кристалл (60) — **серой ячейки нет**.
+  - Подсказка оператору: окно Dota в Tools перехватывает клавиатуру; сворачивать Win+↓ (кнопка «_» мышью не работает).
+  - herolist.txt возвращён. Лог: `operator_logs/2026-11-12_OP-015b_magical.log`.
 
 ## OP-016 — SF физическое: красные сферы и Shadowraze (+ поиск частиц крыльев/сфер)
 - Статус: pending
