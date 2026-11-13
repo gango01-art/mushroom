@@ -3,7 +3,10 @@
 local B = require("rift.data.hero_balance").sf.requiem_physical
 sf_requiem_physical = sf_requiem_physical or ((type(class) == "function") and class({}) or {})
 local function r(l) return math.max(1, math.min(3, l)) end
-function sf_requiem_physical:GetCooldown(l) return B.cooldown[r(l + 1)] end
+function sf_requiem_physical:GetCooldown(l)
+  local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "requiem_cooldown_reduction")
+  return math.max(1, B.cooldown[r(l + 1)] - cut)
+end
 function sf_requiem_physical:GetManaCost(l) return B.mana[r(l + 1)] end
 function sf_requiem_physical:OnSpellStart()
   local c = self:GetCaster()

@@ -112,7 +112,8 @@ function M.on_arrow_hit(ability, target, data)
   local owner = rec.owner
   if not target:IsMagicImmune() then
     -- Spell damage of the owner: her spell amp applies once; not an attack, no item on-hit.
-    ApplyDamage({ victim = target, attacker = owner, damage = rec.session:arrow_damage(),
+    local bonus = require("rift.engine.build_bonus").get(owner, "statue_arrow_bonus")
+    ApplyDamage({ victim = target, attacker = owner, damage = rec.session:arrow_damage() + bonus,
       damage_type = DAMAGE_TYPE_MAGICAL, ability = ability })
   end
   local real = target:IsRealHero() and target:GetTeamNumber() ~= owner:GetTeamNumber()

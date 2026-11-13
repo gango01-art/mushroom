@@ -19,6 +19,15 @@ Effects.HANDLERS = {
   pa_spirit_cooldown = true,
   pa_chain_damage = true,
   pa_chain_chance = true,
+  ta_crystal_cooldown = true,
+  ta_wave_damage = true,
+  ta_wave_length = true,
+  lc_duel_cooldown = true,
+  lc_champion_health = true,
+  lc_statue_arrow = true,
+  sf_sphere_damage = true,
+  sf_requiem_cooldown = true,
+  sf_ring_damage = true,
 }
 
 Effects.STAT_KEYS = { "attack_damage", "move_speed", "armor", "health", "mana", "attack_speed",

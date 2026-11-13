@@ -23,10 +23,13 @@ function M.fire(caster, ability, origin, direction, base)
   if dir:Length2D() < 0.01 then dir = caster:GetForwardVector() end
   dir = dir:Normalized()
   local now = GameRules:GetGameTime()
-  local life = cfg.length / cfg.speed + 0.5
+  local Bonus = require("rift.engine.build_bonus")
+  base = base + Bonus.get(caster, "wave_damage_bonus")
+  local length = cfg.length + Bonus.get(caster, "wave_length_bonus")
+  local life = length / cfg.speed + 0.5
   local id, dmg = M.store:release(caster:entindex(), base, intellect(caster), cfg.intellect_scaling, now, life)
   ProjectileManager:CreateLinearProjectile({
-    Ability = ability, EffectName = B.wave_particle, vSpawnOrigin = origin, fDistance = cfg.length,
+    Ability = ability, EffectName = B.wave_particle, vSpawnOrigin = origin, fDistance = length,
     fStartRadius = Waves.half_width(cfg.width), fEndRadius = Waves.half_width(cfg.width), Source = caster,
     bHasFrontalCone = false, bReplaceExisting = false,
     iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY, iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,

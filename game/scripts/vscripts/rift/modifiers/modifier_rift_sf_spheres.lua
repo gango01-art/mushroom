@@ -61,7 +61,8 @@ function modifier_rift_sf_spheres:OnAttackLanded(params)
   if not IsServer() or params.attacker ~= self:GetParent() or not self.records[params.record] then return end
   self.records[params.record] = nil
   local p = self:GetParent()
-  ApplyDamage({ victim = params.target, attacker = p, damage = self.session:sphere_damage(attack_damage(p)),
+  local edge = require("rift.engine.build_bonus").get(p, "sphere_damage_pct")
+  ApplyDamage({ victim = params.target, attacker = p, damage = self.session:sphere_damage(attack_damage(p)) * (1 + edge / 100),
                 damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION,
                 ability = self:GetAbility() })
 end

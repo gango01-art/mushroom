@@ -44,9 +44,11 @@ local function spawn_champion(owner, target)
   local dmg = owner:GetAverageTrueAttackDamage(nil)
   u:SetBaseDamageMin(dmg); u:SetBaseDamageMax(dmg)
   u:SetPhysicalArmorBaseValue(owner:GetPhysicalArmorValue(false))
-  local max_hp = owner:GetMaxHealth()
+  -- Upgrade "lc_champion_vigor": extra champion max HP (percent); HP percent stays LC's.
+  local vigor = require("rift.engine.build_bonus").get(owner, "champion_health_pct")
+  local max_hp = math.floor(owner:GetMaxHealth() * (1 + vigor / 100))
   u:SetBaseMaxHealth(max_hp); u:SetMaxHealth(max_hp)
-  u:SetHealth(math.max(1, max_hp * owner:GetHealth() / math.max(1, max_hp)))
+  u:SetHealth(math.max(1, max_hp * owner:GetHealth() / math.max(1, owner:GetMaxHealth())))
   local aps = owner:GetAttacksPerSecond(false) * B.champion_attack_speed_factor
   if aps > 0 then u:SetBaseAttackTime(1 / aps) end
   u:SetBaseMoveSpeed(owner:GetIdealSpeed())
@@ -76,7 +78,8 @@ function M.start(owner, ability, target, rank)
   owner:Stop()
   Mods.add(owner, owner, ability, "modifier_rift_lc_throne", { duration = B.max_seconds + 2 })
   Log.info("LC", string.format("duel start pid=%d target=%d rank=%d mult=%.2f", pid, target_key, rank, mult))
-  champion:SetContextThink("rift_lc_duel", function() return M.step(s) end, 0)
+  -- Think on the game mode entity, not on the champion: its death must still be processed.
+  GameRules:GetGameModeEntity():SetContextThink("rift_lc_duel_" .. pid, function() return M.step(s) end, 0)
   return true
 end
 

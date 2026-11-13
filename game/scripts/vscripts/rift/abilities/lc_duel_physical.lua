@@ -4,7 +4,10 @@
 local B = require("rift.data.hero_balance").lc.duel_physical
 lc_duel_physical = lc_duel_physical or ((type(class) == "function") and class({}) or {})
 local function r(l) return math.max(1, math.min(3, l)) end
-function lc_duel_physical:GetCooldown(l) return B.cooldown[r(l + 1)] end
+function lc_duel_physical:GetCooldown(l)
+  local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "duel_cooldown_reduction")
+  return math.max(1, B.cooldown[r(l + 1)] - cut)
+end
 function lc_duel_physical:GetManaCost(l) return B.mana[r(l + 1)] end
 function lc_duel_physical:GetCastRange() return B.cast_range end
 

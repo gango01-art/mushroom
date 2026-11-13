@@ -67,3 +67,24 @@ T.case("PA magical: upgrade bonuses add to chain values, chance capped at 1", fu
   T.eq(v.chain_damage, 420); T.ok(math.abs(v.chain_chance - 0.25) < 1e-9)
   T.eq(Storm.values_at(B.storm_magical, 1, { chain_chance = 5 }).chain_chance, 1)
 end)
+
+T.case("direction upgrades of TA/LC/SF: valid data, right direction, bonuses sum", function()
+  local F = require("fixtures")
+  local Registry = require("rift.core.upgrade_registry")
+  local Effects = require("rift.core.upgrade_effects")
+  local ups, dirs = F.data("shipped")
+  local reg = Registry.new(ups, dirs, { handlers = Effects.HANDLERS })
+  T.eq(#reg:validate(), 0, table.concat(reg:validate(), "; "))
+  local expect = {
+    ta_crystal_tempo = { "physical", "crystal_cooldown_reduction", 2 }, ta_wave_power = { "magical", "wave_damage_bonus", 45 },
+    ta_wave_reach = { "magical", "wave_length_bonus", 200 }, lc_duel_haste = { "physical", "duel_cooldown_reduction", 16 },
+    lc_champion_vigor = { "physical", "champion_health_pct", 20 }, lc_statue_barbs = { "magical", "statue_arrow_bonus", 40 },
+    sf_sphere_edge = { "physical", "sphere_damage_pct", 20 }, sf_requiem_tempo = { "physical", "requiem_cooldown_reduction", 12 },
+    sf_ring_burn = { "magical", "ring_damage_bonus", 40 },
+  }
+  for id, e in pairs(expect) do
+    local u = reg:get(id)
+    T.ok(u, id); T.eq(u.required_direction, e[1], id); T.eq(u.status, "implemented", id)
+    T.eq(Effects.bonus_total(reg, { [id] = u.max_rank }, e[2]), e[3], id)
+  end
+end)

@@ -79,7 +79,8 @@ function modifier_rift_sf_rings:OnIntervalThink()
           for _, u in ipairs(hits) do
             local r = s:resolve_hit(ev.ring, key(u), protection(u)) -- checked at hit time
             if r and r.damage > 0 then
-              ApplyDamage({ victim = u, attacker = me, damage = r.damage, damage_type = DAMAGE_TYPE_MAGICAL,
+              local burn = require("rift.engine.build_bonus").get(me, "ring_damage_bonus")
+              ApplyDamage({ victim = u, attacker = me, damage = r.damage + burn, damage_type = DAMAGE_TYPE_MAGICAL,
                             ability = s.ability })
             end
             if r and r.fear > 0 then
