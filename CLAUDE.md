@@ -15,7 +15,8 @@
 
 ## Правила работы
 1. Перед изменениями: `bash tools/check.sh` должен быть зелёным; после — тоже.
-2. Новая чистая логика → тест в `tests/` (добавить suite в `tests/run.lua`).
+2. Новая чистая логика → тест в `tests/` (добавить suite в `tests/run.lua`). Движковые сессии — smoke-тест на
+   `tests/engine_stub.lua` (пример: `tests/test_engine_lc.lua`).
 3. Нельзя отмечать что-либо «проверено в Dota» без отчёта оператора/владельца (`docs/TEST_RESULTS.md`).
 4. Задачи для GUI — в `docs/SCREEN_OPERATOR_TASKS.md` в установленном формате.
 5. В конце сессии: обновить HANDOFF, TEST_RESULTS, CHANGELOG; коммит; push в ветку.
