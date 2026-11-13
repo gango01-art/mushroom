@@ -33,7 +33,7 @@ end
 
 local suites = { "test_match_state", "test_scoring", "test_director", "test_rules",
                  "test_rng", "test_registry", "test_offers", "test_storm", "test_effects",
-                 "test_hero_lc", "test_hero_sf", "test_hero_ta", "test_hero_pa", "test_hero_data", "test_combat_core", "test_relic", "test_engine_lc" }
+                 "test_hero_lc", "test_hero_sf", "test_hero_ta", "test_hero_pa", "test_hero_data", "test_combat_core", "test_relic", "test_engine_lc", "test_engine_pa_sf" }
 for _, s in ipairs(suites) do
   T.current = s
   require(s)
