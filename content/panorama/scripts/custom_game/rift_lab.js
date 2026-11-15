@@ -10,7 +10,7 @@ function RiftLabClose() {
   $("#RiftRoot").RemoveClass("LabOpen");
 }
 function RiftLabSend(payload) {
-  if (RiftLab.pending || !RiftLab.state || RiftLab.state.available !== 1) return;
+  if (RiftLab.pending || !RiftLab.state || RiftLab.state.available !== 1 || RiftLab.state.loading === 1) return;
   RiftLab.pending = ++RiftLab.sequence;
   RiftLab.error = "";
   var sequence = RiftLab.pending;
@@ -50,7 +50,7 @@ function RiftLabState(s) {
   $("#LabBody").SetHasClass("Hidden", s.enabled !== 1);
   if (s.enabled === 1) {
     if (!RiftLab.opened) { RiftLab.opened = true; RiftLabOpen(); }
-    $("#LabStatus").text = RiftLab.error && Game.GetGameTime() < RiftLab.errorUntil ? RiftLab.error :
+    $("#LabStatus").text = s.loading === 1 ? $.Localize("#rift_lab_loading") : RiftLab.error && Game.GetGameTime() < RiftLab.errorUntil ? RiftLab.error :
       heroName(s.hero) + " · R " + s.rank + " · " + locFill("rift_lab_counts", {heroes:s.gallery_count,targets:s.target_count});
     Object.keys(RiftLab.cards).forEach(function (hero) { RiftLab.cards[hero].SetHasClass("Selected", hero === s.hero); });
     ["base","physical","magical"].forEach(function (path, i) {

@@ -10,6 +10,10 @@ local basic={
 function F.setup()
  local state={count=1,host=true,listeners={},messages={},selected={},published=0,summons={}}
  local stub=S.install()
+ _G.PrecacheUnitByNameAsync=function(name,callback,pid)
+  state.precaches=state.precaches or {};state.precaches[#state.precaches+1]={hero=name,pid=pid}
+  if state.defer_precache then state.precache_callback=callback else callback() end
+ end
  _G.ABILITY_TYPE_ULTIMATE=1
  local defs=require("rift.data.ultimate_directions")
  local ultimate,native={},{}

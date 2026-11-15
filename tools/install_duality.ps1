@@ -119,9 +119,12 @@ function Invoke-DualityCompile {
   $log = Join-Path $DotaRoot "duality_backups/$AddonName/$logName"
   New-Item -ItemType Directory -Force (Split-Path -Parent $log) | Out-Null
   Write-Host "Compiling $Label with the installed Source 2 ResourceCompiler..."
-  $compilerArgs = '-i "' + $Source + '" -game "' + (Join-Path $DotaRoot 'game/dota') + '"'
+  # These switches are documented by the installed resourcecompiler.exe -help.
+  # Force a rebuild: an old compiled layout can otherwise load new JS without its
+  # new includes, leaving RiftUIModel undefined and the laboratory inaccessible.
+  $compilerArgs = '-f -nop4 -i "' + $Source + '" -game "' + (Join-Path $DotaRoot 'game/dota') + '"'
   $stderrLog = $log + '.stderr'
-  $process = Start-Process -FilePath $compiler -ArgumentList $compilerArgs -Wait -PassThru -NoNewWindow -RedirectStandardOutput $log -RedirectStandardError $stderrLog
+  $process = Start-Process -FilePath $compiler -ArgumentList $compilerArgs -Wait -PassThru -WindowStyle Hidden -RedirectStandardOutput $log -RedirectStandardError $stderrLog
   $compilerExitCode = $process.ExitCode
   if ((Test-Path $stderrLog) -and (Get-Item $stderrLog).Length -gt 0) {
     Add-Content -LiteralPath $log -Value "`nCompiler stderr:"
@@ -138,18 +141,46 @@ function Invoke-DualityCompile {
 $map = if ($Mode -eq 'Demo') { 'dota' } else { 'rift_arena' }
 if ($BuildAssets -or $BuildMap -or $Launch) {
   $contentRoot = Join-Path $DotaRoot "content/dota_addons/$AddonName"
+  $compilePlan = @()
+  # Panorama source/output extensions differ. Build dependencies first, then the
+  # HUD and its manifest. Validate every output, not only the VFX and map.
+  $panorama = @(
+    @('scripts/custom_game/rift_ui_model.js', 'scripts/custom_game/rift_ui_model.vjs_c'),
+    @('scripts/custom_game/rift_hud.js', 'scripts/custom_game/rift_hud.vjs_c'),
+    @('scripts/custom_game/rift_lab.js', 'scripts/custom_game/rift_lab.vjs_c'),
+    @('styles/custom_game/rift_hud.css', 'styles/custom_game/rift_hud.vcss_c'),
+    @('layout/custom_game/rift_hud.xml', 'layout/custom_game/rift_hud.vxml_c'),
+    @('layout/custom_game/custom_ui_manifest.xml', 'layout/custom_game/custom_ui_manifest.vxml_c')
+  )
+  foreach ($pair in $panorama) {
+    $compilePlan += @{ Source = (Join-Path $contentRoot ('panorama/' + $pair[0])); Relative = ('panorama/' + $pair[1]) }
+  }
   foreach ($pattern in @('*.vtex', '*.vpcf')) {
-    foreach ($asset in Get-ChildItem -LiteralPath $contentRoot -Recurse -File -Filter $pattern) {
-      $relative = $asset.FullName.Substring($contentRoot.Length + 1)
-      $output = Join-Path $DotaRoot ("game/dota_addons/$AddonName/" + $relative + '_c')
-      Invoke-DualityCompile -Source $asset.FullName -Output $output -Label $relative
+    $packageContent = Join-Path $PackageRoot 'content'
+    foreach ($asset in Get-ChildItem -LiteralPath $packageContent -Recurse -File -Filter $pattern) {
+      $relative = $asset.FullName.Substring($packageContent.Length + 1)
+      $compilePlan += @{ Source = (Join-Path $contentRoot $relative); Relative = ($relative + '_c') }
     }
   }
-}
-if ($BuildMap -or ($Launch -and $Mode -eq 'Match')) {
-  $source = Join-Path $DotaRoot "content/dota_addons/$AddonName/maps/rift_arena.vmap"
-  $compiled = Join-Path $DotaRoot "game/dota_addons/$AddonName/maps/rift_arena.vmap_c"
-  Invoke-DualityCompile -Source $source -Output $compiled -Label 'arena map'
+  if ($BuildMap -or ($Launch -and $Mode -eq 'Match')) {
+    $compilePlan += @{ Source = (Join-Path $contentRoot 'maps/rift_arena.vmap'); Relative = 'maps/rift_arena.vmap_c' }
+  }
+  # Save all old outputs before compiling anything: a layout build may also
+  # compile included resources. Preserve owner work even on a failed build.
+  foreach ($entry in $compilePlan) {
+    if (-not (Test-Path -LiteralPath $entry.Source -PathType Leaf)) { throw "Missing resource source: $($entry.Source)" }
+    $entry.Output = Join-Path $DotaRoot ("game/dota_addons/$AddonName/" + $entry.Relative)
+    if (Test-Path -LiteralPath $entry.Output) {
+      if ((Get-Item -LiteralPath $entry.Output -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw "Linked output refused: $($entry.Output)" }
+      $backup = Join-Path $backupRoot ('game/' + $entry.Relative)
+      New-Item -ItemType Directory -Force (Split-Path -Parent $backup) | Out-Null
+      if (-not (Test-Path -LiteralPath $backup)) { Copy-Item -LiteralPath $entry.Output -Destination $backup }
+    }
+  }
+  foreach ($entry in $compilePlan) {
+    Invoke-DualityCompile -Source $entry.Source -Output $entry.Output -Label $entry.Relative
+  }
+  Write-Host "Resource build verified ($($compilePlan.Count) outputs). Backups: $backupRoot"
 }
 Write-Host "Console command: dota_launch_custom_game $AddonName $map"
 if ($Launch) {
@@ -158,6 +189,6 @@ if ($Launch) {
   }
   if (-not $SteamPath -and ${env:ProgramFiles(x86)}) { $SteamPath = Join-Path ${env:ProgramFiles(x86)} 'Steam/steam.exe' }
   if (-not $SteamPath -or -not (Test-Path $SteamPath)) { throw 'Steam executable not found. Pass -SteamPath or use the printed console command in Workshop Tools.' }
-  Start-Process -FilePath $SteamPath -ArgumentList "-applaunch 570 -tools -console -condebug -addon $AddonName +dota_launch_custom_game $AddonName $map"
+  Start-Process -FilePath $SteamPath -ArgumentList "-applaunch 570 -tools -console -condebug -addon $AddonName +dota_launch_custom_game $AddonName $map" -WindowStyle Hidden
   Write-Host 'Steam launch requested. If the Tools launcher opens first, select this addon and use the console command above.'
 }

@@ -1,6 +1,71 @@
 local F=require("lab_fixture")
 local Policy=require("rift.core.laboratory")
 local Config=require("rift.core.config")
+-- Every supported hero, all three paths, all R ranks. This exercises the real
+-- server adapters on the stub; it does not certify Valve assets or rendering.
+for _,name in ipairs(Policy.roster(require("rift.core.upgrade_registry").new(
+  require("rift.data.upgrades"),require("rift.data.ultimate_directions"),
+  {handlers=require("rift.core.upgrade_effects").HANDLERS}))) do
+ for _,path in ipairs({"base","physical","magical"}) do
+  for _,rank in ipairs({1,2,3}) do
+   T.case(name.." "..path.." R"..rank..": fresh hero, rank, slots and no previous abilities",function()
+    local f=F.setup();T.ok(f.gm.lab:Start(0))
+    local old=f.selected[0];old:AddAbility("old_hero_leak_probe")
+    f.gm.lab.rank=rank
+    local ok,why=f.gm.lab:Select(name,path);T.ok(ok,why)
+    local h=f.selected[0]
+    T.ok(old:IsNull());T.eq(h:GetUnitName(),name);T.eq(h:GetLevel(),25)
+    T.eq(h:FindAbilityByName("old_hero_leak_probe"),nil)
+    T.eq(h:GetAbilityByIndex(5):GetAbilityType(),ABILITY_TYPE_ULTIMATE,"ultimate stays on R")
+    T.ok(not h:GetAbilityByIndex(5):IsHidden())
+    T.eq(h:GetAbilityByIndex(5):GetLevel(),rank)
+    local directions=f.gm.upgrades.registry:hero_directions(name)
+    T.eq(f.gm.upgrades:DirectionId(0),path~="base" and directions[path].id or nil)
+    T.eq(f.gm.upgrades.offers:visible(0),nil)
+   end)
+  end
+ end
+end
+T.case("player cosmetics finish precaching before any old hero is removed",function()
+ local f=F.setup();f.gm.lab:Start(0);local old=f.selected[0]
+ f.defer_precache=true
+ local ok,why=f.gm.lab:Select("npc_dota_hero_axe","magical")
+ T.ok(ok);T.eq(why,"loading");T.ok(f.gm.lab.loading)
+ T.eq(f.selected[0],old);T.ok(not old:IsNull())
+ T.eq(f.precaches[#f.precaches].pid,0)
+ T.eq(f.precaches[#f.precaches].hero,"npc_dota_hero_axe")
+ f.precache_callback()
+ T.ok(not f.gm.lab.loading);T.ok(old:IsNull())
+ T.eq(f.selected[0]:GetUnitName(),"npc_dota_hero_axe")
+ T.eq(f.gm.upgrades:DirectionId(0),"rift_axe_magical")
+ local count=#f.precaches
+ T.ok(f.gm.lab:Select("npc_dota_hero_axe","physical"));T.eq(#f.precaches,count)
+end)
+T.case("hero and rank clicks cannot race an in-progress resource load",function()
+ local f=F.setup();f.gm.lab:Start(0);f.defer_precache=true
+ f.gm.lab:Select("npc_dota_hero_axe","magical");local rank=f.gm.lab.rank
+ local ok,why=f.gm.lab:Select("npc_dota_hero_lina","physical")
+ T.ok(not ok);T.eq(why,"loading")
+ f.gm.lab:Request({PlayerID=0,action="rank",rank=1})
+ T.eq(f.gm.lab.rank,rank)
+ f.precache_callback();T.eq(f.selected[0]:GetUnitName(),"npc_dota_hero_axe")
+end)
+T.case("precache timeout keeps the old hero and ignores late callbacks",function()
+ local f=F.setup();f.gm.lab:Start(0);local old=f.selected[0];f.defer_precache=true
+ f.gm.lab:Select("npc_dota_hero_axe","base");local late=f.precache_callback
+ f.stub.advance(Config.lab.precache_timeout_seconds+1)
+ T.ok(not f.gm.lab.loading);T.eq(f.selected[0],old);T.ok(not old:IsNull())
+ f.gm.lab:Select("npc_dota_hero_lina","magical");local fresh=f.precache_callback
+ late();T.eq(f.selected[0],old)
+ fresh();T.eq(f.selected[0]:GetUnitName(),"npc_dota_hero_lina")
+end)
+T.case("precache API failure never replaces or removes the current hero",function()
+ local f=F.setup();f.gm.lab:Start(0);local old=f.selected[0]
+ _G.PrecacheUnitByNameAsync=function() error("resource load unavailable") end
+ local ok,why=f.gm.lab:Select("npc_dota_hero_axe","base")
+ T.ok(not ok);T.eq(why,"precache_failed");T.eq(f.selected[0],old)
+ T.ok(not old:IsNull());T.ok(not f.gm.lab.loading)
+end)
 T.case("lab start prepares 11 gallery actors, target, level 25 and no direction offer",function()
  local f=F.setup();local ok=f.gm.lab:Start(0);T.ok(ok)
  T.eq(#f.gm.lab.gallery,11);T.eq(#f.gm.lab.targets,1)

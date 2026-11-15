@@ -5,6 +5,7 @@
     <include src="file://{resources}/scripts/custom_game/rift_hud.js" />
     <include src="file://{resources}/scripts/custom_game/rift_lab.js" />
   </scripts>
+  <Panel class="RiftHudRoot" hittest="false">
   <Panel id="RiftRoot" class="RiftHudRoot" hittest="false">
     <Panel id="TopBar" class="TopBar" hittest="false">
       <Panel id="TopPlayersLeft" class="TopPlayers LeftSeats" hittest="false" />
@@ -127,5 +128,6 @@
       <Label id="ResultReason" class="ResultReason" text="" />
       <Panel id="ResultRows" class="BoardRows" />
     </Panel>
+  </Panel>
   </Panel>
 </root>

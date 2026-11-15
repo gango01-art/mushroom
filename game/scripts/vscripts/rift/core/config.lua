@@ -102,6 +102,7 @@ Config.dev = {
 -- Single-player Tools/cheats laboratory. Never enabled in a normal PvP lobby.
 Config.lab = {
   hero_level = 25, gold = 25000, request_interval = 0.3,
+  precache_timeout_seconds = 30,
   gallery_radius = 1300, target_distance = 450,
   target_health = 10000, mortal_health = 2500, max_targets = 6, respawn_seconds = 2,
   nav_step = 128, nav_search_steps = 8, placement_separation = 150,

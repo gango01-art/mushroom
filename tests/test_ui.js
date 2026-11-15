@@ -18,6 +18,9 @@ function panel(type, parent, id = "") {
   return p;
 }
 const xml = fs.readFileSync(base + "layout/custom_game/rift_hud.xml", "utf8");
+// Native Panorama rejects an id on the root panel. Keep RiftRoot inside an
+// anonymous host so its selectors remain valid after ResourceCompiler builds.
+assert.ok(!/<Panel\b[^>]*\bid=/.test(xml.match(/<Panel\b[^>]*>/)[0]), "Panorama root panel must be anonymous");
 for (const m of xml.matchAll(/<(Panel|Label|Button)\b[^>]*\bid="([^"]+)"[^>]*>/g)) {
   const p = panel(m[1], null, m[2]);
   const classes = m[0].match(/\bclass="([^"]+)"/);
@@ -99,6 +102,11 @@ assert.equal(sent.filter(([e])=>e==="rift_lab_request").length,1,"Lab must suppr
 events.rift_lab_result({ok:0,reason:"path_failed"});
 const error=$("#LabStatus").text;publish("rift_match","lab",lab);
 assert.equal($("#LabStatus").text,error,"2Hz state must not immediately erase an action error");
+publish("rift_match","lab",{...lab,loading:1});
+assert.equal($("#LabStatus").text,"#rift_lab_loading");
+context.RiftLabChoosePath("magical");
+assert.equal(sent.filter(([e])=>e==="rift_lab_request").length,1,"Cosmetic loading must block replacement clicks");
+publish("rift_match","lab",lab);
 publish("rift_match","state",{state:"ACTIVE",remaining:5,active_total:1080,lab:1});
 assert.equal($("#TimerLabel").text,"∞");
 publish("rift_match","lab",{...lab,available:0});context.RiftLabChoosePath("magical");

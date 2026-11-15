@@ -11,7 +11,8 @@ local function exists(u) return u and not u:IsNull() end
 local function remove(u) if exists(u) then UTIL_Remove(u) end end
 
 function Lab.new(gm)
-  local self=setmetatable({gm=gm,enabled=false,gallery={},targets={},last_request={},rank=3,free=false},Lab)
+  local self=setmetatable({gm=gm,enabled=false,gallery={},targets={},last_request={},rank=3,free=false,
+    precached={},load_serial=0},Lab)
   self.roster,self.known=Policy.roster(gm.upgrades.registry)
   local settings=LoadKeyValues and LoadKeyValues("scripts/duality_local.kv") or {}
   self.autostart=gm.dev and settings and tostring(settings.auto_demo)=="1"
@@ -76,6 +77,43 @@ function Lab:Refresh(hero)
 end
 function Lab:Select(hero_name,path)
   if not self.enabled or not self.known[hero_name] or not Policy.PATHS[path] then return false,"invalid_hero" end
+  if self.loading then return false,"loading" end
+  if self.precached[hero_name] then return self:SelectReady(hero_name,path) end
+  -- The bootstrap precaches default units, not this player's equipped wearables.
+  -- ReplaceHeroWith must wait for the player-specific models AND particles.
+  -- The Axe crash dump was an access violation in particles.dll immediately
+  -- after the engine reported nonresident axe_winter_2025 cosmetic models.
+  if type(PrecacheUnitByNameAsync)~="function" then return false,"precache_failed" end
+  local pid=self.owner
+  self.load_serial=self.load_serial+1
+  local serial=self.load_serial
+  self.loading=true;self:Publish()
+  local result
+  local function complete(ok,why)
+    if not self.loading or self.load_serial~=serial then return end
+    self.loading=false
+    result={ok,why}
+    self.gm.upgrades:SendTo(pid,"rift_lab_result",{ok=ok and 1 or 0,reason=why})
+    self:Publish()
+  end
+  GameRules:GetGameModeEntity():SetContextThink("rift_lab_load_"..pid,function()
+    complete(false,"precache_failed")
+    return nil
+  end,Config.lab.precache_timeout_seconds)
+  Log.info("LAB","precache player="..pid.." hero="..hero_name)
+  local ran,err=pcall(PrecacheUnitByNameAsync,hero_name,function()
+    if not self.loading or self.load_serial~=serial then return end
+    if not self:Allowed(pid) then complete(false,"not_allowed");return end
+    self.precached[hero_name]=true
+    local called,ok,why=pcall(self.SelectReady,self,hero_name,path)
+    if not called then Log.error("LAB",ok);complete(false,"internal_error")
+    else complete(ok,why) end
+  end,pid)
+  if not ran then Log.error("LAB",err);complete(false,"precache_failed") end
+  if result then return result[1],result[2] end
+  return true,"loading"
+end
+function Lab:SelectReady(hero_name,path)
   local pid=self.owner
   local old=PlayerResource:GetSelectedHeroEntity(pid)
   self:CleanupSessions(pid)
@@ -119,6 +157,7 @@ function Lab:Select(hero_name,path)
   self.gm.upgrades:SendTo(pid,"rift_lab_focus",{entity=hero:entindex()})
   self.gm.upgrades:SendPrivate(pid)
   self.gm.ui:Publish(true)
+  Log.info("LAB","selected hero="..hero_name.." path="..path.." rank="..self.rank)
   return true,"ok"
 end
 function Lab:Clear()
@@ -209,6 +248,10 @@ end
 function Lab:Request(args)
   local pid=args and args.PlayerID -- engine-populated, never accept a target player
   if pid==nil or not self:Allowed(pid) then return end
+  if self.loading then
+    self.gm.upgrades:SendTo(pid,"rift_lab_result",{ok=0,reason="loading"})
+    return
+  end
   local now=GameRules:GetGameTime()
   if self.last_request[pid] and now-self.last_request[pid]<Config.lab.request_interval then return end
   self.last_request[pid]=now
@@ -232,7 +275,7 @@ function Lab:Request(args)
     end)
     if ran then ok,why=a,b else why="internal_error";Log.error("LAB",a) end
   end
-  self.gm.upgrades:SendTo(pid,"rift_lab_result",{ok=ok and 1 or 0,reason=why})
+  if why~="loading" then self.gm.upgrades:SendTo(pid,"rift_lab_result",{ok=ok and 1 or 0,reason=why}) end
   self:Publish()
 end
 function Lab:OnMainSpawn(hero,pid)
@@ -263,6 +306,7 @@ function Lab:Publish()
     enabled=self.enabled and 1 or 0,owner=self.owner or -1,
     hero=self.hero or "",path=self.path or "base",rank=self.rank,
     free=self.free and 1 or 0,gallery_count=#self.gallery,target_count=#self.targets,
+    loading=self.loading and 1 or 0,
     active_entity=exists(h) and h:entindex() or -1,
   })
 end

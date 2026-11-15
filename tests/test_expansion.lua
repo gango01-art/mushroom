@@ -4,7 +4,7 @@ local Stub = require("engine_stub")
 local Registry = require("rift.core.upgrade_registry")
 local Effects = require("rift.core.upgrade_effects")
 
-local function setup(name)
+local function setup(name,rank)
   local S = Stub.install()
   local d = E.abilities[name]
   local c = S.hero(d.hero, 0, 2, Vector(0, 0, 0),
@@ -12,7 +12,7 @@ local function setup(name)
   local u = S.hero("enemy", 1, 3, Vector(150, 0, 0), { Health = 1200, MaxHealth = 2000 })
   package.loaded["rift.abilities.path_ultimate"] = nil
   require("rift.abilities.path_ultimate")
-  local a = S.ability(2)
+  local a = S.ability(rank or 2)
   function a:GetCaster() return c end
   function a:GetCursorTarget() return u end
   function a:GetCursorPosition() return Vector(400, 0, 0) end
@@ -42,8 +42,11 @@ end)
 for _, h in ipairs(E.heroes) do
   for _, path in ipairs({"physical", "magical"}) do
     local name = "rift_" .. h.key .. "_" .. path
-    T.case(name .. " executes its complete bounded combat loop", function()
-      local S, c, u, a, d = setup(name)
+    for _,rank in ipairs({1,2,3}) do
+    T.case(name .. " R"..rank.." executes its complete bounded combat loop", function()
+      local S, c, u, a, d = setup(name,rank)
+      T.eq(a:GetCooldown(rank-1),d.cooldown[rank],"native cooldown getter uses zero-based rank")
+      T.eq(a:GetManaCost(rank-1),d.mana[rank],"native mana getter uses zero-based rank")
       a:OnSpellStart()
       if d.mode == "stance" then
         local mod = S.lua_modifier("modifier_rift_path_stance", c, a)
@@ -56,13 +59,14 @@ for _, h in ipairs(E.heroes) do
         if d.target == "point" then u:SetAbsOrigin(Vector(400,0,0)) end
         S.advance(10)
         T.eq(#S.damage, d.ticks or 1)
-        local expected = Math.damage(d,2,{attack=120,strength=40,intellect=50,agility=60})
+        local expected = Math.damage(d,rank,{attack=120,strength=40,intellect=50,agility=60})
         if d.mode == "verdict" then expected = expected + 800*d.missing_health end
         if d.distance_bonus then expected = expected * (1+d.distance_bonus*400/d.range) end
         T.ok(math.abs(S.damage[1].damage-expected)<0.001, "snapshot damage")
       end
       T.ok(next(S.thinks)==nil, "all thinks and particle cleanup complete")
     end)
+    end
   end
 end
 

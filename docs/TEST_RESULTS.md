@@ -314,3 +314,16 @@
 - Дополнительно: LC statue duplicate callback больше не наносит повторный урон (старый тест ошибочно ожидал 5 попаданий от 4 стрел); inflight-контексты освобождаются после последнего callback и имеют ограниченный срок. TA wave callback игнорирует удалённого владельца при переключении героя в lab.
 
 - Пожелание владельца по LC: 4 луча × 4 залпа, пробивание героев/обычных врагов, yellow particle source + texture. Проверены 16 linear projectile descriptors, прямые углы, damage dedupe по цели/залпу, CDR за каждого real hero hit (несколько героев в одном луче), полный reset до 0, иммунитет и завершение ray-контекстов. Particle source/reference/palette проверены статически; настоящая компиляция/отрисовка не выполнялась. Установщик дополнительно проверен с mock-компиляцией texture и particle (итого 16 checks).
+
+
+## 2026-11-16 — Windows hotfix: Panorama, Axe и проверка ростера
+
+- На ПК воспроизведён сломанный HUD: `Uncaught ReferenceError: RiftUIModel is not defined`. Старый `rift_hud.vxml_c` загружал новый HUD JS без новых includes. ResourceCompiler подтвердил CRC mismatch исходной разметки.
+- Нативная пересборка дополнительно выявила ошибку XML: `Found root panel with 'id' attribute, which is not permitted.` Корневая панель теперь анонимна, `RiftRoot` сохранён внутри.
+- Установщик перед запуском принудительно собирает и проверяет шесть Panorama outputs и два собственных VFX; старые compiled outputs сохраняются до первого запуска компилятора. Проверяются exit code, наличие, размер и актуальность результатов. Посторонние исходники addon не компилируются.
+- Вылет при Axe magical: native access violation в `particles.dll +0x1f156c`; непосредственно перед ним — nonresident модели косметики `axe_winter_2025_*`. Замена героя теперь ждёт `PrecacheUnitByNameAsync(hero, callback, playerID)`; есть блокировка повторного выбора, таймаут и защита от позднего callback. После исправления в реальной Dota наблюдались успешные Axe base / physical / magical без повторного вылета в контрольной сессии.
+- `tools/check.sh`: **342 passed, 0 failed**. Добавлены 99 сочетаний (11 героев × 3 пути × R1/2/3), async-load регрессии и все три ранга боевых циклов 14 новых путей. Установщик: **92 checks** в PowerShell 5.1 и PowerShell 7 с mock process boundary.
+- Подробности, ограничения и скриншоты: [LOCAL_PLAYTEST_2026-11-16.md](LOCAL_PLAYTEST_2026-11-16.md). Все способности всех героев в Dota не объявлены проверенными; дальнейший ручной playtest выполняет владелец.
+
+
+Статусы: D — native HUD/полигон и контрольные выбора Axe base/physical/magical; S/U — весь ростер и боевые циклы на заглушке; O — полный боевой playtest, новая LC crossfire, арена/nav.
