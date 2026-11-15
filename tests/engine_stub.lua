@@ -68,6 +68,9 @@ function Unit:entindex() return self.index end
 function Unit:IsBuilding() return false end
 function Unit:IsOther() return false end
 function Unit:IsDebuffImmune() return self.immune or false end
+function Unit:IsStunned() return self.stunned or false end
+function Unit:IsDisarmed() return self.disarmed or false end
+function Unit:Heal(amount) self.props.Health = math.min(self.props.MaxHealth, (self.props.Health or 0) + amount) end
 function Unit:TriggerSpellAbsorb() return self.linkens or false end
 function Unit:GetStatusResistance() return 0 end
 
@@ -79,7 +82,7 @@ function S.unit(name, o)
   local u = { name = name, index = seq, props = o.props or {}, mods = {}, abilities = o.abilities or {},
               pos = o.pos or vec(0, 0, 0), team = o.team or 2, pid = o.pid or -1, hero = o.hero or false,
               removed = false, dead = false, broken = false, attack_target = false,
-              immune = false, linkens = false }
+              immune = false, linkens = false, stunned = false, disarmed = false }
   S.by_index[u.index] = u
   return setmetatable(u, Unit)
 end
@@ -127,6 +130,8 @@ function S.install()
     return t.damage
   end
   _G.EmitSoundOn = function() end
+  _G.StopSoundOn = function() end
+  _G.FindClearSpaceForUnit = function(u, p) u:SetAbsOrigin(p) end
   _G.EmitSoundOnLocationWithCaster = function() end
   _G.SendOverheadEventMessage = function() end
   _G.EntIndexToHScript = function(i) return S.by_index[i] end

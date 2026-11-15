@@ -19,7 +19,13 @@ echo "== KV / localization"
 node tools/check_kv.js || fail=1
 echo "== Modifier registration"
 node tools/check_mods.js || fail=1
+echo "== Panorama UI logic"
+node tests/test_ui.js || fail=1
+echo "== Hammer arena source (does not compile/nav-test)"
+python3 tools/check_arena.py || fail=1
 echo "== Pure logic tests"
 lua5.1 tests/run.lua || fail=1
+echo "== Native tooltip balance sync"
+lua5.1 tools/sync_path_tooltips.lua --check || fail=1
 if [ $fail -eq 0 ]; then echo "ALL CHECKS PASSED"; else echo "CHECKS FAILED"; fi
 exit $fail

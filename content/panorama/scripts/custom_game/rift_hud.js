@@ -2,12 +2,14 @@
 // RIFT ARENA HUD. Shows only server-confirmed state from CustomNetTables.
 
 var localPid = Players.GetLocalPlayer();
+var RiftSeats = {};
+var RiftRoster = [];
+var RiftMenuSeen = false;
+var RiftMenuAuto = false;
+var RiftBoardKey = "";
 
 function fmtTime(sec) {
-  sec = Math.max(0, Math.floor(sec || 0));
-  var m = Math.floor(sec / 60);
-  var s = sec % 60;
-  return m + ":" + (s < 10 ? "0" : "") + s;
+  return RiftUIModel.time(sec);
 }
 
 function playerName(pid) {
@@ -20,10 +22,7 @@ function heroName(unitName) {
 }
 
 function rowsToArray(rows) {
-  var out = [];
-  if (!rows) return out;
-  for (var i = 1; rows[String(i)] !== undefined; i++) out.push(rows[String(i)]);
-  return out;
+  return RiftUIModel.array(rows);
 }
 
 function onMatchState(data) {
@@ -33,6 +32,52 @@ function onMatchState(data) {
   $("#TimerLabel").text = showTimer ? fmtTime(data.remaining) : "--:--";
   $("#DevLabel").SetHasClass("Visible", data.dev === 1);
   $("#FallbackLabel").SetHasClass("Visible", data.map_fallback === 1);
+  $("#RiftRoot").SetHasClass("Overtime", data.state === "OVERTIME");
+  $("#ClockProgress").style.width = RiftUIModel.progress(data.remaining, data.active_total) + "%";
+  if (!RiftMenuSeen && (data.state === "HERO_SELECTION" || data.state === "PREPARATION")) {
+    $("#Onboarding").RemoveClass("Hidden");
+    RiftMenuSeen = true;
+    RiftMenuAuto = true;
+  }
+  if (RiftMenuAuto && (data.state === "ACTIVE" || data.state === "FINISHED")) RiftHideOnboarding();
+}
+
+function renderSeats(rows) {
+  var seated = RiftUIModel.bySeat(rows);
+  var ranks = {};
+  rows.forEach(function (r, i) { ranks[r.pid] = i + 1; });
+  var active = {};
+  seated.forEach(function (r, i) {
+    active[r.pid] = true;
+    var seat = RiftSeats[r.pid];
+    var parent = $(i < 4 ? "#TopPlayersLeft" : "#TopPlayersRight");
+    if (!seat || seat.panel.GetParent() !== parent) {
+      if (seat) seat.panel.DeleteAsync(0);
+      var p = $.CreatePanel("Panel", parent, ""); p.AddClass("PlayerSeat");
+      var portrait = $.CreatePanel("Image", p, ""); portrait.AddClass("SeatPortrait");
+      var name = $.CreatePanel("Label", p, ""); name.AddClass("SeatName");
+      var rank = $.CreatePanel("Label", p, ""); rank.AddClass("SeatRank");
+      var path = $.CreatePanel("Label", p, ""); path.AddClass("SeatPath");
+      var score = $.CreatePanel("Label", p, ""); score.AddClass("SeatScore");
+      var death = $.CreatePanel("Label", p, ""); death.AddClass("SeatDeath");
+      seat = RiftSeats[r.pid] = { panel: p, portrait: portrait, name: name, rank: rank, path: path, score: score, death: death, hero: "" };
+    }
+    if (r.hero && seat.hero !== r.hero) {
+      seat.portrait.SetImage("file://{images}/heroes/" + r.hero + ".png"); seat.hero = r.hero;
+    }
+    seat.name.text = playerName(r.pid);
+    seat.rank.text = "#" + ranks[r.pid];
+    seat.score.text = String(r.score);
+    seat.path.text = r.direction === "physical" ? "P" : r.direction === "magical" ? "M" : "";
+    seat.death.text = r.alive === 0 && r.respawn > 0 ? String(r.respawn) : "";
+    seat.panel.SetHasClass("Self", r.pid === localPid);
+    seat.panel.SetHasClass("Dead", r.alive === 0);
+    seat.panel.SetHasClass("Physical", r.direction === "physical");
+    seat.panel.SetHasClass("Magical", r.direction === "magical");
+  });
+  Object.keys(RiftSeats).forEach(function (pid) {
+    if (!active[pid]) { RiftSeats[pid].panel.DeleteAsync(0); delete RiftSeats[pid]; }
+  });
 }
 
 function fillRows(container, rows) {
@@ -57,7 +102,9 @@ function fillRows(container, rows) {
 function onScores(data) {
   if (!data) return;
   var rows = rowsToArray(data.rows);
-  fillRows($("#BoardRows"), rows);
+  var key = JSON.stringify(rows.map(function (r) { return [r.pid, r.score, r.kills, r.deaths, r.assists, r.hero, playerName(r.pid)]; }));
+  if (key !== RiftBoardKey) { fillRows($("#BoardRows"), rows); RiftBoardKey = key; }
+  renderSeats(rows);
   var myScore = 0, myPlace = 0;
   for (var i = 0; i < rows.length; i++) {
     if (rows[i].pid === localPid) { myScore = rows[i].score; myPlace = i + 1; }
@@ -80,12 +127,48 @@ function onResult(data) {
 
 function RiftHideOnboarding() {
   $("#Onboarding").AddClass("Hidden");
+  RiftMenuSeen = true;
+  RiftMenuAuto = false;
+}
+
+function RiftOpenMenu() {
+  $("#Onboarding").RemoveClass("Hidden");
+  RiftMenuSeen = true;
+  RiftMenuAuto = false;
+}
+
+function RiftToggleBoard() { $("#Board").ToggleClass("Hidden"); }
+
+function previewHero(hero, card) {
+  $("#GalleryHero").text = heroName(hero.hero);
+  ["physical", "magical"].forEach(function (path) {
+    var prefix = path === "physical" ? "#GalleryPhysical" : "#GalleryMagical";
+    $(prefix + "Name").text = hero[path] ? $.Localize("#" + hero[path].name) : "";
+    $(prefix + "Desc").text = hero[path] ? $.Localize("#" + hero[path].desc) : "";
+  });
+  $("#HeroGallery").Children().forEach(function (p) { p.SetHasClass("Selected", p === card); });
+}
+
+function onRoster(data) {
+  if (!data) return;
+  RiftRoster = rowsToArray(data.heroes);
+  var gallery = $("#HeroGallery");
+  gallery.RemoveAndDeleteChildren();
+  RiftRoster.forEach(function (hero, i) {
+    var card = $.CreatePanel("Button", gallery, ""); card.AddClass("GalleryCard");
+    var img = $.CreatePanel("Image", card, ""); img.AddClass("GalleryPortrait");
+    img.SetImage("file://{images}/heroes/" + hero.hero + ".png");
+    card.SetPanelEvent("onmouseover", function () { previewHero(hero, card); });
+    card.SetPanelEvent("onactivate", function () { previewHero(hero, card); });
+    if (i === 0) previewHero(hero, card);
+  });
 }
 
 (function () {
   CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
     if (key === "state") onMatchState(data);
     else if (key === "result") onResult(data);
+    else if (key === "roster") onRoster(data);
   });
   CustomNetTables.SubscribeNetTableListener("rift_scores", function (_t, key, data) {
     if (key === "board") onScores(data);
@@ -94,6 +177,9 @@ function RiftHideOnboarding() {
   onMatchState(CustomNetTables.GetTableValue("rift_match", "state"));
   onScores(CustomNetTables.GetTableValue("rift_scores", "board"));
   onResult(CustomNetTables.GetTableValue("rift_match", "result"));
+  onRoster(CustomNetTables.GetTableValue("rift_match", "roster"));
+  GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
+  GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false);
 })();
 
 // ---------------------------------------------------------------------------
@@ -189,12 +275,15 @@ function renderOffer() {
   var offer = visibleOffer();
   var count = RiftOffer.state ? objToArray(RiftOffer.state.pending).length : 0;
   if (!offer) {
+    $("#RiftRoot").RemoveClass("Choosing");
     panel.RemoveClass("Visible");
     openBtn.RemoveClass("Visible");
     return;
   }
   var collapsed = RiftOffer.collapsedOfferId === offer.id;
   panel.SetHasClass("Visible", !collapsed);
+  $("#RiftRoot").SetHasClass("Choosing", !collapsed);
+  if (!collapsed) RiftHideOnboarding();
   panel.SetHasClass("Ultimate", offer.type === "ultimate_direction");
   openBtn.SetHasClass("Visible", collapsed);
   $("#OfferOpenLabel").text = locFill("rift_offer_open", { count: count });

@@ -25,6 +25,9 @@ local M = {
   "modifier_rift_lc_duel_damage",
   "modifier_rift_lc_spell_amp",
   "modifier_rift_lc_statue",
+  "modifier_rift_path_stance",
+  "modifier_rift_path_slow",
+  "modifier_rift_path_root",
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).

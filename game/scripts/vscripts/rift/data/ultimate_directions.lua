@@ -6,7 +6,7 @@
 -- status: "implemented" only when the engine handler exists AND both directions of
 -- the hero are complete. A hero is selectable only if both are implemented.
 
-return {
+local Directions = {
   {
     id = "pa_phantom_execution",
     hero_id = "npc_dota_hero_phantom_assassin",
@@ -154,3 +154,21 @@ return {
     icon = "templar_assassin_psi_blades", status = "implemented",
   },
 }
+
+for _, hero in ipairs(require("rift.data.expansion").heroes) do
+  for _, path in ipairs({ "physical", "magical" }) do
+    local d = require("rift.data.expansion").balance[hero.key][path]
+    Directions[#Directions + 1] = {
+      id = d.id, hero_id = hero.unit, ultimate_ability_id = hero.ultimate,
+      learn_trigger_adapter = "first_point_in_ultimate", direction = path,
+      affected_abilities = { hero.ultimate }, preserved_effects = { "native_basic_abilities" },
+      replaced_effects = { hero.ultimate }, balance_ref = "expansion." .. hero.key .. "." .. path,
+      swaps = { { from = hero.ultimate, to = d.id, disable_from = true } },
+      active_handler = "path_combat", default_on_timeout = path == "physical",
+      transfer_policy = "keep_rank_keep_cooldown", item_proc_policy = "no_item_procs",
+      loc_name = "rift_dir_" .. d.id, loc_desc = "rift_dir_" .. d.id .. "_desc", icon = d.icon,
+      status = "implemented", validation = "engine_stub_only",
+    }
+  end
+end
+return Directions

@@ -59,6 +59,7 @@ function GameMode:Activate()
   self:ConfigureRules()
   self.map = MapContract.load(self.dev)
   self.upgrades = UpgradeBridge.new(self)
+  self.ui:PublishRoster()
   self.relic = RelicService.new(self, self.upgrades.seed)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
@@ -381,6 +382,7 @@ end
 -- Think
 ---------------------------------------------------------------------------
 function GameMode:Think()
+  require("rift.engine.arena_service").tick(self)
   local raw = GameRules:GetGameTime()
   local dt = self.last_raw_time and (raw - self.last_raw_time) or 0
   self.last_raw_time = raw

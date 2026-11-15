@@ -7,6 +7,10 @@ local ModifierList = require("rift.modifier_list")
 ModifierList.link(false)
 
 function Precache(context)
+  local expansion = require("rift.data.expansion")
+  for _, hero in ipairs(expansion.heroes) do PrecacheUnitByNameSync(hero.unit, context) end
+  for _, d in pairs(expansion.abilities) do PrecacheResource("particle", d.particle, context) end
+  PrecacheResource("particle", "particles/ui_mouseactions/ping_world.vpcf", context)
   PrecacheUnitByNameSync("npc_dota_hero_phantom_assassin", context)
   PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
   PrecacheUnitByNameSync("npc_dota_hero_legion_commander", context)

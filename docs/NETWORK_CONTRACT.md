@@ -34,3 +34,9 @@ rank_now?, rank_next?, max_rank?, required_direction?, values{ key: number }, is
 
 ### Reason codes `rift_offer_result`
 ok, unknown_offer, not_owner, already_resolved, expired, invalid_option, not_allowed, match_finished, bad_payload.
+
+## Дополнения 0.2 (schema 1, новые поля)
+
+- `rift_match/roster`: `{heroes: {"1": {hero, physical: {name, desc, icon}, magical: {name, desc, icon}}, ...}}`. Статический публичный каталог из реестра, восстанавливается через GetTableValue. Не содержит приватных предложений/сборок.
+- `rift_scores/board.rows[*]`: дополнительно `alive` (0/1), `respawn` (секунды, >=0). Тот же board публикуется с throttle 0.5 секунды для счётчика смерти. `pid` задаёт постоянное место портрета, индекс строки — текущее место по очкам.
+- События выбора/приватного snapshot и серверная проверка отправителя не изменялись. Путеводитель не отправляет события выбора героя и не выдаёт ресурсов.

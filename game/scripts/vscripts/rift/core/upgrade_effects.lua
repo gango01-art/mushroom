@@ -5,6 +5,7 @@ local Effects = {}
 
 -- Handlers implemented in the engine. Registry validation uses this set.
 Effects.HANDLERS = {
+  path_combat = true,
   stat_bonus = true,
   -- ultimate direction handlers implemented in the engine (abilities/modifiers)
   ta_psionic_crystal = true,   -- TA physical (verified OP-013/015)

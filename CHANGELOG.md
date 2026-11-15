@@ -131,3 +131,11 @@
 - Инструменты: tools/check.sh, tools/check_kv.js, tools/link_addon.ps1.
 - Документация: BRIEF, HANDOFF, ENVIRONMENT, GAME_DESIGN, ARCHITECTURE, NETWORK/MAP_CONTRACT, BUILD_AND_RUN,
   SCREEN_OPERATOR_TASKS, TEST_RESULTS, KNOWN_ISSUES.
+
+
+## 2026-11-15 — 0.2.0-alpha
+- Ростер расширен с 4 до 11 героев, добавлены 14 путей с общим серверным исполнителем и отдельными боевыми циклами.
+- Числовые native tooltips генерируются из баланса; RU/EN описания и precache.
+- FFA HUD: восемь портретов/очки/места/респауны, таймер по центру; меню-путеводитель и вертикальные предложения справа.
+- Авторский исходник `rift_arena.vmap`: 12 spawn, 4 relic, старты 8 команд, край, укрытия и 4 магазина; runtime boundary guard и исправление частичного map contract fallback.
+- 189 Lua-тестов прошли, проверки Panorama-логики и DMX; браузерный дизайн-макет. В Dota/Workshop Tools не проверялось. Передача: PLAYTEST_0_2.md.

@@ -7,6 +7,7 @@
 -- Pure data, no engine globals.
 
 local B = {}
+B.expansion = require("rift.data.expansion").balance
 
 B.lc = {
   duel_physical = {

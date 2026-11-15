@@ -4,7 +4,7 @@
 
 local Config = {}
 
-Config.VERSION = "0.1.0-a"
+Config.VERSION = "0.2.0-alpha"
 Config.SCHEMA_VERSION = 1
 
 Config.match = {

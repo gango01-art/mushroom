@@ -7,6 +7,11 @@ local F = require("fixtures")
 local ULT = { phantom_assassin_coup_de_grace = true, pa_phantom_execution = true, pa_storm_charge = true,
   legion_commander_duel = true, lc_duel_physical = true, lc_duel_magical = true, nevermore_requiem = true,
   sf_requiem_physical = true, templar_assassin_psionic_trap = true, ta_psionic_crystal = true, ta_psionic_blast = true }
+for _, h in ipairs(require("rift.data.expansion").heroes) do
+  ULT[h.ultimate] = true
+  ULT["rift_" .. h.key .. "_physical"] = true
+  ULT["rift_" .. h.key .. "_magical"] = true
+end
 
 local function fake_hero(S, unit_name, slots, hidden)
   local h = S.hero(unit_name, 0, 2, Vector(0, 0, 0), {})
@@ -20,7 +25,10 @@ local function fake_hero(S, unit_name, slots, hidden)
     function a:SetLevel(l) self.level = l end
     function a:SetActivated(v) self.active = v end
     function a:GetMaxLevel() return ULT[self.name] and 3 or 4 end
-    function a:GetCooldown() return 10 end
+    function a:GetCooldown(level)
+      local d = require("rift.data.expansion").abilities[self.name]
+      return d and d.cooldown[(level or 0) + 1] or 10
+    end
     function a:GetAbilityType() return ULT[self.name] and 1 or 0 end
     function a:GetAbilityIndex() for i, x in pairs(h.slots) do if x == self then return i end end end
     return a
@@ -161,6 +169,27 @@ for _, spec in ipairs(HEROES) do
       for i = 0, 2 do T.eq(h.slots[i]:GetLevel(), i + 1, "level of slot " .. i) end
       T.eq(h.slots[5]:GetLevel(), 1, "ultimate rank kept")
       T.eq(h.slots[5]:GetAbilityType(), 1, "an ultimate sits on R")
+    end)
+  end
+end
+
+for _, spec in ipairs(require("rift.data.expansion").heroes) do
+  for _, path in ipairs({ "physical", "magical" }) do
+    local id = "rift_" .. spec.key .. "_" .. path
+    T.case(id .. ": one swap preserves ultimate rank, cooldown, R and unrelated QWE", function()
+      local S = Stub.install()
+      local h = fake_hero(S, spec.unit, { "native_q", "native_w", "native_e", "generic_hidden", "generic_hidden2", spec.ultimate },
+        { generic_hidden = true, generic_hidden2 = true })
+      local A, dirs = adapter(S,h.name)
+      h.slots[0]:SetLevel(1);h.slots[1]:SetLevel(2);h.slots[2]:SetLevel(3);h.slots[5]:SetLevel(2)
+      h.slots[5]:StartCooldown(17)
+      A:Apply(0,dirs[id])
+      T.eq(bar(h)[5],id); T.eq(h.slots[5]:GetLevel(),2)
+      T.eq(h.slots[5]:GetCooldownTimeRemaining(),17)
+      T.eq(h:FindAbilityByName(spec.ultimate):GetLevel(),0,"hidden native disabled")
+      for i=0,2 do T.eq(h.slots[i]:GetLevel(),i+1);T.ok(not h.slots[i]:IsHidden()) end
+      A:Ensure(0,h)
+      T.eq(bar(h)[5],id);T.eq(h.slots[5]:GetCooldownTimeRemaining(),17,"ensure must not reset cooldown")
     end)
   end
 end

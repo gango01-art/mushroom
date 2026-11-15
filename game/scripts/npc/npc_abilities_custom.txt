@@ -194,4 +194,304 @@
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
 	}
+
+	// DUALITY alpha expansion. Balance and execution: rift/data/expansion.lua.
+	"rift_axe_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "axe_culling_blade"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "100 160 220" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "160 190 220" }
+		}
+	}
+	"rift_axe_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "axe_culling_blade"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
+			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "35" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "6" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "20" }
+		}
+	}
+	"rift_lina_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "lina_laguna_blade"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "45 65 85" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "65 80 95" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
+		}
+	}
+	"rift_lina_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "lina_laguna_blade"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "100 145 190" }
+			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "60" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "15" }
+		}
+	}
+	"rift_juggernaut_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "juggernaut_omni_slash"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "20 30 40" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "80 95 110" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "5" }
+		}
+	}
+	"rift_juggernaut_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "juggernaut_omni_slash"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
+			"02" { "var_type" "FIELD_FLOAT" "path_agility_pct" "35" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "10" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "18" }
+		}
+	}
+	"rift_cm_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "crystal_maiden_freezing_field"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "40 60 80" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "60 80 100" }
+			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "3" }
+			"04" { "var_type" "FIELD_FLOAT" "path_duration" "9" }
+			"05" { "var_type" "FIELD_FLOAT" "path_slow" "25" }
+			"06" { "var_type" "FIELD_FLOAT" "path_root" "0.7" }
+		}
+	}
+	"rift_cm_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "crystal_maiden_freezing_field"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
+			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "30" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "8" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "30" }
+			"05" { "var_type" "FIELD_FLOAT" "path_root" "0.65" }
+		}
+	}
+	"rift_wr_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "windrunner_focusfire"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "15 25 35" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "45 60 75" }
+			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "2" }
+			"04" { "var_type" "FIELD_FLOAT" "path_duration" "8" }
+		}
+	}
+	"rift_wr_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "windrunner_focusfire"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "65 95 125" }
+			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "55" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "35" }
+		}
+	}
+	"rift_sven_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "sven_gods_strength"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "40 70 100" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "100 120 140" }
+			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "3" }
+			"04" { "var_type" "FIELD_FLOAT" "path_duration" "9" }
+		}
+	}
+	"rift_sven_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "sven_gods_strength"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "70 100 130" }
+			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "65" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "4" }
+		}
+	}
+	"rift_pudge_physical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "pudge_dismember"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "55 75 95" }
+			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "35 45 55" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "6" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "25" }
+		}
+	}
+	"rift_pudge_magical"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityTextureName" "pudge_dismember"
+		"AbilityType" "ABILITY_TYPE_ULTIMATE"
+		"MaxLevel" "3"
+		"RequiredLevel" "6"
+		"LevelsBetweenUpgrades" "6"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastPoint" "0.3"
+		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySpecial"
+		{
+			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
+			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "35" }
+			"03" { "var_type" "FIELD_FLOAT" "path_hits" "7" }
+			"04" { "var_type" "FIELD_FLOAT" "path_slow" "22" }
+		}
+	}
 }

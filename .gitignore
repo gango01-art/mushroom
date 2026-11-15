@@ -1,0 +1,3 @@
+# Python authoring/validation helpers
+__pycache__/
+*.py[cod]

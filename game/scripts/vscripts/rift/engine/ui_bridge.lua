@@ -13,6 +13,23 @@ function UiBridge.new(gm)
   return setmetatable({ gm = gm, last = -1e9 }, UiBridge)
 end
 
+function UiBridge:PublishRoster()
+  local heroes, seen = {}, {}
+  for _, d in ipairs(require("rift.data.ultimate_directions")) do
+    local h = seen[d.hero_id]
+    if not h then
+      h = { hero = d.hero_id }
+      seen[d.hero_id] = h
+    end
+    h[d.direction] = { name = d.loc_name, desc = d.loc_desc, icon = d.icon }
+  end
+  local names = {}
+  for name in pairs(seen) do names[#names + 1] = name end
+  table.sort(names)
+  for i, name in ipairs(names) do heroes[tostring(i)] = seen[name] end
+  CustomNetTables:SetTableValue("rift_match", "roster", { heroes = heroes })
+end
+
 function UiBridge:Publish(force)
   local raw = GameRules:GetGameTime()
   if not force and raw - self.last < MIN_INTERVAL then return end
@@ -46,7 +63,7 @@ function UiBridge:Publish(force)
     CustomNetTables:SetTableValue("rift_match", "relic", gm.relic:View(now, st:active_elapsed(now)))
   end
 
-  if force then self:PublishScores() end
+  self:PublishScores() -- also keeps death/respawn indicators current (2 Hz)
 end
 
 function UiBridge:PublishScores()
@@ -57,6 +74,8 @@ function UiBridge:PublishScores()
       pid = r.pid, score = r.score, kills = r.kills, deaths = r.deaths, assists = r.assists,
       hero = (hero and not hero:IsNull()) and hero:GetUnitName() or "",
       direction = (self.gm.upgrades and self.gm.upgrades:Direction(r.pid)) or "",
+      alive = hero and not hero:IsNull() and hero:IsAlive() and 1 or 0,
+      respawn = hero and not hero:IsNull() and not hero:IsAlive() and math.ceil(math.max(0, hero:GetTimeUntilRespawn())) or 0,
     }
   end
   CustomNetTables:SetTableValue("rift_scores", "board", { rows = rows })

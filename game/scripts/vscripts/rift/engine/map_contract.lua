@@ -40,14 +40,16 @@ function MapContract.load(dev)
   c.bounds_max = find("rift_bounds_max")
   if not c.bounds_max then table.insert(missing, "rift_bounds_max") end
 
+  if #missing == 0 then
+    for _, err in ipairs(require("rift.core.arena").validate(c)) do missing[#missing+1] = err end
+  end
   if #missing > 0 then
     for _, n in ipairs(missing) do
       if dev then Log.warn("MAP", "missing entity " .. n)
       else Log.error("MAP", "missing entity " .. n) end
     end
-    if #c.spawns < MapContract.SPAWN_COUNT then
-      MapContract.apply_fallback(c)
-    end
+    -- Never mix valid starts with an empty relic list or invalid bounds.
+    MapContract.apply_fallback(c)
   else
     Log.info("MAP", "contract OK: 12 spawns, 4 relic points, center, bounds")
   end

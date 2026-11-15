@@ -13,7 +13,7 @@ T.case("every direction has a resolvable balance_ref", function()
   for _, d in ipairs(dirs) do
     if d.balance_ref then n = n + 1; T.ok(resolve(d.balance_ref), d.id .. " -> " .. d.balance_ref) end
   end
-  T.eq(n, 8)
+  T.eq(n, 22)
 end)
 
 T.case("rank-indexed arrays have the right length", function()
