@@ -28,6 +28,8 @@ local M = {
   "modifier_rift_path_stance",
   "modifier_rift_path_slow",
   "modifier_rift_path_root",
+  "modifier_rift_lab_display",
+  "modifier_rift_lab_target",
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).

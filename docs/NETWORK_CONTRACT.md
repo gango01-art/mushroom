@@ -40,3 +40,12 @@ ok, unknown_offer, not_owner, already_resolved, expired, invalid_option, not_all
 - `rift_match/roster`: `{heroes: {"1": {hero, physical: {name, desc, icon}, magical: {name, desc, icon}}, ...}}`. Статический публичный каталог из реестра, восстанавливается через GetTableValue. Не содержит приватных предложений/сборок.
 - `rift_scores/board.rows[*]`: дополнительно `alive` (0/1), `respawn` (секунды, >=0). Тот же board публикуется с throttle 0.5 секунды для счётчика смерти. `pid` задаёт постоянное место портрета, индекс строки — текущее место по очкам.
 - События выбора/приватного snapshot и серверная проверка отправителя не изменялись. Путеводитель не отправляет события выбора героя и не выдаёт ресурсов.
+
+
+## Дополнения 0.3: lab
+
+`rift_match/state.lab` (0/1) меняет HUD-таймер на бесконечный. `rift_match/lab` публикует availability/enabled/owner, hero/path/rank, free cooldown flag, gallery/target counts и active_entity. Публичный snapshot восстанавливается после подключения.
+
+Client intent `rift_lab_request`: action из start/select/gallery/clear/target/reset/free/rank; hero только из complete roster, path из base/physical/magical, rank 1–3, target kind из immortal/mortal/immune. PlayerID берётся из поля, заполненного движком; target-player/произвольные unit/item names не принимаются. Проверяются dev mode, ровно один игрок, host (вне Tools), владелец и интервал запросов. Нет RPC выхода обратно в обычный матч с выданным gold/levels.
+
+Private replies: `rift_lab_result {ok, reason}` и `rift_lab_focus {entity}`. Старые offers при смене lab-героя удаляются, sequence не сбрасывается; stale choose не может примениться к новой сборке. Normal offer RPC в lab возвращает lab_mode.

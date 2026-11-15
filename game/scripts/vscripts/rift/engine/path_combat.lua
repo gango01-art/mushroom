@@ -87,11 +87,15 @@ function M.stance_attack(mod, ev)
   local c, a = mod:GetParent(), mod:GetAbility()
   if not valid(c) or ev.attacker ~= c or not a or a:IsNull() or c:IsIllusion() or not open() then return end
   local d = E.abilities[a:GetAbilityName()]
-  if not d or not enemy(c, ev.target, d) or not ev.target:IsHero() then return end
+  -- OnAttackLanded can arrive after the attack killed its primary victim. It
+  -- must still count toward the stance and hit surviving nearby enemies.
+  local target=ev.target
+  if not d or not target or target:IsNull() or not target:IsHero()
+    or target:GetTeamNumber()==c:GetTeamNumber() or target:IsInvulnerable() then return end
   mod.hits = (mod.hits or 0) + 1
   mod:SetStackCount(mod.hits % d.every)
   if mod.hits % d.every ~= 0 then return end
-  local s = { caster = c, ability = a, def = d, rank = a:GetLevel(), stats = mod.stats,
+  local s = { caster = c, ability = a, def = d, rank = mod.rank or a:GetLevel(), stats = mod.stats,
     point = ev.target:GetAbsOrigin() }
   local origin = c:GetAbsOrigin()
   local direction = (s.point - origin):Normalized()
@@ -115,7 +119,8 @@ function M.cast(a, d)
   end
   local origin = c:GetAbsOrigin()
   local aim = d.target == "point" and a:GetCursorPosition() or (target and target:GetAbsOrigin() or origin)
-  local point = Math.clamp_point(aim, origin, d.range)
+  local range=d.range>0 and d.range+c:GetCastRangeBonus() or 0
+  local point = Math.clamp_point(aim, origin, range)
   local s = { caster = c, ability = a, def = d, rank = a:GetLevel(), stats = M.snapshot(c),
     origin = origin, point = Vector(point.x, point.y, point.z), target = target }
   s.direction = (s.point - origin):Length2D() > 1 and (s.point - origin):Normalized() or c:GetForwardVector()
@@ -166,11 +171,10 @@ function M.cast(a, d)
       local next_target
       for _, u in ipairs(units(s, c:GetAbsOrigin(), d.leash, true)) do
         if enemy(c, u, d) and (u:GetAbsOrigin() - origin):Length2D() <= d.leash then
-          if u ~= s.last then next_target = u; break end
-          next_target = next_target or u
+          if tick==1 and u==target then next_target=u;break end
+          if not next_target or (next_target==s.last and u~=s.last) then next_target=u end
         end
       end
-      if tick == 1 and enemy(c, target, d) then next_target = target end
       if not next_target then StopSoundOn(d.sound, c); return nil end
       if d.jump then FindClearSpaceForUnit(c, next_target:GetAbsOrigin() - s.direction * 100, true) end
       s.last = next_target

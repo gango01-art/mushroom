@@ -10,16 +10,16 @@
 выбор физического или магического направления ультимейта при первой прокачке ульты,
 регулярные улучшения и переносимый артефакт «Сердце разлома».
 
-Текущий срез: **0.2.0-alpha — 11 героев / 22 пути, исходник арены и обновлённый HUD**. Новые механики и карта требуют прогона в Workshop Tools. Инструкция передачи: [docs/PLAYTEST_0_2.md](docs/PLAYTEST_0_2.md).
+Текущий срез: **0.3.0-lab — полигон всех 11 героев / 22 путей и установочный addon-пакет**. [Начать здесь](docs/START_HERE.md): запуск, выбор управляемого героя, пути, мишени и восстановление способностей. Реальный прогон в Dota и сборка арены в Workshop Tools пока не выполнялись.
 Подробно: [docs/HANDOFF.md](docs/HANDOFF.md). ТЗ: [docs/BRIEF.md](docs/BRIEF.md).
 
 ### Быстрый старт (Windows)
-1. Установить DLC «Dota 2 Workshop Tools» (Steam → Dota 2 → Свойства → DLC).
-2. `powershell -ExecutionPolicy Bypass -File tools\link_addon.ps1`
-3. Запустить Workshop Tools, выбрать addon `duality`, в консоли:
-   `dota_launch_custom_game duality rift_arena` (после сборки карты в Hammer; [инструкция](docs/ARENA_BUILD.md))
+1. Установить Dota 2 и DLC «Dota 2 Workshop Tools».
+2. Распаковать addon-пакет и запустить **`START_DEMO.cmd`**. Он устанавливает файлы с резервными копиями и включает автополигон на штатной карте `dota`.
+3. Если Tools открылось стартовым окном: выбрать addon `duality`, в Console — `dota_launch_custom_game duality dota`.
+4. Выбрать героя; после начала игры использовать **«ПОЛИГОН ГЕРОЕВ»**. Можно также ввести `rift_lab`, затем `rift_lab_hero lina magical`.
 
-Подробности: [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md).
+**`START_MATCH.cmd`** собирает собственную арену установленным ResourceCompiler и запрашивает обычный матч. **`BUILD_MAP.cmd`** — только сборка. [Полная инструкция](docs/START_HERE.md), [карта](docs/ARENA_BUILD.md).
 
 ### Проверки без Dota
 `bash tools/check.sh` — синтаксис Lua/JS, KV, локализация, тесты чистой логики (Lua 5.1, Node).

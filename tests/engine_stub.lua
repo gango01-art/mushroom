@@ -44,6 +44,7 @@ function Unit:SetForwardVector() end
 function Unit:GetTeamNumber() return self.team end
 function Unit:GetPlayerOwnerID() return self.pid end
 function Unit:GetAverageTrueAttackDamage() return self.props.Damage end
+function Unit:GetCastRangeBonus() return self.props.CastRangeBonus or 0 end
 function Unit:GetPhysicalArmorValue() return self.props.Armor end
 function Unit:GetAttacksPerSecond() return self.props.APS end
 function Unit:Stop() end
@@ -146,7 +147,10 @@ function S.install()
     end
     return out
   end
-  _G.ProjectileManager = { CreateTrackingProjectile = function(_, p) table.insert(S.projectiles, p) end }
+  _G.ProjectileManager = {
+    CreateTrackingProjectile = function(_, p) table.insert(S.projectiles, p) end,
+    CreateLinearProjectile = function(_, p) table.insert(S.projectiles, p);return #S.projectiles end,
+  }
   _G.PlayerResource = {
     GetConnectionState = function() return 2 end,
     GetSelectedHeroEntity = function(_, pid) for _, h in ipairs(S.heroes) do if h.pid == pid then return h end end end,

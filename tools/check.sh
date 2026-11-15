@@ -17,6 +17,8 @@ for f in $(find content/panorama/scripts -name '*.js'); do
 done
 echo "== KV / localization"
 node tools/check_kv.js || fail=1
+echo "== Custom particle source links"
+python3 tools/check_particles.py || fail=1
 echo "== Modifier registration"
 node tools/check_mods.js || fail=1
 echo "== Panorama UI logic"

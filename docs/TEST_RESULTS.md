@@ -298,3 +298,19 @@
 - Python: настоящий DMX исходник карты прочитан; 12 spawn, 4 relic, центр/границы, 8 команд, 4 shop-prefab, terrain/укрытия. Это не компиляция/nav-тест.
 - Chromium headless: браузерный дизайн-макет открывает меню/карточки без JS-ошибок, меню укладывается в 1920×1080. Заглушки портретов. Не проверяет рендер Source 2.
 - Не запускались: Dota 2, Hammer, ResourceCompiler, реальные API/частицы/звуки, мультиплеер, закупка и игровой баланс. Приёмочный сценарий: `docs/PLAYTEST_0_2.md`.
+
+
+## 2026-11-15 — 0.3.0-lab (облачная проверка, НЕ Dota)
+
+- `bash tools/check.sh`: **211 passed, 0 failed**, KV/localization 72 статически используемых HUD-токена, 27 модификаторов, tooltip-sync, реальный DMX исходник.
+- Новые lab-тесты: старт всех 11, последовательное применение всех 22 путей к fresh assigned heroes, очистка копий и принадлежащих прежнему герою summons, старые offer IDs, лимит целей, запросы/частота/host/dev/single-player ограничения, ранги, native kit, отсутствие навигационного места, бесконечная сессия без director tick, однократный прогресс LC за убийство mortal target, консольные aliases.
+- Боевые регрессии: AoE-прок от убившей основной цели атаки, первоначальная цель Juggernaut за leash, дальность точки с cast-range bonus. Старые тесты пройдены.
+- Node Panorama adapter: lab roster/path/rank/focus, защита повторного клика, ошибки не затираются обновлением 2 Hz, бесконечный таймер и UI availability. Не native renderer.
+- PowerShell **7.5.4**, `tests/test_installation.ps1`: **16 проверок** во временной fake-Dota-папке: парсинг, WhatIf, backup, сохранение посторонних файлов, repeat install, Demo/Match config, mock compiler argv с пробелами, ненулевой exit, нулевой exit без map output, повреждённый manifest payload. Это не реальный Source 2 compile и не Windows/Steam launch.
+- ZIP smoke: распаковка, SHA256 всех payload-файлов, настоящий installer из извлечённого пакета, установка в fake-Dota, `auto_demo=1`, побайтовое совпадение lab server source. Папки тестов удалены.
+- Chromium: browser design mock открывает меню, предложения и lab; 11 карточек, портреты не выходят из своих карточек, панель выше native-minimap design area в 1920×1080. Картинки героев — placeholders; Dota rendering не проверяет.
+- Реальные Dota/API/resources/Hammer/nav/Steam и Windows PowerShell 5.1 не запускались. В архиве нет скомпилированной арены; для просмотра героев предусмотрен стандартный `dota` map.
+
+- Дополнительно: LC statue duplicate callback больше не наносит повторный урон (старый тест ошибочно ожидал 5 попаданий от 4 стрел); inflight-контексты освобождаются после последнего callback и имеют ограниченный срок. TA wave callback игнорирует удалённого владельца при переключении героя в lab.
+
+- Пожелание владельца по LC: 4 луча × 4 залпа, пробивание героев/обычных врагов, yellow particle source + texture. Проверены 16 linear projectile descriptors, прямые углы, damage dedupe по цели/залпу, CDR за каждого real hero hit (несколько героев в одном луче), полный reset до 0, иммунитет и завершение ray-контекстов. Particle source/reference/palette проверены статически; настоящая компиляция/отрисовка не выполнялась. Установщик дополнительно проверен с mock-компиляцией texture и particle (итого 16 checks).

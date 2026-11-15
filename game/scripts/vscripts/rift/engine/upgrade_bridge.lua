@@ -117,6 +117,7 @@ function Bridge:Apply(pid, applied, offer)
 end
 
 function Bridge:OnLearnedAbility(keys)
+  if self.gm.lab and self.gm.lab.enabled then return end
   local pid = keys.PlayerID
   local name = keys.abilityname
   if pid == nil or name == nil then
@@ -143,7 +144,9 @@ function Bridge:OnChoose(args)
   if self.last_request[pid] and raw - self.last_request[pid] < MIN_REQUEST_INTERVAL then return end
   self.last_request[pid] = raw
   local ok, reason
-  if self.gm.director.state:is("FINISHED") then
+  if self.gm.lab and self.gm.lab.enabled then
+    ok, reason = false, "lab_mode"
+  elseif self.gm.director.state:is("FINISHED") then
     ok, reason = false, "match_finished"
   elseif not valid_id(args.offer_id) or not valid_id(args.option_id) then
     ok, reason = false, "bad_payload"

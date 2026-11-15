@@ -31,15 +31,16 @@ const $ = selector => {
 $.CreatePanel = panel;
 $.Localize = token => token; // Keeping tokens makes expected localization bindings explicit.
 $.Schedule = () => {};
-const localPid = 2;
+const localPid = 2, selected = [];
 const context = vm.createContext({ $, Players: { GetLocalPlayer: () => localPid, GetPlayerName: pid => "Player " + pid },
-  Game: { GetGameTime: () => 100 }, GameUI: { SetDefaultUIEnabled: (k, v) => hidden.push([k, v]) },
+  Game: { GetGameTime: () => 100 }, GameUI: { SetDefaultUIEnabled: (k, v) => hidden.push([k, v]), SelectUnit: (e) => selected.push(e) },
   DotaDefaultUIElement_t: { DOTA_DEFAULT_UI_TOP_HEROES: 1, DOTA_DEFAULT_UI_TOP_TIMEOFDAY: 2 },
   CustomNetTables: { SubscribeNetTableListener: (t, fn) => { (net[t] ||= []).push(fn); }, GetTableValue: (t,k) => tables[t]?.[k] },
   GameEvents: { Subscribe: (e, fn) => events[e] = fn, SendCustomGameEventToServer: (e, v) => sent.push([e,v]) }
 });
 vm.runInContext(fs.readFileSync(base + "scripts/custom_game/rift_ui_model.js", "utf8"), context);
 vm.runInContext(fs.readFileSync(base + "scripts/custom_game/rift_hud.js", "utf8"), context);
+vm.runInContext(fs.readFileSync(base + "scripts/custom_game/rift_lab.js", "utf8"), context);
 function publish(table, key, value) { (tables[table] ||= {})[key] = value; for (const fn of net[table]) fn(table,key,value); }
 assert.ok(sent.some(([e]) => e === "rift_private_request"));
 assert.equal(hidden.length, 2);
@@ -87,4 +88,20 @@ assert.ok($("#RiftRoot").classes.has("Overtime"));
 const model = require("../" + base + "scripts/custom_game/rift_ui_model.js");
 assert.equal(model.time(-20),"0:00");assert.equal(model.time(1080),"18:00");
 assert.equal(model.progress(200,100),100);assert.equal(model.progress(50,0),0);
+const lab = {available:1,enabled:1,hero:hero.hero,path:"physical",rank:3,owner:localPid,free:0,gallery_count:11,target_count:1,active_entity:42};
+publish("rift_match","lab",lab);
+assert.ok(!$("#LabToggle").classes.has("Hidden"));
+assert.ok(!$("#LabBody").classes.has("Hidden"));
+assert.ok($("#LabPhysical").classes.has("Selected"));
+assert.equal(selected.at(-1),42);
+context.RiftLabChoosePath("magical");context.RiftLabChoosePath("magical");
+assert.equal(sent.filter(([e])=>e==="rift_lab_request").length,1,"Lab must suppress repeated clicks");
+events.rift_lab_result({ok:0,reason:"path_failed"});
+const error=$("#LabStatus").text;publish("rift_match","lab",lab);
+assert.equal($("#LabStatus").text,error,"2Hz state must not immediately erase an action error");
+publish("rift_match","state",{state:"ACTIVE",remaining:5,active_total:1080,lab:1});
+assert.equal($("#TimerLabel").text,"∞");
+publish("rift_match","lab",{...lab,available:0});context.RiftLabChoosePath("magical");
+assert.equal(sent.filter(([e])=>e==="rift_lab_request").length,1,"Unavailable lab sends no mutation requests");
 console.log("Panorama logic OK: stable 8-seat HUD, death/path updates, roster, menu, private offers, double-click guard, reconnect request. Native rendering NOT tested.");
+console.log("Lab UI logic OK: roster, path/rank, focus, request throttling, persistent errors, infinite timer and availability gate.");

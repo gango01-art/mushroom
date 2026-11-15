@@ -55,6 +55,7 @@ function UiBridge:Publish(force)
     remaining = math.ceil(remaining),
     active_total = Config.match.active_seconds,
     dev = gm.dev and 1 or 0,
+    lab = gm.lab and gm.lab.enabled and 1 or 0,
     map_fallback = (gm.map and gm.map.fallback) and 1 or 0,
     contenders = contenders,
   })
@@ -64,6 +65,7 @@ function UiBridge:Publish(force)
   end
 
   self:PublishScores() -- also keeps death/respawn indicators current (2 Hz)
+  if gm.lab then gm.lab:Publish() end
 end
 
 function UiBridge:PublishScores()

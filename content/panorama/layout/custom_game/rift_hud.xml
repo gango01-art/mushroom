@@ -3,6 +3,7 @@
   <scripts>
     <include src="file://{resources}/scripts/custom_game/rift_ui_model.js" />
     <include src="file://{resources}/scripts/custom_game/rift_hud.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_lab.js" />
   </scripts>
   <Panel id="RiftRoot" class="RiftHudRoot" hittest="false">
     <Panel id="TopBar" class="TopBar" hittest="false">
@@ -23,8 +24,49 @@
       <Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
     </Panel>
     <Panel class="HudActions">
+      <Button id="LabToggle" class="QuietButton Hidden" onactivate="RiftLabOpen()"><Label text="#rift_lab_title" /></Button>
       <Button class="QuietButton" onactivate="RiftOpenMenu()"><Label text="#rift_menu_open" /></Button>
       <Button class="QuietButton" onactivate="RiftToggleBoard()"><Label text="#rift_board_toggle" /></Button>
+    </Panel>
+    <Panel id="LabPanel" class="LabPanel Hidden">
+      <Panel class="LabHeader"><Label class="MenuSection" text="#rift_lab_title" /><Button class="QuietButton" onactivate="RiftLabClose()"><Label text="×" /></Button></Panel>
+      <Label id="LabStatus" class="LabStatus" text="#rift_lab_intro" />
+      <Panel id="LabIntro" class="LabIntro">
+        <Label class="RuleText" text="#rift_lab_start_warning" />
+        <Button class="RiftButton" onactivate="RiftLabSend({action:'start'})"><Label text="#rift_lab_start" /></Button>
+      </Panel>
+      <Panel id="LabBody" class="LabBody Hidden">
+        <Label class="LabSection" text="#rift_lab_choose" />
+        <Panel id="LabHeroes" class="LabHeroes" />
+        <Panel class="LabRow">
+          <Button id="LabBase" class="LabButton" onactivate="RiftLabChoosePath('base')"><Label text="#rift_lab_base" /></Button>
+          <Button id="LabPhysical" class="LabButton" onactivate="RiftLabChoosePath('physical')"><Label text="#rift_dir_physical" /></Button>
+          <Button id="LabMagical" class="LabButton" onactivate="RiftLabChoosePath('magical')"><Label text="#rift_dir_magical" /></Button>
+        </Panel>
+        <Panel class="LabRow">
+          <Button id="LabRank1" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:1})"><Label text="R · 1" /></Button>
+          <Button id="LabRank2" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:2})"><Label text="R · 2" /></Button>
+          <Button id="LabRank3" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:3})"><Label text="R · 3" /></Button>
+        </Panel>
+        <Label class="LabSection" text="#rift_lab_gallery" />
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'gallery',path:RiftLab.state.path})"><Label text="#rift_lab_spawn_all" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'clear'})"><Label text="#rift_lab_clear" /></Button>
+        </Panel>
+        <Label class="LabHelp" text="#rift_lab_gallery_hint" />
+        <Label class="LabSection" text="#rift_lab_targets" />
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'immortal'})"><Label text="#rift_lab_target_immortal" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'mortal'})"><Label text="#rift_lab_target_mortal" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'immune'})"><Label text="#rift_lab_target_immune" /></Button>
+        </Panel>
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'reset'})"><Label text="#rift_lab_reset" /></Button>
+          <Button id="LabFree" class="LabButton" onactivate="RiftLabSend({action:'free'})"><Label text="#rift_lab_free" /></Button>
+        </Panel>
+        <Button class="LabButton" onactivate="RiftLabFocus()"><Label text="#rift_lab_focus" /></Button>
+        <Label class="LabHelp" text="#rift_lab_fresh_hint" />
+      </Panel>
     </Panel>
     <Panel id="RelicPanel" class="RelicPanel" hittest="false">
       <Label id="RelicTitle" class="RelicTitle" text="#rift_relic_title" />

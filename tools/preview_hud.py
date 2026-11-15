@@ -50,7 +50,7 @@ button {font:inherit;cursor:pointer;color:inherit;outline:0;border:0} div {posit
 .GalleryPortrait {display:flex;align-items:center;justify-content:center;color:#d1d9e5;font-size:13px;background:linear-gradient(135deg,#506070,#1d293c)}
 .RiftButton:hover,.OfferCard:hover,.GalleryCard:hover{filter:brightness(1.3)} .PreviewPath{min-width:0;white-space:normal;text-align:left}
 .HeroGallery{align-content:flex-start;flex:0 0 auto}.GalleryCard{padding:0}.MenuRoster{min-width:0}.RuleText,.PreviewDesc{line-height:1.25}
-.ClockProgress{transition:width .45s}.MockNote{position:absolute;bottom:16px;right:20px;font:13px sans-serif;letter-spacing:1px;color:#7990a6}
+.LabPanel{position:absolute;top:132px;left:18px;margin:0}.LabBody{flex:1;min-height:0;overflow-y:auto}.LabHero{position:relative;padding:0;background:#192b42}.LabHero>*{position:absolute;left:0}.LabHeroName{bottom:0;white-space:nowrap;overflow:hidden}.LabHeroPortrait{display:flex;align-items:center;justify-content:center;font-size:11px;background:#263c52}.ClockProgress{transition:width .45s}.MockNote{position:absolute;bottom:16px;right:20px;font:13px sans-serif;letter-spacing:1px;color:#7990a6}
 .MockActions {position:absolute;left:16px;bottom:16px;display:flex;gap:8px}.MockActions button{padding:10px;background:#334255;color:#d8e2ed}
 '''
 # Read the roster/directions from Lua itself instead of maintaining another roster.
@@ -77,7 +77,7 @@ var $=s=>adapt(document.querySelector(s));$.CreatePanel=(t,p,id)=>{var e=documen
 $.Localize=t=>TOKENS[t.replace(/^#/,'')]||t.replace('#npc_dota_hero_','').replace(/_/g,' ');
 $.Schedule=(s,fn)=>setTimeout(fn,s*1000);
 var Players={GetLocalPlayer:()=>0,GetPlayerName:i=>['YOU','FROST','VANGUARD','EMBER','GHOST','ORACLE','IRON','STORM'][i]||'Spectator'};
-var Game={GetGameTime:()=>performance.now()/1000},GameUI={SetDefaultUIEnabled:()=>{}};
+var Game={GetGameTime:()=>performance.now()/1000},GameUI={SetDefaultUIEnabled:()=>{},SelectUnit:()=>{}};
 var DotaDefaultUIElement_t={DOTA_DEFAULT_UI_TOP_HEROES:0,DOTA_DEFAULT_UI_TOP_TIMEOFDAY:1};
 var LISTENERS={},EVENTS={};
 var CustomNetTables={SubscribeNetTableListener:(t,fn)=>(LISTENERS[t]||(LISTENERS[t]=[])).push(fn),GetTableValue:(t,k)=>DATA[t]&&DATA[t][k]};
@@ -87,8 +87,9 @@ var DATA={rift_match:{state:{state:'ACTIVE',remaining:824,active_total:1080},ros
 var heroNames=['phantom_assassin','crystal_maiden','axe','lina','juggernaut','nevermore','windrunner','sven'];
 heroNames.forEach((h,i)=>DATA.rift_scores.board.rows[i+1]={pid:i,hero:'npc_dota_hero_'+h,score:24-i*2,kills:8-i,deaths:2,assists:i,direction:i%2?'magical':'physical',alive:i!==5?1:0,respawn:i===5?7:0});
 function mockOffer(){RiftHideOnboarding();EVENTS.rift_private_state({visible_offer:1,pending:{1:{id:1,type:'ultimate_direction',remaining:45,options:{1:{id:'a',kind:'direction',direction:'physical',loc_name:ROSTER[0].physical.name,loc_desc:ROSTER[0].physical.desc,icon:'axe_culling_blade',is_default:1},2:{id:'b',kind:'direction',direction:'magical',loc_name:ROSTER[0].magical.name,loc_desc:ROSTER[0].magical.desc,icon:'axe_culling_blade'}}}},build:{}})}
+function mockLab(){RiftHideOnboarding();EVENTS.rift_private_state({visible_offer:-1,pending:{},build:{}});publish('rift_match','state',{state:'ACTIVE',remaining:824,active_total:1080,lab:1});publish('rift_match','lab',{available:1,enabled:1,owner:0,hero:ROSTER[0].hero,path:'physical',rank:3,free:0,gallery_count:11,target_count:1,active_entity:42});}
 '''
-script = '\n'.join((base / f'scripts/custom_game/{name}.js').read_text() for name in ['rift_ui_model', 'rift_hud'])
+script = '\n'.join((base / f'scripts/custom_game/{name}.js').read_text() for name in ['rift_ui_model', 'rift_hud', 'rift_lab'])
 out = ROOT / 'docs/design/hud-preview.html'
-out.write_text('<!doctype html><html lang="ru"><meta charset="utf-8"><title>DUALITY — design mock</title><style>'+css+'</style>'+markup+'<div class="MockActions"><button onclick="RiftOpenMenu()">МЕНЮ</button><button onclick="mockOffer()">ВЫБОР ПУТИ</button><button onclick="RiftHideOnboarding();RiftCollapseOffer()">HUD</button></div><div class="MockNote">BROWSER DESIGN MOCK · NOT A DOTA TEST · PORTRAIT PLACEHOLDERS</div><script>var TOKENS='+json.dumps(tokens,ensure_ascii=False)+';var ROSTER='+json.dumps(roster)+';'+mock+script+'\nRiftOpenMenu();</script></html>')
+out.write_text('<!doctype html><html lang="ru"><meta charset="utf-8"><title>DUALITY — design mock</title><style>'+css+'</style>'+markup+'<div class="MockActions"><button onclick="RiftOpenMenu()">МЕНЮ</button><button onclick="mockOffer()">ВЫБОР ПУТИ</button><button onclick="mockLab()">ПОЛИГОН</button><button onclick="RiftHideOnboarding();RiftCollapseOffer()">HUD</button></div><div class="MockNote">BROWSER DESIGN MOCK · NOT A DOTA TEST · PORTRAIT PLACEHOLDERS</div><script>var TOKENS='+json.dumps(tokens,ensure_ascii=False)+';var ROSTER='+json.dumps(roster)+';'+mock+script+'\nRiftOpenMenu();</script></html>')
 print(out)

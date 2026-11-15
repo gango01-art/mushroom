@@ -61,6 +61,7 @@ function GameMode:Activate()
   self.upgrades = UpgradeBridge.new(self)
   self.ui:PublishRoster()
   self.relic = RelicService.new(self, self.upgrades.seed)
+  self.lab = require("rift.engine.laboratory").new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
   ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
@@ -255,6 +256,7 @@ end
 
 function GameMode:OnNPCSpawned(keys)
   local unit = EntIndexToHScript(keys.entindex)
+  if unit and not unit:IsNull() and unit._rift_lab_display then return end
   if unit and not unit:IsNull() and unit.IsIllusion and unit:IsIllusion() then
     -- Illusions of a magical TA must not bring normal attacks back.
     local pid = unit:GetPlayerOwnerID()
@@ -269,6 +271,7 @@ function GameMode:OnNPCSpawned(keys)
   unit:SetContextThink("rift_spawned", function()
     if not is_main_hero(unit) then return nil end
     local pid = unit:GetPlayerOwnerID()
+    if self.lab and self.lab.enabled then self.lab:OnMainSpawn(unit,pid);return nil end
     local p = self:PlayerState(pid)
     self.ids:on_spawn(unit:entindex(), tostring(unit))
     if not p.initialized then
@@ -335,6 +338,7 @@ local function owner_pid(unit)
 end
 
 function GameMode:OnHeroDamaged(victim, attacker, damage)
+  if self.lab and self.lab.enabled then return end
   if not self.director.state:rewards_open() then return end
   if not is_main_hero(victim) then return end
   local vpid, apid = owner_pid(victim), owner_pid(attacker)
@@ -354,6 +358,13 @@ end
 
 function GameMode:OnEntityKilled(keys)
   local victim = EntIndexToHScript(keys.entindex_killed)
+  if self.lab and self.lab.enabled then
+    local attacker=keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
+    self.lab:OnKilled(victim,attacker)
+    if victim and not victim:IsNull() then self.ids:on_death(victim:entindex()) end
+    if is_main_hero(victim) then victim:SetTimeUntilRespawn(Config.lab.respawn_seconds) end
+    return
+  end
   if not is_main_hero(victim) then return end
   if victim.IsReincarnating and victim:IsReincarnating() then return end
   local now = self:Now()
@@ -383,6 +394,10 @@ end
 ---------------------------------------------------------------------------
 function GameMode:Think()
   require("rift.engine.arena_service").tick(self)
+  if self.lab then
+    self.lab:Tick()
+    if self.lab.enabled then self.ui:Publish(false);return THINK_INTERVAL end
+  end
   local raw = GameRules:GetGameTime()
   local dt = self.last_raw_time and (raw - self.last_raw_time) or 0
   self.last_raw_time = raw

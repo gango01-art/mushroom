@@ -43,12 +43,16 @@ end
 
 -- Call from the ability's OnProjectileHit_ExtraData. Always returns false (pierce).
 function M.hit(ability, target, extra)
+  if not ability or ability:IsNull() then return false end
+  local caster=ability:GetCaster()
+  if not caster or caster:IsNull() then return false end
   if not target or target:IsNull() or not extra or not extra.wave_id then return false end
   local gm = GameRules.RiftArena
+  if gm and gm.director and gm.director.state:is("FINISHED") then return false end
   local key = (gm and gm.ids) and gm.ids:victim_key(target:entindex()) or tostring(target:entindex())
   local dmg = M.store:claim(tonumber(extra.wave_id), key, GameRules:GetGameTime())
   if dmg then
-    ApplyDamage({ victim = target, attacker = ability:GetCaster(), damage = dmg, damage_type = DAMAGE_TYPE_MAGICAL,
+    ApplyDamage({ victim = target, attacker = caster, damage = dmg, damage_type = DAMAGE_TYPE_MAGICAL,
                   damage_flags = DOTA_DAMAGE_FLAG_NONE, ability = ability })
   end
   return false

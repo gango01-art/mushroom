@@ -30,8 +30,14 @@ function onMatchState(data) {
   $("#StateLabel").text = $.Localize("#rift_state_" + data.state);
   var showTimer = data.state === "ACTIVE" || data.state === "OVERTIME";
   $("#TimerLabel").text = showTimer ? fmtTime(data.remaining) : "--:--";
+  if (data.lab === 1) {
+    $("#TimerLabel").text = "∞";
+    $("#StateLabel").text = $.Localize("#rift_lab_title");
+  }
+  $("#RiftRoot").SetHasClass("LabMode", data.lab === 1);
   $("#DevLabel").SetHasClass("Visible", data.dev === 1);
   $("#FallbackLabel").SetHasClass("Visible", data.map_fallback === 1);
+  $("#FallbackLabel").text = $.Localize(data.lab === 1 ? "#rift_lab_native_map" : "#rift_hud_map_fallback");
   $("#RiftRoot").SetHasClass("Overtime", data.state === "OVERTIME");
   $("#ClockProgress").style.width = RiftUIModel.progress(data.remaining, data.active_total) + "%";
   if (!RiftMenuSeen && (data.state === "HERO_SELECTION" || data.state === "PREPARATION")) {

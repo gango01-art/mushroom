@@ -139,3 +139,13 @@
 - FFA HUD: восемь портретов/очки/места/респауны, таймер по центру; меню-путеводитель и вертикальные предложения справа.
 - Авторский исходник `rift_arena.vmap`: 12 spawn, 4 relic, старты 8 команд, край, укрытия и 4 магазина; runtime boundary guard и исправление частичного map contract fallback.
 - 189 Lua-тестов прошли, проверки Panorama-логики и DMX; браузерный дизайн-макет. В Dota/Workshop Tools не проверялось. Передача: PLAYTEST_0_2.md.
+
+
+## 2026-11-15 — 0.3.0-lab
+- Однопользовательский полигон: весь ростер, выбор управляемого героя/22 путей/ранга R, цели, восстановление и свободные перезарядки; матч не завершается по таймеру.
+- Полная замена героя и очистка предыдущего состояния, единый ApplyToHero для выставочных копий, dev-only RPC и консольные shortcuts.
+- Регрессии боя: добивающая stance-атака, leash/начальная цель Juggernaut, бонус дальности, snapshot ранга.
+- Addon ZIP с manifest/SHA256, Windows installer с backup и one-click Demo/Match/Map launch scripts. Настоящий компилятор вызывается только на машине владельца; облако не содержит Dota.
+- 211 Lua-тестов, UI/lab, DMX и 16 PowerShell installer checks + extracted ZIP install smoke. Dota/Source 2 не проверялись.
+
+- По последнему запросу: LC statue стреляет жёлтым пробивающим крестом; CDR −2 с за каждое попадание по real hero, без per-salvo cap. Исходник VFX, compile stage и BUILD_FX.cmd включены.

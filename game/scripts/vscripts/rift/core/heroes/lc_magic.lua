@@ -43,7 +43,8 @@ function Statue.new(cfg, level, now)
   self.id, self.cfg, self.level = seq, cfg, level
   self.start = now
   self.next_shot = 1
-  self.hits = {}         -- projectile id -> true (one CDR per projectile)
+  self.hits = {}         -- hit id -> true (one CDR per real hero hit)
+  self.damage_hits = {}  -- salvo -> victim life key; four rays never multiply one victim's damage
   self.total_cdr = 0
   self.alive = true
   return self
@@ -67,13 +68,21 @@ function Statue:due_shots(now)
   return due
 end
 
--- Arrow projectile hit. Returns cooldown reduction seconds to apply (0 if none).
+-- Each unique real hero hit grants CDR. Creeps/illusions do not consume it.
 function Statue:on_arrow_hit(projectile_id, target_is_real_enemy_hero)
+  if not target_is_real_enemy_hero then return 0 end
   if self.hits[projectile_id] ~= nil then return 0 end
   self.hits[projectile_id] = true
-  if not target_is_real_enemy_hero then return 0 end
   self.total_cdr = self.total_cdr + self.cfg.cdr_per_hit
   return self.cfg.cdr_per_hit
+end
+
+function Statue:claim_damage(salvo,victim_key)
+  if not salvo or salvo<1 or salvo>#self.cfg.shot_times or not victim_key then return false end
+  self.damage_hits[salvo]=self.damage_hits[salvo] or {}
+  if self.damage_hits[salvo][victim_key] then return false end
+  self.damage_hits[salvo][victim_key]=true
+  return true
 end
 
 -- Single cooldown path: never negative.

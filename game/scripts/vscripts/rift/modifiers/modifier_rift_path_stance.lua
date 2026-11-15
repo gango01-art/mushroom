@@ -6,7 +6,10 @@ function modifier_rift_path_stance:GetTexture()
   return a and a:GetAbilityTextureName() or "sven_gods_strength"
 end
 function modifier_rift_path_stance:OnCreated()
-  if IsServer() then self.stats = require("rift.engine.path_combat").snapshot(self:GetParent()); self.hits = 0 end
+  if IsServer() then
+    self.stats = require("rift.engine.path_combat").snapshot(self:GetParent())
+    self.rank=self:GetAbility():GetLevel();self.hits = 0
+  end
 end
 function modifier_rift_path_stance:OnRefresh() self:OnCreated(); if IsServer() then self:SetStackCount(0) end end
 function modifier_rift_path_stance:DeclareFunctions()

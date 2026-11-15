@@ -43,6 +43,7 @@ B.lc = {
     break_policy = "suspend",                 -- PD: Break disables bonus, keeps earned points
   },
   statue = {                                  -- replaces LC third ability in magical direction
+    projectile_context_seconds = 30,          -- PD retain late arrows, bound session memory in the lab
     lifetime = 10,                            -- DR
     shot_times = { 0.5, 3.5, 6.5, 9.5 },      -- [shot] PD (DR: one arrow per 3 s)
     cooldown = 25,                            -- DR
@@ -54,8 +55,11 @@ B.lc = {
     cast_range = 500,                         -- PD
     attack_range = 650,                       -- PD
     arrow_speed = 1200,                       -- PD
+    beam_range = 1100,                        -- PD four piercing rays per salvo (owner request 2026-11-15)
+    beam_half_width = 75,                     -- PD collision half width
     unit = "npc_rift_lc_statue",
-    arrow_particle = "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf",  -- VERIFY (OP-028)
+    arrow_particle = "particles/duality/lc_gold_powershot.vpcf", -- custom yellow trail; compile in Tools
+    shot_sound = "Ability.Powershot",
     mana = 90,                                -- PD
   },
 }

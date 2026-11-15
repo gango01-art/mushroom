@@ -17,3 +17,8 @@ Copyright 2014 BMD. Apache License 2.0: [текст](licenses/Barebones-Apache-2
 ## API и штатные ресурсы
 
 Новые вызовы сверены с `@moddota/dota-lua-types` 4.38.2. Декларации — справочник, а не доказательство поведения API в установленной версии Dota. Модели/иконки/частицы/звуки и prefab-пути ссылаются на ресурсы Dota 2; сами игровые ассеты не скопированы в репозиторий.
+
+
+## Gold VFX reference
+
+`content/materials/duality/lc_gold_glow.tga` — неизменённая `materials/particle/basic_glow.tga` из BMD/barebones указанного выше commit (Apache-2.0). Соответствующий `.vtex` изменён для нового пути. `lc_gold_powershot.vpcf` — отдельный жёлтый trail для линейного projectile; схема/operators основаны на примерах `test_shot.vpcf` / `basic_trail.vpcf` того же репозитория. NOTICE и полный текст лицензии включены в addon-пакет.
