@@ -1,10 +1,5 @@
--- Phantom Assassin magical direction "Storm Daggers": cast context logic.
--- One user cast of Stifling Dagger -> up to 2 different targets. One server roll
--- per cast (only when a second valid target exists). Chain fires only if BOTH
--- daggers of the SAME cast hit two different valid targets. Each target gets the
--- chain damage exactly once. Contexts expire; casts never mix.
--- Pure logic: engine passes target ids (entindex) and validity.
-
+-- Pure cast ledger for multi-target PA daggers. One roll and one lightning hit
+-- per landed victim per cast; at least two valid victims required.
 local Rng = require("rift.core.rng")
 
 local Storm = {}
@@ -34,13 +29,20 @@ end
 -- Returns cast_id. secondary may be nil (no valid extra target found).
 function Storm:begin_cast(caster, primary, secondary, values, now)
   assert(primary ~= nil, "primary target required")
-  if secondary == primary then secondary = nil end
+  return self:begin_many(caster, {primary,secondary}, values, now)
+end
+function Storm:begin_many(caster, targets, values, now)
+  local ordered, wanted = {}, {}
+  for _,id in ipairs(targets) do
+    if not wanted[id] then wanted[id]=true;ordered[#ordered+1]=id end
+  end
+  assert(#ordered>0,"primary target required")
   self.seq = self.seq + 1
   local proc = false
   -- force_proc: dev/testing switch only (rift_pa_storm_always); never set in a normal match.
-  if secondary ~= nil then proc = self.force_proc or self.rng:chance(values.chain_chance) end
+  if #ordered > 1 then proc = self.force_proc or self.rng:chance(values.chain_chance) end
   local ctx = {
-    id = self.seq, caster = caster, primary = primary, secondary = secondary,
+    id = self.seq, caster = caster, primary = ordered[1], secondary = ordered[2], targets=ordered,wanted=wanted,
     proc = proc, damage = values.chain_damage, hits = {}, hit_count = 0,
     failed = false, resolved = false, expires = now + values.cast_context_seconds,
   }
@@ -64,17 +66,23 @@ function Storm:on_hit(cast_id, target, valid, now)
   local c = self.contexts[cast_id]
   if not c or c.resolved then return nil end
   if now > c.expires then self.contexts[cast_id] = nil; return nil end
-  if target ~= c.primary and target ~= c.secondary then return nil end -- foreign target: never mix casts
+  if not c.wanted[target] then return nil end -- foreign target: never mix casts
   if c.hits[target] ~= nil then return nil end                           -- duplicate hit event
   c.hits[target] = valid and true or false
   if not valid then c.failed = true end
   c.hit_count = c.hit_count + 1
-  local expected = c.secondary and 2 or 1
+  local expected = #c.targets
   if c.hit_count < expected then return nil end
   c.resolved = true
   self.contexts[cast_id] = nil
-  if c.failed or not c.secondary or not c.proc then return nil end
-  return { cast_id = c.id, caster = c.caster, targets = { c.primary, c.secondary }, damage = c.damage }
+  local landed={}
+  for _,id in ipairs(c.targets) do if c.hits[id] then landed[#landed+1]=id end end
+  if #landed<2 or not c.proc then return nil end
+  return { cast_id = c.id, caster = c.caster, targets = landed, damage = c.damage }
+end
+function Storm:pending(cast_id,target,now)
+  local c=self.contexts[cast_id]
+  return c and not c.resolved and now<=c.expires and c.wanted[target] and c.hits[target]==nil
 end
 
 function Storm:cleanup(now)

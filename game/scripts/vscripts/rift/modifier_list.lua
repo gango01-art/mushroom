@@ -16,16 +16,27 @@ local M = {
   "modifier_rift_ta_dash",
   "modifier_rift_ta_trap_slow",
   "modifier_rift_sf_spheres",
+  "modifier_rift_sf_soul_gain",
   "modifier_rift_sf_rings",
   "modifier_rift_sf_fear",
   "modifier_rift_pa_dagger_slow",
+  "modifier_rift_pa_dagger_attack",
   "modifier_rift_pa_spirit",
   "modifier_rift_lc_throne",
   "modifier_rift_lc_champion",
+  "modifier_rift_lc_courage",
+  "modifier_rift_lina_burn",
   "modifier_rift_lc_duel_damage",
   "modifier_rift_lc_spell_amp",
   "modifier_rift_lc_statue",
   "modifier_rift_path_stance",
+  "modifier_rift_sleight",
+  "modifier_rift_sven_echo",
+  "modifier_rift_sven_mystic",
+  "modifier_rift_axe_helix",
+  "modifier_rift_axe_pull",
+  "modifier_rift_attack_cooldowns",
+  "modifier_rift_area_items",
   "modifier_rift_path_slow",
   "modifier_rift_path_root",
   "modifier_rift_lab_display",
@@ -33,7 +44,7 @@ local M = {
 }
 
 -- Modifiers that need a motion type other than NONE (engine constant name).
-M.MOTION = { modifier_rift_ta_dash = "LUA_MODIFIER_MOTION_HORIZONTAL" }
+M.MOTION = { modifier_rift_ta_dash = "LUA_MODIFIER_MOTION_HORIZONTAL",modifier_rift_axe_pull="LUA_MODIFIER_MOTION_HORIZONTAL" }
 
 function M.link(verbose)
   for _, name in ipairs(M) do

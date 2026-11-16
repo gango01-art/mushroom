@@ -141,7 +141,7 @@ local HEROES = {
     hidden = { generic_hidden = true, generic_hidden2 = true },
     cases = {
       lc_duel_physical = { [0] = "legion_commander_overwhelming_odds", [1] = "legion_commander_press_the_attack",
-                           [2] = "legion_commander_moment_of_courage", [5] = "lc_duel_physical" },
+                           [2] = "rift_lc_courage", [5] = "lc_duel_physical" },
       lc_duel_magical = { [0] = "legion_commander_overwhelming_odds", [1] = "legion_commander_press_the_attack",
                           [2] = "lc_statue", [5] = "lc_duel_magical" } } },
   { hero = "npc_dota_hero_nevermore",
@@ -178,7 +178,8 @@ for _, spec in ipairs(require("rift.data.expansion").heroes) do
     local id = "rift_" .. spec.key .. "_" .. path
     T.case(id .. ": one swap preserves ultimate rank, cooldown, R and unrelated QWE", function()
       local S = Stub.install()
-      local h = fake_hero(S, spec.unit, { "native_q", "native_w", "native_e", "generic_hidden", "generic_hidden2", spec.ultimate },
+      local native_e = spec.key=="sven" and "sven_great_cleave" or spec.key=="juggernaut" and "juggernaut_blade_dance" or "native_e"
+      local h = fake_hero(S, spec.unit, { "native_q", "native_w", native_e, "generic_hidden", "generic_hidden2", spec.ultimate },
         { generic_hidden = true, generic_hidden2 = true })
       local A, dirs = adapter(S,h.name)
       h.slots[0]:SetLevel(1);h.slots[1]:SetLevel(2);h.slots[2]:SetLevel(3);h.slots[5]:SetLevel(2)

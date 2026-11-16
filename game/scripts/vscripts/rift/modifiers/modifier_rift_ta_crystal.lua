@@ -16,6 +16,7 @@ function modifier_rift_ta_crystal:OnCreated()
   local ability = self:GetAbility()
   self.owner = self:GetCaster()
   self.session = Crystal.new(B, math.max(1, ability and ability:GetLevel() or 1), GameRules:GetGameTime())
+  self.radius=require("rift.engine.area").radius(self.owner,self.session:radius())
   local p = self:GetParent()
   p:SetBaseMaxHealth(B.durability)
   p:SetMaxHealth(B.durability)
@@ -74,13 +75,14 @@ function modifier_rift_ta_crystal:Pulse(pulse_id, source_damage)
   if not dtype or dtype == DAMAGE_TYPE_NONE then dtype = DAMAGE_TYPE_PURE end
   local gm = GameRules.RiftArena
   local origin = self:GetParent():GetAbsOrigin()
-  local enemies = FindUnitsInRadius(owner:GetTeamNumber(), origin, nil, self.session:radius(),
+  local enemies = FindUnitsInRadius(owner:GetTeamNumber(), origin, nil, self.radius,
     DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
   local hits = 0
   for _, e in ipairs(enemies) do
     if e:IsRealHero() and not e:IsIllusion() and e:IsAlive() then
       local key = gm and gm.ids and gm.ids:victim_key(e:entindex()) or tostring(e:entindex())
       if self.session:claim(pulse_id, key) then
+        require("rift.engine.path_combat").effect({particle="particles/units/heroes/hero_templar_assassin/templar_assassin_psi_blade.vpcf"},origin+Vector(0,0,64),e:GetAbsOrigin()+Vector(0,0,64),0.35)
         ApplyDamage({ victim = e, attacker = owner, damage = dmg, damage_type = dtype,
                       damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION, ability = self:GetAbility() })
         hits = hits + 1

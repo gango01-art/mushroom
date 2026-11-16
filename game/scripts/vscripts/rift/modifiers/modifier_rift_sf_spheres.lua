@@ -28,15 +28,33 @@ function modifier_rift_sf_spheres:OnCreated()
   self.raze_casts = {}
   self:SetStackCount(self.session.charges)
   self.fx = {}
+  self.orbs = {}
   if B.wings_particle ~= "" then
     table.insert(self.fx, ParticleManager:CreateParticle(B.wings_particle, PATTACH_ABSORIGIN_FOLLOW, p))
   end
   self:StartIntervalThink(0.1)
+  self:UpdateOrbs()
+end
+function modifier_rift_sf_spheres:OrbPosition(i)
+  local p=self:GetParent()
+  local count=self.session and self.session.charges or B.spheres
+  return p:GetAbsOrigin()+Vector((i-(count+1)/2)*B.indicator_spacing,0,B.indicator_height)
+end
+function modifier_rift_sf_spheres:UpdateOrbs()
+  for i=1,B.spheres do
+    if i<=self.session.charges then
+      if not self.orbs[i] then self.orbs[i]=ParticleManager:CreateParticle(B.sphere_particle,PATTACH_WORLDORIGIN,nil) end
+      ParticleManager:SetParticleControl(self.orbs[i],0,self:OrbPosition(i))
+    elseif self.orbs[i] then
+      ParticleManager:DestroyParticle(self.orbs[i],false);ParticleManager:ReleaseParticleIndex(self.orbs[i]);self.orbs[i]=nil
+    end
+  end
 end
 
 function modifier_rift_sf_spheres:OnIntervalThink()
   self.session:update(GameRules:GetGameTime())
   self:SetStackCount(self.session.charges)
+  self:UpdateOrbs()
 end
 
 function modifier_rift_sf_spheres:DeclareFunctions()
@@ -52,8 +70,13 @@ end
 function modifier_rift_sf_spheres:OnAttack(params)
   if not IsServer() or params.attacker ~= self:GetParent() then return end
   if self.session:consume(GameRules:GetGameTime(), valid_enemy(params.attacker, params.target)) then
+    ProjectileManager:CreateTrackingProjectile({Target=params.target,Source=self:GetParent(),Ability=self:GetAbility(),
+      EffectName=B.sphere_projectile,vSourceLoc=self:OrbPosition(self.session.charges+1),
+      iMoveSpeed=self:GetParent():GetProjectileSpeed(),bDodgeable=true,bProvidesVision=false,
+      ExtraData={rift_sphere_visual=1}})
     self.records[params.record] = true
     self:SetStackCount(self.session.charges)
+    self:UpdateOrbs()
   end
 end
 
@@ -103,5 +126,8 @@ function modifier_rift_sf_spheres:OnDestroy()
   for _, fx in ipairs(self.fx or {}) do
     ParticleManager:DestroyParticle(fx, false)
     ParticleManager:ReleaseParticleIndex(fx)
+  end
+  for _,fx in pairs(self.orbs or {}) do
+    ParticleManager:DestroyParticle(fx,false);ParticleManager:ReleaseParticleIndex(fx)
   end
 end

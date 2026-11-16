@@ -15,6 +15,12 @@
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityValues"
+		{
+			"path_duration" "6"
+			"path_health" "3"
+			"path_radius" "320 380 460"
+		}
 	}
 
 	// TA physical direction: replaces templar_assassin_meld - same stationary invisibility and
@@ -29,6 +35,10 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCastPoint"		"0"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityValues"
+		{
+			"path_base_damage" "100 160 220 280"
+		}
 	}
 
 	// ---- TA magical direction (docs/BRIEF_HEROES_LC_SF_TA.md 9). Numbers from Lua (hero_balance). ----
@@ -43,6 +53,16 @@
 		"AbilityCastRange"		"700"
 		"AbilityCastPoint"		"0.1"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityValues"
+		{
+			"path_base_damage" "120"
+			"path_duration" "17"
+			"path_health" "30"
+			"path_intellect_pct" "60"
+			"path_radius" "90"
+			"path_range" "700"
+			"path_spheres" "3 4 5 6"
+		}
 	}
 	"ta_meld_dash"
 	{
@@ -54,6 +74,14 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
 		"AbilityCastPoint"		"0"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityValues"
+		{
+			"path_base_damage" "120"
+			"path_dash" "250 300 350 400"
+			"path_intellect_pct" "60"
+			"path_radius" "90"
+			"path_range" "700"
+		}
 	}
 	"ta_psi_wave"
 	{
@@ -66,6 +94,13 @@
 		"AbilityCastRange"		"700"
 		"AbilityCastPoint"		"0.1"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityValues"
+		{
+			"path_base_damage" "120 140 160 180"
+			"path_intellect_pct" "60"
+			"path_radius" "90"
+			"path_range" "700"
+		}
 	}
 	"ta_psionic_blast"
 	{
@@ -83,6 +118,14 @@
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityValues"
+		{
+			"path_base_damage" "100 160 220"
+			"path_delay" "0.5"
+			"path_duration" "3"
+			"path_radius" "250"
+			"path_slow" "30 40 50"
+		}
 	}
 
 	// ---- SF physical direction (docs/BRIEF_HEROES_LC_SF_TA.md 6). Numbers from Lua (hero_balance). ----
@@ -99,6 +142,14 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_6"
+		"AbilityValues"
+		{
+			"path_attack_pct" "60"
+			"path_duration" "15"
+			"path_raze_pct" "40 60 80"
+			"path_regen" "1.8 1.65 1.5"
+			"path_spheres" "4"
+		}
 	}
 
 	// ---- PA directions (docs/BRIEF.md 13). Numbers from Lua (hero_balance / native abilities). ----
@@ -119,6 +170,11 @@
 		"AbilityCastRange"		"800"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityValues"
+		{
+			"path_hit_cdr" "1 1.5 2"
+			"path_range" "800"
+		}
 	}
 	"pa_storm_charge"
 	{
@@ -131,6 +187,12 @@
 		"LevelsBetweenUpgrades"	"6"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityValues"
+		{
+			"path_base_damage" "300 380 460"
+			"path_chance" "20 26 32"
+			"path_radius" "600"
+		}
 	}
 	"pa_storm_dagger"
 	{
@@ -145,6 +207,14 @@
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityValues"
+		{
+			"path_attack_pct" "30 45 60 75"
+			"path_base_damage" "65 70 75 80"
+			"path_duration" "2.1 2.4 2.7 3"
+			"path_radius" "600"
+			"path_slow" "50"
+		}
 	}
 
 	// ---- LC physical direction (docs/BRIEF_HEROES_LC_SF_TA.md 4). Numbers from Lua (hero_balance). ----
@@ -166,6 +236,14 @@
 		"AbilityCastRange"		"550"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityValues"
+		{
+			"path_champion_speed_pct" "90"
+			"path_damage_cap" "100 140 180"
+			"path_damage_per_second" "0.8 1.1 1.4"
+			"path_duration" "10"
+			"path_leash" "900"
+		}
 	}
 
 	// ---- LC magical direction (docs/BRIEF_HEROES_LC_SF_TA.md 5). ----
@@ -180,6 +258,13 @@
 		"LevelsBetweenUpgrades"	"6"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+		"AbilityValues"
+		{
+			"path_amp_cap" "10 15 20"
+			"path_assist_amp" "0.5"
+			"path_kill_amp" "1"
+			"path_spell_amp" "3 5 7"
+		}
 	}
 	"lc_statue"
 	{
@@ -193,6 +278,16 @@
 		"AbilityCastRange"		"500"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityValues"
+		{
+			"path_base_damage" "60 90 120 150"
+			"path_cooldown_by_ult" "22 20 18"
+			"path_duration" "10"
+			"path_health" "400 550 700 850"
+			"path_hit_cdr" "2"
+			"path_radius" "75"
+			"path_range" "1100"
+		}
 	}
 
 	// DUALITY alpha expansion. Balance and execution: rift/data/expansion.lua.
@@ -200,298 +295,478 @@
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "axe_culling_blade"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
-		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastRange" "0"
+		"AbilityCooldown" "38 32 26"
+		"AbilityManaCost" "100 125 150"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "100 160 220" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "160 190 220" }
+			"path_base_damage" "80 120 160"
+			"path_attack_pct" "100 120 140"
+			"path_radius" "425"
+			"path_range" "0"
+			"path_pull_distance" "220"
 		}
 	}
 	"rift_axe_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "axe_culling_blade"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "600"
+		"AbilityCooldown" "40 35 30"
+		"AbilityManaCost" "150 175 200"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
-			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "35" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "6" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "20" }
+			"path_base_damage" "35 50 65"
+			"path_strength_pct" "35"
+			"path_hits" "6"
+			"path_slow" "20"
+			"path_radius" "420"
+			"path_range" "600"
+			"path_interval" "0.8"
+			"path_delay" "0.6"
+			"path_heal_pct" "20"
+			"path_heal_cap_pct" "2.5"
 		}
 	}
 	"rift_lina_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "lina_laguna_blade"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityCastRange" "1050"
+		"AbilityCooldown" "45 38 31"
+		"AbilityManaCost" "125 150 175"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "45 65 85" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "65 80 95" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
+			"path_base_damage" "0 0 0"
+			"path_attack_pct" "30 35 40"
+			"path_attack_speed_pct" "15 25 35"
+			"path_hits" "3"
+			"path_radius" "100"
+			"path_range" "1050"
+			"path_interval" "0.4"
+			"path_delay" "0.45"
 		}
 	}
 	"rift_lina_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "lina_laguna_blade"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "800"
+		"AbilityCooldown" "65 55 45"
+		"AbilityManaCost" "175 225 275"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "100 145 190" }
-			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "60" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "15" }
+			"path_base_damage" "45 60 75"
+			"path_intellect_pct" "40"
+			"path_hits" "3"
+			"path_slow" "15"
+			"path_radius" "330"
+			"path_range" "800"
+			"path_interval" "0.65"
+			"path_delay" "0.9"
+			"path_expand" "65"
 		}
 	}
 	"rift_juggernaut_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "juggernaut_omni_slash"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
-		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "700"
+		"AbilityCooldown" "40 35 30"
+		"AbilityManaCost" "150 175 200"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "20 30 40" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "80 95 110" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "5" }
+			"path_base_damage" "0 0 0"
+			"path_attack_pct" "100 100 100"
+			"path_radius" "425"
+			"path_range" "700"
+			"path_interval" "0.2"
+			"path_hit_cdr" "1 1.5 2"
+			"path_max_targets" "12"
 		}
 	}
 	"rift_juggernaut_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "juggernaut_omni_slash"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastRange" "0"
+		"AbilityCooldown" "50 44 38"
+		"AbilityManaCost" "150 175 200"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
-			"02" { "var_type" "FIELD_FLOAT" "path_agility_pct" "35" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "10" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "18" }
+			"path_base_damage" "35 50 65"
+			"path_agility_pct" "35"
+			"path_hits" "10"
+			"path_slow" "18"
+			"path_radius" "375"
+			"path_range" "0"
+			"path_interval" "0.5"
 		}
 	}
 	"rift_cm_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "crystal_maiden_freezing_field"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastRange" "0"
+		"AbilityCooldown" "24 22 20"
+		"AbilityManaCost" "100 125 150"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "40 60 80" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "60 80 100" }
-			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "3" }
-			"04" { "var_type" "FIELD_FLOAT" "path_duration" "9" }
-			"05" { "var_type" "FIELD_FLOAT" "path_slow" "25" }
-			"06" { "var_type" "FIELD_FLOAT" "path_root" "0.7" }
+			"path_base_damage" "25 40 55"
+			"path_attack_pct" "35 45 55"
+			"path_hits" "4"
+			"path_slow" "25"
+			"path_radius" "800"
+			"path_range" "0"
+			"path_interval" "0.3"
 		}
 	}
 	"rift_cm_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "crystal_maiden_freezing_field"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "650"
+		"AbilityCooldown" "70 60 50"
+		"AbilityManaCost" "200 250 300"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
-			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "30" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "8" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "30" }
-			"05" { "var_type" "FIELD_FLOAT" "path_root" "0.65" }
+			"path_base_damage" "35 50 65"
+			"path_intellect_pct" "30"
+			"path_hits" "8"
+			"path_slow" "30"
+			"path_root" "0.65"
+			"path_radius" "300"
+			"path_range" "650"
+			"path_interval" "0.6"
+			"path_delay" "0.75"
+			"path_expand" "30"
 		}
 	}
 	"rift_wr_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "windrunner_focusfire"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastRange" "900"
+		"AbilityCooldown" "45 38 31"
+		"AbilityManaCost" "100 125 150"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "15 25 35" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "45 60 75" }
-			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "2" }
-			"04" { "var_type" "FIELD_FLOAT" "path_duration" "8" }
+			"path_base_damage" "15 25 35"
+			"path_attack_pct" "45 60 75"
+			"path_attacks" "2"
+			"path_duration" "8"
+			"path_radius" "100"
+			"path_range" "900"
+			"path_attack_speed" "20 40 60"
 		}
 	}
 	"rift_wr_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "windrunner_focusfire"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityCastRange" "1200"
+		"AbilityCooldown" "50 43 36"
+		"AbilityManaCost" "150 175 200"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "65 95 125" }
-			"02" { "var_type" "FIELD_FLOAT" "path_intellect_pct" "55" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "3" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "35" }
+			"path_base_damage" "65 95 125"
+			"path_intellect_pct" "55"
+			"path_hits" "3"
+			"path_slow" "35"
+			"path_radius" "150"
+			"path_range" "1200"
+			"path_interval" "0.55"
+			"path_delay" "0.5"
+			"path_distance_pct" "65"
 		}
 	}
 	"rift_sven_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "sven_gods_strength"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCastRange" "0"
+		"AbilityCooldown" "55 48 41"
+		"AbilityManaCost" "125 150 175"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "40 70 100" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "100 120 140" }
-			"03" { "var_type" "FIELD_FLOAT" "path_attacks" "3" }
-			"04" { "var_type" "FIELD_FLOAT" "path_duration" "9" }
+			"path_base_damage" "40 70 100"
+			"path_attack_pct" "80 90 100"
+			"path_attacks" "3"
+			"path_duration" "9"
+			"path_radius" "340"
+			"path_range" "0"
 		}
 	}
 	"rift_sven_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "sven_gods_strength"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "650"
+		"AbilityCooldown" "60 52 44"
+		"AbilityManaCost" "150 200 250"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "70 100 130" }
-			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "65" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "4" }
+			"path_base_damage" "80 90 100"
+			"path_strength_pct" "65"
+			"path_hits" "4"
+			"path_radius" "350"
+			"path_range" "650"
+			"path_interval" "0.7"
+			"path_delay" "0.8"
+			"path_stun" "0.75"
 		}
 	}
 	"rift_pudge_physical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "pudge_dismember"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityCastRange" "300"
+		"AbilityCooldown" "45 38 31"
+		"AbilityManaCost" "125 150 175"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "55 75 95" }
-			"02" { "var_type" "FIELD_FLOAT" "path_attack_pct" "35 45 55" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "6" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "25" }
+			"path_base_damage" "55 65 75"
+			"path_attack_pct" "30 35 40"
+			"path_hits" "6"
+			"path_slow" "25"
+			"path_radius" "0"
+			"path_range" "300"
+			"path_interval" "0.5"
+			"path_heal_pct" "35"
+			"path_heal_cap_pct" "4"
 		}
 	}
 	"rift_pudge_magical"
 	{
 		"BaseClass" "ability_lua"
 		"ScriptFile" "rift/abilities/path_ultimate"
+		"AbilityCastAnimation" "ACT_DOTA_CAST_ABILITY_4"
 		"AbilityTextureName" "pudge_dismember"
 		"AbilityType" "ABILITY_TYPE_ULTIMATE"
 		"MaxLevel" "3"
 		"RequiredLevel" "6"
 		"LevelsBetweenUpgrades" "6"
-		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySpecial"
+
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityCastRange" "550"
+		"AbilityCooldown" "50 40 30"
+		"AbilityManaCost" "150 175 200"
+		"AbilityValues"
 		{
-			"01" { "var_type" "FIELD_FLOAT" "path_base_damage" "35 50 65" }
-			"02" { "var_type" "FIELD_FLOAT" "path_strength_pct" "35" }
-			"03" { "var_type" "FIELD_FLOAT" "path_hits" "7" }
-			"04" { "var_type" "FIELD_FLOAT" "path_slow" "22" }
+			"path_base_damage" "30 40 50"
+			"path_strength_pct" "35"
+			"path_hits" "7"
+			"path_slow" "22"
+			"path_radius" "425"
+			"path_range" "550"
+			"path_interval" "0.65"
+			"path_delay" "0.6"
+			"path_heal_pct" "25"
+			"path_heal_cap_pct" "2.5"
+			"path_ramp_pct" "12"
+		}
+	}
+
+	"rift_lc_courage"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/rift_lc_courage"
+		"AbilityTextureName" "legion_commander_moment_of_courage"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel" "4"
+		"AbilityValues"
+		{
+			"path_attacks" "7 6 5 4"
+			"path_lifesteal" "10 20 30 40"
+		}
+	}
+
+	"rift_sven_echo"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/rift_sven_echo"
+		"AbilityTextureName" "sven_great_cleave"
+		"MaxLevel" "4"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"path_echo_cooldown" "7 6 5 4"
+		}
+	}
+
+	"rift_sven_mystic_cleave"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/rift_sven_mystic_cleave"
+		"AbilityTextureName" "sven_great_cleave"
+		"MaxLevel" "4"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"path_debuff_amp" "4 8 12 16"
+			"path_radius_bonus" "10 15 20 25"
+		}
+	}
+
+	"rift_juggernaut_spell_crit"
+	{
+		"BaseClass" "ability_lua"
+		"ScriptFile" "rift/abilities/rift_juggernaut_spell_crit"
+		"AbilityTextureName" "juggernaut_blade_dance"
+		"MaxLevel" "4"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityValues"
+		{
+			"path_chance" "40"
+			"path_crit_multiplier" "105 110 115 120"
 		}
 	}
 }

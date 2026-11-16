@@ -4,7 +4,11 @@
 -- Rules: core/heroes/lc_magic. Numbers: hero_balance.
 local B = require("rift.data.hero_balance").lc.statue
 lc_statue = lc_statue or ((type(class) == "function") and class({}) or {})
-function lc_statue:GetCooldown() return B.cooldown end
+function lc_statue:GetCooldown()
+  local c=self:GetCaster()
+  local r=c and c:FindAbilityByName("lc_duel_magical")
+  return B.cooldown[math.max(1,math.min(3,r and r:GetLevel() or 1))]
+end
 function lc_statue:GetManaCost() return B.mana end
 function lc_statue:GetCastRange() return B.cast_range end
 function lc_statue:OnSpellStart()

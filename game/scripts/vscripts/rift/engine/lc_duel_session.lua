@@ -49,11 +49,19 @@ local function spawn_champion(owner, target)
   local max_hp = math.floor(owner:GetMaxHealth() * (1 + vigor / 100))
   u:SetBaseMaxHealth(max_hp); u:SetMaxHealth(max_hp)
   u:SetHealth(math.max(1, max_hp * owner:GetHealth() / math.max(1, owner:GetMaxHealth())))
-  local aps = owner:GetAttacksPerSecond(false) * B.champion_attack_speed_factor
+  -- Ignore temporary attack-speed windows (notably the unspent Echo Sabre hit).
+  local aps = owner:GetAttacksPerSecond(true) * B.champion_attack_speed_factor
   if aps > 0 then u:SetBaseAttackTime(1 / aps) end
   u:SetBaseMoveSpeed(owner:GetIdealSpeed())
   u:SetIdleAcquire(false)
-  Mods.add(u, owner, nil, "modifier_rift_lc_champion", {})
+  -- Current native binding takes the inflictor handle (old dumps show a bool).
+  local resistance=Log.try(owner,"LC owner","Script_GetMagicalArmorValue",nil)
+  if resistance then u:SetBaseMagicalResistanceValue(resistance*100) end
+  Mods.add(u, owner, nil, "modifier_rift_lc_champion", {
+    evasion=Log.try(owner,"LC owner","GetEvasion") or 0,
+    status_resistance=owner:GetStatusResistance()*100,
+    magic_resistance=resistance,
+  })
   Log.info("LC", string.format("champion snapshot dmg=%.0f armor=%.1f hp=%d/%d aps=%.2f", dmg,
     owner:GetPhysicalArmorValue(false), u:GetHealth(), max_hp, aps))
   return u

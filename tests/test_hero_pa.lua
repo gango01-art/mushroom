@@ -29,7 +29,7 @@ T.case("PA magical: values by ultimate rank; owner values at rank 1", function()
   T.eq(v.chain_chance, 0.20); T.eq(v.chain_damage, 300); T.eq(v.cast_context_seconds, 3)
   T.eq(Storm.values_at(B.storm_magical, 3).chain_damage, 460)
   T.eq(Storm.values_at(B.storm_magical, 7).chain_damage, 460, "rank clamped")
-  T.eq(B.storm_magical.extra_targets, 1)
+  T.eq(B.storm_magical.chain_chance[2],.26);T.eq(B.storm_magical.chain_chance[3],.32)
 end)
 
 T.case("PA balance arrays have the right length", function()

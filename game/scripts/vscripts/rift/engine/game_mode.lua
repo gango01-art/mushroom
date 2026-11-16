@@ -62,6 +62,7 @@ function GameMode:Activate()
   self.ui:PublishRoster()
   self.relic = RelicService.new(self, self.upgrades.seed)
   self.lab = require("rift.engine.laboratory").new(self)
+  self.hero_selection = require("rift.engine.hero_selection").new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
   ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
@@ -137,12 +138,23 @@ function GameMode:MarkCrystalHit(owner)
 end
 
 function GameMode:FilterDamage(ev)
+  require("rift.engine.spell_crit").filter(ev)
   local t = self.crystal_hit and ev.entindex_attacker_const and self.crystal_hit[ev.entindex_attacker_const]
   if t and ev.entindex_inflictor_const and GameRules:GetGameTime() - t < 0.05 then
     local inflictor = EntIndexToHScript(ev.entindex_inflictor_const)
     if inflictor and inflictor.GetAbilityName and inflictor:GetAbilityName() == "templar_assassin_psi_blades" then
       Log.debug("TA", "blocked native spill from crystal hit")
       return false
+    end
+  end
+  if ev.entindex_inflictor_const and ev.entindex_attacker_const and ev.entindex_victim_const then
+    local a=EntIndexToHScript(ev.entindex_inflictor_const)
+    local c=EntIndexToHScript(ev.entindex_attacker_const)
+    local u=EntIndexToHScript(ev.entindex_victim_const)
+    if a and c and u and not c:IsNull() and not u:IsNull() and a:GetAbilityName()=="templar_assassin_psi_blades"
+      and c:FindAbilityByName("ta_psionic_crystal") then
+      require("rift.engine.path_combat").effect({particle="particles/units/heroes/hero_templar_assassin/templar_assassin_psi_blade.vpcf"},
+        c:GetAbsOrigin()+Vector(0,0,64),u:GetAbsOrigin()+Vector(0,0,64),0.35)
     end
   end
   return true
@@ -171,6 +183,7 @@ function GameMode:OnGameRulesStateChange()
     st:advance("SETUP", now)
     self:AssignTeams()
   elseif s == DOTA_GAMERULES_STATE_HERO_SELECTION then
+    self.selection_started=GameRules:GetGameTime()
     self:AssignTeams()
     st:advance("HERO_SELECTION", now)
   elseif s == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -229,6 +242,7 @@ end
 
 function GameMode:OnPlayerConnectFull(keys)
   self:AssignTeams()
+  if self.hero_selection then self.hero_selection:Publish() end
   self.ui:Publish(true)
 end
 
@@ -358,6 +372,7 @@ end
 
 function GameMode:OnEntityKilled(keys)
   local victim = EntIndexToHScript(keys.entindex_killed)
+  require("rift.engine.sf_souls").on_death(victim)
   if self.lab and self.lab.enabled then
     local attacker=keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
     self.lab:OnKilled(victim,attacker)
@@ -393,6 +408,7 @@ end
 -- Think
 ---------------------------------------------------------------------------
 function GameMode:Think()
+  if self.hero_selection and self.director.state:is("HERO_SELECTION") then self.hero_selection:Publish() end
   require("rift.engine.arena_service").tick(self)
   if self.lab then
     self.lab:Tick()

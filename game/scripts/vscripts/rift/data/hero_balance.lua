@@ -46,7 +46,7 @@ B.lc = {
     projectile_context_seconds = 30,          -- PD retain late arrows, bound session memory in the lab
     lifetime = 10,                            -- DR
     shot_times = { 0.5, 3.5, 6.5, 9.5 },      -- [shot] PD (DR: one arrow per 3 s)
-    cooldown = 25,                            -- DR
+    cooldown = { 22, 20, 18 },                -- [ult] DR 2026-11-16, statue follows R rank
     cdr_per_hit = 2,                          -- DR seconds per arrow hit on a real enemy hero
     arrow_damage = { 60, 90, 120, 150 },      -- [e] PD magic spell damage
     health = { 400, 550, 700, 850 },          -- [e] PD
@@ -58,13 +58,14 @@ B.lc = {
     beam_range = 1100,                        -- PD four piercing rays per salvo (owner request 2026-11-15)
     beam_half_width = 75,                     -- PD collision half width
     unit = "npc_rift_lc_statue",
-    arrow_particle = "particles/duality/lc_gold_powershot.vpcf", -- custom yellow trail; compile in Tools
+    arrow_particle = "particles/duality/lc_gold_powershot.vpcf", -- compact gold arrow, driven by the real projectile
     shot_sound = "Ability.Powershot",
     mana = 90,                                -- PD
   },
 }
 
 B.sf = {
+  souls = { per_attack=1, per_raze=2, death_loss=0.30 }, -- DR 2026-11-16, both paths
   requiem_physical = {
     duration = 15,                            -- DR
     spheres = 4,                              -- DR start and max
@@ -74,8 +75,10 @@ B.sf = {
     cooldown = { 80, 70, 60 },                -- [ult] PD
     mana = { 150, 175, 200 },                 -- [ult] PD
     -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
-    wings_particle = "particles/items2_fx/satanic_buff.vpcf",  -- placeholder red aura; VERIFY (OP-016)
-    sphere_particle = "",
+    wings_particle = "particles/units/heroes/hero_nevermore/nevermore_wings.vpcf",
+    sphere_particle = "particles/duality/sf_orb.vpcf",
+    indicator_height=230, indicator_spacing=24,
+    sphere_projectile = "particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_base_attack.vpcf",
   },
   requiem_magical = {
     ring_radius = { 300, 500, 700 },          -- [ring] PD (NOT ultimate ranks)
@@ -156,12 +159,13 @@ B.pa = {
     -- Owner request: the spirit looks like Grimstroke's Phantom's Embrace. The native unit is spawned
     -- as a visual that flies with the (invisible) projectile. VERIFY (OP-024).
     spirit_unit = "npc_dota_grimstroke_ink_creature",
+    spirit_ambient = "particles/units/heroes/hero_grimstroke/grimstroke_phantom_ambient.vpcf",
+    spirit_impact = "particles/units/heroes/hero_grimstroke/grimstroke_phantom_death.vpcf",
     -- fallback projectile effect when the unit cannot be created
     spirit_particle = "particles/units/heroes/hero_necrolyte/necrolyte_pulse_enemy.vpcf",
   },
   storm_magical = {
-    extra_targets = 1,                        -- DR owner: max 2 different targets per cast
-    chain_chance = { 0.20, 0.20, 0.20 },      -- [ult] DR owner 20% at rank 1; ranks 2-3 PD keep 20%
+    chain_chance = { 0.20, 0.26, 0.32 },      -- [ult] DR 2026-11-16
     chain_damage = { 300, 380, 460 },         -- [ult] DR owner 300 at rank 1; 380/460 PD
     second_target_radius = 600,               -- PD
     cast_context_seconds = 3,                 -- PD: max wait for both daggers
@@ -179,4 +183,14 @@ B.pa = {
   },
 }
 
+-- DR 2026-11-16: four-rank E replacements. AoE flat values are PD.
+B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_radius = { 10, 15, 20, 25 },
+  sven_debuff = { 4, 8, 12, 16 }, jug_chance = 40, jug_multiplier = { 105, 110, 115, 120 },
+  pa_dagger_cdr = { 1, 1.5, 2 } }
+B.area = { item_efficiency = 0.5, max_fraction = 0.25 }
+B.axe = { helix_attacks={8,7,6,5}, pull_duration=.35 }
+B.lina = { burn_pct=50 }
+B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.3 }
+B.lc.duel_physical.cyclone_height=300
+B.lc.duel_physical.cyclone_turn_speed=540
 return B

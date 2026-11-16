@@ -1,3 +1,19 @@
+# Актуальная передача — 2026-11-16 / баланс, UI и VFX
+
+Рабочая копия: `C:\Games\anime\mushroom`, ветка `claude/pensive-curie-zvybbg`. Большой набор правок текущего playtest сохранён в рабочей ветке; актуальный идентификатор смотреть через `git log -1`. Не откатывать рабочее дерево и не добавлять старый сторонний `docs/operator_logs/2026-11-15_local_LC_physical.log`.
+
+Подробный актуальный баланс и native доказательства: [BALANCE_PLAYTEST_2026-11-16.md](BALANCE_PLAYTEST_2026-11-16.md).
+
+- Внесены последние значения всех героев, новый setup/picker, штатные числовые tooltips, item AoE policy. Выбор ветки сохранён на первом очке R (ур.6); стартовый экран лишь показывает предпросмотр.
+- Владелец подтвердил потерю душ SF в игре. Не смешивать это с отдельным тестом ForceKill, который ранее показывал неверное значение.
+- Последняя ошибка Sven: native вспышка Q использует CP3, который оставался у начала мира. Для обеих веток CP3 теперь выставляется в место попадания. После полного перезапуска визуально подтверждена вспышка у поражённой мишени; screenshot `screenshots/2026-11-16-sven-impact.jpg`. Сетка лобби 4×2 и кнопки также наблюдались в Dota; screenshot `screenshots/2026-11-16-lobby.jpg`.
+- Итоговый полный `tools/check.sh`: 381 Lua-тест + Node HUD/picker/setup/ranges, KV/VFX/modifiers/tooltips; installer 159 checks в PS5.1 и PS7 (mock). CP3-регрессия включена, полный прогон зелёный.
+- Native доказательства уже есть для CM front/back, PA Desolator, SF hit/raze/rings, LC Echo APS и MR 51.2%, Lina linear collisions. Полный PvP/все ранги/навигация не подтверждены.
+- Backups: `C:\Games\anime\duality-before-balance-20261116` и `<Dota>\duality_backups\duality`. Локальные сырые результаты: `C:\Games\anime\test-results-2026-11-16`.
+- Осталось: дальнейший native контроль LC/SF и многопользовательский playtest. `index.html` не трогать, Workshop не публиковать.
+
+---
+
 # Актуальная передача — 2026-11-16 / Windows hotfix
 
 Рабочая копия на ПК: `C:\Games\anime\mushroom`, ветка `claude/pensive-curie-zvybbg`, исходная версия `80a72b4a6e76576fbce2f3d136eeb328944a6c22`.

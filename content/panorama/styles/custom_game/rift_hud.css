@@ -141,3 +141,7 @@
 .LabHelp { font-size: 13px; color: #8197ad; width: 100%; margin: 5px 0 10px; }
 .LabOpen .BuildPanel { visibility: collapse; }
 .LabMode .EventClock, .LabMode .RelicPanel { visibility: collapse; }
+.LabPanel, .BuildPanel, .MenuPanel, .BoardPanel { border-radius:8px; box-shadow:#00000066 0px 6px 18px 0px; }
+.LabButton, .QuietButton, .RiftButton, .LabHero { border-radius:4px; }
+.LabPanel { background-color:gradient(linear,0% 0%,100% 100%,from(#21333cf7),to(#0a131cf9)); }
+.LabButton { background-color:gradient(linear,0% 0%,0% 100%,from(#344652),to(#23333f)); }

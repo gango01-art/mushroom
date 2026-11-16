@@ -1,0 +1,13 @@
+<root>
+  <styles><include src="file://{resources}/styles/custom_game/rift_pick.css" /><include src="file://{resources}/styles/custom_game/rift_setup.css" /></styles>
+  <scripts><include src="file://{resources}/scripts/custom_game/rift_ui_model.js" /><include src="file://{resources}/scripts/custom_game/rift_setup.js" /></scripts>
+  <Panel class="SetupRoot">
+    <Panel id="SetupScreen" class="SetupScreen">
+      <Panel class="SetupHeader"><Panel class="SetupBrand"><Label class="PickKicker" text="#rift_setup_kicker" /><Label class="PickWordmark" text="DUALITY" /></Panel><Label id="SetupCount" class="SetupCount" /></Panel>
+      <Panel class="SetupBody">
+        <Panel class="SetupStory"><Label class="SetupEyebrow" text="#rift_setup_eyebrow" /><Label class="SetupTitle" text="#rift_setup_title" /><Label class="SetupIntro" text="#rift_setup_intro" /><Panel class="SetupArtwork"><Image id="SetupArtLC" class="SetupArt" scaling="stretch-to-fit-preserve-aspect" /><Image id="SetupArtSF" class="SetupArt Second" scaling="stretch-to-fit-preserve-aspect" /></Panel><Label class="SetupTip" text="#rift_setup_path_tip" /></Panel>
+        <Panel class="SetupLobby"><Label class="PickSection" text="#rift_setup_players" /><Label class="PickHelp" text="#rift_setup_ffa" /><Panel id="SetupSeats" class="SetupSeats" /><Label id="SetupUnassigned" class="SetupUnassigned" /><Label id="SetupStatus" class="SetupStatus" /><Panel class="SetupActions"><Button id="SetupAssign" class="SetupAssign" onactivate="RiftSetupAssign()"><Label text="#rift_setup_assign" /></Button><Button id="SetupStart" class="PickConfirm" onactivate="RiftSetupStart()"><Label id="SetupStartLabel" text="#rift_setup_start" /></Button></Panel></Panel>
+      </Panel>
+    </Panel>
+  </Panel>
+</root>

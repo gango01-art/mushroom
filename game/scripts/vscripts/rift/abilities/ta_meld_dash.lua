@@ -4,7 +4,7 @@
 local B = require("rift.data.hero_balance").ta.waves_magical
 ta_meld_dash = ta_meld_dash or ((type(class) == "function") and class({}) or {})
 local function r(l) return math.max(1, math.min(4, l)) end
-function ta_meld_dash:GetCooldown(l) return B.w_cooldown[r(l + 1)] end
+function ta_meld_dash:GetCooldown(l) return B.w_cooldown[r(require("rift.engine.ability_level")(self,l))] end
 function ta_meld_dash:GetManaCost() return B.w_mana end
 function ta_meld_dash:GetCastRange() return B.w_dash[r(self:GetLevel())] end
 function ta_meld_dash:CastFilterResult()

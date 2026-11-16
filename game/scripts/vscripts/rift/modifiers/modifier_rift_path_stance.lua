@@ -13,7 +13,12 @@ function modifier_rift_path_stance:OnCreated()
 end
 function modifier_rift_path_stance:OnRefresh() self:OnCreated(); if IsServer() then self:SetStackCount(0) end end
 function modifier_rift_path_stance:DeclareFunctions()
-  return { MODIFIER_EVENT_ON_ATTACK_LANDED, MODIFIER_PROPERTY_ATTACK_RANGE_BONUS }
+  return { MODIFIER_EVENT_ON_ATTACK_LANDED, MODIFIER_PROPERTY_ATTACK_RANGE_BONUS, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
+end
+function modifier_rift_path_stance:GetModifierAttackSpeedBonus_Constant()
+  local a = self:GetAbility()
+  local d = a and require("rift.data.expansion").abilities[a:GetAbilityName()]
+  return d and d.attack_speed and d.attack_speed[self.rank or a:GetLevel()] or 0
 end
 function modifier_rift_path_stance:GetModifierAttackRangeBonus()
   local a = self:GetAbility()

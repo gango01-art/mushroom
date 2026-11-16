@@ -149,12 +149,12 @@ end)
 
 T.case("statue: four hits reduce cooldown by 8 (not 16); only real enemy heroes; once per arrow", function()
   local st = M.Statue.new(SC, 2, 0)
-  local cd = SC.cooldown
+  local cd = SC.cooldown[2]
   for i = 1, 4 do
     cd = M.reduce_cooldown(cd, st:on_arrow_hit(i, true))
     cd = M.reduce_cooldown(cd, st:on_arrow_hit(i, true)) -- duplicate hit event
   end
-  T.eq(st.total_cdr, 8); T.eq(cd, 17)
+  T.eq(st.total_cdr, 8); T.eq(cd, SC.cooldown[2]-8)
   T.eq(st:on_arrow_hit(99, false), 0, "creep/illusion hit")
   T.eq(M.reduce_cooldown(1, 2), 0, "never negative")
   T.eq(st:arrow_damage(), 90); T.eq(st:health(), 550)

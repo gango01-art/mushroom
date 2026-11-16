@@ -27,7 +27,7 @@ function Log.try(obj, objname, method, ...)
     return nil
   end
   local ok, res = pcall(obj[method], obj, ...)
-  if not ok then out("ERROR", "API", objname .. ":" .. method .. " failed: " .. tostring(res)) end
+  if not ok then out("ERROR", "API", objname .. ":" .. method .. " failed: " .. tostring(res));return nil end
   return res
 end
 

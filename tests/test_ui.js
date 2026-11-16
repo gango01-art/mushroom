@@ -49,7 +49,7 @@ assert.ok(sent.some(([e]) => e === "rift_private_request"));
 assert.equal(hidden.length, 2);
 assert.ok($("#Onboarding").classes.has("Hidden"));
 publish("rift_match", "state", {state:"PREPARATION", remaining:0, active_total:1080});
-assert.ok(!$("#Onboarding").classes.has("Hidden"));
+assert.ok($("#Onboarding").classes.has("Hidden"), "The dedicated picker owns the initial flow");
 publish("rift_match", "state", {state:"ACTIVE", remaining:540, active_total:1080});
 assert.equal($("#TimerLabel").text, "9:00");
 assert.equal($("#ClockProgress").style.width, "50%");

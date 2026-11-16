@@ -14,14 +14,24 @@ function UiBridge.new(gm)
 end
 
 function UiBridge:PublishRoster()
+  CustomNetTables:SetTableValue("rift_match","settings",{teams=self.gm.teams,max_players=Config.match.max_players,
+    active_seconds=Config.match.active_seconds,selection_seconds=Config.match.hero_selection_seconds})
+  CustomNetTables:SetTableValue("rift_match","geometry",require("rift.data.geometry"))
   local heroes, seen = {}, {}
   for _, d in ipairs(require("rift.data.ultimate_directions")) do
     local h = seen[d.hero_id]
     if not h then
-      h = { hero = d.hero_id }
+      h = { hero = d.hero_id, abilities=require("rift.data.selection")[d.hero_id],attribute=require("rift.data.attributes")[d.hero_id] }
       seen[d.hero_id] = h
     end
     h[d.direction] = { name = d.loc_name, desc = d.loc_desc, icon = d.icon }
+    local preview={}
+    for i,native in ipairs(h.abilities or {}) do
+      local ability=native
+      for _,swap in ipairs(d.swaps or {}) do if swap.from==native then ability=swap.to end end
+      preview[tostring(i)]=ability
+    end
+    h[d.direction].abilities=preview
   end
   local names = {}
   for name in pairs(seen) do names[#names + 1] = name end
@@ -53,6 +63,7 @@ function UiBridge:Publish(force)
     state = st.state,
     elapsed = math.floor(st:active_elapsed(now)),
     remaining = math.ceil(remaining),
+    selection_remaining=gm.selection_started and math.max(0,math.ceil(Config.match.hero_selection_seconds-(raw-gm.selection_started))) or Config.match.hero_selection_seconds,
     active_total = Config.match.active_seconds,
     dev = gm.dev and 1 or 0,
     lab = gm.lab and gm.lab.enabled and 1 or 0,

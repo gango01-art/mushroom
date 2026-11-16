@@ -79,7 +79,7 @@ T.case("LC statue: four cross salvos pierce and deduplicate each victim hit",fun
   local Magic=require("rift.engine.lc_magic")
   local lc=S.hero("npc_dota_hero_legion_commander",0,2,Vector(0,0,0),{})
   local foe=S.hero("npc_dota_hero_axe",1,3,Vector(400,0,0),{})
-  local ability=S.ability(2);ability:StartCooldown(B.statue.cooldown)
+  local ability=S.ability(2);ability:StartCooldown(B.statue.cooldown[1])
   T.ok(Magic.summon(lc,ability,Vector(100,0,0),2))
   local statue=S.created[1]
   T.eq(statue.props.MaxHealth,550)
@@ -94,7 +94,7 @@ T.case("LC statue: four cross salvos pierce and deduplicate each victim hit",fun
   end
   T.eq(#S.damage,4,"overlapping rays and duplicate callbacks hit one hero once per salvo")
   T.eq(S.damage[1].damage,90);T.eq(S.damage[1].attacker,lc)
-  near(ability:GetCooldownTimeRemaining(),25-10.5-8,"same hero hit once in each of four salvos")
+  near(ability:GetCooldownTimeRemaining(),B.statue.cooldown[1]-10.5-8,"same hero hit once in each of four salvos")
   T.eq(next(Magic.by_id),nil)
   Magic.summon(lc,ability,Vector(0,0,0),2)
   Magic.summon(lc,ability,Vector(50,0,0),2)

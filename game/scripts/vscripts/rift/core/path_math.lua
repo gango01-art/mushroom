@@ -7,7 +7,7 @@ end
 function M.damage(d, rank, stats, tick, distance)
   local amount = M.rank(d.damage, rank) + M.rank(d.attack, rank) * (stats.attack or 0)
     + (d.intellect or 0) * (stats.intellect or 0) + (d.strength or 0) * (stats.strength or 0)
-    + (d.agility or 0) * (stats.agility or 0)
+    + (d.agility or 0) * (stats.agility or 0) + M.rank(d.attack_speed_damage, rank) * (stats.attack_speed or 0)
   amount = amount * (1 + (d.ramp or 0) * math.max(0, (tick or 1) - 1))
   return amount * (1 + (d.distance_bonus or 0) * math.max(0, math.min(1, distance or 0)))
 end

@@ -50,7 +50,7 @@ try {
     [IO.File]::WriteAllText($RedirectStandardOutput, 'MOCK ONLY - NOT SOURCE 2')
     [IO.File]::WriteAllText($RedirectStandardError, '')
     if ($global:DualityInstallTest.Mode -eq 'fail') { return [pscustomobject]@{ExitCode=17} }
-    if ($global:DualityInstallTest.Mode -eq 'ok') {
+    if ($global:DualityInstallTest.Mode -in @('ok','error-log')) {
       $relative = $source.Substring((Join-Path $global:DualityInstallTest.Root 'content').Length+1)
       $output = Join-Path $global:DualityInstallTest.Root ('game/' + $relative)
       $extension = [IO.Path]::GetExtension($output)
@@ -59,6 +59,9 @@ try {
       } else { $output += '_c' }
       New-Item -ItemType Directory -Force (Split-Path -Parent $output) | Out-Null
       [IO.File]::WriteAllText($output, 'MOCK ONLY - NOT SOURCE 2')
+      if ($global:DualityInstallTest.Mode -eq 'error-log') {
+        [IO.File]::WriteAllText($RedirectStandardOutput, 'ERROR: mock parse failure with exit code zero')
+      }
     }
     return [pscustomobject]@{ExitCode=0}
   }
@@ -73,17 +76,26 @@ try {
     'panorama/scripts/custom_game/rift_ui_model.vjs_c',
     'panorama/scripts/custom_game/rift_hud.vjs_c',
     'panorama/scripts/custom_game/rift_lab.vjs_c',
+    'panorama/scripts/custom_game/rift_ranges.vjs_c',
     'panorama/styles/custom_game/rift_hud.vcss_c',
     'panorama/layout/custom_game/rift_hud.vxml_c',
+    'panorama/scripts/custom_game/rift_pick.vjs_c',
+    'panorama/styles/custom_game/rift_pick.vcss_c',
+    'panorama/layout/custom_game/rift_pick.vxml_c',
+    'panorama/scripts/custom_game/rift_setup.vjs_c',
+    'panorama/styles/custom_game/rift_setup.vcss_c',
+    'panorama/layout/custom_game/rift_setup.vxml_c',
     'panorama/layout/custom_game/custom_ui_manifest.vxml_c',
     'materials/duality/lc_gold_glow.vtex_c',
+    'materials/duality/sf_charge.vtex_c',
     'particles/duality/lc_gold_powershot.vpcf_c',
+    'particles/duality/sf_orb.vpcf_c',
     'maps/rift_arena.vmap_c'
   )
   foreach ($relative in $outputs) {
     Check (Test-Path (Join-Path $FakeDota ('game/dota_addons/duality/' + $relative))) ("Build output missing: " + $relative)
   }
-  Check ($global:DualityInstallTest.Inputs.Count -eq 9) 'Unexpected compile count (six Panorama, two FX, one map)'
+  Check ($global:DualityInstallTest.Inputs.Count -eq 18) 'Unexpected compile count (thirteen Panorama, four FX, one map)'
   Check ($global:DualityInstallTest.Inputs[0] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
   Check (-not ($global:DualityInstallTest.Inputs -contains $ExtraSource)) 'Unrelated owner resource was compiled'
   $LayoutBackups = @(Get-ChildItem (Join-Path $FakeDota 'duality_backups') -Recurse -File | Where-Object Name -eq 'rift_hud.vxml_c')
@@ -91,6 +103,9 @@ try {
   Check ((Get-Content -Raw $LayoutBackups[0].FullName) -eq 'owner-old-compiled-layout') 'Compiled backup content changed'
   & $Installer -DotaPath $FakeDota -Mode Demo -BuildAssets -PreserveLaunchMode
   Check ((Get-Content -Raw $Settings) -match '"auto_demo" "0"') 'Assets-only build changed the launch mode'
+  $global:DualityInstallTest.Mode = 'error-log'; $Rejected = $false
+  try { & $Installer -DotaPath $FakeDota -BuildAssets } catch { $Rejected = $_.Exception.Message -match 'reported an error' }
+  Check $Rejected 'Zero-exit/compiler ERROR log was reported successful'
   $global:DualityInstallTest.Mode = 'fail'; $Rejected = $false
   try { & $Installer -DotaPath $FakeDota -BuildAssets } catch { $Rejected = $_.Exception.Message -match 'failed \(17\)' }
   Check $Rejected 'Nonzero Panorama compiler exit was ignored'

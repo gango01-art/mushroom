@@ -66,7 +66,8 @@ local Directions = {
     affected_abilities = { "legion_commander_duel" },
     preserved_effects = {}, replaced_effects = { "duel_native" },
     balance_ref = "lc.duel_physical", active_handler = "lc_champion_duel",
-    swaps = { { from = "legion_commander_duel", to = "lc_duel_physical" } },
+    swaps = { { from = "legion_commander_duel", to = "lc_duel_physical" },
+              { from = "legion_commander_moment_of_courage",to="rift_lc_courage",disable_from=true } },
     default_on_timeout = true, transfer_policy = "keep_rank_keep_cooldown",
     loc_name = "rift_dir_lc_duel_physical", loc_desc = "rift_dir_lc_duel_physical_desc",
     icon = "legion_commander_duel", status = "implemented",
@@ -158,7 +159,7 @@ local Directions = {
 for _, hero in ipairs(require("rift.data.expansion").heroes) do
   for _, path in ipairs({ "physical", "magical" }) do
     local d = require("rift.data.expansion").balance[hero.key][path]
-    Directions[#Directions + 1] = {
+    local direction = {
       id = d.id, hero_id = hero.unit, ultimate_ability_id = hero.ultimate,
       learn_trigger_adapter = "first_point_in_ultimate", direction = path,
       affected_abilities = { hero.ultimate }, preserved_effects = { "native_basic_abilities" },
@@ -169,6 +170,16 @@ for _, hero in ipairs(require("rift.data.expansion").heroes) do
       loc_name = "rift_dir_" .. d.id, loc_desc = "rift_dir_" .. d.id .. "_desc", icon = d.icon,
       status = "implemented", validation = "engine_stub_only",
     }
+    if hero.key=="axe" and path=="physical" then
+      direction.modifiers={"modifier_rift_axe_helix"}
+    elseif hero.key=="sven" then
+      direction.swaps[#direction.swaps+1]={from="sven_great_cleave",
+        to=path=="physical" and "rift_sven_echo" or "rift_sven_mystic_cleave",disable_from=true}
+    elseif hero.key=="juggernaut" and path=="magical" then
+      direction.swaps[#direction.swaps+1]={from="juggernaut_blade_dance",to="rift_juggernaut_spell_crit",disable_from=true}
+    end
+    if hero.key=="juggernaut" and path=="physical" then direction.item_proc_policy="normal_attacks" end
+    Directions[#Directions+1]=direction
   end
 end
 return Directions

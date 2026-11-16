@@ -2,6 +2,8 @@
 local S=require("engine_stub")
 local F={}
 local basic={
+ npc_dota_hero_sven={"sven_storm_bolt","sven_warcry","sven_great_cleave"},
+ npc_dota_hero_juggernaut={"juggernaut_blade_fury","juggernaut_healing_ward","juggernaut_blade_dance"},
  npc_dota_hero_phantom_assassin={"phantom_assassin_stifling_dagger","phantom_assassin_phantom_strike","phantom_assassin_blur"},
  npc_dota_hero_templar_assassin={"templar_assassin_refraction","templar_assassin_meld","templar_assassin_psi_blades"},
  npc_dota_hero_legion_commander={"legion_commander_overwhelming_odds","legion_commander_press_the_attack","legion_commander_moment_of_courage"},

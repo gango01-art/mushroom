@@ -41,9 +41,8 @@ function onMatchState(data) {
   $("#RiftRoot").SetHasClass("Overtime", data.state === "OVERTIME");
   $("#ClockProgress").style.width = RiftUIModel.progress(data.remaining, data.active_total) + "%";
   if (!RiftMenuSeen && (data.state === "HERO_SELECTION" || data.state === "PREPARATION")) {
-    $("#Onboarding").RemoveClass("Hidden");
     RiftMenuSeen = true;
-    RiftMenuAuto = true;
+    RiftMenuAuto = false; // Dedicated HeroSelection screen owns the initial flow.
   }
   if (RiftMenuAuto && (data.state === "ACTIVE" || data.state === "FINISHED")) RiftHideOnboarding();
 }

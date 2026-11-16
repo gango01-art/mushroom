@@ -21,6 +21,34 @@ local function setup(name,rank)
   return S, c, u, a, d
 end
 
+T.case("Sven native impact follows its CP3 contract away from the world origin in both paths",function()
+  for _,name in ipairs({"rift_sven_physical","rift_sven_magical"}) do
+    local S,c,u,a,d=setup(name,3)
+    c:SetAbsOrigin(Vector(10000,-7000,500));u:SetAbsOrigin(Vector(10150,-7000,500))
+    local particles={}
+    ParticleManager.CreateParticle=function(_,path)
+      local p={path=path,controls={}};particles[#particles+1]=p;return #particles
+    end
+    ParticleManager.SetParticleControl=function(_,id,cp,value)particles[id].controls[cp]=value end
+    if d.mode=="stance" then
+      local m=S.lua_modifier("modifier_rift_path_stance",c,a)
+      for _=1,d.every do m:OnAttackLanded({attacker=c,target=u}) end
+    else
+      require("rift.engine.path_combat").pulse({caster=c,ability=a,def=d,rank=3,
+        stats={strength=40},point=u:GetAbsOrigin(),origin=c:GetAbsOrigin(),radius=d.radius},1)
+    end
+    local found=false
+    for _,p in ipairs(particles) do
+      if p.path=="particles/units/heroes/hero_sven/sven_storm_bolt_projectile_explosion.vpcf" then
+        found=true;T.ok(p.controls[3],"native emission CP must be initialized")
+        T.eq(p.controls[3].x,10150);T.eq(p.controls[3].y,-7000)
+        T.eq(p.controls[3].z,500+(d.mode=="stance" and 24 or 64))
+      end
+    end
+    T.ok(found)
+  end
+end)
+
 T.case("alpha registry enables exactly eleven complete heroes", function()
   local reg = Registry.new(require("rift.data.upgrades"), require("rift.data.ultimate_directions"), { handlers = Effects.HANDLERS })
   T.eq(#reg:validate(), 0)
@@ -47,19 +75,36 @@ for _, h in ipairs(E.heroes) do
       local S, c, u, a, d = setup(name,rank)
       T.eq(a:GetCooldown(rank-1),d.cooldown[rank],"native cooldown getter uses zero-based rank")
       T.eq(a:GetManaCost(rank-1),d.mana[rank],"native mana getter uses zero-based rank")
+      T.eq(a:GetCooldown(-1),d.cooldown[rank],"native -1 query uses the current rank")
+      T.eq(a:GetManaCost(-1),d.mana[rank],"native current-rank mana query")
       a:OnSpellStart()
       if d.mode == "stance" then
         local mod = S.lua_modifier("modifier_rift_path_stance", c, a)
         for _ = 1, d.every do mod:OnAttackLanded({attacker=c,target=u}) end
         T.eq(mod:GetStackCount(), 0)
+        if d.line then
+          T.eq(#S.damage,0,"line damage waits for collision")
+          for _,shot in ipairs(S.projectiles) do a:OnProjectileHit_ExtraData(u,nil,shot.ExtraData) end
+        end
         T.eq(#S.damage,1)
         S.advance(10)
+      elseif d.mode=="sleight" then
+        S.advance(5);T.eq(#S.attacks,1);T.eq(S.attacks[1].target,u);T.eq(c:GetAbsOrigin():Length2D(),0)
       else
         -- Aim zones/lines at the target in this integration smoke test.
         if d.target == "point" then u:SetAbsOrigin(Vector(400,0,0)) end
+        if d.mode=="barrage" or d.mode=="line" then
+          for _=1,d.ticks do
+            S.advance((d.delay or 0)+d.interval); local shots=S.projectiles;S.projectiles={}
+            for _,shot in ipairs(shots) do
+              a:OnProjectileHit_ExtraData(shot.Target or u,nil,shot.ExtraData)
+              if not shot.Target then a:OnProjectileHit_ExtraData(shot.Target or u,nil,shot.ExtraData) end
+            end
+          end
+        end
         S.advance(10)
         T.eq(#S.damage, d.ticks or 1)
-        local expected = Math.damage(d,rank,{attack=120,strength=40,intellect=50,agility=60})
+        local expected = Math.damage(d,rank,{attack=120,strength=40,intellect=50,agility=60,attack_speed=100})
         if d.mode == "verdict" then expected = expected + 800*d.missing_health end
         if d.distance_bonus then expected = expected * (1+d.distance_bonus*400/d.range) end
         T.ok(math.abs(S.damage[1].damage-expected)<0.001, "snapshot damage")
@@ -115,27 +160,15 @@ T.case("FFA sustain cap is shared across victims per pulse", function()
   T.eq(#S.damage,2)
   T.ok(c.props.Health<=1000+c.props.MaxHealth*d.heal_cap)
 end)
-T.case("Axe verdict cleaves once and refunds only half the remaining cooldown on a real hero kill",function()
-  local S,_,u,a,d=setup("rift_axe_physical")
-  S.hero("nearby",2,4,Vector(170,0,0),{Health=2000,MaxHealth=2000})
-  a:StartCooldown(20)
-  _G.ApplyDamage=function(ev)
-    S.damage[#S.damage+1]=ev
-    if ev.victim==u then u.dead=true end
-    return ev.damage
-  end
-  a:OnSpellStart()
-  T.eq(#S.damage,2)
-  T.eq(S.damage[2].damage,S.damage[1].damage*d.cleave)
-  T.eq(a:GetCooldownTimeRemaining(),10)
-end)
-T.case("killing an illusion does not refund Axe verdict cooldown",function()
-  local S,_,u,a=setup("rift_axe_physical")
-  function u:IsIllusion() return true end
-  a:StartCooldown(20)
-  _G.ApplyDamage=function(ev) u.dead=true; return ev.damage end
-  a:OnSpellStart()
-  T.eq(a:GetCooldownTimeRemaining(),20)
+T.case("Axe pull moves enemies inward once; immunity prevents movement but not physical damage",function()
+  local S,c,u,a,d=setup("rift_axe_physical")
+  u:SetAbsOrigin(Vector(400,0,0));a:OnSpellStart()
+  T.eq(#S.damage,1);T.eq(u:GetAbsOrigin().x,400,"no teleport")
+  local m=S.lua_modifier("modifier_rift_axe_pull",u,a,u.mods.modifier_rift_axe_pull.kv)
+  m:UpdateHorizontalMotion(u,.175);T.eq(u:GetAbsOrigin().x,290)
+  m:UpdateHorizontalMotion(u,.175);T.eq(u:GetAbsOrigin().x,180);T.ok(m.destroyed)
+  u:SetAbsOrigin(Vector(400,0,0));u.immune=true;a:OnSpellStart()
+  T.eq(#S.damage,2);T.eq(u:GetAbsOrigin().x,400)
 end)
 T.case("killing attack still triggers stance splash against another living hero",function()
   local S,c,u,a,d=setup("rift_sven_physical")
@@ -145,7 +178,7 @@ T.case("killing attack still triggers stance splash against another living hero"
   mod:OnAttackLanded({attacker=c,target=u})
   T.eq(#S.damage,1);T.eq(S.damage[1].victim,other)
 end)
-T.case("Juggernaut's initial victim cannot escape the cast leash then be hit remotely",function()
+T.case("Juggernaut cannot hit a snapshotted target that leaves the selected area",function()
   local S,_,u,a=setup("rift_juggernaut_physical")
   a:OnSpellStart();u:SetAbsOrigin(Vector(2500,0,0));S.advance(3)
   T.eq(#S.damage,0)
@@ -158,3 +191,71 @@ T.case("point-target spells respect the caster's bonus cast range",function()
   a:OnSpellStart();S.advance(1)
   T.eq(#S.damage,1,"first pulse reaches from bonus-range centre")
 end)
+
+T.case("AoE items expand hit geometry and preview equally without changing damage",function()
+  local S,c,u,a,d=setup("rift_lina_magical",3)
+  local item=S.ability(1)
+  function item:GetAbilityName() return "item_shivas_guard" end
+  function item:GetSpecialValueFor() return 75 end
+  c.inventory[0]=item
+  T.eq(a:GetAOERadius(),d.radius+37.5)
+  u:SetAbsOrigin(Vector(400,d.radius+30,0))
+  a:OnSpellStart();S.advance(1)
+  T.eq(#S.damage,1)
+  T.eq(S.damage[1].damage,75+50*.4)
+end)
+T.case("AoE items are unique by type, backpack excluded and narrow beams capped at 25 percent",function()
+  local S,c,_,a,d=setup("rift_wr_magical")
+  local function item(name)
+    local i=S.ability(1);function i:GetAbilityName()return name end;function i:GetSpecialValueFor()return 75 end;return i
+  end
+  c.inventory[0]=item("item_shivas_guard");c.inventory[1]=item("item_shivas_guard")
+  c.inventory[6]=item("item_gungir")
+  T.eq(a:GetAOERadius(),187.5)
+  c.inventory[2]=item("item_gungir");T.eq(a:GetAOERadius(),187.5)
+end)
+T.case("client-side AoE preview reads the replicated modifier without server inventory API",function()
+  local S,c,_,a=setup("rift_lina_magical")
+  c.GetItemInSlot=false
+  c.FindModifierByName=false
+  function c:GetModifierStackCount(name)T.eq(name,"modifier_rift_area_items");return 150 end
+  T.eq(a:GetAOERadius(),405)
+end)
+T.case("Sven custom stun gets outgoing duration amplification once; Break disables it",function()
+  local S,c,u,a=setup("rift_sven_magical")
+  S.lua_ability("rift_sven_mystic_cleave",c,4)
+  u:SetAbsOrigin(Vector(400,0,0));a:OnSpellStart();S.advance(1)
+  T.ok(math.abs(u.mods.modifier_stunned.kv.duration-.87)<.0001)
+  c.broken=true;a:OnSpellStart();S.advance(1)
+  T.eq(u.mods.modifier_stunned.kv.duration,.75)
+end)
+T.case("Juggernaut storm continues on death, stays at death location and expires",function()
+  local S,c,u,a,d=setup("rift_juggernaut_magical")
+  a:OnSpellStart();S.advance(.2);c.dead=true;S.advance(.6)
+  local count=#S.damage;T.ok(count>=2)
+  c:SetAbsOrigin(Vector(3000,0,0));c.dead=false;S.advance(10)
+  T.eq(#S.damage,d.ticks);T.ok(next(S.thinks)==nil)
+end)
+T.case("CM barrage hits all visible enemies per volley and duplicate callbacks cannot repeat damage",function()
+  local S,_,u,a,d=setup("rift_cm_physical")
+  local v=S.hero("other",2,4,Vector(-400,50,0),{})
+  u:SetAbsOrigin(Vector(400,0,0));a:OnSpellStart();S.advance(.2)
+  T.eq(#S.projectiles,2)
+  for _,p in ipairs(S.projectiles) do a:OnProjectileHit_ExtraData(p.Target,nil,p.ExtraData);a:OnProjectileHit_ExtraData(p.Target,nil,p.ExtraData) end
+  T.eq(#S.damage,2);T.eq(S.damage[2].victim,v)
+end)
+for rank=1,3 do
+  T.case("WR physical attack speed R"..rank.." is the owner's 20/40/60",function()
+    local S,c,_,a=setup("rift_wr_physical",rank)
+    local m=S.lua_modifier("modifier_rift_path_stance",c,a)
+    T.eq(m:GetModifierAttackSpeedBonus_Constant(),20*rank)
+  end)
+  T.case("Juggernaut CDR R"..rank.." counts landed hits, excludes allies/buildings and floors at zero",function()
+    local S,c,u,a=setup("rift_juggernaut_physical",rank)
+    local m=S.lua_modifier("modifier_rift_attack_cooldowns",c,a)
+    a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u})
+    T.eq(a:GetCooldownTimeRemaining(),10-E.abilities.rift_juggernaut_physical.hit_cdr[rank])
+    u.team=c.team;local left=a:GetCooldownTimeRemaining();m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),left)
+    u.team=3;a:StartCooldown(.2);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),0)
+  end)
+end

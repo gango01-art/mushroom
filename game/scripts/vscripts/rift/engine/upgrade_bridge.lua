@@ -36,6 +36,13 @@ function Bridge.new(gm)
 end
 
 function Bridge:AddPlayer(pid, hero)
+  if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
+    Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
+  end
+  if hero:GetUnitName()=="npc_dota_hero_nevermore" and not hero:HasModifier("modifier_rift_sf_soul_gain") then
+    Mods.add(hero,hero,hero:FindAbilityByName("nevermore_necromastery"),"modifier_rift_sf_soul_gain",{})
+  end
+  if not hero:HasModifier("modifier_rift_area_items") then Mods.add(hero,hero,nil,"modifier_rift_area_items",{}) end
   self.offers:add_player(pid, hero:GetUnitName())
   self.directions:ApplyKit(hero)
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
@@ -46,6 +53,13 @@ end
 
 -- Respawn / reconnect: restore direction state on the hero entity.
 function Bridge:EnsureHero(pid, hero)
+  if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
+    Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
+  end
+  if hero:GetUnitName()=="npc_dota_hero_nevermore" and not hero:HasModifier("modifier_rift_sf_soul_gain") then
+    Mods.add(hero,hero,hero:FindAbilityByName("nevermore_necromastery"),"modifier_rift_sf_soul_gain",{})
+  end
+  if not hero:HasModifier("modifier_rift_area_items") then Mods.add(hero,hero,nil,"modifier_rift_area_items",{}) end
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
     Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end

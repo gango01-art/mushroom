@@ -2,7 +2,7 @@
 local B = require("rift.data.hero_balance").ta
 ta_refraction_magical = ta_refraction_magical or ((type(class) == "function") and class({}) or {})
 local function r(l) return math.max(1, math.min(4, l)) end
-function ta_refraction_magical:GetCooldown(l) return B.waves_magical.q_cooldown[r(l + 1)] end
+function ta_refraction_magical:GetCooldown(l) return B.waves_magical.q_cooldown[r(require("rift.engine.ability_level")(self,l))] end
 function ta_refraction_magical:GetManaCost() return B.waves_magical.q_mana end
 function ta_refraction_magical:OnSpellStart()
   local c = self:GetCaster()

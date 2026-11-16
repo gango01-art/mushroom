@@ -27,10 +27,11 @@ function M.fire(caster, ability, origin, direction, base)
   base = base + Bonus.get(caster, "wave_damage_bonus")
   local length = cfg.length + Bonus.get(caster, "wave_length_bonus")
   local life = length / cfg.speed + 0.5
+  local width=require("rift.engine.area").radius(caster,Waves.half_width(cfg.width))
   local id, dmg = M.store:release(caster:entindex(), base, intellect(caster), cfg.intellect_scaling, now, life)
   ProjectileManager:CreateLinearProjectile({
     Ability = ability, EffectName = B.wave_particle, vSpawnOrigin = origin, fDistance = length,
-    fStartRadius = Waves.half_width(cfg.width), fEndRadius = Waves.half_width(cfg.width), Source = caster,
+    fStartRadius = width, fEndRadius = width, Source = caster,
     bHasFrontalCone = false, bReplaceExisting = false,
     iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY, iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
     iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,

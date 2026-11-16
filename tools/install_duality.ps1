@@ -132,6 +132,9 @@ function Invoke-DualityCompile {
   }
   Get-Content -LiteralPath $log -Tail 25 | ForEach-Object { Write-Host $_ }
   if ($compilerExitCode -ne 0) { throw "ResourceCompiler failed ($compilerExitCode). Log: $log" }
+    if (Select-String -LiteralPath $log -Pattern '^\s*(ERROR|FATAL)\s*:' -Quiet) {
+      throw "ResourceCompiler reported an error despite a zero exit code. Log: $log"
+    }
   if (-not (Test-Path $Output) -or (Get-Item $Output).Length -eq 0 -or (Get-Item $Output).LastWriteTimeUtc -lt (Get-Item $Source).LastWriteTimeUtc) {
     throw "Compiler did not produce a current nonempty output: $Output. Open the source in Workshop Tools and perform a full build. Log: $log"
   }
@@ -148,8 +151,15 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
     @('scripts/custom_game/rift_ui_model.js', 'scripts/custom_game/rift_ui_model.vjs_c'),
     @('scripts/custom_game/rift_hud.js', 'scripts/custom_game/rift_hud.vjs_c'),
     @('scripts/custom_game/rift_lab.js', 'scripts/custom_game/rift_lab.vjs_c'),
+    @('scripts/custom_game/rift_ranges.js', 'scripts/custom_game/rift_ranges.vjs_c'),
     @('styles/custom_game/rift_hud.css', 'styles/custom_game/rift_hud.vcss_c'),
     @('layout/custom_game/rift_hud.xml', 'layout/custom_game/rift_hud.vxml_c'),
+    @('scripts/custom_game/rift_pick.js', 'scripts/custom_game/rift_pick.vjs_c'),
+    @('styles/custom_game/rift_pick.css', 'styles/custom_game/rift_pick.vcss_c'),
+    @('layout/custom_game/rift_pick.xml', 'layout/custom_game/rift_pick.vxml_c'),
+    @('scripts/custom_game/rift_setup.js', 'scripts/custom_game/rift_setup.vjs_c'),
+    @('styles/custom_game/rift_setup.css', 'styles/custom_game/rift_setup.vcss_c'),
+    @('layout/custom_game/rift_setup.xml', 'layout/custom_game/rift_setup.vxml_c'),
     @('layout/custom_game/custom_ui_manifest.xml', 'layout/custom_game/custom_ui_manifest.vxml_c')
   )
   foreach ($pair in $panorama) {

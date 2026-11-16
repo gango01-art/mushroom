@@ -6,5 +6,6 @@ function modifier_rift_lc_duel_damage:IsPurgable() return false end
 function modifier_rift_lc_duel_damage:RemoveOnDeath() return false end
 function modifier_rift_lc_duel_damage:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT end
 function modifier_rift_lc_duel_damage:GetTexture() return "legion_commander_duel" end
-function modifier_rift_lc_duel_damage:DeclareFunctions() return { MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE } end
+function modifier_rift_lc_duel_damage:DeclareFunctions() return { MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,MODIFIER_PROPERTY_TOOLTIP } end
 function modifier_rift_lc_duel_damage:GetModifierPreAttack_BonusDamage() return self:GetStackCount() / 10 end
+function modifier_rift_lc_duel_damage:OnTooltip() return self:GetStackCount()/10 end
