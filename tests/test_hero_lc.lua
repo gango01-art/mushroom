@@ -20,8 +20,8 @@ local function run(rank, until_t, hits)
   return total, res, d, st
 end
 
-T.case("full 10 s duel: exactly 10 payouts = 8 / 11 / 14, ends by timeout", function()
-  for rank, want in ipairs({ 8, 11, 14 }) do
+T.case("full 10 s duel: exactly 10 payouts = 10 / 13 / 16, ends by timeout", function()
+  for rank, want in ipairs({ 10, 13, 16 }) do
     local total, res, d = run(rank, 12, function() return true end)
     near(total, want, "rank " .. rank); T.eq(d.payouts, 10); T.eq(res.reason, "timeout")
     T.eq(res.penalty, nil, "timeout has no penalty")
@@ -33,8 +33,8 @@ T.case("no hits -> no income", function()
   near(total, 0)
 end)
 
-T.case("victory tops up to 12 / 16.5 / 21 total, not on top", function()
-  for rank, want in ipairs({ 12, 16.5, 21 }) do
+T.case("victory tops up to 15 / 19.5 / 24 total, not on top", function()
+  for rank, want in ipairs({ 15, 19.5, 24 }) do
     local st = Duel.new_owner_state()
     local d = Duel.start(C, rank, st, "t", 0, 1.0)
     for t = 0, 3, 0.5 do d:record_champion_hit(t, 300); d:tick(t, 100) end
@@ -47,14 +47,14 @@ T.case("victory tops up to 12 / 16.5 / 21 total, not on top", function()
   end
 end)
 
-T.case("example: rank 3, paid 4.2 -> add 16.8 -> 21", function()
+T.case("example: rank 3, paid 4.8 -> add 19.2 -> 24", function()
   local st = Duel.new_owner_state()
   local d = Duel.start(C, 3, st, "t", 0, 1.0)
   d:record_champion_hit(0.5, 1000)
   for t = 0.5, 3, 0.5 do d:record_champion_hit(t, 0); d:tick(t, 0) end
-  near(d.paid, 4.2)
+  near(d.paid, 4.8)
   local r = d:resolve_deaths(false, true, 1000)
-  near(r.payout, 16.8); near(st.earned, 21)
+  near(r.payout, 19.2); near(st.earned, 24)
 end)
 
 T.case("victory needs 20% champion damage; third-party kill ends without victory", function()
@@ -92,7 +92,7 @@ T.case("pause does not speed up income (time-based)", function()
   d:record_champion_hit(0.9, 10)
   for _ = 1, 50 do d:tick(0.9, 100) end -- many thinker calls at the same paused time
   near(d.paid, 0)
-  d:tick(1.0, 100); near(d.paid, 0.8)
+  d:tick(1.0, 100); near(d.paid, 1)
 end)
 
 T.case("permanent cap 100 / 140 / 180 across sessions", function()

@@ -53,6 +53,9 @@ function Unit:GetItemInSlot(i) return self.inventory and self.inventory[i] end
 function Unit:GetRangedProjectileName() return "particles/units/heroes/hero_nevermore/nevermore_base_attack.vpcf" end
 function Unit:GetProjectileSpeed() return 1200 end
 function Unit:StartGesture() end
+function Unit:StartGestureWithPlaybackRate() end
+function Unit:FadeGesture() end
+function Unit:SetCustomHealthLabel(text)self.health_label=text end
 function Unit:RemoveHorizontalMotionController() end
 function Unit:Script_GetAttackRange() return 150 end
 function Unit:PerformAttack(target,orb,procs,skip,ignore,projectile,fake,never_miss)
@@ -167,7 +170,7 @@ function S.install()
   _G.EntIndexToHScript = function(i) return S.by_index[i] end
   _G.GetGroundPosition = function(p) return p end
   _G.class = function(t) return t or {} end
-  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end, SetParticleControlEnt = function() end,
+  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end, SetParticleControlEnt = function() end, SetParticleControlForward = function() end,
                          ReleaseParticleIndex = function() end, DestroyParticle = function() end }
   _G.FindUnitsInRadius = function(team, pos, _, radius)
     local out = {}

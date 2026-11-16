@@ -12,7 +12,7 @@ B.expansion = require("rift.data.expansion").balance
 B.lc = {
   duel_physical = {
     max_seconds = 10,                         -- DR
-    per_second = { 0.8, 1.1, 1.4 },           -- [ult] DR permanent damage per live second
+    per_second = { 1, 1.3, 1.6 },             -- [ult] DR owner revision: permanent damage per live second
     victory_multiplier = 1.5,                 -- DR victory total = per_second * max_payouts * 1.5
     max_payouts = 10,                         -- PD (one per second, first at t>=1)
     hit_window = 2,                           -- PD payout needs a champion hit on target in last 2 s
@@ -23,7 +23,7 @@ B.lc = {
     champion_attack_speed_factor = 0.90,      -- DR of LC effective attacks per second
     leash_distance = 900,                     -- PD from throne
     leash_grace = 1.0,                        -- PD seconds beyond leash before break
-    cooldown = { 85, 75, 65 },                -- [ult] PD from successful summon
+    cooldown = { 60, 50, 40 },                -- [ult] DR owner revision, from successful summon
     mana = { 150, 175, 200 },                 -- [ult] PD
     cast_range = 550,                         -- PD
     champion_unit = "npc_rift_lc_champion",   -- custom unit, stats are snapshotted at summon
@@ -75,9 +75,10 @@ B.sf = {
     cooldown = { 80, 70, 60 },                -- [ult] PD
     mana = { 150, 175, 200 },                 -- [ult] PD
     -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
-    wings_particle = "particles/units/heroes/hero_nevermore/nevermore_wings.vpcf",
+    wings_particle = "particles/duality/sf_wings.vpcf", -- native wing model, instant visibility for the whole buff
     sphere_particle = "particles/duality/sf_orb.vpcf",
     indicator_height=230, indicator_spacing=24,
+    indicator_color={255,201,80}, -- native health-bar label; no server-positioned overhead particles
     sphere_projectile = "particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_base_attack.vpcf",
   },
   requiem_magical = {
@@ -107,6 +108,8 @@ B.ta = {
     -- verified OP-006) - DR. No own coefficient.
   },
   meld_physical = {
+    effect="particles/units/heroes/hero_templar_assassin/templar_assassin_meld.vpcf",
+    projectile="particles/units/heroes/hero_templar_assassin/templar_assassin_meld_attack.vpcf",
     bonus_damage = { 100, 160, 220, 280 },    -- [w] PD, armor reduction removed (DR)
     cooldown = { 11, 9, 7, 5 },               -- [w] native copy (OP-006 dump)
     mana = { 35, 40, 45, 50 },                -- [w] native copy (OP-006 dump)
@@ -184,13 +187,16 @@ B.pa = {
 }
 
 -- DR 2026-11-16: four-rank E replacements. AoE flat values are PD.
-B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_radius = { 10, 15, 20, 25 },
+B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_echo_gesture_rate=2.8, sven_radius = { 10, 15, 20, 25 },
   sven_debuff = { 4, 8, 12, 16 }, jug_chance = 40, jug_multiplier = { 105, 110, 115, 120 },
     pa_dagger_cdr = { 1, 1.5, 2 },pa_attack_cdr=1 }
 B.area = { item_efficiency = 0.5, max_fraction = 0.25 }
 B.axe = { helix_attacks={8,7,6,5}, pull_duration=.35 }
 B.lina = { burn_pct=50 }
-B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.3 }
+B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.3,
+  effect="particles/units/heroes/hero_legion_commander/legion_commander_courage_hit.vpcf",
+  effect_target="particles/units/heroes/hero_legion_commander/legion_commander_courage_tgt.vpcf",
+  effect_lifetime=.6, gesture_rate=2.2 }
 B.lc.duel_physical.cyclone_height=300
 B.lc.duel_physical.cyclone_turn_speed=540
 return B

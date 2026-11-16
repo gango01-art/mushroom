@@ -23,7 +23,22 @@ function modifier_rift_lc_courage:OnAttackLanded(ev)
   if c:IsNull() or not c:IsAlive() or c:PassivesDisabled() or c:IsDisarmed() or c:IsStunned()
    or u:IsNull() or not u:IsAlive() or (u:GetAbsOrigin()-c:GetAbsOrigin()):Length2D()>c:Script_GetAttackRange()+100 then return nil end
   self.countering=true;self.counter_target=u
-  c:StartGesture(ACT_DOTA_ATTACK)
+  require("rift.engine.log").try(c,"LC courage","FadeGesture",ACT_DOTA_ATTACK)
+  require("rift.engine.log").try(c,"LC courage","StartGestureWithPlaybackRate",ACT_DOTA_ATTACK,B.gesture_rate)
+  -- Explicit entity CPs keep the stock effect contract on cosmetic variants.
+  local p=ParticleManager:CreateParticle(B.effect,PATTACH_WORLDORIGIN,nil)
+  ParticleManager:SetParticleControl(p,0,c:GetAbsOrigin())
+  ParticleManager:SetParticleControl(p,1,c:GetAbsOrigin())
+  ParticleManager:SetParticleControlForward(p,0,c:GetForwardVector())
+  -- The native animated afterimage reads the caster model/origin from CP1.
+  ParticleManager:SetParticleControlEnt(p,1,c,PATTACH_ABSORIGIN_FOLLOW,"",c:GetAbsOrigin(),true)
+  ParticleManager:SetParticleControl(p,2,Vector(0,B.effect_lifetime,0))
+  local target_fx=ParticleManager:CreateParticle(B.effect_target,PATTACH_WORLDORIGIN,nil)
+  ParticleManager:SetParticleControl(target_fx,0,u:GetAbsOrigin())
+  GameRules:GetGameModeEntity():SetContextThink("rift_lc_courage_fx_"..p,function()
+   ParticleManager:DestroyParticle(p,false);ParticleManager:ReleaseParticleIndex(p)
+   ParticleManager:DestroyParticle(target_fx,false);ParticleManager:ReleaseParticleIndex(target_fx);return nil
+  end,B.effect_lifetime)
   c:PerformAttack(u,true,true,true,true,false,false,false)
   self.countering=false;self.counter_target=nil
   EmitSoundOn("Hero_LegionCommander.Courage",c)

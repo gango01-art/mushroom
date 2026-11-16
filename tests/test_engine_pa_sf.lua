@@ -104,6 +104,18 @@ T.case("SF spheres: an attack spends one sphere; its landing adds 60% physical o
   m:OnAttackLanded({ attacker = sf, target = foe, record = 8 })
   T.eq(#S.damage, 1); T.eq(m:GetStackCount(), 2)
 end)
+T.case("SF native health-bar counter tracks charges without world-space particles and clears on expiry",function()
+ local S,sf,foe=sf_setup();local alive,next_id={},0
+ ParticleManager.CreateParticle=function(_,path)next_id=next_id+1;alive[next_id]=path;return next_id end
+ ParticleManager.DestroyParticle=function(_,id,immediate)T.eq(immediate,true,"no lingering wings or legacy trails");alive[id]=nil end
+ local m=S.lua_modifier("modifier_rift_sf_spheres",sf,S.ability(1))
+ T.eq(next_id,1,"only wings: no floating world-space marks")
+ T.ok(sf.health_label:find("4/4",1,true));T.eq(m:GetStackCount(),4)
+ m:OnAttack({attacker=sf,target=foe,record=12});T.ok(sf.health_label:find("3/4",1,true));T.eq(m:GetStackCount(),3)
+ S.advance(B.sf.requiem_physical.sphere_regen[1]+.01);m:OnIntervalThink();T.ok(sf.health_label:find("4/4",1,true))
+ m:OnRefresh();T.eq(next_id,2);T.eq(alive[1],nil);T.ok(alive[2],"refresh renews wings for the extended buff")
+ m:OnDestroy();T.eq(next(alive),nil);T.eq(sf.health_label,"")
+end)
 
 T.case("SF spheres: Shadowraze bonus once per cast and victim", function()
   local S, sf, foe = sf_setup()

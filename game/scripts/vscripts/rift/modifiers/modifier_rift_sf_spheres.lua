@@ -27,13 +27,22 @@ function modifier_rift_sf_spheres:OnCreated()
   self.records = {}
   self.raze_casts = {}
   self:SetStackCount(self.session.charges)
-  self.fx = {}
   self.orbs = {}
-  if B.wings_particle ~= "" then
-    table.insert(self.fx, ParticleManager:CreateParticle(B.wings_particle, PATTACH_ABSORIGIN_FOLLOW, p))
-  end
+  self:UpdateWings()
   self:StartIntervalThink(0.1)
   self:UpdateOrbs()
+end
+function modifier_rift_sf_spheres:UpdateWings()
+  for _,fx in ipairs(self.fx or {})do
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx)
+  end
+  self.fx={}
+  if B.wings_particle~="" then
+    self.fx[1]=ParticleManager:CreateParticle(B.wings_particle,PATTACH_ABSORIGIN_FOLLOW,self:GetParent())
+  end
+end
+function modifier_rift_sf_spheres:OnRefresh()
+  if IsServer() then self:UpdateWings() end -- refreshed duration must not outlive its visual
 end
 function modifier_rift_sf_spheres:OrbPosition(i)
   local p=self:GetParent()
@@ -41,14 +50,17 @@ function modifier_rift_sf_spheres:OrbPosition(i)
   return p:GetAbsOrigin()+Vector((i-(count+1)/2)*B.indicator_spacing,0,B.indicator_height)
 end
 function modifier_rift_sf_spheres:UpdateOrbs()
-  for i=1,B.spheres do
-    if i<=self.session.charges then
-      if not self.orbs[i] then self.orbs[i]=ParticleManager:CreateParticle(B.sphere_particle,PATTACH_WORLDORIGIN,nil) end
-      ParticleManager:SetParticleControl(self.orbs[i],0,self:OrbPosition(i))
-    elseif self.orbs[i] then
-      ParticleManager:DestroyParticle(self.orbs[i],false);ParticleManager:ReleaseParticleIndex(self.orbs[i]);self.orbs[i]=nil
-    end
+  -- Retire old world-space marks as well when hot-reloading a live test session.
+  for i,fx in pairs(self.orbs or {})do
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx);self.orbs[i]=nil
   end
+  local count=self.session.charges
+  if self.indicator_count==count then return end
+  self.indicator_count=count
+  -- Native health labels follow the health bar client-side, without a 10 Hz
+  -- stream of world coordinates or detached particles along the movement path.
+  local color=B.indicator_color
+  self:GetParent():SetCustomHealthLabel(string.rep("◆ ",count)..count.."/"..B.spheres,color[1],color[2],color[3])
 end
 
 function modifier_rift_sf_spheres:OnIntervalThink()
@@ -123,11 +135,12 @@ end
 
 function modifier_rift_sf_spheres:OnDestroy()
   if not IsServer() then return end
+  self:GetParent():SetCustomHealthLabel("",255,255,255)
   for _, fx in ipairs(self.fx or {}) do
-    ParticleManager:DestroyParticle(fx, false)
+    ParticleManager:DestroyParticle(fx, true)
     ParticleManager:ReleaseParticleIndex(fx)
   end
   for _,fx in pairs(self.orbs or {}) do
-    ParticleManager:DestroyParticle(fx,false);ParticleManager:ReleaseParticleIndex(fx)
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx)
   end
 end

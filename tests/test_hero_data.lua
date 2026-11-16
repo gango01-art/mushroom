@@ -30,7 +30,7 @@ end)
 
 T.case("owner-required values unchanged", function()
   local d = B.lc.duel_physical
-  T.eq(d.per_second[3], 1.4); T.eq(d.victory_multiplier, 1.5); T.eq(d.champion_death_penalty_fraction, 0.30)
+  T.eq(d.per_second[3], 1.6); T.eq(d.victory_multiplier, 1.5); T.eq(d.champion_death_penalty_fraction, 0.30)
   T.eq(B.sf.requiem_physical.sphere_damage_fraction, 0.60); T.eq(B.sf.requiem_physical.duration, 15)
   T.eq(B.ta.crystal_physical.durability, 3); T.eq(B.ta.waves_magical.q_base, 120)
   T.eq(B.lc.statue.cdr_per_hit, 2); T.eq(B.lc.statue.cooldown[1],22);T.eq(B.lc.statue.cooldown[2],20);T.eq(B.lc.statue.cooldown[3],18)

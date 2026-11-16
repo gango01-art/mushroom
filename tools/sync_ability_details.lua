@@ -2,6 +2,8 @@
 package.path="game/scripts/vscripts/?.lua;"..package.path
 local B=require("rift.data.hero_balance")
 local E=require("rift.data.expansion")
+local duel_rewards={}
+for i,v in ipairs(B.lc.duel_physical.per_second)do duel_rewards[i]=v*B.lc.duel_physical.max_payouts*B.lc.duel_physical.victory_multiplier end
 local function read(p) local f=assert(io.open(p,"r"));local s=f:read("*a");f:close();return s end
 local function save(p,old,new)
   new=new:gsub("[ \t]+\n","\n")
@@ -16,7 +18,7 @@ end
 local function scaled(v,scale) local r={};for i,n in ipairs(v)do r[i]=n*scale end;return r end
 local extras={
  rift_lc_courage={attacks=B.lc.courage_physical.attacks,lifesteal=B.lc.courage_physical.lifesteal},
- lc_duel_physical={duration=10,damage_per_second=B.lc.duel_physical.per_second,damage_cap=B.lc.duel_physical.permanent_cap,leash=B.lc.duel_physical.leash_distance,champion_speed_pct=90},
+ lc_duel_physical={duration=10,damage_per_second=B.lc.duel_physical.per_second,victory_reward=duel_rewards,damage_cap=B.lc.duel_physical.permanent_cap,leash=B.lc.duel_physical.leash_distance,champion_speed_pct=90},
  lc_duel_magical={spell_amp=B.lc.duel_magical.base_spell_amp,amp_cap=B.lc.duel_magical.cap_spell_amp,kill_amp=B.lc.duel_magical.per_kill,assist_amp=B.lc.duel_magical.per_assist},
  lc_statue={base_damage=B.lc.statue.arrow_damage,health=B.lc.statue.health,duration=B.lc.statue.lifetime,hit_cdr=B.lc.statue.cdr_per_hit,range=B.lc.statue.beam_range,radius=B.lc.statue.beam_half_width,cooldown_by_ult=B.lc.statue.cooldown},
  sf_requiem_physical={duration=B.sf.requiem_physical.duration,spheres=B.sf.requiem_physical.spheres,regen=B.sf.requiem_physical.sphere_regen,attack_pct=B.sf.requiem_physical.sphere_damage_fraction*100,raze_pct={40,60,80}},
@@ -34,6 +36,7 @@ local extras={
  rift_juggernaut_spell_crit={chance=B.passives.jug_chance,crit_multiplier=B.passives.jug_multiplier},
 }
 local desc={
+ lc_duel_physical={"Призывает воина против выбранного героя на срок до %path_duration% сек. Legion Commander неуязвима, поднята в воздух и вращается до смерти воина или окончания срока. Воин получает её характеристики и 90% скорости атаки. Каждая секунда боя при недавнем попадании воина даёт %path_damage_per_second% постоянного урона. Победа доводит общую награду до %path_victory_reward%. Смерть воина отнимает 30% максимального здоровья LC и оглушает на 1 сек. Эффекты предметов воину не передаются.","Summons a warrior against the selected hero for up to %path_duration% seconds. Legion Commander is invulnerable, lifted and spinning until the warrior dies or time expires. The warrior inherits her stats and 90% attack speed. Each second with a recent warrior hit grants %path_damage_per_second% permanent attack damage. Victory raises the total reward to %path_victory_reward%. Warrior death costs LC 30% maximum health and stuns her for 1 second. Item effects are not copied."},
  rift_lc_courage={"Каждая %path_attacks%-я собственная попавшая атака вызывает быструю контратаку, которая лечит Legion Commander на %path_lifesteal%%% нанесённого урона. Атаки врагов не учитываются. Дополнительный удар не запускает сам себя.","Every %path_attacks% landed attacks trigger a quick counterattack that heals Legion Commander for %path_lifesteal%%% of its damage. Incoming attacks do not count. The counterattack cannot trigger itself."},
  rift_lina_physical={"Выпускает три летящих солнечных волны. Урон каждой: %path_attack_pct%%% от атаки + %path_attack_speed_pct%%% от показателя скорости атаки. Например, 100 скорости атаки дают 35 урона на третьем ранге. Волны пробивают врагов; эффекты атак не срабатывают.","Launches three traveling solar waves. Each deals %path_attack_pct%%% attack damage + %path_attack_speed_pct%%% of displayed attack speed. 100 attack speed adds 35 damage at rank 3. Waves pierce enemies without triggering attack effects."},
  rift_axe_physical={"Притягивает врагов вокруг Axe на %path_pull_distance% и наносит физический урон: %path_base_damage% + %path_attack_pct%%% урона атаки. Невосприимчивых к эффектам врагов не перемещает.","Pulls nearby enemies toward Axe and deals physical damage: %path_base_damage% + %path_attack_pct%%% attack damage. Debuff-immune enemies cannot be pulled."},
@@ -53,6 +56,7 @@ local labels={
  hits={"ЧИСЛО ИМПУЛЬСОВ:","PULSES:"},attacks={"АТАК ДЛЯ ЭФФЕКТА:","ATTACKS PER PROC:"},duration={"ДЛИТЕЛЬНОСТЬ:","DURATION:"},slow={"ЗАМЕДЛЕНИЕ (%):","SLOW (%):"},root={"ОЦЕПЕНЕНИЕ:","ROOT DURATION:"},radius={"РАДИУС / ПОЛУШИРИНА:","RADIUS / HALF WIDTH:"},range={"ДАЛЬНОСТЬ:","RANGE:"},interval={"ИНТЕРВАЛ:","INTERVAL:"},delay={"ЗАДЕРЖКА:","DELAY:"},attack_speed={"СКОРОСТЬ АТАКИ:","ATTACK SPEED:"},hit_cdr={"СОКРАЩЕНИЕ КД:","COOLDOWN REDUCTION:"},max_targets={"МАКС. ЦЕЛЕЙ В СЕРИИ:","MAX SEQUENCE TARGETS:"},pull_distance={"ПРИТЯГИВАНИЕ:","PULL DISTANCE:"},stun={"ОГЛУШЕНИЕ:","STUN DURATION:"},expand={"РОСТ РАДИУСА ЗА ИМПУЛЬС:","RADIUS GROWTH PER PULSE:"},heal_pct={"ЛЕЧЕНИЕ ОТ УРОНА ГЕРОЯМ (%):","HERO DAMAGE HEAL (%):"},heal_cap_pct={"ЛИМИТ ЛЕЧЕНИЯ ЗА ИМПУЛЬС (% МАКС. ЗДОРОВЬЯ):","HEAL CAP PER PULSE (% MAX HEALTH):"},distance_pct={"МАКС. БОНУС УРОНА ЗА ДАЛЬНОСТЬ (%):","MAX DISTANCE DAMAGE BONUS (%):"},ramp_pct={"РОСТ УРОНА ЗА ИМПУЛЬС (%):","DAMAGE GROWTH PER PULSE (%):"},
  health={"ЗДОРОВЬЕ / ПРОЧНОСТЬ:","HEALTH / DURABILITY:"},spheres={"ЗАРЯДОВ:","CHARGES:"},regen={"ВОССТАНОВЛЕНИЕ СФЕРЫ:","SPHERE REPLENISH TIME:"},raze_pct={"БОНУС КОЙЛАМ ОТ АТАКИ (%):","RAZE ATTACK DAMAGE BONUS (%):"},chance={"ВЕРОЯТНОСТЬ (%):","CHANCE (%):"},crit_multiplier={"КРИТИЧЕСКИЙ УРОН (%):","CRITICAL DAMAGE (%):"},echo_cooldown={"ПЕРЕЗАРЯДКА ДВОЙНОГО УДАРА:","ECHO COOLDOWN:"},radius_bonus={"ДОП. РАДИУС:","BONUS RADIUS:"},debuff_amp={"ДЛИТЕЛЬНОСТЬ ЭФФЕКТОВ (%):","DEBUFF DURATION (%):"},damage_per_second={"ПОСТОЯННЫЙ УРОН ЗА СЕКУНДУ:","PERMANENT DAMAGE PER SECOND:"},damage_cap={"ПРЕДЕЛ ПОСТОЯННОГО УРОНА:","PERMANENT DAMAGE CAP:"},leash={"ДАЛЬНОСТЬ СВЯЗИ:","LEASH DISTANCE:"},champion_speed_pct={"СКОРОСТЬ АТАКИ ЧЕМПИОНА (%):","CHAMPION ATTACK SPEED (%):"},spell_amp={"УСИЛЕНИЕ ЗАКЛИНАНИЙ (%):","SPELL AMPLIFICATION (%):"},amp_cap={"ПРЕДЕЛ УСИЛЕНИЯ (%):","AMPLIFICATION CAP (%):"},kill_amp={"ЗА УБИЙСТВО (%):","PER KILL (%):"},assist_amp={"ЗА ПОМОЩЬ (%):","PER ASSIST (%):"},dash={"ДАЛЬНОСТЬ РЫВКА:","DASH DISTANCE:"},
 }
+labels.victory_reward={"ИТОГОВАЯ НАГРАДА ЗА ПОБЕДУ:","TOTAL VICTORY REWARD:"}
 local kvpath="game/scripts/npc/npc_abilities_custom.txt"
 local original=read(kvpath);local kv=original
 for name,values in pairs(extras) do
@@ -73,7 +77,7 @@ for lang,filename in ipairs({"russian","english"}) do
   end
   for name,text in pairs(desc) do token("DOTA_Tooltip_ability_"..name.."_Description",text[lang]) end
   for name,text in pairs(desc) do
-    if E.abilities[name] then
+    if E.abilities[name] or name=="lc_duel_physical" then
       local block=assert(kv:match('"'..name..'"%s*(%b{})'))
       local card=text[lang]:gsub('%%path_([^%%]+)%%',function(key)
         return (block:match('"path_'..key..'"%s*"([^"]+)"') or "?"):gsub(" "," / ")
@@ -102,6 +106,10 @@ for lang,filename in ipairs({"russian","english"}) do
     if aoe then token("DOTA_Tooltip_ability_"..name.."_Note0",lang==1 and "Shiva и Gleipnir: 50% бонуса области, максимум +25% исходного радиуса. Урон, число импульсов и длительность не увеличиваются." or "Shiva and Gleipnir: 50% area bonus effectiveness, capped at +25% base radius. No damage, pulse count or duration increase.") end
   end
   token("DOTA_Tooltip_modifier_rift_lc_duel_damage_Description",lang==1 and "Накопленный дополнительный урон: %fMODIFIER_PROPERTY_TOOLTIP%." or "Earned bonus attack damage: %fMODIFIER_PROPERTY_TOOLTIP%.")
+  token("DOTA_Tooltip_modifier_rift_lc_courage",lang==1 and "Момент отваги" or "Moment of Courage")
+  token("DOTA_Tooltip_modifier_rift_lc_courage_Description",lang==1 and "Собственные атаки накапливают контратаку. Число на значке показывает накопленные попадания." or "Your own attacks build up a counterattack. The icon shows accumulated landed attacks.")
+  token("npc_rift_lc_champion",lang==1 and "Воин Legion Commander" or "Legion Warrior")
+  token("npc_rift_lc_statue",lang==1 and "Каменная статуя" or "Stone Statue")
   token("DOTA_Tooltip_modifier_rift_lc_spell_amp_Description",lang==1 and "Усиление магического урона: %fMODIFIER_PROPERTY_TOOLTIP%%%. Накоплено сверх базового: %fMODIFIER_PROPERTY_TOOLTIP2%%%." or "Spell amplification: %fMODIFIER_PROPERTY_TOOLTIP%%%. Earned above base: %fMODIFIER_PROPERTY_TOOLTIP2%%%.")
   token("DOTA_Tooltip_ability_lina_slow_burn_Note0",lang==1 and "DUALITY: урон от горения — 50% исходного урона заклинания." or "DUALITY: burning damage equals 50% of original spell damage.")
   token("DOTA_Tooltip_ability_lc_statue_path_cooldown_by_ult",lang==1 and "ПЕРЕЗАРЯДКА ПО РАНГУ УЛЬТЫ:" or "COOLDOWN BY ULTIMATE RANK:")

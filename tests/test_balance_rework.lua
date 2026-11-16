@@ -55,6 +55,16 @@ T.case("TA magic shield uses a native particle attached to the caster",function(
  T.eq(attachment.cp,1);T.eq(attachment.entity,c);T.eq(attachment.kind,PATTACH_ABSORIGIN_FOLLOW)
  m:OnDestroy();T.eq(destroyed,attachment.id);T.eq(released,attachment.id)
 end)
+T.case("TA physical Meld owns its native effect and restores the normal projectile on removal",function()
+ local S=Stub.install();local c=S.hero("ta",0,2,Vector(0,0,0),{})
+ local path,owner,released
+ ParticleManager.CreateParticle=function(_,name,_,entity)path=name;owner=entity;return 91 end
+ ParticleManager.ReleaseParticleIndex=function(_,id)released=id end
+ local m=S.lua_modifier("modifier_rift_ta_meld",c,S.ability(4))
+ T.eq(owner,c);T.eq(path,B.ta.meld_physical.effect);T.eq(m:GetModifierProjectileName(),B.ta.meld_physical.projectile)
+ T.eq(m:GetModifierPreAttack_BonusDamage(),280)
+ m:OnDestroy();T.eq(released,91);T.eq(m.meld_fx,nil)
+end)
 T.case("guarded native API failure returns nil rather than an arithmetic-unsafe error string",function()
  local Log=require("rift.engine.log")
  T.eq(Log.try({call=function()error("native signature changed")end},"test","call"),nil)
@@ -68,8 +78,22 @@ end)
 T.case("LC courage counts outgoing hits, excludes its own counterattack and heals only its damage",function()
  local S=Stub.install();local c=S.hero("lc",0,2,Vector(0,0,0),{Health=500,MaxHealth=2000})
  local u=S.hero("enemy",1,3,Vector(100,0,0),{})
+ c:SetAbsOrigin(Vector(10000,-7000,500));u:SetAbsOrigin(Vector(10100,-7000,500))
  local a=S.lua_ability("rift_lc_courage",c,4)
  local m=S.lua_modifier("modifier_rift_lc_courage",c,a)
+ local fx,attachment,gesture,destroyed,released
+ local retired={}
+ local origins={}
+ ParticleManager.SetParticleControl=function(_,id,cp,v)if cp==0 then origins[id]=v end end
+ ParticleManager.CreateParticle=function(_,path,kind,owner)
+  T.eq(owner,nil,"explicit stock effect contract")
+  if path==B.lc.courage_physical.effect then fx={path=path,kind=kind,owner=owner};return 77 end
+  T.eq(path,B.lc.courage_physical.effect_target);return 78
+ end
+ ParticleManager.SetParticleControlEnt=function(_,id,cp,entity)if cp==1 then attachment={id=id,cp=cp,entity=entity}end end
+ ParticleManager.DestroyParticle=function(_,id)destroyed=id end
+ ParticleManager.ReleaseParticleIndex=function(_,id)released=id;retired[id]=true end
+ function c:StartGestureWithPlaybackRate(_,rate)gesture=rate end
  m:OnAttackLanded({attacker=u,target=c});T.eq(m.hits,0)
  for _=1,4 do m:OnAttackLanded({attacker=c,target=u}) end
  local perform=c.PerformAttack
@@ -78,7 +102,11 @@ T.case("LC courage counts outgoing hits, excludes its own counterattack and heal
   m:OnTakeDamage({attacker=self,unit=target,damage=100})
  end
  S.advance(.1);T.eq(#S.attacks,1);T.eq(m.hits,0);T.eq(c:GetHealth(),540)
+ T.eq(fx.kind,PATTACH_WORLDORIGIN)
+ T.eq(origins[77].x,c:GetAbsOrigin().x);T.eq(origins[78].x,u:GetAbsOrigin().x)
+ T.eq(attachment.cp,1);T.eq(attachment.entity,c);T.ok(gesture>1)
  m:OnTakeDamage({attacker=c,unit=u,damage=100});T.eq(c:GetHealth(),540)
+ S.advance(1);T.eq(destroyed,78);T.eq(released,78);T.ok(retired[77] and retired[78])
 end)
 T.case("Axe physical changes native counter requirements and enables outgoing attacks",function()
  local S=Stub.install();local c=S.hero("axe",0,2,Vector(0,0,0),{})
@@ -99,7 +127,7 @@ T.case("LC buff tooltips expose actual fractional damage and spell amplification
 end)
 T.case("current-rank getters handle the engine sentinel on original custom ultimates",function()
   local S=Stub.install();local c=S.hero("caster",0,2,Vector(0,0,0),{})
-  local cases={pa_phantom_execution={24,20,16},lc_duel_physical={85,75,65},sf_requiem_physical={80,70,60},ta_psionic_crystal={10,9,8},ta_psionic_blast={14,12,10}}
+  local cases={pa_phantom_execution={24,20,16},lc_duel_physical={60,50,40},sf_requiem_physical={80,70,60},ta_psionic_crystal={10,9,8},ta_psionic_blast={14,12,10}}
   for name,cd in pairs(cases) do for rank=1,3 do
     local a=S.lua_ability(name,c,rank);T.eq(a:GetCooldown(-1),cd[rank]);T.eq(a:GetCooldown(rank-1),cd[rank])
   end end
@@ -111,10 +139,14 @@ for rank=1,4 do
     local u=S.hero("enemy",1,3,Vector(100,0,0),{})
     local a=S.lua_ability("rift_sven_echo",c,rank)
     local m=S.lua_modifier("modifier_rift_sven_echo",c,a)
+    local visual={}
+    function c:FadeGesture()visual[#visual+1]="fade"end
+    function c:StartGestureWithPlaybackRate(_,rate)visual[#visual+1]="swing";T.ok(rate>1)end
     local perform=c.PerformAttack
     function c:PerformAttack(target,...) perform(self,target,...);m:OnAttackLanded({attacker=self,target=target}) end
     m:OnAttackLanded({attacker=c,target=u});S.advance(.2)
     T.eq(#S.attacks,1);T.eq(a:GetCooldown(rank-1),B.passives.sven_echo_cooldown[rank])
+    T.eq(visual[1],"fade");T.eq(visual[2],"swing")
     m:OnAttackLanded({attacker=c,target=u});S.advance(.2);T.eq(#S.attacks,1)
   end)
   T.case("Sven E mystic rank "..rank.." radius and debuff values disable under Break",function()

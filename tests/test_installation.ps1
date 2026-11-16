@@ -90,12 +90,13 @@ try {
     'materials/duality/sf_charge.vtex_c',
     'particles/duality/lc_gold_powershot.vpcf_c',
     'particles/duality/sf_orb.vpcf_c',
+    'particles/duality/sf_wings.vpcf_c',
     'maps/rift_arena.vmap_c'
   )
   foreach ($relative in $outputs) {
     Check (Test-Path (Join-Path $FakeDota ('game/dota_addons/duality/' + $relative))) ("Build output missing: " + $relative)
   }
-  Check ($global:DualityInstallTest.Inputs.Count -eq 18) 'Unexpected compile count (thirteen Panorama, four FX, one map)'
+  Check ($global:DualityInstallTest.Inputs.Count -eq 19) 'Unexpected compile count (thirteen Panorama, five FX, one map)'
   Check ($global:DualityInstallTest.Inputs[0] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
   Check (-not ($global:DualityInstallTest.Inputs -contains $ExtraSource)) 'Unrelated owner resource was compiled'
   $LayoutBackups = @(Get-ChildItem (Join-Path $FakeDota 'duality_backups') -Recurse -File | Where-Object Name -eq 'rift_hud.vxml_c')

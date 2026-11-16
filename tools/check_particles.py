@@ -23,7 +23,7 @@ assert 'particles/duality/lc_gold_powershot.vpcf' in (ROOT/'game/scripts/vscript
 assert float(re.search(r'm_flConstantLifespan\s*=\s*([\d.]+)',text).group(1))<1
 assert int(re.search(r'm_nMaxParticles\s*=\s*(\d+)',text).group(1))<=128
 print('Custom yellow VFX source OK: particle -> texture -> TGA, palette/lifetime/budget. Source 2 compile/render NOT tested.')
-for name in ('lc_gold_powershot',):
+for name in ('lc_gold_powershot','sf_orb','sf_wings'):
     source=(ROOT/'content/particles/duality'/f'{name}.vpcf').read_text()
     assert '36c3961f-02a4-4c52-bf8f-6e3147d7d142' in source, f'{name}: structured float inputs require the modern format; legacy migration zeros emission'
     assert re.search(r'm_flLiteralValue\s*=\s*(?:1|32)\.0',source), f'{name}: positive instantaneous emission'

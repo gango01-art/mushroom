@@ -1,0 +1,26 @@
+Sanitized native observations on the owner's PC, Dota Workshop Tools, addon duality.
+No full console telemetry included.
+
+[RIFT][COURAGE] R1 cooldown=60 per_second=1
+[RIFT][COURAGE] R2 cooldown=50 per_second=1.3
+[RIFT][COURAGE] R3 cooldown=40 per_second=1.6
+
+08:26:07 FOLLOWUP nevermore
+08:27:08 FOLLOWUP templar_assassin
+08:28:09 FOLLOWUP sven
+08:29:11 FOLLOWUP legion_commander
+08:30:11 FOLLOWUP DONE
+The script finishing is not proof that every visual was inspected.
+
+Observed: native gold SF charge label above HP and native wing model; TA Meld
+attack flash; Sven attack poses/Warcry effect. Screenshots saved for TA and Sven.
+LC Courage initially appeared off the hero; after explicit world CP0/CP1 setup,
+the green flash appeared near the hit. Forced attack cadence is a visual test.
+
+Latest SF cleanup/refresh refinement: immediate particle destruction on end,
+wing renewal on modifier refresh. Full 15-second disappearance and movement
+checks after that refinement remain pending.
+
+After resuming, Steam blocked the requested launch:
+"This game is not available in Family View" (Russian client message).
+No security/parental settings were changed. Requested manual unlock by owner.

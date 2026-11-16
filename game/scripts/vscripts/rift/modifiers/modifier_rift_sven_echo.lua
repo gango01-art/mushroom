@@ -14,7 +14,11 @@ function modifier_rift_sven_echo:OnAttackLanded(ev)
       or u:IsNull() or not u:IsAlive() or u:IsInvulnerable()
       or (u:GetAbsOrigin()-c:GetAbsOrigin()):Length2D()>c:Script_GetAttackRange()+100 then return nil end
     self.echoing=true
-    c:StartGesture(ACT_DOTA_ATTACK)
+    -- The first hit has already landed. Restart its follow-through as a fast
+    -- second swing, rather than stacking the same gesture over itself.
+    local Log=require("rift.engine.log")
+    Log.try(c,"Sven echo","FadeGesture",ACT_DOTA_ATTACK)
+    Log.try(c,"Sven echo","StartGestureWithPlaybackRate",ACT_DOTA_ATTACK,require("rift.data.hero_balance").passives.sven_echo_gesture_rate)
     c:PerformAttack(u,true,true,true,true,false,false,false)
     self.echoing=false
     return nil

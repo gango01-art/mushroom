@@ -30,8 +30,8 @@ T.case("LC duel: snapshot, throne, 10 payouts with hits, timeout cleanup", funct
   T.ok(s.done); T.eq(s.duel.reason, "timeout")
   T.ok(champ.removed, "champion removed, not killed")
   T.ok(not lc:HasModifier("modifier_rift_lc_throne"), "throne removed")
-  near(Session.owner_state(0).earned, 8.0)
-  T.eq(lc:FindModifierByName("modifier_rift_lc_duel_damage"):GetStackCount(), 80)
+  near(Session.owner_state(0).earned, 10.0)
+  T.eq(lc:FindModifierByName("modifier_rift_lc_duel_damage"):GetStackCount(), 100)
   T.eq(#S.damage, 0, "no penalty on timeout")
   T.eq(Session.sessions[0], nil)
   T.eq(champ.attack_target, foe, "champion ordered onto the duel target only")
@@ -63,7 +63,7 @@ T.case("LC duel: leash break and second cast while one is live", function()
   T.ok(s.done); T.eq(s.duel.reason, "leash_break"); T.eq(#S.damage, 0)
 end)
 
-T.case("LC duel: victory tops the reward up to 12 at rank 1", function()
+T.case("LC duel: victory tops the reward up to 15 at rank 1", function()
   local S, Session, lc, foe = duel_setup()
   Session.start(lc, S.ability(1), foe, 1)
   local s = Session.sessions[0]
@@ -71,7 +71,7 @@ T.case("LC duel: victory tops the reward up to 12 at rank 1", function()
   S.advance(0.5)
   foe.dead = true
   S.advance(0.2)
-  T.eq(s.duel.reason, "victory"); near(Session.owner_state(0).earned, 12)
+  T.eq(s.duel.reason, "victory"); near(Session.owner_state(0).earned, 15)
 end)
 
 T.case("LC statue: four cross salvos pierce and deduplicate each victim hit",function()
