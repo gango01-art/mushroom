@@ -697,5 +697,10 @@
 		"DOTA_Tooltip_modifier_rift_lc_courage_Description" "Собственные атаки накапливают контратаку. Число на значке показывает накопленные попадания."
 		"npc_rift_lc_champion" "Воин Legion Commander"
 		"npc_rift_lc_statue" "Каменная статуя"
+		"rift_sf_charges_0" "0/4"
+		"rift_sf_charges_1" "◆ 1/4"
+		"rift_sf_charges_2" "◆ ◆ 2/4"
+		"rift_sf_charges_3" "◆ ◆ ◆ 3/4"
+		"rift_sf_charges_4" "◆ ◆ ◆ ◆ 4/4"
 	}
 }

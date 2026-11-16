@@ -110,6 +110,9 @@ for lang,filename in ipairs({"russian","english"}) do
   token("DOTA_Tooltip_modifier_rift_lc_courage_Description",lang==1 and "Собственные атаки накапливают контратаку. Число на значке показывает накопленные попадания." or "Your own attacks build up a counterattack. The icon shows accumulated landed attacks.")
   token("npc_rift_lc_champion",lang==1 and "Воин Legion Commander" or "Legion Warrior")
   token("npc_rift_lc_statue",lang==1 and "Каменная статуя" or "Stone Statue")
+  for count=0,B.sf.requiem_physical.spheres do
+    token("rift_sf_charges_"..count,string.rep("◆ ",count)..count.."/"..B.sf.requiem_physical.spheres)
+  end
   token("DOTA_Tooltip_modifier_rift_lc_spell_amp_Description",lang==1 and "Усиление магического урона: %fMODIFIER_PROPERTY_TOOLTIP%%%. Накоплено сверх базового: %fMODIFIER_PROPERTY_TOOLTIP2%%%." or "Spell amplification: %fMODIFIER_PROPERTY_TOOLTIP%%%. Earned above base: %fMODIFIER_PROPERTY_TOOLTIP2%%%.")
   token("DOTA_Tooltip_ability_lina_slow_burn_Note0",lang==1 and "DUALITY: урон от горения — 50% исходного урона заклинания." or "DUALITY: burning damage equals 50% of original spell damage.")
   token("DOTA_Tooltip_ability_lc_statue_path_cooldown_by_ult",lang==1 and "ПЕРЕЗАРЯДКА ПО РАНГУ УЛЬТЫ:" or "COOLDOWN BY ULTIMATE RANK:")

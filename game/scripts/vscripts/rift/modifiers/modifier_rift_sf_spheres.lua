@@ -42,7 +42,11 @@ function modifier_rift_sf_spheres:UpdateWings()
   end
 end
 function modifier_rift_sf_spheres:OnRefresh()
-  if IsServer() then self:UpdateWings() end -- refreshed duration must not outlive its visual
+  if not IsServer() then return end
+  self.session:refresh(GameRules:GetGameTime())
+  self:SetStackCount(self.session.charges)
+  self:UpdateOrbs()
+  self:UpdateWings()
 end
 function modifier_rift_sf_spheres:OrbPosition(i)
   local p=self:GetParent()
@@ -60,7 +64,7 @@ function modifier_rift_sf_spheres:UpdateOrbs()
   -- Native health labels follow the health bar client-side, without a 10 Hz
   -- stream of world coordinates or detached particles along the movement path.
   local color=B.indicator_color
-  self:GetParent():SetCustomHealthLabel(string.rep("◆ ",count)..count.."/"..B.spheres,color[1],color[2],color[3])
+  self:GetParent():SetCustomHealthLabel("#rift_sf_charges_"..count,color[1],color[2],color[3])
 end
 
 function modifier_rift_sf_spheres:OnIntervalThink()
