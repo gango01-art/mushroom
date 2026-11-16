@@ -4,7 +4,7 @@ const panels=new Map(),sent=[],listeners={},events={};
 function panel(parent,id="") {const p={children:[],classes:new Set(),handlers:{},style:{},parent,enabled:true,
  AddClass(c){this.classes.add(c)},SetHasClass(c,b){b?this.classes.add(c):this.classes.delete(c)},
  Children(){return this.children},GetParent(){return this.parent},RemoveAndDeleteChildren(){this.children=[]},
- SetImage(s){this.image=s},SetScaling(s){this.scaling=s},SetPanelEvent(e,fn){this.handlers[e]=fn}};
+ SetImage(s){this.image=s},SetScaling(s){this.scaling=s},SetPanelEvent(e,fn){this.handlers[e]=fn},DeleteAsync(){this.parent.children=this.parent.children.filter(c=>c!==this)}};
  if(parent)parent.children.push(p);if(id)panels.set(id,p);return p;}
 const root=panel(null),screen=panel(root,"PickScreen");
 const xml=fs.readFileSync("content/panorama/layout/custom_game/rift_pick.xml","utf8");
@@ -21,7 +21,11 @@ const ctx=vm.createContext({$,Players:{GetLocalPlayer:()=>0,GetPlayerName:pid=>"
 vm.runInContext(fs.readFileSync("content/panorama/scripts/custom_game/rift_ui_model.js","utf8"),ctx);
 vm.runInContext(fs.readFileSync("content/panorama/scripts/custom_game/rift_pick.js","utf8"),ctx);
 assert.equal(panels.get("PickHeroes").children[0].children[1].children.length,11);
-panels.get("PickHeroes").children[0].children[1].children[4].handlers.onactivate();assert.ok(panels.get("PickPortrait").image.endsWith("hero5.png"));
+const card=panels.get("PickHeroes").children[0].children[1].children[4];
+card.handlers.onactivate();assert.equal(panels.get("PickPortrait").heroname,"hero5");
+card.handlers.onmouseover();assert.ok(card.children.some(p=>p.classes.has("PickHeroMovie")&&p.heroname==="hero5"));
+card.handlers.onmouseout();assert.ok(!card.children.some(p=>p.classes.has("PickHeroMovie")),"hover movie is released on mouseout");
+assert.ok(panels.get("PickHeroes").children[0].children[0].children[0].image.includes("primary_attribute_icon_strength"));
 assert.equal(panels.get("PickPlayers").children.length,8);assert.equal(panels.get("PickPlayers").children[1].children[0].heroname,"hero2");
 ctx.RiftPickPath("magical");assert.equal(panels.get("PickAbilities").children[3].abilityname,"custom_magic");assert.equal(sent.length,0);
 ctx.RiftPickConfirm();ctx.RiftPickConfirm();assert.equal(sent.length,1);assert.equal(sent[0].d.hero,"hero5");

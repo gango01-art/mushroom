@@ -8,7 +8,7 @@ function RiftPickHero(name) {
 function RiftPickPath(path) { if(path!=="physical"&&path!=="magical") return; RiftPick.path=path; RiftPickRender(); }
 function RiftPickRender() {
   var h=RiftPick.hero;if(!h)return;
-  $("#PickPortrait").SetImage("file://{images}/heroes/selection/"+h.hero+".png");
+  $("#PickPortrait").heroname=h.hero;
   $("#PickHeroName").text=$.Localize("#"+h.hero);
   var d=h[RiftPick.path];
   $("#PickDetails").SetHasClass("Magical",RiftPick.path==="magical");
@@ -33,11 +33,19 @@ function RiftPickRoster(data) {
     var heroes=RiftPick.roster.filter(function(h){return (h.attribute||"strength")===attr;});
     if(!heroes.length)return;
     var group=$.CreatePanel("Panel",grid,"");group.AddClass("PickGroup");group.AddClass(attr);
-    var title=$.CreatePanel("Label",group,"");title.AddClass("PickGroupTitle");title.text=$.Localize("#rift_attribute_"+attr);
+    var header=$.CreatePanel("Panel",group,"");header.AddClass("PickGroupHeader");
+    var attributeIcon=$.CreatePanel("Image",header,"");attributeIcon.AddClass("PickAttributeIcon");
+    attributeIcon.SetImage("file://{images}/primary_attribute_icons/primary_attribute_icon_"+(attr==="universal"?"all":attr)+".psd");
+    var title=$.CreatePanel("Label",header,"");title.AddClass("PickGroupTitle");title.text=$.Localize("#rift_attribute_"+attr);
     var row=$.CreatePanel("Panel",group,"");row.AddClass("PickGroupRow");
     heroes.forEach(function(h){
       var p=$.CreatePanel("Button",row,"");p.AddClass("PickHero");p.hero=h.hero;
-      var img=$.CreatePanel("DOTAHeroImage",p,"");img.heroname=h.hero;img.heroimagestyle="landscape";
+      var img=$.CreatePanel("DOTAHeroImage",p,"");img.heroname=h.hero;img.heroimagestyle="portrait";
+      var movie=null;
+      p.SetPanelEvent("onmouseover",function(){
+        if(movie)return;movie=$.CreatePanel("DOTAHeroMovie",p,"");movie.AddClass("PickHeroMovie");movie.hittest=false;movie.heroname=h.hero;
+      });
+      p.SetPanelEvent("onmouseout",function(){if(movie){movie.DeleteAsync(0);movie=null;}});
       var label=$.CreatePanel("Label",p,"");label.text=$.Localize("#"+h.hero);
       p.SetPanelEvent("onactivate",function(){RiftPickHero(h.hero);});
     });

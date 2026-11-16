@@ -19,7 +19,8 @@ local function enemy(c, u, d)
 end
 function M.snapshot(c)
   return { attack = c:GetAverageTrueAttackDamage(nil), strength = c:GetStrength(),
-    intellect = c:GetIntellect(false), agility = c:GetAgility(), attack_speed=c:GetDisplayAttackSpeed() }
+    intellect = c:GetIntellect(false), agility = c:GetAgility(), attack_speed=c:GetDisplayAttackSpeed(),
+    mana_regen=c:GetManaRegen() }
 end
 local function timer(fn, delay)
   serial = serial + 1
@@ -33,6 +34,7 @@ function M.effect(d, pos, finish, lifetime)
   -- Native impact systems can spawn from a different CP than their controller.
   if d.effect_origin_cp then ParticleManager:SetParticleControl(p,d.effect_origin_cp,pos) end
   if d.radius then ParticleManager:SetParticleControl(p, 2, Vector(d.radius, 0, 0)) end
+  if d.effect_radius_cp then ParticleManager:SetParticleControl(p,d.effect_radius_cp,Vector(d.radius,0,0)) end
   timer(function()
     ParticleManager:DestroyParticle(p, false)
     ParticleManager:ReleaseParticleIndex(p)
@@ -105,7 +107,8 @@ function M.pulse(s, tick)
   local radius = s.radius + (d.expand or 0) * (tick - 1)
   local origin = s.origin
   if d.mode == "line" then launch_line(s,tick,origin,s.direction);return end
-  M.effect(d, pos + Vector(0,0,64), nil, d.interval)
+  local visual={};for k,v in pairs(d) do visual[k]=v end;visual.radius=radius
+  M.effect(visual, pos + Vector(0,0,64), nil, d.interval)
   for _, u in ipairs(units(s, pos, radius)) do
     local inside, distance = true, 0
     if d.mode == "line" then
@@ -213,7 +216,9 @@ local function sleight(s)
       c:StartGesture(ACT_DOTA_ATTACK)
       M.effect(d,u:GetAbsOrigin(),nil,d.interval)
       -- Real attacks: evasion and attack/item procs follow the normal engine path.
+      c._rift_sleight_attack=true
       c:PerformAttack(u,true,true,true,true,false,false,false)
+      c._rift_sleight_attack=nil
     end
     return d.interval
   end,0)
@@ -248,7 +253,7 @@ function M.cast(a, d)
     return
   end
   if d.mode == "stance" then
-    local mod = Mods.add(c, c, a, "modifier_rift_path_stance", { duration = d.duration })
+    local mod = Mods.add(c, c, a, "modifier_rift_path_stance", { duration = Math.rank(d.duration,a:GetLevel()) })
     if mod then mod.stats, mod.hits = s.stats, 0 end
     return
   end

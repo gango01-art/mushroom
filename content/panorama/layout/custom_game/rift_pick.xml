@@ -8,7 +8,7 @@
       <Panel class="PickBody">
         <Panel class="PickRoster"><Label class="PickSection" text="#rift_pick_roster" /><Label class="PickHelp" text="#rift_pick_help" /><Panel id="PickHeroes" class="PickHeroes" /><Label class="PickFooter" text="#rift_pick_path_hint" /></Panel>
         <Panel id="PickDetails" class="PickDetails">
-          <Panel class="PickShowcase"><Panel class="PickPortraitHalo" /><Image id="PickPortrait" class="PickPortrait" scaling="stretch-to-fit-preserve-aspect" hittest="false" /><Panel class="PickHeroIntro"><Label class="PickEyebrow" text="#rift_pick_selected_hero" /><Label id="PickHeroName" class="PickHeroName" /><Label class="PickHeroCaption" text="#rift_pick_hero_caption" /></Panel></Panel>
+          <Panel class="PickShowcase"><Panel class="PickPortraitHalo" /><DOTAHeroMovie id="PickPortrait" class="PickPortrait" hittest="false" /><Panel class="PickHeroIntro"><Label class="PickEyebrow" text="#rift_pick_selected_hero" /><Label id="PickHeroName" class="PickHeroName" /><Label class="PickHeroCaption" text="#rift_pick_hero_caption" /></Panel></Panel>
           <Panel class="PickPaths"><Button id="PickPhysical" class="PickPath" onactivate="RiftPickPath('physical')"><Label text="#rift_dir_physical" /></Button><Button id="PickMagical" class="PickPath" onactivate="RiftPickPath('magical')"><Label text="#rift_dir_magical" /></Button></Panel>
           <Panel id="PickAbilities" class="PickAbilities" />
           <Label id="PickPathName" class="PickPathName" />

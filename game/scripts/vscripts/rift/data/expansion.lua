@@ -34,13 +34,13 @@ hero("lina", "lina", "lina_laguna_blade", "lina_laguna_blade", {
 }, {
   mode = "zone", target = "point", cooldown = { 65, 55, 45 }, mana = { 175, 225, 275 },
   damage = { 45, 60, 75 }, intellect = 0.4, ticks = 3, interval = 0.65, delay = 0.9,
-  radius = 330, range = 800, slow = 15, expand = 65,
+  radius = 330, range = 800, slow = 15, expand = 65, effect_radius_cp=1, effect_origin_cp=3,
   particle = "particles/units/heroes/hero_lina/lina_spell_light_strike_array.vpcf", sound = "Ability.LightStrikeArray",
 })
 hero("juggernaut", "juggernaut", "juggernaut_omni_slash", "juggernaut_omni_slash", {
   mode = "sleight", target = "point", cooldown = { 40, 35, 30 }, mana = { 150, 175, 200 },
   damage = { 0, 0, 0 }, attack = { 1, 1, 1 }, interval = 0.2,
-  radius = 425, range = 700, max_targets = 12, hit_cdr = { 1, 1.5, 2 },
+  radius = 425, range = 700, max_targets = 12, hit_cdr = { 1, 1.5, 2 }, ordinary_hit_cdr=.1,
   particle = "particles/units/heroes/hero_juggernaut/juggernaut_omni_slash_tgt.vpcf", sound = "Hero_Juggernaut.OmniSlash",
 }, {
   mode = "orbit", target = "none", cooldown = { 50, 44, 38 }, mana = { 150, 175, 200 },
@@ -49,7 +49,7 @@ hero("juggernaut", "juggernaut", "juggernaut_omni_slash", "juggernaut_omni_slash
 })
 hero("cm", "crystal_maiden", "crystal_maiden_freezing_field", "crystal_maiden_freezing_field", {
   mode = "barrage", target = "none", cooldown = { 24, 22, 20 }, mana = { 100, 125, 150 },
-  damage = { 25, 40, 55 }, attack = { 0.35, 0.45, 0.55 }, ticks = 4, interval = 0.3,
+  damage = { 25, 40, 55 }, attack = { 0.35, 0.45, 0.55 }, mana_regen_damage=1, ticks = 4, interval = 0.3,
   radius = 800, range = 0, slow = 25,
   particle = "particles/units/heroes/hero_winter_wyvern/wyvern_splinter_blast.vpcf", sound = "Hero_Crystal.CrystalNova",
 }, {
@@ -60,7 +60,7 @@ hero("cm", "crystal_maiden", "crystal_maiden_freezing_field", "crystal_maiden_fr
 })
 hero("wr", "windrunner", "windrunner_focusfire", "windrunner_focusfire", {
   mode = "stance", target = "none", cooldown = { 45, 38, 31 }, mana = { 100, 125, 150 },
-  damage = { 15, 25, 35 }, attack = { 0.45, 0.6, 0.75 }, duration = 8, every = 2,
+  damage = { 15, 25, 35 }, attack = { 0.45, 0.6, 0.75 }, duration = {8,10,12}, every = 2,
   line = true, radius = 100, range = 900, attack_speed = { 20, 40, 60 },
   projectile_speed=3000, particle = "particles/units/heroes/hero_windrunner/windrunner_spell_powershot.vpcf", sound = "Ability.Powershot",
 }, {
@@ -77,7 +77,7 @@ hero("sven", "sven", "sven_gods_strength", "sven_gods_strength", {
   wave_particle="particles/units/heroes/hero_sven/sven_storm_bolt_projectile_explosion.vpcf",
   wave_origin_cp=3,
 }, {
-  mode = "zone", target = "point", cooldown = { 60, 52, 44 }, mana = { 150, 200, 250 },
+  mode = "zone", target = "point", cooldown = { 55, 40, 35 }, mana = { 150, 200, 250 },
   damage = { 80, 90, 100 }, strength = 0.65, ticks = 4, interval = 0.7, delay = 0.8,
   radius = 350, range = 650, stun = 0.75,
   particle = "particles/units/heroes/hero_sven/sven_storm_bolt_projectile_explosion.vpcf", sound = "Hero_Sven.StormBoltImpact",

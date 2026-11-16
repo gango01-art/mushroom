@@ -49,6 +49,25 @@ T.case("Sven native impact follows its CP3 contract away from the world origin i
   end
 end)
 
+T.case("Lina solar impact binds native ray endpoint to the cast away from world origin",function()
+  local S,c,u,a,d=setup("rift_lina_magical",3)
+  local particles={}
+  ParticleManager.CreateParticle=function(_,path)
+    particles[#particles+1]={path=path,controls={}};return #particles
+  end
+  ParticleManager.SetParticleControl=function(_,id,cp,value)particles[id].controls[cp]=value end
+  local point=Vector(10000,-7000,500)
+  require("rift.engine.path_combat").pulse({caster=c,ability=a,def=d,rank=3,
+    stats={intellect=50},point=point,origin=point,radius=d.radius},1)
+  T.ok(#particles>0)
+  for _,p in ipairs(particles)do
+    if p.path==d.particle then
+      T.eq(p.controls[3].x,point.x);T.eq(p.controls[3].y,point.y)
+      T.ok(p.controls[1].x<1000,"radius must not receive a world coordinate")
+    end
+  end
+end)
+
 T.case("alpha registry enables exactly eleven complete heroes", function()
   local reg = Registry.new(require("rift.data.upgrades"), require("rift.data.ultimate_directions"), { handlers = Effects.HANDLERS })
   T.eq(#reg:validate(), 0)
@@ -254,8 +273,8 @@ for rank=1,3 do
     local S,c,u,a=setup("rift_juggernaut_physical",rank)
     local m=S.lua_modifier("modifier_rift_attack_cooldowns",c,a)
     a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u})
-    T.eq(a:GetCooldownTimeRemaining(),10-E.abilities.rift_juggernaut_physical.hit_cdr[rank])
+    T.eq(a:GetCooldownTimeRemaining(),9.9)
     u.team=c.team;local left=a:GetCooldownTimeRemaining();m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),left)
-    u.team=3;a:StartCooldown(.2);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),0)
+    u.team=3;c._rift_sleight_attack=true;a:StartCooldown(.2);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),0)
   end)
 end

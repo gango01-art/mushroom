@@ -3,7 +3,7 @@
     _class = "CParticleSystemDefinition"
     m_nBehaviorVersion = 12
     m_nMaxParticles = 1
-    m_flConstantRadius = 9.0
+    m_flConstantRadius = 2.0
     m_flConstantLifespan = 0.2
     m_ConstantColor = [255, 211, 55, 255]
     m_Renderers = [
@@ -11,9 +11,15 @@
           m_ModelList = [{ m_model = resource:"models/projectiles/windrunner_arrow.vmdl" }]
           m_bAnimated = true m_bForceLoopingAnimation = true },
         { _class = "C_OP_RenderSprites" m_vecTexturesInput = [{ m_hTexture = resource:"materials/duality/lc_gold_glow.vtex" }]
+          m_flRadiusScale = 6.0
           m_flSelfIllumAmount = 1.0 m_flDiffuseAmount = 0.0 m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD" },
         { _class = "C_OP_RenderTrails" m_vecTexturesInput = [{ m_hTexture = resource:"materials/duality/lc_gold_glow.vtex" }]
-          m_flSelfIllumAmount = 1.0 m_flDiffuseAmount = 0.0 m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD" }
+          m_flRadiusScale = 2.5
+          m_flSelfIllumAmount = 1.0 m_flDiffuseAmount = 0.0 m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD" },
+        { _class = "C_OP_RenderDeferredLight"
+          m_flRadiusScale = 50.0 m_flAlphaScale = 2.0 m_flStartFalloff = 0.1
+          m_hTexture = resource:"materials/duality/lc_gold_glow.vtex"
+          m_vecColorScale = { m_nType = "PVEC_TYPE_LITERAL_COLOR" m_LiteralColor = [255, 211, 55, 255] } }
     ]
     m_Initializers = [
         { _class = "C_INIT_CreateWithinSphere" },

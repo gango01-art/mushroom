@@ -1,3 +1,12 @@
+## 2026-11-16 — второй проход: прицеливание, портреты и баланс
+
+- LC: каменная статуя Earth Spirit, компактные золотые стрелы с отдельными glow/trail и превью E. Lina: задан native конец лучей CP3, устраняющий эффект через всю карту. TA: native shield effect.
+- CM physical: mana regen damage 1:1. Jug ordinary CDR 0.1, series 1/1.5/2. PA physical attack CDR 1; magical dagger ограничен двумя целями, исправлен отложенный callback прока молнии.
+- Sven magical CD 55/40/35, WR physical duration 8/10/12; числовые RU/EN tooltips синхронизированы.
+- Native вертикальные портреты, hover movies и attribute icons в picker; выбор ветки остаётся на уровне 6.
+- Полигон всегда ждёт player-specific precache перед ReplaceHeroWith: прежняя boolean-отметка обходила барьер на повторных ветках/рангах. Native crash Juggernaut воспроизведён до исправления; после него шесть повторных замен завершились без нового dump.
+- 389 Lua-тестов, Node/KV/VFX/tooltips зелёные; native ResourceCompiler 17 outputs. Измерения Dota и ограничения: `docs/PLAYTEST_REVISION_2026-11-16.md`.
+
 ## 2026-11-16 — playtest: герои, выбор и визуал
 
 - Переработаны физические Axe/CM/Juggernaut; применены все последние указания баланса PA, LC, SF, Lina, Pudge, Sven, WR. Таблица чисел и точные ограничения: [BALANCE_PLAYTEST_2026-11-16.md](BALANCE_PLAYTEST_2026-11-16.md).

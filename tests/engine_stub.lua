@@ -37,6 +37,8 @@ function Unit:IsIllusion() return false end
 function Unit:IsReincarnating() return false end
 function Unit:IsInvulnerable() return self.mods.modifier_rift_lc_throne ~= nil end
 function Unit:IsMagicImmune() return self.immune or false end
+function Unit:IsAttackImmune() return self.props.AttackImmune or false end
+function Unit:GetManaRegen() return self.props.ManaRegen or 0 end
 function Unit:PassivesDisabled() return self.broken or false end
 function Unit:GetUnitName() return self.name end
 function Unit:GetAbsOrigin() return self.pos end
@@ -165,7 +167,7 @@ function S.install()
   _G.EntIndexToHScript = function(i) return S.by_index[i] end
   _G.GetGroundPosition = function(p) return p end
   _G.class = function(t) return t or {} end
-  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end,
+  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end, SetParticleControlEnt = function() end,
                          ReleaseParticleIndex = function() end, DestroyParticle = function() end }
   _G.FindUnitsInRadius = function(team, pos, _, radius)
     local out = {}

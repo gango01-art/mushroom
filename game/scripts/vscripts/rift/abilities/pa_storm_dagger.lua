@@ -1,5 +1,5 @@
--- PA magical Q: one owned tracking dagger and real attack per visible enemy
--- near the primary. One chain roll per cast; each landed victim is counted once.
+-- PA magical Q: primary and at most one nearby secondary tracking dagger.
+-- One chain roll per cast; each landed victim is counted once.
 -- Hidden native Stifling Dagger supplies its damage/slow values and talents.
 local B = require("rift.data.hero_balance").pa.storm_magical
 local Storm = require("rift.core.pa_storm_daggers")
@@ -61,12 +61,16 @@ function pa_storm_dagger:OnSpellStart()
   local found = FindUnitsInRadius(c:GetTeamNumber(), target:GetAbsOrigin(), nil, require("rift.engine.area").radius(c,B.second_target_radius),
     DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
     DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS, FIND_ANY_ORDER, false)
-  local targets, ids, seen = {target}, {target:entindex()}, {[target:entindex()]=true}
+  local targets, ids, candidates = {target}, {target:entindex()}, {}
   for _, e in ipairs(found) do
-    if not seen[e:entindex()] and e:IsAlive() and not e:IsInvulnerable() then
-      seen[e:entindex()]=true;targets[#targets+1]=e;ids[#ids+1]=e:entindex()
+    if e~=target and e:IsAlive() and not e:IsInvulnerable() and not e:IsMagicImmune() and not e:IsDebuffImmune() then
+      local pos=e:GetAbsOrigin()
+      candidates[#candidates+1]={id=e:entindex(),x=pos.x,y=pos.y,is_hero=e:IsHero()}
     end
   end
+  local second=Storm.pick_secondary(target:entindex(),target:GetAbsOrigin(),candidates,
+    require("rift.engine.area").radius(c,B.second_target_radius))
+  if second then targets[2]=EntIndexToHScript(second);ids[2]=second end
   local ult = c:FindAbilityByName("pa_storm_charge")
   local Bonus = require("rift.engine.build_bonus")
   local values = Storm.values_at(B, ult and ult:GetLevel() or 1, {

@@ -186,7 +186,7 @@ B.pa = {
 -- DR 2026-11-16: four-rank E replacements. AoE flat values are PD.
 B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_radius = { 10, 15, 20, 25 },
   sven_debuff = { 4, 8, 12, 16 }, jug_chance = 40, jug_multiplier = { 105, 110, 115, 120 },
-  pa_dagger_cdr = { 1, 1.5, 2 } }
+    pa_dagger_cdr = { 1, 1.5, 2 },pa_attack_cdr=1 }
 B.area = { item_efficiency = 0.5, max_fraction = 0.25 }
 B.axe = { helix_attacks={8,7,6,5}, pull_duration=.35 }
 B.lina = { burn_pct=50 }

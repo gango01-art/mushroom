@@ -9,8 +9,21 @@ function modifier_rift_ta_refraction:OnCreated()
   if not IsServer() then return end
   local a = self:GetAbility()
   self:SetStackCount(B.instances[math.max(1, math.min(4, a and a:GetLevel() or 1))])
+  if not self.shield_particle then
+    local parent=self:GetParent()
+    local p=ParticleManager:CreateParticle("particles/units/heroes/hero_templar_assassin/templar_assassin_refraction.vpcf",PATTACH_ABSORIGIN_FOLLOW,parent)
+    -- Native RingWave and PositionLock read CP1, not the automatic CP0.
+    ParticleManager:SetParticleControlEnt(p,1,parent,PATTACH_ABSORIGIN_FOLLOW,"",parent:GetAbsOrigin(),true)
+    self.shield_particle=p
+  end
 end
 function modifier_rift_ta_refraction:OnRefresh() self:OnCreated() end
+function modifier_rift_ta_refraction:OnDestroy()
+  if not IsServer() or not self.shield_particle then return end
+  ParticleManager:DestroyParticle(self.shield_particle,false)
+  ParticleManager:ReleaseParticleIndex(self.shield_particle)
+  self.shield_particle=nil
+end
 function modifier_rift_ta_refraction:DeclareFunctions() return { MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK } end
 function modifier_rift_ta_refraction:GetModifierTotal_ConstantBlock(kv)
   if not IsServer() or not kv or (kv.damage or 0) <= 0 then return 0 end

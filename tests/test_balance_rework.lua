@@ -1,5 +1,60 @@
 local Stub=require("engine_stub")
 local B=require("rift.data.hero_balance")
+T.case("CM physical gains one damage per point of snapshotted mana regeneration",function()
+ local d=require("rift.data.expansion").abilities.rift_cm_physical
+ local Math=require("rift.core.path_math")
+ T.eq(Math.damage(d,3,{attack=200,mana_regen=25})-Math.damage(d,3,{attack=200,mana_regen=0}),25)
+end)
+T.case("Juggernaut series records keep rank CDR while ordinary attacks only give 0.1",function()
+ local S=Stub.install();local c=S.hero("jug",0,2,Vector(0,0,0),{})
+ local u=S.hero("enemy",1,3,Vector(100,0,0),{})
+ local a=S.ability(3);function a:GetAbilityName()return "rift_juggernaut_physical" end
+ local m=S.lua_modifier("modifier_rift_attack_cooldowns",c,a)
+ a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),9.9)
+ c._rift_sleight_attack=true;m:OnAttackRecord({attacker=c,record=77});c._rift_sleight_attack=nil
+ m:OnAttackLanded({attacker=c,target=u,record=77,no_attack_cooldown=true});T.eq(a:GetCooldownTimeRemaining(),7.9)
+ m:OnAttackRecordDestroy({record=77});T.eq(m.sleight_records[77],nil)
+ m:OnAttackLanded({attacker=c,target=u,record=78,no_attack_cooldown=true});T.eq(a:GetCooldownTimeRemaining(),7.9)
+end)
+T.case("PA physical has one second CDR for ordinary attacks and retains dagger rank CDR without double counting",function()
+ local S=Stub.install();local c=S.hero("pa",0,2,Vector(0,0,0),{})
+ local u=S.hero("enemy",1,3,Vector(100,0,0),{})
+ local a=S.lua_ability("pa_phantom_execution",c,3);local m=S.lua_modifier("modifier_rift_attack_cooldowns",c,a)
+ a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),9)
+ local dagger=S.ability(4);function dagger:GetAbilityName()return "phantom_assassin_stifling_dagger" end
+ m:OnAbilityFullyCast({unit=c,ability=dagger});T.eq(a:GetCooldownTimeRemaining(),7)
+ m:OnAttackLanded({attacker=c,target=u,no_attack_cooldown=true});T.eq(a:GetCooldownTimeRemaining(),7)
+end)
+T.case("PA never-miss dagger can resolve before a deferred native attack event",function()
+ local S=Stub.install();local c=S.hero("pa",0,2,Vector(0,0,0),{Damage=120})
+ local u=S.hero("enemy",1,3,Vector(100,0,0),{})
+ T.ok(require("rift.engine.pa_dagger_attack").perform(c,u,80,.75))
+ u.props.AttackImmune=true;T.eq(require("rift.engine.pa_dagger_attack").perform(c,u,80,.75),false)
+end)
+T.case("PA magical launches only two daggers even in a crowd, preferring the nearest hero",function()
+ local S=Stub.install();local c=S.hero("pa",0,2,Vector(0,0,0),{})
+ local first=S.hero("first",1,3,Vector(100,0,0),{})
+ local second=S.hero("second",2,3,Vector(110,0,0),{})
+ S.hero("third",3,3,Vector(120,0,0),{});S.hero("fourth",4,3,Vector(130,0,0),{})
+ local a=S.lua_ability("pa_storm_dagger",c,4);function a:GetCursorTarget()return first end
+ a:OnSpellStart();T.eq(#S.projectiles,2);T.eq(S.projectiles[1].Target,first);T.eq(S.projectiles[2].Target,second)
+end)
+T.case("WR physical duration follows R rank 8/10/12",function()
+ local E=require("rift.data.expansion");local Math=require("rift.core.path_math")
+ for rank=1,3 do T.eq(Math.rank(E.abilities.rift_wr_physical.duration,rank),6+2*rank) end
+end)
+T.case("TA magic shield uses a native particle attached to the caster",function()
+ local S=Stub.install();local c=S.hero("ta",0,2,Vector(0,0,0),{})
+ local attachment,destroyed,released
+ ParticleManager.SetParticleControlEnt=function(_,id,cp,entity,kind)
+  attachment={id=id,cp=cp,entity=entity,kind=kind}
+ end
+ ParticleManager.DestroyParticle=function(_,id)destroyed=id end
+ ParticleManager.ReleaseParticleIndex=function(_,id)released=id end
+ local a=S.ability(4);local m=S.lua_modifier("modifier_rift_ta_refraction",c,a)
+ T.eq(attachment.cp,1);T.eq(attachment.entity,c);T.eq(attachment.kind,PATTACH_ABSORIGIN_FOLLOW)
+ m:OnDestroy();T.eq(destroyed,attachment.id);T.eq(released,attachment.id)
+end)
 T.case("guarded native API failure returns nil rather than an arithmetic-unsafe error string",function()
  local Log=require("rift.engine.log")
  T.eq(Log.try({call=function()error("native signature changed")end},"test","call"),nil)

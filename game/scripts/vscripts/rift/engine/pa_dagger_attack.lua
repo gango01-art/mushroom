@@ -14,6 +14,8 @@ function M.perform(caster,target,base,factor)
   local ok,err=pcall(caster.PerformAttack,caster,target,true,true,true,true,false,false,true)
   M.active=previous
   if not ok then require("rift.engine.log").error("PA","dagger attack: "..tostring(err)) end
-  return ok and s.landed
+  -- Never-miss spell attacks may dispatch OnAttackLanded after PerformAttack
+  -- returns. Count a successfully issued attack unless the target is attack-immune.
+  return ok and (s.landed or not target:IsAttackImmune())
 end
 return M

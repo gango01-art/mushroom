@@ -1,3 +1,17 @@
+# Актуальная передача — 2026-11-16 / второй проход playtest
+
+Новые правки, измерения native кд и ограничения: [PLAYTEST_REVISION_2026-11-16.md](PLAYTEST_REVISION_2026-11-16.md). Они заменяют старые значения в исторических записях ниже.
+
+- CM physical +1 damage за 1 mana/sec; Jug ordinary CDR 0.1 и series 1/1.5/2; PA ordinary CDR 1 и dagger 1/1.5/2 без двойного учёта; magical PA ровно 2 кинжала и исправлен отложенный callback прока.
+- Sven magic CD 55/40/35; WR physical duration 8/10/12. Native прогоны подтвердили значения, две цели PA, урон CM и 6 зарядов TA.
+- LC: каменный Earth Spirit, маленькие стрелы с отдельно масштабированными свечением/следом; превью E. Lina native CP3 исправляет лучи до начала карты. TA native shield precached. В picker добавлены вертикальные портреты/hover movies и иконки атрибутов.
+- Полный `tools/check.sh`: 389 passed, остальные проверки зелёные; ResourceCompiler 17 outputs. Backups `20261116-041713-0944`, `20261116-041856-9243` под `<Dota>/duality_backups/duality`.
+- Дополнительно воспроизведён native Juggernaut crash в particles.dll при повторной замене; перед ним pending/deleted cosmetic models. Удалён boolean-кеш, обходивший async precache. После перезапуска шесть замен base/physical/magical завершились без нового dump. Последние backups `20261116-043110-6476`, `20261116-043443-2846`.
+- Визуально подтверждены локальный эффект Lina и прикреплённый к CP1 щит TA; screenshots в новом отчёте. Picker показывает вертикальные портреты и attribute icons.
+- Статистический шанс PA, полный PvP/все предметы и навигация не подтверждены. Старый untracked operator log не добавлять. Ветка прежняя; `index.html` не трогать, Workshop не публиковать.
+
+---
+
 # Актуальная передача — 2026-11-16 / баланс, UI и VFX
 
 Рабочая копия: `C:\Games\anime\mushroom`, ветка `claude/pensive-curie-zvybbg`. Большой набор правок текущего playtest сохранён в рабочей ветке; актуальный идентификатор смотреть через `git log -1`. Не откатывать рабочее дерево и не добавлять старый сторонний `docs/operator_logs/2026-11-15_local_LC_physical.log`.

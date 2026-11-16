@@ -12,7 +12,7 @@ local function remove(u) if exists(u) then UTIL_Remove(u) end end
 
 function Lab.new(gm)
   local self=setmetatable({gm=gm,enabled=false,gallery={},targets={},last_request={},rank=3,free=false,
-    precached={},load_serial=0},Lab)
+    load_serial=0},Lab)
   self.roster,self.known=Policy.roster(gm.upgrades.registry)
   local settings=LoadKeyValues and LoadKeyValues("scripts/duality_local.kv") or {}
   self.autostart=gm.dev and settings and tostring(settings.auto_demo)=="1"
@@ -78,7 +78,9 @@ end
 function Lab:Select(hero_name,path)
   if not self.enabled or not self.known[hero_name] or not Policy.PATHS[path] then return false,"invalid_hero" end
   if self.loading then return false,"loading" end
-  if self.precached[hero_name] then return self:SelectReady(hero_name,path) end
+  -- A previous callback is not a resource lifetime guarantee. Replacing the
+  -- last instance can release player wearables; every replacement must await
+  -- the engine again (including another path/rank of the same hero).
   -- The bootstrap precaches default units, not this player's equipped wearables.
   -- ReplaceHeroWith must wait for the player-specific models AND particles.
   -- The Axe crash dump was an access violation in particles.dll immediately
@@ -104,7 +106,6 @@ function Lab:Select(hero_name,path)
   local ran,err=pcall(PrecacheUnitByNameAsync,hero_name,function()
     if not self.loading or self.load_serial~=serial then return end
     if not self:Allowed(pid) then complete(false,"not_allowed");return end
-    self.precached[hero_name]=true
     local called,ok,why=pcall(self.SelectReady,self,hero_name,path)
     if not called then Log.error("LAB",ok);complete(false,"internal_error")
     else complete(ok,why) end

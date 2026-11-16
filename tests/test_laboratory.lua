@@ -39,7 +39,10 @@ T.case("player cosmetics finish precaching before any old hero is removed",funct
  T.eq(f.selected[0]:GetUnitName(),"npc_dota_hero_axe")
  T.eq(f.gm.upgrades:DirectionId(0),"rift_axe_magical")
  local count=#f.precaches
- T.ok(f.gm.lab:Select("npc_dota_hero_axe","physical"));T.eq(#f.precaches,count)
+ local previous=f.selected[0]
+ T.ok(f.gm.lab:Select("npc_dota_hero_axe","physical"));T.eq(#f.precaches,count+1)
+ T.eq(f.selected[0],previous);T.ok(not previous:IsNull());T.ok(f.gm.lab.loading)
+ f.precache_callback();T.ok(previous:IsNull());T.eq(f.gm.upgrades:DirectionId(0),"rift_axe_physical")
 end)
 T.case("hero and rank clicks cannot race an in-progress resource load",function()
  local f=F.setup();f.gm.lab:Start(0);f.defer_precache=true

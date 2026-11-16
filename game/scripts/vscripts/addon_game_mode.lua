@@ -27,6 +27,7 @@ function Precache(context)
   PrecacheUnitByNameSync("npc_rift_ta_crystal", context)
   PrecacheUnitByNameSync("npc_rift_lc_champion", context)
   PrecacheUnitByNameSync("npc_rift_lc_statue", context)
+  PrecacheResource("particle","particles/units/heroes/hero_templar_assassin/templar_assassin_refraction.vpcf",context)
   PrecacheResource("particle", require("rift.data.hero_balance").lc.statue.arrow_particle, context)
   local pa = require("rift.data.hero_balance").pa
   PrecacheUnitByNameSync(pa.execution_physical.spirit_unit, context)

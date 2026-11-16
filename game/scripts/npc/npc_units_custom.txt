@@ -63,8 +63,8 @@
 	"npc_rift_lc_statue"
 	{
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/heroes/legion_commander/legion_commander.vmdl"
-		"ModelScale"				"1.25"
+		"Model"						"models/heroes/earth_spirit/stonesummon.vmdl"
+		"ModelScale"				"1.0"
 		"Level"						"1"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"

@@ -119,7 +119,7 @@ function M.summon(owner, ability, pos, level)
   u:SetBaseMaxHealth(hp); u:SetMaxHealth(hp); u:SetHealth(hp)
   u:SetPhysicalArmorBaseValue(B.statue.armor)
   u:SetBaseMagicalResistanceValue(B.statue.magic_resistance)
-  u:SetRenderColor(150, 150, 160)
+  u:SetRenderColor(255, 255, 255) -- native stone-remnant materials already supply the stone appearance
   u:SetForwardVector(owner:GetForwardVector())
   Mods.add(u, owner, ability, "modifier_rift_lc_statue", { duration = B.statue.lifetime + 1 })
   local rec = { pid = pid, owner = owner, unit = u, session = session, ability = ability,
