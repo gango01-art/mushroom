@@ -1,3 +1,16 @@
+# Актуальная передача — 2026-11-16 / таланты и оба Aghanim по веткам
+
+Таблица: [BRANCH_PROGRESSION.md](BRANCH_PROGRESSION.md). Native отчёт: [TALENTS_PLAYTEST_2026-11-16.md](TALENTS_PLAYTEST_2026-11-16.md).
+
+- 11 героев, два пути, по восемь native талантов; Scepter и Shard с разными эффектами пути. Выбор пути остаётся на первом R (ур.6). Уровни талантов 10/15/20/25, противоположные — 27/28/29/30.
+- Physical SF R base CD **40/35/30**. Числа всей новой системы — `hero_balance.lua`; генератор `tools/sync_progression.lua`, read-only sync включён в check.sh.
+- Native исправления: оставлять ровно восемь attribute abilities после смены пути (скрытые старые вызывали UpgradeName9 fatal). OnUpgrade не вмешивается в ReplaceHeroWith до завершения инициализации; защита от повторного refund. Полигон очищает унаследованные таланты и оставляет 4 очка.
+- Последний runner: 423 passed, 0 failed. Installer 166 PS5.1/PS7 mock; native ResourceCompiler 18 outputs. Подробные границы реального прогона в отчёте; полный PvP не объявлять проверенным.
+- Итоговый native прогон physical → magical после полного перезапуска: 22/22 путей, без прежнего цикла OnUpgrade. Настоящие применения: SF 18 с / regen 1.2, TA crystal 5 / radius 520, TA shield 8. Мышью проверены физическое SF и магическое Axe деревья; все сочетания талантов в PvP не проверены.
+- Не добавлять старый `docs/operator_logs/2026-11-15_local_LC_physical.log`; не трогать `index.html`, не публиковать Workshop.
+
+---
+
 # Актуальная передача — 2026-11-16 / привязка SF к HP и визуал обычных способностей
 
 Продолжение и точные границы проверки: [VISUAL_FOLLOWUP_2026-11-16.md](VISUAL_FOLLOWUP_2026-11-16.md).

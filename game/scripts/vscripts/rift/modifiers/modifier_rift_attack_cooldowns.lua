@@ -25,7 +25,7 @@ function modifier_rift_attack_cooldowns:OnAttackLanded(ev)
     local d=require("rift.data.expansion").abilities.rift_juggernaut_physical
     local sleight=p._rift_sleight_attack or (self.sleight_records and self.sleight_records[ev.record])
     if sleight then CD.reduce(a,d.hit_cdr[a:GetLevel()])
-    elseif not ev.no_attack_cooldown then CD.reduce(a,d.ordinary_hit_cdr) end
+    elseif not ev.no_attack_cooldown then CD.reduce(a,d.ordinary_hit_cdr+require("rift.engine.progression").get(p,"jug_attack_cdr")) end
   elseif name=="pa_phantom_execution" and not ev.no_attack_cooldown then
     CD.reduce(a,B.passives.pa_attack_cdr)
   end

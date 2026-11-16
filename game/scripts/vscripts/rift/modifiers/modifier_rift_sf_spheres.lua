@@ -23,7 +23,7 @@ function modifier_rift_sf_spheres:OnCreated()
   local p = self:GetParent()
   if p:IsIllusion() then self:Destroy(); return end -- illusions get no own sphere pool
   local a = self:GetAbility()
-  self.session = Spheres.start(B, math.max(1, a and a:GetLevel() or 1), GameRules:GetGameTime())
+  self.session = Spheres.start(self:Config(), math.max(1, a and a:GetLevel() or 1), GameRules:GetGameTime())
   self.records = {}
   self.raze_casts = {}
   self:SetStackCount(self.session.charges)
@@ -31,6 +31,13 @@ function modifier_rift_sf_spheres:OnCreated()
   self:UpdateWings()
   self:StartIntervalThink(0.1)
   self:UpdateOrbs()
+end
+function modifier_rift_sf_spheres:Config()
+  local cfg={};for k,v in pairs(B)do cfg[k]=v end
+  local P=require("rift.engine.progression");local p=self:GetParent()
+  cfg.duration=B.duration+P.get(p,"sf_duration")
+  cfg.sphere_regen={};for i,v in ipairs(B.sphere_regen)do cfg.sphere_regen[i]=math.max(.5,v-P.get(p,"sphere_regen_reduction"))end
+  return cfg
 end
 function modifier_rift_sf_spheres:UpdateWings()
   for _,fx in ipairs(self.fx or {})do
@@ -43,7 +50,7 @@ function modifier_rift_sf_spheres:UpdateWings()
 end
 function modifier_rift_sf_spheres:OnRefresh()
   if not IsServer() then return end
-  self.session:refresh(GameRules:GetGameTime())
+  self.session.cfg=self:Config();self.session:refresh(GameRules:GetGameTime())
   self:SetStackCount(self.session.charges)
   self:UpdateOrbs()
   self:UpdateWings()

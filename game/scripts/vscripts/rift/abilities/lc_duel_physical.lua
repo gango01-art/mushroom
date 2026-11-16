@@ -6,10 +6,10 @@ lc_duel_physical = lc_duel_physical or ((type(class) == "function") and class({}
 local function r(l) return math.max(1, math.min(3, l)) end
 function lc_duel_physical:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "duel_cooldown_reduction")
-  return math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut)
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut))
 end
 function lc_duel_physical:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
-function lc_duel_physical:GetCastRange() return B.cast_range end
+function lc_duel_physical:GetCastRange() return B.cast_range+require("rift.engine.progression").get(self:GetCaster(),"ult_cast_range") end
 
 function lc_duel_physical:CastFilterResultTarget(target)
   if target:IsIllusion() or not target:IsHero() then return UF_FAIL_CUSTOM end

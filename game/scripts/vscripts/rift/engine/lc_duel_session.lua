@@ -42,6 +42,7 @@ local function spawn_champion(owner, target)
   u:SetOwner(owner)  -- damage and kills are credited to the LC player
   -- Snapshot: damage, armor, max HP (same HP percent), 90% of effective attacks per second.
   local dmg = owner:GetAverageTrueAttackDamage(nil)
+  dmg=dmg*(1+require("rift.engine.progression").get(owner,"champion_damage_pct")/100)
   u:SetBaseDamageMin(dmg); u:SetBaseDamageMax(dmg)
   u:SetPhysicalArmorBaseValue(owner:GetPhysicalArmorValue(false))
   -- Upgrade "lc_champion_vigor": extra champion max HP (percent); HP percent stays LC's.

@@ -56,6 +56,7 @@ function Unit:StartGesture() end
 function Unit:StartGestureWithPlaybackRate() end
 function Unit:FadeGesture() end
 function Unit:SetCustomHealthLabel(text)self.health_label=text end
+function Unit:GetModifierStackCount(name)return self.mods[name]and self.mods[name].stacks or 0 end
 function Unit:RemoveHorizontalMotionController() end
 function Unit:Script_GetAttackRange() return 150 end
 function Unit:PerformAttack(target,orb,procs,skip,ignore,projectile,fake,never_miss)

@@ -7,7 +7,7 @@ function modifier_rift_lc_courage:GetTexture() return "legion_commander_moment_o
 function modifier_rift_lc_courage:DeclareFunctions() return {MODIFIER_EVENT_ON_ATTACK_LANDED,MODIFIER_EVENT_ON_TAKEDAMAGE} end
 function modifier_rift_lc_courage:OnTakeDamage(ev)
  if IsServer() and self.countering and ev.attacker==self:GetParent() and ev.unit==self.counter_target and not ev.inflictor then
-  self:GetParent():Heal(ev.damage*B.lifesteal[self:GetAbility():GetLevel()]/100,self:GetAbility())
+  self:GetParent():Heal(ev.damage*(B.lifesteal[self:GetAbility():GetLevel()]+require("rift.engine.progression").get(self:GetParent(),"courage_lifesteal"))/100,self:GetAbility())
   require("rift.engine.log").debug("LC","counterattack damage="..ev.damage.." lifesteal="..B.lifesteal[self:GetAbility():GetLevel()])
  end
 end
@@ -16,8 +16,9 @@ function modifier_rift_lc_courage:OnAttackLanded(ev)
  local c,a,u=self:GetParent(),self:GetAbility(),ev.target
  if ev.attacker~=c or self.countering or c:IsIllusion() or c:PassivesDisabled() or not u or u:IsNull()
   or u:GetTeamNumber()==c:GetTeamNumber() or u:IsBuilding() or u:IsOther() or a:GetLevel()<1 then return end
- self.hits=math.min(B.attacks[a:GetLevel()],self.hits+1);self:SetStackCount(self.hits)
- if self.hits<B.attacks[a:GetLevel()] or a:GetCooldownTimeRemaining()>0 then return end
+ local threshold=math.max(2,B.attacks[a:GetLevel()]-require("rift.engine.progression").get(c,"courage_attacks"))
+ self.hits=math.min(threshold,self.hits+1);self:SetStackCount(self.hits)
+ if self.hits<threshold or a:GetCooldownTimeRemaining()>0 then return end
  self.hits=0;self:SetStackCount(0);a:StartCooldown(B.cooldown)
  c:SetContextThink("rift_lc_courage",function()
   if c:IsNull() or not c:IsAlive() or c:PassivesDisabled() or c:IsDisarmed() or c:IsStunned()

@@ -198,6 +198,7 @@ function Adapter:ApplyToHero(hero, def)
   local ult = hero:FindAbilityByName(def.ultimate_ability_id)
   if ult then ult:SetActivated(true) end
   self:_ensure_modifiers(hero, def)
+  require("rift.engine.progression").ensure(hero,def.direction)
   return true
 end
 

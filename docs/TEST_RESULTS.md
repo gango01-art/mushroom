@@ -1,3 +1,13 @@
+# 2026-11-16 — native таланты, Scepter и Shard
+
+Полный отчёт: [TALENTS_PLAYTEST_2026-11-16.md](TALENTS_PLAYTEST_2026-11-16.md). 423 Lua-теста, Node HUD/picker/setup/ranges, KV/локализация/VFX/tooltips, read-only sync progression. Installer: 166 checks PS5.1/PS7 mock. Native ResourceCompiler: 18 outputs.
+
+В Dota вручную наблюдались физическое дерево SF, применение +20 damage и магическое дерево Axe с +2 mana/sec. Native UpgradeName9 fatal воспроизведён и исправлен удалением скрытых старых attribute abilities. Отдельно воспроизведено вмешательство OnUpgrade в ReplaceHeroWith с изученными физическими талантами; добавлены инициализационная/reentrancy guards и очистка талантов нового лабораторного героя. Финальные результаты native сценариев отражены в отчёте. Полный PvP/все комбинации не сертифицированы.
+
+Финальный clean-start native прогон: **22/22 physical → magical**, native ability upgrade callback, запрет противоположного выбора на 25-м уровне с сохранением очка, Scepter+Shard и все заявленные бонусы. Native SF R1/R2/R3 = **40/35/30**. Ещё **3/3 реальных применения**: SF duration=18, regen=1.2; TA crystal durability=5, radius=520; TA magical shield=8. В финальном логе нет Lua exceptions/нового fatal. Это отдельно от полного PvP и перебора всех комбинаций.
+
+---
+
 # 2026-11-16 — LC balance и SF health-bar counter
 
 Подробности: [VISUAL_FOLLOWUP_2026-11-16.md](VISUAL_FOLLOWUP_2026-11-16.md). LC native GetCooldown(-1) = 60/50/40, per_second = 1/1.3/1.6. Визуально наблюдались счётчик SF над HP, крылья, эффект Meld и движения Sven; позиция Courage исправлена после выявленного появления вне героя.

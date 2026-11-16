@@ -1,3 +1,4 @@
+#base "npc_progression_abilities.txt"
 // Custom abilities. Numbers (cooldown, mana, radius) come from Lua
 // (rift/data/hero_balance.lua) via GetCooldown/GetManaCost/GetAOERadius - not duplicated here.
 "DOTAAbilities"
@@ -15,6 +16,10 @@
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_duration" "6"
@@ -118,6 +123,10 @@
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_base_damage" "100 160 220"
@@ -142,6 +151,10 @@
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_PHYSICAL"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_6"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_attack_pct" "60"
@@ -170,6 +183,10 @@
 		"AbilityCastRange"		"800"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_2"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_attack_cdr" "1"
@@ -188,6 +205,10 @@
 		"LevelsBetweenUpgrades"	"6"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"	"DAMAGE_TYPE_MAGICAL"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_base_damage" "300 380 460"
@@ -237,6 +258,10 @@
 		"AbilityCastRange"		"550"
 		"AbilityCastPoint"		"0.3"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_4"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_champion_speed_pct" "90"
@@ -280,6 +305,10 @@
 		"AbilityCastRange"		"500"
 		"AbilityCastPoint"		"0.2"
 		"AbilityCastAnimation"	"ACT_DOTA_CAST_ABILITY_3"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
 			"path_base_damage" "60 90 120 150"
@@ -307,6 +336,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "0"
 		"AbilityCooldown" "38 32 26"
@@ -333,6 +366,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "600"
@@ -366,6 +403,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastRange" "1050"
 		"AbilityCooldown" "45 38 31"
@@ -395,6 +436,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "800"
@@ -427,6 +472,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "700"
 		"AbilityCooldown" "40 35 30"
@@ -457,6 +506,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "0"
 		"AbilityCooldown" "50 44 38"
@@ -485,6 +538,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "0"
@@ -515,6 +572,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "650"
@@ -548,6 +609,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "900"
 		"AbilityCooldown" "45 38 31"
@@ -576,6 +641,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastRange" "1200"
@@ -608,6 +677,10 @@
 		"AbilityUnitDamageType" "DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "0"
 		"AbilityCooldown" "55 48 41"
@@ -635,6 +708,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "650"
@@ -668,6 +745,10 @@
 		"AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_YES"
 
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
+
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityCastRange" "300"
 		"AbilityCooldown" "45 38 31"
@@ -698,6 +779,10 @@
 		"AbilityCastPoint" "0.3"
 		"AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+
+ "HasScepterUpgrade" "1"
+
+ "HasShardUpgrade" "1"
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "550"

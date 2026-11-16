@@ -15,12 +15,15 @@ function modifier_rift_ta_crystal:OnCreated()
   if not IsServer() then return end
   local ability = self:GetAbility()
   self.owner = self:GetCaster()
-  self.session = Crystal.new(B, math.max(1, ability and ability:GetLevel() or 1), GameRules:GetGameTime())
-  self.radius=require("rift.engine.area").radius(self.owner,self.session:radius())
+  local cfg={};for k,v in pairs(B)do cfg[k]=v end
+  cfg.durability=B.durability+require("rift.engine.progression").get(self.owner,"crystal_durability")
+  cfg.lifetime=B.lifetime+require("rift.engine.progression").get(self.owner,"crystal_lifetime")
+  self.session = Crystal.new(cfg, math.max(1, ability and ability:GetLevel() or 1), GameRules:GetGameTime())
+  self.radius=require("rift.engine.area").radius(self.owner,require("rift.engine.progression").radius(self.owner,ability,self.session:radius()))
   local p = self:GetParent()
-  p:SetBaseMaxHealth(B.durability)
-  p:SetMaxHealth(B.durability)
-  p:SetHealth(B.durability)
+  p:SetBaseMaxHealth(cfg.durability)
+  p:SetMaxHealth(cfg.durability)
+  p:SetHealth(cfg.durability)
 end
 
 function modifier_rift_ta_crystal:CheckState()

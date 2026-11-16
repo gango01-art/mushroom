@@ -5,13 +5,13 @@ sf_requiem_physical = sf_requiem_physical or ((type(class) == "function") and cl
 local function r(l) return math.max(1, math.min(3, l)) end
 function sf_requiem_physical:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "requiem_cooldown_reduction")
-  return math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut)
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut))
 end
 function sf_requiem_physical:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
 -- Cosmetic sphere flight; damage remains tied to the original attack record.
 function sf_requiem_physical:OnProjectileHit_ExtraData() return true end
 function sf_requiem_physical:OnSpellStart()
   local c = self:GetCaster()
-  require("rift.engine.mods").add(c, c, self, "modifier_rift_sf_spheres", { duration = B.duration })
+  require("rift.engine.mods").add(c, c, self, "modifier_rift_sf_spheres", { duration = B.duration+require("rift.engine.progression").get(c,"sf_duration") })
   EmitSoundOn("Hero_Nevermore.RequiemOfSoulsCast", c)
 end

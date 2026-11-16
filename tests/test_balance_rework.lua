@@ -127,7 +127,7 @@ T.case("LC buff tooltips expose actual fractional damage and spell amplification
 end)
 T.case("current-rank getters handle the engine sentinel on original custom ultimates",function()
   local S=Stub.install();local c=S.hero("caster",0,2,Vector(0,0,0),{})
-  local cases={pa_phantom_execution={24,20,16},lc_duel_physical={60,50,40},sf_requiem_physical={80,70,60},ta_psionic_crystal={10,9,8},ta_psionic_blast={14,12,10}}
+  local cases={pa_phantom_execution={24,20,16},lc_duel_physical={60,50,40},sf_requiem_physical={40,35,30},ta_psionic_crystal={10,9,8},ta_psionic_blast={14,12,10}}
   for name,cd in pairs(cases) do for rank=1,3 do
     local a=S.lua_ability(name,c,rank);T.eq(a:GetCooldown(-1),cd[rank]);T.eq(a:GetCooldown(rank-1),cd[rank])
   end end

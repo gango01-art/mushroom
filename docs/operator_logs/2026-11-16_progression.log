@@ -1,0 +1,35 @@
+Native Dota Workshop Tools observations, addon duality, 2026-11-16 Moscow time.
+Final clean-start physical -> magical sequence; explicit native ability upgrade callback in lab, not manual UI clicks for all 22.
+Manual native tree selection checked separately on SF physical (+20 attack damage) and Axe magical (+2 mana/sec).
+Stock optional resource/attachment warnings are outside this feature.
+
+11/16 18:02:49 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_axe physical talents=4 scepter=true shard=true
+11/16 18:02:51 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_axe magical talents=4 scepter=true shard=true
+11/16 18:02:53 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_crystal_maiden physical talents=4 scepter=true shard=true
+11/16 18:02:54 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_crystal_maiden magical talents=4 scepter=true shard=true
+11/16 18:02:56 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_juggernaut physical talents=4 scepter=true shard=true
+11/16 18:02:58 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_juggernaut magical talents=4 scepter=true shard=true
+11/16 18:02:59 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_legion_commander physical talents=4 scepter=true shard=true
+11/16 18:03:01 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_legion_commander magical talents=4 scepter=true shard=true
+11/16 18:03:03 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_lina physical talents=4 scepter=true shard=true
+11/16 18:03:04 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_lina magical talents=4 scepter=true shard=true
+11/16 18:03:05 [VScript] [RIFT][PROGRESSION] SF R1 cooldown=40
+11/16 18:03:05 [VScript] [RIFT][PROGRESSION] SF R2 cooldown=35
+11/16 18:03:05 [VScript] [RIFT][PROGRESSION] SF R3 cooldown=30
+11/16 18:03:06 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_nevermore physical talents=4 scepter=true shard=true
+11/16 18:03:08 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_nevermore magical talents=4 scepter=true shard=true
+11/16 18:03:10 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_phantom_assassin physical talents=4 scepter=true shard=true
+11/16 18:03:11 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_phantom_assassin magical talents=4 scepter=true shard=true
+11/16 18:03:13 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_pudge physical talents=4 scepter=true shard=true
+11/16 18:03:15 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_pudge magical talents=4 scepter=true shard=true
+11/16 18:03:17 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_sven physical talents=4 scepter=true shard=true
+11/16 18:03:18 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_sven magical talents=4 scepter=true shard=true
+11/16 18:03:20 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_templar_assassin physical talents=4 scepter=true shard=true
+11/16 18:03:22 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_templar_assassin magical talents=4 scepter=true shard=true
+11/16 18:03:24 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_windrunner physical talents=4 scepter=true shard=true
+11/16 18:03:26 [VScript] [RIFT][PROGRESSION] PASS npc_dota_hero_windrunner magical talents=4 scepter=true shard=true
+11/16 18:03:26 [VScript] [RIFT][PROGRESSION] DONE 22/22
+11/16 18:04:46 [VScript] [RIFT][PROGRESSION_CAST] SF duration=17.90 regen=1.20
+11/16 18:04:49 [VScript] [RIFT][PROGRESSION_CAST] TA crystal durability=5 radius=520
+11/16 18:04:53 [VScript] [RIFT][PROGRESSION_CAST] TA shield charges=8
+11/16 18:04:56 [VScript] [RIFT][PROGRESSION_CAST] DONE 3/3

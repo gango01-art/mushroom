@@ -72,7 +72,7 @@ B.sf = {
     sphere_damage_fraction = 0.60,            -- DR of attack damage (no crit multiplier)
     sphere_regen = { 1.8, 1.65, 1.5 },        -- [ult] PD seconds per sphere (DR: 1.5 at max rank)
     raze_bonus_fraction = { 0.40, 0.60, 0.80 },-- [ult] PD of attack damage, physical (DR: 80% at max)
-    cooldown = { 80, 70, 60 },                -- [ult] PD
+    cooldown = { 40, 35, 30 },                -- [ult] OWNER 2026-11-16
     mana = { 150, 175, 200 },                 -- [ult] PD
     -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
     wings_particle = "particles/duality/sf_wings.vpcf", -- native wing model, instant visibility for the whole buff
@@ -199,4 +199,86 @@ B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.
   effect_lifetime=.6, gesture_rate=2.2 }
 B.lc.duel_physical.cyclone_height=300
 B.lc.duel_physical.cyclone_turn_speed=540
+
+-- First branch talent/Scepter/Shard balance pass (PD unless marked OWNER).
+-- Eight native talents: two choices at hero levels 10/15/20/25.
+-- Percent reductions are capped; radius bonuses do not increase pulse counts.
+B.progression={levels={10,15,20,25},opposite_levels={27,28,29,30},cooldown_cap_pct=35,radius_cap_fraction=.20,
+  heroes={},stats={physical={20,200,25,20},magical={2,200,6,100}}}
+local function progression(hero,physical,magical)
+  B.progression.heroes["npc_dota_hero_"..hero]={physical=physical,magical=magical}
+end
+-- ult = the branch's primary custom ability (LC magical uses E).
+-- signature = level-25 right talent; power = level-25 left talent.
+progression("axe",
+ {ult="rift_axe_physical",power={ult_damage_pct=25},signature={pull_distance=100},
+  scepter={ult_damage_pct=20,ult_radius=60},shard={ult_cooldown_pct=10}},
+ {ult="rift_axe_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("crystal_maiden",
+ {ult="rift_cm_physical",power={ult_damage_pct=25},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=80},shard={mana_regen=4}},
+ {ult="rift_cm_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("juggernaut",
+ {ult="rift_juggernaut_physical",power={attack_damage=40},signature={jug_attack_cdr=.05},
+  scepter={ult_radius=80,ult_cooldown_pct=10},shard={jug_attack_cdr=.05}},
+ {ult="rift_juggernaut_magical",power={ult_damage_pct=20},signature={ult_ticks=2},
+  scepter={ult_ticks=2,ult_radius=60},shard={ult_cooldown_pct=10}})
+progression("legion_commander",
+ {ult="lc_duel_physical",unit_target=true,power={champion_health_pct=25},signature={courage_lifesteal=10},
+  scepter={champion_health_pct=35,champion_damage_pct=15},shard={courage_attacks=1}},
+ {ult="lc_statue",power={statue_arrow_bonus=40},signature={statue_cooldown_reduction=2},
+  scepter={statue_arrow_bonus=60,statue_beam_range=150},shard={statue_cooldown_reduction=2}})
+progression("lina",
+ {ult="rift_lina_physical",power={ult_damage_pct=25},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=20},shard={ult_cooldown_pct=10}},
+ {ult="rift_lina_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("nevermore",
+ {ult="sf_requiem_physical",power={sphere_damage_pct=25},signature={sf_duration=3},
+  scepter={sphere_damage_pct=25,sf_duration=3},shard={sphere_regen_reduction=.3}},
+ {ult="nevermore_requiem",power={ring_damage_bonus=50},signature={ring_radius=20},
+  scepter={ring_damage_bonus=80,ring_radius=20},shard={ult_cooldown_pct=10}})
+progression("phantom_assassin",
+ {ult="pa_phantom_execution",unit_target=true,power={spirit_crit_bonus=50},signature={spirit_cooldown_reduction=4},
+  scepter={spirit_crit_bonus=60,ult_cast_range=150},shard={spirit_cooldown_reduction=3}},
+ {ult="pa_storm_charge",power={chain_damage_bonus=100},signature={chain_chance_bonus_pct=4},
+  scepter={chain_damage_bonus=120},shard={chain_chance_bonus_pct=5}})
+progression("pudge",
+ {ult="rift_pudge_physical",unit_target=true,power={ult_damage_pct=25},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_cast_range=100},shard={ult_cooldown_pct=10}},
+ {ult="rift_pudge_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("sven",
+ {ult="rift_sven_physical",power={ult_damage_pct=25},signature={ult_duration=3},
+  scepter={ult_duration=3,ult_radius=50},shard={ult_cooldown_pct=10}},
+ {ult="rift_sven_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("templar_assassin",
+ {ult="ta_psionic_crystal",power={crystal_durability=1},signature={crystal_lifetime=3},
+  scepter={crystal_durability=2,ult_radius=60},shard={crystal_cooldown_reduction=1}},
+ {ult="ta_psionic_blast",unit_target=true,power={blast_damage_bonus=120},signature={refraction_instances=2},
+  scepter={blast_damage_bonus=150,ult_radius=60},shard={refraction_instances=2}})
+progression("windrunner",
+ {ult="rift_wr_physical",power={ult_damage_pct=25},signature={ult_duration=3},
+  scepter={ult_duration=3,ult_radius=20},shard={ult_cooldown_pct=10}},
+ {ult="rift_wr_magical",power={ult_damage_pct=20},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=25},shard={ult_cooldown_pct=10}})
+for _,hero in pairs(B.progression.heroes)do
+  for path,d in pairs(hero)do
+    local s=B.progression.stats[path]
+    d.talents={
+      {[path=="physical" and "attack_damage" or "mana_regen"]=s[1]}, {health=s[2]},
+      {[path=="physical" and "attack_speed" or "spell_amp"]=s[3]},
+      {[path=="physical" and "move_speed" or "cast_range"]=s[4]},
+      {[d.unit_target and "ult_cast_range" or "ult_radius"]=d.unit_target and 100 or 40},
+      path=="magical" and d.ult=="pa_storm_charge" and {chain_chance_bonus_pct=3} or {ult_cooldown_pct=10},
+      d.power,d.signature,
+    }
+  end
+end
+B.progression.heroes.npc_dota_hero_nevermore.physical.talents[5]={sphere_regen_reduction=.15}
+B.progression.heroes.npc_dota_hero_nevermore.magical.talents[5]={ring_radius=15}
+B.progression.heroes.npc_dota_hero_phantom_assassin.magical.talents[5]={chain_damage_bonus=60}
 return B

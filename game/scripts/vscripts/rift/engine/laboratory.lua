@@ -59,7 +59,7 @@ function Lab:MaxAbilities(hero)
       elseif max>0 and max<=4 then a:SetLevel(max) end
     end
   end
-  hero:SetAbilityPoints(0)
+  hero:SetAbilityPoints(4) -- native 10/15/20/25 talent choices remain testable
 end
 function Lab:Refresh(hero)
   if not exists(hero) then return end
@@ -139,6 +139,10 @@ function Lab:SelectReady(hero_name,path)
   self.gm.upgrades.directions.locked[pid]=nil
   self.gm.upgrades.directions.applied[pid]=nil
   self.gm.upgrades:AddPlayer(pid,hero)
+  for i=0,hero:GetAbilityCount()-1 do
+    local talent=hero:GetAbilityByIndex(i)
+    if talent and talent:GetAbilityName():find("special_bonus_duality_",1,true)then talent:SetLevel(0)end
+  end
   self:MaxAbilities(hero)
   if path~="base" then
     local d=self.gm.upgrades.registry:hero_directions(hero_name)[path]

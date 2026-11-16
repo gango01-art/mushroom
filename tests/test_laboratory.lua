@@ -72,7 +72,7 @@ end)
 T.case("lab start prepares 11 gallery actors, target, level 25 and no direction offer",function()
  local f=F.setup();local ok=f.gm.lab:Start(0);T.ok(ok)
  T.eq(#f.gm.lab.gallery,11);T.eq(#f.gm.lab.targets,1)
- T.eq(f.selected[0]:GetLevel(),25);T.eq(f.selected[0].props.AbilityPoints,0)
+ T.eq(f.selected[0]:GetLevel(),25);T.eq(f.selected[0].props.AbilityPoints,4)
  T.ok(f.relic_ended);T.eq(f.gm.upgrades.offers:visible(0),nil)
  for _,u in ipairs(f.gm.lab.gallery) do T.ok(u:HasModifier("modifier_rift_lab_display"));T.eq(u:GetLevel(),25) end
 end)

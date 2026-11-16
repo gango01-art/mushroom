@@ -3,6 +3,7 @@
 -- addon_game_mode.lua are NOT visible to required modules (verified in Dota), so
 -- the list lives in a module.
 local M = {
+  "modifier_rift_progression",
   "modifier_rift_damage_tracker",
   "modifier_rift_spawn_shield",
   "modifier_rift_attack_probe",

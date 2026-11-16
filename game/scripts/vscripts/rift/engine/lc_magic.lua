@@ -85,14 +85,15 @@ local function step(rec)
     rec.inflight[shot]={}
     for ray,dir in ipairs(rays) do
       rec.inflight[shot][ray]=true
-      local finish=origin+Vector(dir.x,dir.y,0)*B.statue.beam_range
-      local width=require("rift.engine.area").radius(rec.owner,B.statue.beam_half_width)
+      local range=B.statue.beam_range+require("rift.engine.progression").get(rec.owner,"statue_beam_range")
+      local finish=origin+Vector(dir.x,dir.y,0)*range
+      local width=require("rift.engine.area").radius(rec.owner,require("rift.engine.progression").radius(rec.owner,rec.ability,B.statue.beam_half_width))
       ProjectileManager:CreateLinearProjectile({
         Ability=rec.ability,Source=u,EffectName=B.statue.arrow_particle,
-        vSpawnOrigin=origin+Vector(0,0,64),fDistance=B.statue.beam_range,
+        vSpawnOrigin=origin+Vector(0,0,64),fDistance=range,
         fStartRadius=width,fEndRadius=width,
         vVelocity=Vector(dir.x,dir.y,0)*B.statue.arrow_speed,
-        fExpireTime=now+B.statue.beam_range/B.statue.arrow_speed+0.5,
+        fExpireTime=now+range/B.statue.arrow_speed+0.5,
         bDeleteOnHit=false,bHasFrontalCone=false,bReplaceExisting=false,bProvidesVision=false,
         iUnitTargetTeam=DOTA_UNIT_TARGET_TEAM_ENEMY,
         iUnitTargetType=DOTA_UNIT_TARGET_HERO+DOTA_UNIT_TARGET_BASIC,

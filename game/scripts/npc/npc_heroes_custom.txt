@@ -1,0 +1,125 @@
+// Generated native talent slots. Q/W/E/R, innates and facets are inherited.
+"DOTAHeroes"
+{
+ "npc_dota_hero_axe"
+ {
+  "Ability10" "special_bonus_duality_axe_physical_1"
+  "Ability11" "special_bonus_duality_axe_physical_2"
+  "Ability12" "special_bonus_duality_axe_physical_3"
+  "Ability13" "special_bonus_duality_axe_physical_4"
+  "Ability14" "special_bonus_duality_axe_physical_5"
+  "Ability15" "special_bonus_duality_axe_physical_6"
+  "Ability16" "special_bonus_duality_axe_physical_7"
+  "Ability17" "special_bonus_duality_axe_physical_8"
+ }
+ "npc_dota_hero_crystal_maiden"
+ {
+  "Ability10" "special_bonus_duality_crystal_maiden_physical_1"
+  "Ability11" "special_bonus_duality_crystal_maiden_physical_2"
+  "Ability12" "special_bonus_duality_crystal_maiden_physical_3"
+  "Ability13" "special_bonus_duality_crystal_maiden_physical_4"
+  "Ability14" "special_bonus_duality_crystal_maiden_physical_5"
+  "Ability15" "special_bonus_duality_crystal_maiden_physical_6"
+  "Ability16" "special_bonus_duality_crystal_maiden_physical_7"
+  "Ability17" "special_bonus_duality_crystal_maiden_physical_8"
+ }
+ "npc_dota_hero_juggernaut"
+ {
+  "Ability10" "special_bonus_duality_juggernaut_physical_1"
+  "Ability11" "special_bonus_duality_juggernaut_physical_2"
+  "Ability12" "special_bonus_duality_juggernaut_physical_3"
+  "Ability13" "special_bonus_duality_juggernaut_physical_4"
+  "Ability14" "special_bonus_duality_juggernaut_physical_5"
+  "Ability15" "special_bonus_duality_juggernaut_physical_6"
+  "Ability16" "special_bonus_duality_juggernaut_physical_7"
+  "Ability17" "special_bonus_duality_juggernaut_physical_8"
+ }
+ "npc_dota_hero_legion_commander"
+ {
+  "Ability10" "special_bonus_duality_legion_commander_physical_1"
+  "Ability11" "special_bonus_duality_legion_commander_physical_2"
+  "Ability12" "special_bonus_duality_legion_commander_physical_3"
+  "Ability13" "special_bonus_duality_legion_commander_physical_4"
+  "Ability14" "special_bonus_duality_legion_commander_physical_5"
+  "Ability15" "special_bonus_duality_legion_commander_physical_6"
+  "Ability16" "special_bonus_duality_legion_commander_physical_7"
+  "Ability17" "special_bonus_duality_legion_commander_physical_8"
+ }
+ "npc_dota_hero_lina"
+ {
+  "Ability10" "special_bonus_duality_lina_physical_1"
+  "Ability11" "special_bonus_duality_lina_physical_2"
+  "Ability12" "special_bonus_duality_lina_physical_3"
+  "Ability13" "special_bonus_duality_lina_physical_4"
+  "Ability14" "special_bonus_duality_lina_physical_5"
+  "Ability15" "special_bonus_duality_lina_physical_6"
+  "Ability16" "special_bonus_duality_lina_physical_7"
+  "Ability17" "special_bonus_duality_lina_physical_8"
+ }
+ "npc_dota_hero_nevermore"
+ {
+  "Ability10" "special_bonus_duality_nevermore_physical_1"
+  "Ability11" "special_bonus_duality_nevermore_physical_2"
+  "Ability12" "special_bonus_duality_nevermore_physical_3"
+  "Ability13" "special_bonus_duality_nevermore_physical_4"
+  "Ability14" "special_bonus_duality_nevermore_physical_5"
+  "Ability15" "special_bonus_duality_nevermore_physical_6"
+  "Ability16" "special_bonus_duality_nevermore_physical_7"
+  "Ability17" "special_bonus_duality_nevermore_physical_8"
+ }
+ "npc_dota_hero_phantom_assassin"
+ {
+  "Ability10" "special_bonus_duality_phantom_assassin_physical_1"
+  "Ability11" "special_bonus_duality_phantom_assassin_physical_2"
+  "Ability12" "special_bonus_duality_phantom_assassin_physical_3"
+  "Ability13" "special_bonus_duality_phantom_assassin_physical_4"
+  "Ability14" "special_bonus_duality_phantom_assassin_physical_5"
+  "Ability15" "special_bonus_duality_phantom_assassin_physical_6"
+  "Ability16" "special_bonus_duality_phantom_assassin_physical_7"
+  "Ability17" "special_bonus_duality_phantom_assassin_physical_8"
+ }
+ "npc_dota_hero_pudge"
+ {
+  "Ability10" "special_bonus_duality_pudge_physical_1"
+  "Ability11" "special_bonus_duality_pudge_physical_2"
+  "Ability12" "special_bonus_duality_pudge_physical_3"
+  "Ability13" "special_bonus_duality_pudge_physical_4"
+  "Ability14" "special_bonus_duality_pudge_physical_5"
+  "Ability15" "special_bonus_duality_pudge_physical_6"
+  "Ability16" "special_bonus_duality_pudge_physical_7"
+  "Ability17" "special_bonus_duality_pudge_physical_8"
+ }
+ "npc_dota_hero_sven"
+ {
+  "Ability10" "special_bonus_duality_sven_physical_1"
+  "Ability11" "special_bonus_duality_sven_physical_2"
+  "Ability12" "special_bonus_duality_sven_physical_3"
+  "Ability13" "special_bonus_duality_sven_physical_4"
+  "Ability14" "special_bonus_duality_sven_physical_5"
+  "Ability15" "special_bonus_duality_sven_physical_6"
+  "Ability16" "special_bonus_duality_sven_physical_7"
+  "Ability17" "special_bonus_duality_sven_physical_8"
+ }
+ "npc_dota_hero_templar_assassin"
+ {
+  "Ability10" "special_bonus_duality_templar_assassin_physical_1"
+  "Ability11" "special_bonus_duality_templar_assassin_physical_2"
+  "Ability12" "special_bonus_duality_templar_assassin_physical_3"
+  "Ability13" "special_bonus_duality_templar_assassin_physical_4"
+  "Ability14" "special_bonus_duality_templar_assassin_physical_5"
+  "Ability15" "special_bonus_duality_templar_assassin_physical_6"
+  "Ability16" "special_bonus_duality_templar_assassin_physical_7"
+  "Ability17" "special_bonus_duality_templar_assassin_physical_8"
+ }
+ "npc_dota_hero_windrunner"
+ {
+  "Ability10" "special_bonus_duality_windrunner_physical_1"
+  "Ability11" "special_bonus_duality_windrunner_physical_2"
+  "Ability12" "special_bonus_duality_windrunner_physical_3"
+  "Ability13" "special_bonus_duality_windrunner_physical_4"
+  "Ability14" "special_bonus_duality_windrunner_physical_5"
+  "Ability15" "special_bonus_duality_windrunner_physical_6"
+  "Ability16" "special_bonus_duality_windrunner_physical_7"
+  "Ability17" "special_bonus_duality_windrunner_physical_8"
+ }
+}

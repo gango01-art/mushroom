@@ -237,7 +237,10 @@ T.case("client-side AoE preview reads the replicated modifier without server inv
   local S,c,_,a=setup("rift_lina_magical")
   c.GetItemInSlot=false
   c.FindModifierByName=false
-  function c:GetModifierStackCount(name)T.eq(name,"modifier_rift_area_items");return 150 end
+  function c:GetModifierStackCount(name)
+    if name=="modifier_rift_progression"then return 0 end
+    T.eq(name,"modifier_rift_area_items");return 150
+  end
   T.eq(a:GetAOERadius(),405)
 end)
 T.case("Sven custom stun gets outgoing duration amplification once; Break disables it",function()

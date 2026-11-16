@@ -121,6 +121,7 @@ function M.stance_attack(mod, ev)
   local c, a = mod:GetParent(), mod:GetAbility()
   if not valid(c) or ev.attacker ~= c or not a or a:IsNull() or c:IsIllusion() or not open() then return end
   local d = E.abilities[a:GetAbilityName()]
+  d=d and require("rift.engine.progression").profile(c,a,d)
   -- OnAttackLanded can arrive after the attack killed its primary victim. It
   -- must still count toward the stance and hit surviving nearby enemies.
   local target=ev.target
@@ -226,6 +227,7 @@ end
 function M.cast(a, d)
   local c = a:GetCaster()
   if not valid(c) or c:IsIllusion() or not open() then return end
+  d=require("rift.engine.progression").profile(c,a,d)
   local target = d.target == "unit" and a:GetCursorTarget() or nil
   if d.target == "unit" then
     if not enemy(c, target, d) or not target:IsHero() then return end

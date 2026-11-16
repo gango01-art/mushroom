@@ -194,3 +194,20 @@ for _, spec in ipairs(require("rift.data.expansion").heroes) do
     end)
   end
 end
+T.case("path talent replacement leaves exactly eight native attributes, preserving learned levels",function()
+ local S=Stub.install();local P=require("rift.engine.progression")
+ local hero="npc_dota_hero_axe"
+ local names={"native_q","native_w","native_e","native_d","native_f","axe_culling_blade","native_innate"}
+ for i=1,8 do names[#names+1]=P.name(hero,"physical",i)end
+ local h=fake_hero(S,hero,names);h:FindAbilityByName(P.name(hero,"physical",1)):SetLevel(1)
+ P.ensure(h,"magical");P.ensure(h,"magical")
+ local count=0
+ for _,a in pairs(h.slots)do if a.name:find("special_bonus_",1,true)then count=count+1 end end
+ T.eq(count,8,"native stat branch crashes on a ninth attribute, even hidden")
+ for i=1,8 do
+  T.eq(h:FindAbilityByName(P.name(hero,"physical",i)),nil)
+  T.ok(h:FindAbilityByName(P.name(hero,"magical",i)))
+ end
+ T.eq(h:FindAbilityByName(P.name(hero,"magical",1)):GetLevel(),1)
+ T.eq(h.slots[5].name,"axe_culling_blade","talent replacement cannot displace R")
+end)

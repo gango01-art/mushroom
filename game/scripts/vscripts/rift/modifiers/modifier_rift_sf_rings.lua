@@ -40,7 +40,10 @@ function modifier_rift_sf_rings:OnAbilityFullyCast(p)
   local gm = GameRules.RiftArena
   local cast_id = (gm and gm.ids) and gm.ids:next("requiem") or tostring(GameRules:GetGameTime())
   local o = me:GetAbsOrigin()
-  local s = Rings.start(B, rank, cast_id, { x = o.x, y = o.y }, GameRules:GetGameTime())
+  local cfg={};for k,v in pairs(B)do cfg[k]=v end
+  local radius_bonus=require("rift.engine.progression").get(me,"ring_radius")
+  cfg.ring_radius={};for i,v in ipairs(B.ring_radius)do cfg.ring_radius[i]=v+radius_bonus end
+  local s = Rings.start(cfg, rank, cast_id, { x = o.x, y = o.y }, GameRules:GetGameTime())
   s.ability, s.z = p.ability, o.z
   s.eruption_radius=require("rift.engine.area").radius(me,B.eruption_radius)
   s.soul_claims={}

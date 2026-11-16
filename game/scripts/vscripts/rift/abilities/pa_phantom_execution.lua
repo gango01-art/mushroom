@@ -16,10 +16,10 @@ function pa_phantom_execution:GetIntrinsicModifierName() return "modifier_rift_a
 -- Upgrade "pa_spirit_haste" shortens the cooldown (server value; the client tooltip shows the base).
 function pa_phantom_execution:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "spirit_cooldown_reduction")
-  return math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut)
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut))
 end
 function pa_phantom_execution:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
-function pa_phantom_execution:GetCastRange() return B.range end
+function pa_phantom_execution:GetCastRange() return B.range+require("rift.engine.progression").get(self:GetCaster(),"ult_cast_range") end
 
 -- Keep the hidden native at the same rank: its passive crit must grow with the ultimate.
 function pa_phantom_execution:OnUpgrade()
@@ -34,6 +34,7 @@ function pa_phantom_execution:OnSpellStart()
   local n = c:FindAbilityByName(NATIVE)
   local rank = r(self:GetLevel())
   local crit = Exec.crit_percent(n and n:GetSpecialValueFor("crit_bonus") or 0, rank, B.crit_fallback)
+  crit=crit+require("rift.engine.progression").get(c,"spirit_crit_bonus")
   local spirit = self:SpawnSpirit(c, target)
   ProjectileManager:CreateTrackingProjectile({
     Target = target, Source = c, Ability = self, EffectName = spirit and "" or B.spirit_particle,

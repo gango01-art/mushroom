@@ -36,6 +36,7 @@ function Bridge.new(gm)
 end
 
 function Bridge:AddPlayer(pid, hero)
+  require("rift.engine.progression").ensure(hero)
   if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
     Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
   end
@@ -53,6 +54,7 @@ end
 
 -- Respawn / reconnect: restore direction state on the hero entity.
 function Bridge:EnsureHero(pid, hero)
+  require("rift.engine.progression").ensure(hero,self:Direction(pid))
   if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
     Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
   end

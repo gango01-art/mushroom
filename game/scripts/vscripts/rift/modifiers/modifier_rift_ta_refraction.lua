@@ -8,7 +8,7 @@ function modifier_rift_ta_refraction:GetTexture() return "templar_assassin_refra
 function modifier_rift_ta_refraction:OnCreated()
   if not IsServer() then return end
   local a = self:GetAbility()
-  self:SetStackCount(B.instances[math.max(1, math.min(4, a and a:GetLevel() or 1))])
+  self:SetStackCount(B.instances[math.max(1, math.min(4, a and a:GetLevel() or 1))]+require("rift.engine.progression").get(self:GetParent(),"refraction_instances"))
   if not self.shield_particle then
     local parent=self:GetParent()
     local p=ParticleManager:CreateParticle("particles/units/heroes/hero_templar_assassin/templar_assassin_refraction.vpcf",PATTACH_ABSORIGIN_FOLLOW,parent)
