@@ -26,6 +26,7 @@ node tests/test_ui.js || fail=1
 node tests/test_pick.js || fail=1
 node tests/test_ranges.js || fail=1
 node tests/test_setup.js || fail=1
+node tests/test_aghanim_ui.js || fail=1
 echo "== Hammer arena source (does not compile/nav-test)"
 python3 tools/check_arena.py || fail=1
 python3 tools/check_dmx.py || fail=1

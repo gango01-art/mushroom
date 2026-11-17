@@ -5,9 +5,17 @@
     <include src="file://{resources}/scripts/custom_game/rift_hud.js" />
     <include src="file://{resources}/scripts/custom_game/rift_lab.js" />
     <include src="file://{resources}/scripts/custom_game/rift_ranges.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_aghanim.js" />
   </scripts>
   <Panel class="RiftHudRoot" hittest="false">
   <Panel id="RiftRoot" class="RiftHudRoot" hittest="false">
+    <Panel id="AghanimInfo" class="AghanimInfo Hidden" hittest="false">
+      <Label id="AghanimPath" class="AghanimPath" />
+      <Panel class="AghanimHeading"><DOTAItemImage itemname="item_ultimate_scepter" /><Label text="Aghanim’s Scepter" /><Label id="AghanimScepterOwned" class="AghanimOwned" /></Panel>
+      <Label id="AghanimScepterText" class="AghanimText" />
+      <Panel class="AghanimHeading"><DOTAItemImage itemname="item_aghanims_shard" /><Label text="Aghanim’s Shard" /><Label id="AghanimShardOwned" class="AghanimOwned" /></Panel>
+      <Label id="AghanimShardText" class="AghanimText" />
+    </Panel>
     <Panel id="TopBar" class="TopBar" hittest="false">
       <Panel id="TopPlayersLeft" class="TopPlayers LeftSeats" hittest="false" />
       <Panel class="MatchClock" hittest="false">

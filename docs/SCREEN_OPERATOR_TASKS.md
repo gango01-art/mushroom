@@ -12,6 +12,17 @@ addon называется **`duality`**, файлы скопированы (н�
 потом без `-WhatIf`. Скрипт ничего не удаляет в addon. Запуск: `dota_launch_custom_game duality dota`.
 
 ---
+
+## OP-036 — только DUALITY Aghanim, общие Shard, TA innate и значки
+- Статус: verified (2026-11-17; только перечисленные сценарии).
+- Цель: отключить старые штатные улучшения, сохранить общие Shard, проверить TA и исключить двойные значки.
+- Инструмент: Workshop Tools, VConsole/Sky, native ResourceCompiler; `rift/dev/aghanim_probe`, `hybrid_shard_probe`, `progression_effects`, `aghanim_scene`.
+- Пути: обычные content/game addon duality, без изменения исходного Overthrow и index.html.
+- Шаги: установка с backup, полный restart, ownership/Blessing22, реальные Shard6, усиленные применения3, hover значков/предмета.
+- Успех: nativeScepter=false22/22; nativeShard только3 героев; TA движется с9.9HP/7mana и сбрасывается уроном; нет Projection; два прозрачных значка без накладок; подсказки показывают Duality.
+- Отчёт: [полный](AGHANIM_PLAYTEST_2026-11-17.md), [лог](operator_logs/2026-11-17_aghanim.log), screenshots/2026-11-17-*.jpg. Повтор22/22 и6/6 после очистки per-hero метаданных. Полный PvP/магазинный цикл/все эффекты не проверены; штатные предупреждения косметики/локализации перечислены в отчёте.
+- Зависимость: установленная Dota + Tools, одиночный dev lab.
+
 ## OP-032 — native потолок прогрессии 22 веток
 - Статус: verified (2026-11-16; только описанный сценарий).
 - Цель: проверить реальные таланты/предметы и статический CDR.

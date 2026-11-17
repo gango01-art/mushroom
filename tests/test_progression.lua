@@ -47,10 +47,10 @@ T.case("SF native-rank cooldown 40/35/30; talent, Scepter, Shard affect only cur
  local a=S.lua_ability("sf_requiem_physical",u,3)
  T.eq(a:GetCooldown(-1),30)
  learn(6);T.eq(a:GetCooldown(-1),30)
- u.scepter=true;u.mods.modifier_item_aghanims_shard={}
+ u.mods.modifier_rift_aghanim_state={stacks=5};u.mods.modifier_rift_aghanim_shard={}
  a:OnSpellStart();T.eq(u.mods.modifier_rift_sf_spheres.kv.duration,16)
  local m=S.lua_modifier("modifier_rift_sf_spheres",u,a)
- T.eq(m.session.cfg.duration,16);T.eq(m.session:regen_time(),1.35)
+ T.eq(m.session.cfg.duration,16);T.eq(m.session:regen_time(),1.5)
  T.eq(P.get(u,"sphere_damage_pct"),12)
  u.mods.modifier_rift_progression.stacks=2
  T.eq(P.get(u,"sphere_damage_pct"),0);T.eq(P.get(u,"ring_damage_bonus"),40)
@@ -87,13 +87,13 @@ T.case("native ReplaceHeroWith talent copies do not unlearn or refund before spa
  GameRules.RiftArena=nil;u.mods.modifier_rift_progression=nil;a:OnUpgrade();T.eq(u:GetAbilityPoints(),0)
 end)
 T.case("TA crystal durability and magical shield use different item upgrades",function()
- local S,u=setup("npc_dota_hero_templar_assassin","physical");u.scepter=true
+ local S,u=setup("npc_dota_hero_templar_assassin","physical");u.mods.modifier_rift_aghanim_state={stacks=5}
  local a=S.lua_ability("ta_psionic_crystal",u,3)
  local crystal=S.unit("npc_rift_ta_crystal",{team=4,pos=Vector(0,0,0)})
  local m=S.lua_modifier("modifier_rift_ta_crystal",crystal,a)
  T.eq(m.session.durability,4);T.eq(crystal:GetHealth(),4)
  T.eq(a:GetAOERadius(),520)
- u.mods.modifier_rift_progression.stacks=2;u.mods.modifier_item_aghanims_shard={}
+ u.mods.modifier_rift_progression.stacks=2;u.mods.modifier_rift_aghanim_shard={}
  local q=S.lua_ability("ta_refraction_magical",u,4)
  local shield=S.lua_modifier("modifier_rift_ta_refraction",u,q)
  T.eq(shield:GetStackCount(),B.ta.refraction_magical.instances[4]+2)
@@ -107,7 +107,7 @@ T.case("Axe Scepter and talent area change the actual hit search and damage, rem
  function a:GetCaster()return c end
  function a:GetAbilityName()return"rift_axe_physical"end
  setmetatable(a,{__index=rift_axe_physical})
- learn(5);c.scepter=true;T.eq(a:GetAOERadius(),510)
+ learn(5);c.mods.modifier_rift_aghanim_state={stacks=5};T.eq(a:GetAOERadius(),510)
  a:OnSpellStart();T.eq(#S.damage,1);T.eq(S.damage[1].victim,enemy);T.eq(S.damage[1].damage,454.25)
- c.scepter=false;T.eq(a:GetAOERadius(),465);a:OnSpellStart();T.eq(#S.damage,1)
+ c.mods.modifier_rift_aghanim_state=nil;T.eq(a:GetAOERadius(),465);a:OnSpellStart();T.eq(#S.damage,1)
 end)

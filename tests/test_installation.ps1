@@ -77,6 +77,7 @@ try {
     'panorama/scripts/custom_game/rift_hud.vjs_c',
     'panorama/scripts/custom_game/rift_lab.vjs_c',
     'panorama/scripts/custom_game/rift_ranges.vjs_c',
+    'panorama/scripts/custom_game/rift_aghanim.vjs_c',
     'panorama/styles/custom_game/rift_hud.vcss_c',
     'panorama/layout/custom_game/rift_hud.vxml_c',
     'panorama/scripts/custom_game/rift_pick.vjs_c',
@@ -98,7 +99,7 @@ try {
   foreach ($relative in $outputs) {
     Check (Test-Path (Join-Path $FakeDota ('game/dota_addons/duality/' + $relative))) ("Build output missing: " + $relative)
   }
-  Check ($global:DualityInstallTest.Inputs.Count -eq 21) 'Unexpected compile count (thirteen Panorama, six FX, minimap material, one map)'
+  Check ($global:DualityInstallTest.Inputs.Count -eq 22) 'Unexpected compile count (fourteen Panorama, six FX, minimap material, one map)'
   Check ($global:DualityInstallTest.Inputs[0] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
   Check (-not ($global:DualityInstallTest.Inputs -contains $ExtraSource)) 'Unrelated owner resource was compiled'
   $LayoutBackups = @(Get-ChildItem (Join-Path $FakeDota 'duality_backups') -Recurse -File | Where-Object Name -eq 'rift_hud.vxml_c')

@@ -152,6 +152,7 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
     @('scripts/custom_game/rift_hud.js', 'scripts/custom_game/rift_hud.vjs_c'),
     @('scripts/custom_game/rift_lab.js', 'scripts/custom_game/rift_lab.vjs_c'),
     @('scripts/custom_game/rift_ranges.js', 'scripts/custom_game/rift_ranges.vjs_c'),
+    @('scripts/custom_game/rift_aghanim.js', 'scripts/custom_game/rift_aghanim.vjs_c'),
     @('styles/custom_game/rift_hud.css', 'styles/custom_game/rift_hud.vcss_c'),
     @('layout/custom_game/rift_hud.xml', 'layout/custom_game/rift_hud.vxml_c'),
     @('scripts/custom_game/rift_pick.js', 'scripts/custom_game/rift_pick.vjs_c'),

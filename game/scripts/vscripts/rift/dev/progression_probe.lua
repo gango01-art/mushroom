@@ -66,10 +66,9 @@ GameRules:GetGameModeEntity():SetContextThink("rift_progression_probe",function(
    assert(c:GetAbilityPoints()==1,"rejected talent consumed a point")
    c:AddItemByName("item_ultimate_scepter")
    item=c:AddItemByName("item_aghanims_shard")
-   if item and not item:IsNull()and not c:HasModifier("modifier_item_aghanims_shard")then c:CastAbilityNoTarget(item,lab.owner)end
    deadline=now+5;phase="items"
   elseif phase=="items"then
-   if not c:HasScepter()or not c:HasModifier("modifier_item_aghanims_shard")then assert(now<deadline,"native items missing");return .1 end
+   if not require("rift.engine.aghanim").scepter(c)or not require("rift.engine.aghanim").shard(c)then assert(now<deadline,"native items missing");return .1 end
    local x=cases[index];local expected=C.total(B.heroes[x.hero][x.path],{true,false,true,false,true,false,true,false},true,true)
    local actual=P.totals(c)
    for k,v in pairs(expected)do assert(math.abs((actual[k]or 0)-v)<.00001,"bonus mismatch "..k)end

@@ -1,6 +1,13 @@
 /* Source 2 Panorama CSS, 1080p design canvas (engine scales at other resolutions). */
 .RiftHudRoot { width: 100%; height: 100%; font-family: Radiance; }
 .Hidden { visibility: collapse; }
+.AghanimInfo { width: 390px; horizontal-align: center; vertical-align: bottom; margin-left: 650px; margin-bottom: 180px; padding: 16px; flow-children: down; background-color: gradient(linear, 0% 0%, 100% 100%, from(#1d2c38), to(#080e16f8)); border: 1px solid #637985; box-shadow: #000c 0px 0px 12px 2px; }
+.AghanimPath { color: #d8c394; font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; }
+.AghanimHeading { width: 100%; flow-children: right; vertical-align: center; margin-bottom: 8px; }
+.AghanimHeading DOTAItemImage { width: 36px; height: 28px; margin-right: 10px; }
+.AghanimHeading Label { color: #85b6eb; font-size: 20px; vertical-align: center; }
+.AghanimHeading .AghanimOwned { font-size: 11px; color: #b9c5c9; margin-left: 10px; }
+.AghanimText { width: 100%; white-space: normal; font-size: 17px; line-height: 22px; color: #c4d0dc; margin-bottom: 18px; }
 .TopBar { horizontal-align: center; flow-children: right; height: 100px; }
 .TopPlayers { flow-children: right; margin-top: 4px; width: 424px; }
 .PlayerSeat { width: 102px; height: 78px; margin: 0 2px; background-color: #0c1118f5; border-bottom: 2px solid #788597; }

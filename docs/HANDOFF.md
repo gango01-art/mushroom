@@ -1,3 +1,15 @@
+# Актуальная передача — 2026-11-17 / только DUALITY Aghanim, TA innate и значки
+
+- Ветка `claude/pensive-curie-zvybbg`; `index.html` не менялся, Workshop не публиковался. Старый `docs/operator_logs/2026-11-15_local_LC_physical.log` не добавлять.
+- По уточнению владельца: Scepter/Shard больше не добавляются поверх всех штатных эффектов Dota. Scepter/Blessing/Shard — Lua по прежним shop ID; собственные маркеры владения. Native HasScepter=false. Scepter +10 allstats/+175 HP/+175 mana; Blessing без статов. Общие native Shard сохранены только Axe/LC/SF, без дополнительных старых бонусов Shard ветки. Остальные получают только DUALITY.
+- [Отчёт с точными границами](AGHANIM_PLAYTEST_2026-11-17.md), [таблица](BRANCH_PROGRESSION.md). Native: 22/22 ownership/Blessing, 6/6 боевых общих Shard, 3/3 реальных усиленных применений. Лог фильтрованный, без сырой телеметрии.
+- TA Inner Peace теперь сохраняет накопленное восстановление при движении/атаках/кастах, сбрасывается от положительного урона. Уровень 25: +9.9 HP/sec и +7 mana/sec; native движение и реальный damage reset проверены. Найден и исправлен клиентский вызов серверного IsAlive. Meld не менялся.
+- Aghanim HUD: серверное владение/путь осматриваемого героя; собственная подсказка Duality. После замечания владельца убраны наложенные DOTAItemImage и чёрный фон: используются только штатные прозрачные on/off-силуэты. При обновлении открытого HUD очищаются старые накладки. Screenshot в отчёте.
+- check.sh 463 passed / 0 failed; новый Node UI scenario. Installer 187 mock checks PS5.1/7; native compile 21 output (14 Panorama + 6 FX + minimap), BuildMap план 22. Новый JS явно в плане компиляции/проверки.
+- [Что осталось до релиза](RELEASE_CHECKLIST.md): прежде всего настоящий FFA 2–8 игроков, PvP баланс всех 22 веток, все взаимодействия предметов/улучшений, полный обход арены, UI/визуал/нагрузка и чистая релизная установка. Старый HERO_IMPLEMENTATION_STATUS помечен историческим, не использовать его как текущую готовность.
+
+---
+
 # Актуальная передача — 2026-11-17 / общий баланс, соло-предметы, арена
 
 - Продолжать в `claude/pensive-curie-zvybbg`. Не менять `index.html`, не публиковать Workshop. Старый локальный `docs/operator_logs/2026-11-15_local_LC_physical.log` не включать в коммит.

@@ -48,11 +48,10 @@ GameRules:GetGameModeEntity():SetContextThink("rift_balance_probe",function()
    gm.upgrades:ProcessEvents()
    c:AddItemByName("item_ultimate_scepter");c:AddItemByName("item_octarine_core")
    local shard=c:AddItemByName("item_aghanims_shard")
-   if shard and not shard:IsNull()and not c:HasModifier("modifier_item_aghanims_shard")then c:CastAbilityNoTarget(shard,lab.owner)end
    deadline=now+5;phase="check"
   elseif phase=="check"then
    assert(now<deadline,"item timeout")
-   if not c:HasScepter()or not c:HasModifier("modifier_item_aghanims_shard")then return .1 end
+   if not require("rift.engine.aghanim").scepter(c)or not require("rift.engine.aghanim").shard(c)then return .1 end
    local def=P.definition(c);local a=assert(c:FindAbilityByName(def.ult));local cds={}
    for r=1,3 do
     a:SetLevel(def.ult=="lc_statue"and 4 or r)

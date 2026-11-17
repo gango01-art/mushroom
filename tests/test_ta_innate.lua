@@ -1,0 +1,26 @@
+local C=require("rift.core.ta_meditation")
+local B=require("rift.data.hero_balance").ta.inner_peace
+local Stub=require("engine_stub")
+T.case("TA meditation waits after damage and preserves native level scaling",function()
+ local f,h,m=C.values(B,1,10.1,10);T.eq(f,0);T.eq(h,0);T.eq(m,0)
+ f,h,m=C.values(B,1,20,10);T.eq(f,1);T.eq(h,2.7);T.eq(m,2.2)
+ f,h,m=C.values(B,30,20,10);T.eq(f,1);T.ok(math.abs(h-11.4)<.001);T.eq(m,8)
+ T.ok(not C.interrupt(0));T.ok(not C.interrupt(nil));T.ok(C.interrupt(.01))
+end)
+T.case("TA innate persists while moving; only own positive damage resets, Break suspends, respawn restarts",function()
+ local S=Stub.install();local c=S.hero("npc_dota_hero_templar_assassin",0,2,Vector(0,0,0),{Level=25})
+ local a=S.ability(1);local m=S.lua_modifier("modifier_rift_ta_inner_peace",c,a)
+ S.advance(3);m:OnIntervalThink();T.eq(m:GetStackCount(),100)
+ local h=m:GetModifierConstantHealthRegen();c.pos=Vector(1000,900,0)
+ m:OnIntervalThink();T.eq(m:GetModifierConstantHealthRegen(),h)
+ m:OnTakeDamage({unit=c,damage=0});T.eq(m:GetStackCount(),100)
+ m:OnTakeDamage({unit={},damage=50});T.eq(m:GetStackCount(),100)
+ m:OnTakeDamage({unit=c,damage=1});T.eq(m:GetStackCount(),0)
+ S.advance(.1);m:OnIntervalThink();T.eq(m:GetModifierConstantManaRegen(),0)
+ S.advance(3);m:OnIntervalThink();c.broken=true;T.eq(m:GetModifierConstantHealthRegen(),0)
+ c.broken=false;m:OnRespawn({unit=c});T.eq(m:GetStackCount(),0)
+ m:SetStackCount(100);IsServer=function()return false end
+ function c:IsAlive()error("server-only IsAlive")end
+ function c:PassivesDisabled()error("server-only PassivesDisabled")end
+ T.ok(m:GetModifierConstantHealthRegen()>0);T.ok(m:GetModifierConstantManaRegen()>0)
+end)

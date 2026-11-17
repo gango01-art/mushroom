@@ -192,6 +192,9 @@ B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_echo_gesture_rate=2.8, 
   sven_debuff = { 4, 8, 12, 16 }, jug_chance = 40, jug_multiplier = { 105, 110, 115, 120 },
     pa_dagger_cdr = { 1, 1.5, 2 },pa_attack_cdr=1,pa_creep_cdr_fraction=.2 }
 B.area = { item_efficiency = 0.5, max_fraction = 0.25 }
+B.ta.inner_peace = { delay=.2, ramp=1.85, ramp_per_level=-.05, min_ramp=.4,
+  health_regen=2.7, health_per_level=.3, mana_regen=2.2, mana_per_level=.2,
+  interval=.05 } -- PD native regen curve; DR only positive damage resets it, never movement.
 B.axe = { helix_attacks={8,7,6,5}, pull_duration=.35 }
 B.lina = { burn_pct=50 }
 B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.3,
@@ -283,4 +286,20 @@ B.progression.heroes.npc_dota_hero_nevermore.physical.talents[5]={sphere_regen_r
 B.progression.heroes.npc_dota_hero_nevermore.physical.talents[6]={health=250}
 B.progression.heroes.npc_dota_hero_nevermore.magical.talents[5]={ring_radius=15}
 B.progression.heroes.npc_dota_hero_phantom_assassin.magical.talents[5]={chain_damage_bonus=40}
+B.progression.agh_items={all_stats=10,health=175,mana=175,scepter_cost=4200,blessing_cost=5800,shard_cost=1400}
+-- DR: shared Shards suitable for both paths; no second branch-specific bonus.
+B.progression.hybrid_shards={
+ npc_dota_hero_axe={abilities={"axe_berserkers_call","axe_battle_hunger"},
+  ru="Berserker’s Call накладывает Battle Hunger. Несколько Battle Hunger складываются. Действует в обеих ветках.",
+  en="Berserker’s Call applies Battle Hunger. Multiple Battle Hunger instances stack. Works for both paths."},
+ npc_dota_hero_legion_commander={abilities={"legion_commander_overwhelming_odds"},
+  ru="Overwhelming Odds: +100 радиуса и барьер на 6 сек. от урона настоящим героям. Сохраняется общее улучшение обеих веток.",
+  en="Overwhelming Odds: +100 radius and a 6s barrier based on damage to real heroes. A shared upgrade for both paths."},
+ npc_dota_hero_nevermore={abilities={"nevermore_shadowraze1","nevermore_shadowraze2","nevermore_shadowraze3"},
+  ru="Shadowraze замедляет передвижение на 12% за эффект и сокращает свой кд на 2 сек. за попадание по герою. Работает в обеих ветках.",
+  en="Shadowraze slows movement by 12% per debuff stack and reduces its cooldown by 2s on hero hits. Works for both paths."},
+}
+for hero in pairs(B.progression.hybrid_shards)do
+ B.progression.heroes[hero].physical.shard={};B.progression.heroes[hero].magical.shard={}
+end
 return B

@@ -1,3 +1,18 @@
+# 2026-11-17 — Aghanim только Duality, общие Shard, TA Inner Peace
+
+[Полный отчёт и ограничения](AGHANIM_PLAYTEST_2026-11-17.md), [фильтрованный native лог](operator_logs/2026-11-17_aghanim.log).
+
+- **463 passed / 0 failed**, check.sh, включая генераторы, Lua/Node/UI/KV/ресурсы. **187 mock installer checks** на PS5.1/7. Native ResourceCompiler: **21 output**; BuildMap планирует 22.
+- После полного restart: **22/22 ветки**, native Scepter=false, native Shard только Axe/LC/SF; DUALITY bonuses, автоматическое поглощение Shard/Blessing, Blessing без характеристик; Projection у TA скрыт/не активирован.
+- **6/6 реальных общих Shard**: обе ветки Axe Call→Hunger на две цели; LC radius700 и поглощение 100 pure; SF два героя, cooldown4.6–4.7 после задержки измерения, native slow special12.
+- **3/3 реальных усиленных применения**: SF duration16/regen1.5; TA crystal4/radius520; TA magical shield8.
+- TA при движении накопила100%/+9.9HP/+7mana на25 уровне, реальный полученный урон сбросил stack0. Первый прогон выявил клиентский IsAlive; после исправления чистый повтор без прежней ошибки.
+- Визуально проверены Duality tooltip, путь и владение. Наложенные item icons и чёрный фон удалены; штатные прозрачные значки переключаются по фактическому владению. [Скриншот](screenshots/2026-11-17-aghanim-duality.jpg).
+
+Полный PvP и каждый магазинный/предметный крайний случай не объявляются проверенными. Native предупреждения косметики `attach_hitloc` остаются. [Критерии до релиза](RELEASE_CHECKLIST.md).
+
+---
+
 # 2026-11-17 — баланс, соло-предметы и первая загруженная арена
 
 ## Код и установщик

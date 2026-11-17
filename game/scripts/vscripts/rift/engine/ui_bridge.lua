@@ -83,10 +83,19 @@ function UiBridge:PublishScores()
   local rows = {}
   for i, r in ipairs(self.gm.scoring:standings()) do
     local hero = PlayerResource:GetSelectedHeroEntity(r.pid)
+    local agh={entity=-1,scepter=0,shard=0,primary="",shared=""}
+    if hero and not hero:IsNull()then
+      local A=require("rift.engine.aghanim")
+      local d=require("rift.engine.progression").definition(hero)
+      local shared=require("rift.data.hero_balance").progression.hybrid_shards[hero:GetUnitName()]
+      agh={entity=hero:entindex(),scepter=A.scepter(hero)and 1 or 0,shard=A.shard(hero)and 1 or 0,
+        primary=d and d.ult or"",shared=shared and shared.abilities[1]or""}
+    end
     rows[tostring(i)] = {
       pid = r.pid, score = r.score, kills = r.kills, deaths = r.deaths, assists = r.assists,
       hero = (hero and not hero:IsNull()) and hero:GetUnitName() or "",
       direction = (self.gm.upgrades and self.gm.upgrades:Direction(r.pid)) or "",
+      aghanim=agh,
       alive = hero and not hero:IsNull() and hero:IsAlive() and 1 or 0,
       respawn = hero and not hero:IsNull() and not hero:IsAlive() and math.ceil(math.max(0, hero:GetTimeUntilRespawn())) or 0,
     }

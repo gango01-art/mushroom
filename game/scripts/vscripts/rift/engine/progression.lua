@@ -1,6 +1,7 @@
 -- Native talent slots, path state and inventory-backed branch bonuses.
 local B=require("rift.data.hero_balance").progression
 local Core=require("rift.core.progression")
+local Aghanim=require("rift.engine.aghanim")
 local M={}
 function M.name(hero,path,index)
  return "special_bonus_duality_"..hero:gsub("npc_dota_hero_","").."_"..path.."_"..index
@@ -21,7 +22,7 @@ function M.totals(unit)
   local a=unit:FindAbilityByName(M.name(unit:GetUnitName(),path,i))
   learned[i]=a and a:GetLevel()>0 or false
  end
- return Core.total(def,learned,unit:HasScepter(),unit:HasModifier("modifier_item_aghanims_shard"))
+ return Core.total(def,learned,Aghanim.scepter(unit),Aghanim.shard(unit))
 end
 function M.get(unit,key)return M.totals(unit)[key]or 0 end
 function M.can_train(unit,path,index)

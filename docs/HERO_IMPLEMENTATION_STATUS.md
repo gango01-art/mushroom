@@ -1,3 +1,5 @@
+> Историческая таблица раннего прототипа. Не использовать как текущий список готовности. Актуальные результаты — [TEST_RESULTS](TEST_RESULTS.md), передача — [HANDOFF](HANDOFF.md), оставшееся до релиза — [RELEASE_CHECKLIST](RELEASE_CHECKLIST.md).
+
 # Статус героев и направлений
 
 Статусы: **implemented** (код в движке готов) / **statically_checked** / **runtime_checked** (проверено в Dota) / **blocked**.

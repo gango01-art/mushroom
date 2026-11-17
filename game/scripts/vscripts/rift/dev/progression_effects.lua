@@ -15,10 +15,9 @@ GameRules:GetGameModeEntity():SetContextThink("rift_progression_effects",functio
    assert(now<deadline,"precache timeout");if lab.loading then return .1 end
    c=PlayerResource:GetSelectedHeroEntity(lab.owner);a=c:FindAbilityByName(scenes[i][3]);assert(a,"ability missing")
    c:AddItemByName("item_ultimate_scepter");local shard=c:AddItemByName("item_aghanims_shard")
-   if shard and not shard:IsNull()and not c:HasModifier("modifier_item_aghanims_shard")then c:CastAbilityNoTarget(shard,lab.owner)end
    deadline=now+5;phase="cast"
   elseif phase=="cast"then
-   if not c:HasScepter()or not c:HasModifier("modifier_item_aghanims_shard")then assert(now<deadline,"native items missing");return .1 end
+   if not require("rift.engine.aghanim").scepter(c)or not require("rift.engine.aghanim").shard(c)then assert(now<deadline,"native items missing");return .1 end
    point=c:GetAbsOrigin()+c:GetForwardVector()*150
    if i==2 then c:CastAbilityOnPosition(point,a,lab.owner)else c:CastAbilityNoTarget(a,lab.owner)end
    phase="check";deadline=now+3
@@ -27,7 +26,7 @@ GameRules:GetGameModeEntity():SetContextThink("rift_progression_effects",functio
     local m=c:FindModifierByName("modifier_rift_sf_spheres")
     if not m then assert(now<deadline,"sphere modifier missing");return .1 end
     assert(m:GetRemainingTime()>15 and m:GetRemainingTime()<=16.1,"SF duration")
-    assert(math.abs(m.session:regen_time()-1.35)<.001,"SF regen")
+    assert(math.abs(m.session:regen_time()-1.5)<.001,"SF regen")
     print(string.format("[RIFT][PROGRESSION_CAST] SF duration=%.2f regen=%.2f",m:GetRemainingTime(),m.session:regen_time()))
    elseif i==2 then
     local crystal=a.crystal

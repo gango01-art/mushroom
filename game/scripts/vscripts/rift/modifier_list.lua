@@ -3,6 +3,11 @@
 -- addon_game_mode.lua are NOT visible to required modules (verified in Dota), so
 -- the list lives in a module.
 local M = {
+  "modifier_rift_aghanim_item",
+  "modifier_rift_aghanim_state",
+  "modifier_rift_aghanim_shard",
+  "modifier_rift_aghanim_blessing",
+  "modifier_rift_ta_inner_peace",
   "modifier_rift_solo_item",
   "modifier_rift_item_glimmer_cape",
   "modifier_rift_item_shadow_weapon",
