@@ -21,7 +21,7 @@ end
 
 -- Returns contract table and list of missing names.
 function MapContract.load(dev)
-  local c = { spawns = {}, relics = {}, bases={}, center = nil, fallback = false }
+  local c = { spawns = {}, relics = {}, bases={}, ward_spots={}, river_camps={}, roshan_pockets={}, center = nil, fallback = false }
   local missing = {}
   for i = 1, MapContract.SPAWN_COUNT do
     local n = name2("rift_spawn_", i)
@@ -42,10 +42,22 @@ function MapContract.load(dev)
   for _,team in ipairs(require("rift.core.config").sanctuary.teams)do
     local base=find("rift_base_"..team)
     local tower=find("rift_base_tower_"..team)
-    if base and tower then base.team,base.tower=team,tower;c.bases[#c.bases+1]=base
+    if base and tower then base.team,base.tower=team,tower;base.spawn=find("rift_team_start_"..team);c.bases[#c.bases+1]=base
     else missing[#missing+1]="rift_base/tower_"..team end
   end
 
+  for i=1,4 do
+    local name=name2("rift_ward_",i);local p=find(name)
+    if p then c.ward_spots[#c.ward_spots+1]=p else missing[#missing+1]=name end
+  end
+  for i=1,4 do
+    local name=name2("rift_river_camp_",i);local p=find(name)
+    if p then c.river_camps[#c.river_camps+1]=p else missing[#missing+1]=name end
+  end
+  for i=1,2 do
+    local name=name2("rift_roshan_",i);local p=find(name)
+    if p then c.roshan_pockets[#c.roshan_pockets+1]=p else missing[#missing+1]=name end
+  end
   if #missing == 0 then
     for _, err in ipairs(require("rift.core.arena").validate(c)) do missing[#missing+1] = err end
   end

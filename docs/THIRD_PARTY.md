@@ -1,5 +1,9 @@
 # Сторонние материалы
 
+## Native water mesh / barrier references
+
+`tools/templates/valve_water_mesh.dmx` — минимальный фрагмент схемы Hammer CMapMesh из установленного Valve `radiant_summer_basic.vmap`; генератор создаёт собственную геометрию воды. `center_gold_barrier.vpcf` основан на штатном экспериментальном индикаторе дальности башни Valve; изменены цвет, прозрачность и размещение. Это материалы Valve для addon Dota 2, не материалы под MIT/Apache. Камни, факелы, знаки вардов и анимация броска Рошана ссылаются на установленную Dota.
+
 ## Основа арены Valve Overthrow
 
 С 2026-11-17 `content/maps/rift_arena.vmap` — изменённая карта **forest_solo** из установленного примера Valve Overthrow для Dota 2 Workshop Tools. Valve выпустила эти исходники как [пример создания Custom Games](https://www.dota2.com/reborn/part2/?l=english). Используются в addon для Dota 2; это материалы Valve, а не полностью оригинальная геометрия DUALITY и не ассет под Apache/MIT.
@@ -20,5 +24,7 @@
 
 
 ## Gold VFX reference
+
+Логотип `content/panorama/images/custom_game/duality_logo.png` предоставлен владельцем проекта и включён без изменений. Отдельный `.vtex` описывает его сборку для Panorama.
 
 `content/materials/duality/lc_gold_glow.tga` — неизменённая `materials/particle/basic_glow.tga` из BMD/barebones указанного выше commit (Apache-2.0). Соответствующий `.vtex` изменён для нового пути. `lc_gold_powershot.vpcf` — отдельный жёлтый trail для линейного projectile; схема/operators основаны на примерах `test_shot.vpcf` / `basic_trail.vpcf` того же репозитория. NOTICE и полный текст лицензии включены в addon-пакет.

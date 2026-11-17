@@ -1,4 +1,4 @@
-.PickRoot { width:100%; height:100%; font-family:Radiance; background-color:gradient(linear,0% 0%,100% 100%,from(#26343e),color-stop(.5,#101a23),to(#070c11)); }
+.PickRoot { width:100%; height:100%; font-family:Radiance; background-color:gradient(linear,0% 0%,100% 100%,from(#30372e),color-stop(.5,#171e19),to(#090d0b)); }
 .PickScreen { width:1600px; height:980px; horizontal-align:center; vertical-align:center; flow-children:down; }
 .PickHeader { width:100%; height:96px; flow-children:right; border-bottom:1px solid #b9a67a55; margin-bottom:18px; }
 .PickBrand { flow-children:down; width:400px; }
@@ -73,3 +73,24 @@
 .PickConfirm:hover { brightness:1.3; }
 .PickConfirm:disabled { saturation:0; brightness:.5; }
 .Closed { visibility:collapse; }
+
+/* Keep the authored 1600x980 composition proportional on every aspect ratio. */
+.PickScreen { transform-origin:50% 50%; }
+.PickDetails { background-color:gradient(linear,0% 0%,100% 100%,from(#2c332af5),to(#101710fa)); border-color:#756c5055; border-top-color:#ad9971; }
+.PickPlayer { background-color:#121911e8; border-color:#6e765433; }
+.PickHero { border-radius:2px; border-color:#81836b66; background-color:#090d0b; }
+.PickHero Label { background-color:gradient(linear,0% 0%,0% 100%,from(#101611ee),to(#050806)); color:#d0d0bc; }
+.PickPaths .PickPath { background-color:#121a15; }
+.PickDescription { color:#a5b09f; }
+
+.PickRoot { background-color:gradient(linear,0% 0%,100% 100%,from(#29201d),color-stop(.45,#15151e),to(#0e101a)); }
+.PickDetails { background-color:gradient(linear,0% 0%,100% 100%,from(#2b2630f5),to(#11141df9)); border-color:#786c8055; border-top-color:#d09a66; }
+.PickDetails.Magical { border-top-color:#8f8ee0; }
+.PickPlayer { background-color:#151720dd; border-color:#79708033; }
+.PickHero.Selected { border-color:#dbab78; box-shadow:#e7893628 0px 0px 12px 1px; }
+.PickHero Label { background-color:#0d1019eb; color:#c9c9d0; }
+.PickPaths .PickPath { background-color:#161923; }
+.PickPath.Selected { background-color:#a5633026; border-bottom-color:#d49a61; }
+.Magical .PickPath.Selected { background-color:#6662b333; border-bottom-color:#9695ea; }
+.PickConfirm { background-color:gradient(linear,0% 0%,100% 100%,from(#76543b),to(#352f46)); border-color:#b99776; }
+.PickDescription { color:#a7acbd; }

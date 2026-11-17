@@ -1,3 +1,5 @@
+#base "npc_roshan_unit.txt"
+#base "npc_river_units.txt"
 #base "npc_sanctuary_units.txt"
 "DOTAUnits"
 {

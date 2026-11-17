@@ -10,7 +10,7 @@ local function setup()
   return d, s, cfg
 end
 
-T.case("single leader wins at 18:00", function()
+T.case("single leader wins at 30:00", function()
   local d, s, cfg = setup()
   s:add_score(2, 4, 10, "t")
   d:tick(cfg.match.active_seconds - 1)

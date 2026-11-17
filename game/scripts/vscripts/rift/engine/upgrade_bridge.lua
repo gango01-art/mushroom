@@ -208,7 +208,7 @@ function Bridge:OptionView(p, offer, option_id)
   return { id = u.id, kind = "upgrade", rarity = u.rarity, loc_name = u.loc_name, loc_desc = u.loc_desc,
            icon = u.icon, rank_now = now_rank, rank_next = now_rank + 1, max_rank = u.max_rank,
            required_direction = u.required_direction,
-           values = Effects.values_at(u, now_rank + 1),
+           values = Effects.gain_at(u, now_rank + 1), total_values = Effects.values_at(u, now_rank + 1),
            is_default = (option_id == offer.default_option) and 1 or 0 }
 end
 
@@ -228,7 +228,7 @@ function Bridge:SendPrivate(pid)
   for _, b in ipairs(snap.build) do
     local u = self.registry:get(b.id)
     table.insert(build, { id = b.id, rank = b.rank, max_rank = u and u.max_rank or b.rank,
-                          loc_name = u and u.loc_name or b.id, icon = u and u.icon or "",
+                          loc_name = u and u.loc_name or b.id, loc_desc=u and u.loc_desc or "", icon = u and u.icon or "",
                           values = u and Effects.values_at(u, b.rank) or {} })
   end
   self:SendTo(pid, "rift_private_state", {

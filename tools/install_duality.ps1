@@ -148,6 +148,7 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
   # Panorama source/output extensions differ. Build dependencies first, then the
   # HUD and its manifest. Validate every output, not only the VFX and map.
   $panorama = @(
+    @('images/custom_game/duality_logo_png.vtex', 'images/custom_game/duality_logo_png.vtex_c'),
     @('scripts/custom_game/rift_ui_model.js', 'scripts/custom_game/rift_ui_model.vjs_c'),
     @('scripts/custom_game/rift_hud.js', 'scripts/custom_game/rift_hud.vjs_c'),
     @('scripts/custom_game/rift_lab.js', 'scripts/custom_game/rift_lab.vjs_c'),
@@ -169,7 +170,8 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
   foreach ($pattern in @('*.vtex', '*.vpcf', '*.vmat')) {
     $packageContent = Join-Path $PackageRoot 'content'
     foreach ($asset in Get-ChildItem -LiteralPath $packageContent -Recurse -File -Filter $pattern) {
-      $relative = $asset.FullName.Substring($packageContent.Length + 1)
+      $relative = $asset.FullName.Substring($packageContent.Length + 1).Replace('\','/')
+      if (@($compilePlan | ForEach-Object { $_.Relative }) -contains ($relative + '_c')) { continue }
       $compilePlan += @{ Source = (Join-Path $contentRoot $relative); Relative = ($relative + '_c') }
     }
   }

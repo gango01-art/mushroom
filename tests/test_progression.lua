@@ -2,6 +2,16 @@ local B=require("rift.data.hero_balance")
 local C=require("rift.core.progression")
 local P=require("rift.engine.progression")
 local Stub=require("engine_stub")
+T.case("generated talents use the actual native attribute class, not generic Lua abilities",function()
+ local f=assert(io.open("game/scripts/npc/npc_progression_abilities.txt","rb"));local s=f:read("*a");f:close()
+ local count=0
+ for name,body in s:gmatch('"(special_bonus_duality_[^"]+)"%s*(%b{})')do
+  count=count+1;T.ok(body:find('"BaseClass" "special_bonus_base"',1,true),name)
+  T.ok(body:find('"MaxLevel" "1"',1,true),name)
+  T.ok(not body:find('"ScriptFile"',1,true),"Lua subclass cannot report IsAttributeBonus")
+ end
+ T.eq(count,176)
+end)
 T.case("native talent tiers and opposite-choice unlock levels are enforced",function()
  for tier,level in ipairs(B.progression.levels)do
   T.ok(not C.can_learn(B.progression,level-1,tier,false))
@@ -72,6 +82,7 @@ T.case("native talent OnUpgrade rejects opposite at 25 and refunds exactly one p
  function a:GetAbilityName()return name end
  function a:SetLevel(v)self.level=v end
  setmetatable(a,{__index=_G[name]});a:OnUpgrade()
+ T.eq(a:GetHeroLevelRequiredToUpgrade(),27,"native UI must see the opposite talent as level-locked")
  T.eq(a:GetLevel(),0);T.eq(u:GetAbilityPoints(),3)
  u.props.Level=27;a.level=1;a:OnUpgrade();T.eq(a:GetLevel(),1);T.eq(u:GetAbilityPoints(),3)
 end)

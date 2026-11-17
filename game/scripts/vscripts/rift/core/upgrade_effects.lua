@@ -44,6 +44,13 @@ function Effects.values_at(u, rank)
   return out
 end
 
+-- Offer cards show the gain from this rank; build summaries show total values.
+function Effects.gain_at(u,rank)
+ local next_values=Effects.values_at(u,rank);local previous=Effects.values_at(u,rank-1);local gain={}
+ for k,v in pairs(next_values)do gain[k]=v-(previous[k]or 0)end
+ return gain
+end
+
 -- Sum of stat_bonus values over a build { upgrade_id = rank }.
 function Effects.stat_totals(registry, build)
   local totals = {}

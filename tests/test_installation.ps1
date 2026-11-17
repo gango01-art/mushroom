@@ -76,6 +76,7 @@ try {
   & $Installer -DotaPath $FakeDota -Mode Match -BuildMap
   Check ((Get-Content -Raw $Settings) -match '"auto_demo" "0"') 'Match mode left demo enabled'
   $outputs = @(
+    'panorama/images/custom_game/duality_logo_png.vtex_c',
     'panorama/scripts/custom_game/rift_ui_model.vjs_c',
     'panorama/scripts/custom_game/rift_hud.vjs_c',
     'panorama/scripts/custom_game/rift_lab.vjs_c',
@@ -94,6 +95,7 @@ try {
     'materials/duality/sf_charge.vtex_c',
     'particles/duality/lc_gold_powershot.vpcf_c',
     'particles/duality/lc_gold_trail.vpcf_c',
+    'materials/duality/center_veil.vmat_c',
     'particles/duality/sf_orb.vpcf_c',
     'particles/duality/sf_wings.vpcf_c',
     'materials/overviews/rift_arena.vmat_c',
@@ -102,8 +104,9 @@ try {
   foreach ($relative in $outputs) {
     Check (Test-Path (Join-Path $FakeDota ('game/dota_addons/duality/' + $relative))) ("Build output missing: " + $relative)
   }
-  Check ($global:DualityInstallTest.Inputs.Count -eq 22) 'Unexpected compile count (fourteen Panorama, six FX, minimap material, one map)'
-  Check ($global:DualityInstallTest.Inputs[0] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
+  Check ($global:DualityInstallTest.Inputs.Count -eq 24) 'Unexpected compile count (logo, fourteen Panorama, six FX, central veil, minimap material, one map)'
+  Check (@($global:DualityInstallTest.Inputs | Select-Object -Unique).Count -eq 24) 'Resource scheduled more than once'
+  Check ($global:DualityInstallTest.Inputs[1] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
   Check (-not ($global:DualityInstallTest.Inputs -contains $ExtraSource)) 'Unrelated owner resource was compiled'
   $LayoutBackups = @(Get-ChildItem (Join-Path $FakeDota 'duality_backups') -Recurse -File | Where-Object Name -eq 'rift_hud.vxml_c')
   Check ($LayoutBackups.Count -eq 1) 'Old compiled layout not backed up'

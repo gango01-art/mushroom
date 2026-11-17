@@ -1,6 +1,6 @@
 -- Native map/nav sampling. Explicit Tools console load only.
 local gm=GameRules.RiftArena
-assert(gm and gm.dev and gm.lab and gm.lab:Allowed(gm.lab.owner),"single-player Tools required")
+assert(gm and gm.dev and gm.lab and gm.lab:Allowed(0),"single-player Tools required")
 assert(gm.map and not gm.map.fallback,"real arena required")
 local function log(s)print("[RIFT][ARENA_NATIVE] "..s)end
 local center=Vector(gm.map.center.x,gm.map.center.y,gm.map.center.z)

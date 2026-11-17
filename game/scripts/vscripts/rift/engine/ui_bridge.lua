@@ -75,6 +75,7 @@ function UiBridge:Publish(force)
     CustomNetTables:SetTableValue("rift_match", "relic", gm.relic:View(now, st:active_elapsed(now)))
   end
 
+  if gm.roshan then CustomNetTables:SetTableValue("rift_match","roshan",gm.roshan:view(now,st:active_elapsed(now)))end
   self:PublishScores() -- also keeps death/respawn indicators current (2 Hz)
   if gm.lab then gm.lab:Publish() end
 end

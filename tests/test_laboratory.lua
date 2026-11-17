@@ -146,6 +146,21 @@ T.case("lab thinker suspends match progression past eighteen minutes",function()
  local interval=require("rift.engine.game_mode").Think(f.gm)
  T.eq(interval,0.25);T.ok(f.gm.director.state:is("ACTIVE"))
 end)
+T.case("Aegis death skips PvP death scoring and revives in place without a spawn shield",function()
+ local f=F.setup();local G=require("rift.engine.game_mode");local h=f.selected[0]
+ f.gm.reincarnating={};f.gm.lab.enabled=false
+ function h:IsReincarnating()return true end
+ function h:IsTempestDouble()return false end
+ function h:IsClone()return false end
+ local ensured=0;f.gm.upgrades.EnsureHero=function()ensured=ensured+1 end
+ f.gm.PlaceAtSpawn=function()error("Aegis must not teleport to home")end
+ f.gm.ids={on_death=function()error("Aegis must not score as death")end,on_spawn=function()error("Aegis must preserve life identity")end}
+ G.OnEntityKilled(f.gm,{entindex_killed=h:entindex()})
+ T.ok(f.gm.reincarnating[h:entindex()])
+ G.OnNPCSpawned(f.gm,{entindex=h:entindex()});f.stub.advance(.1)
+ T.eq(ensured,1);T.eq(f.gm.reincarnating[h:entindex()],nil)
+ T.ok(not h:HasModifier("modifier_rift_spawn_shield"))
+end)
 T.case("switching a hero clears only that hero's summons",function()
  local f=F.setup();f.gm.lab:Start(0)
  local old=f.selected[0]

@@ -1,0 +1,77 @@
+11/17 22:42:15 [VScript] [RIFT][INFO][COURIER] ready pid=0 entity=261
+11/17 22:42:25 [VScript] [RIFT][INFO][ROSHAN] spawn pocket=1 hp=7000
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] pit=1 z=128 clear=true connected=true
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] pit=1 all eight inner floor samples pass
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] pit=2 z=128 clear=true connected=true
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] pit=2 all eight inner floor samples pass
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] center crossings direct=21 clear_endpoints=32 samples=32
+11/17 22:42:49 [VScript] [RIFT][INFO][COURIER] ready pid=0 entity=261
+11/17 22:42:49 [VScript] [RIFT][INFO][COURIER] ready pid=0 entity=261
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] courier owner=0 invulnerable=true idempotent=true
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_revengeroar level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_slam level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_inherent_buffs level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_devotion level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_bash level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_spell_block level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] Roshan native roshan_grab_and_throw level=1
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] native Roshan spell block absorbs once, then cooldown PASS
+11/17 22:42:49 [VScript] [RIFT][REVISION_NATIVE] courier resisted 100000 pure damage PASS
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] center traversable=true blocked=false z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000003BC010 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000003BC058 [600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000003A2358 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=true z=128
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_relic_01 traversable=true connected=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_relic_02 traversable=true connected=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_relic_03 traversable=true connected=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] rift_relic_04 traversable=true connected=true
+11/17 22:42:49 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=24 fail=0 total=24; path sampling does not replace full manual traversal
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=2 to_gold_edge=2553.5676269531 seconds_at_300=8.5118920898437
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=3 to_gold_edge=2551.68359375 seconds_at_300=8.5056119791667
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=6 to_gold_edge=2549.0192871094 seconds_at_300=8.4967309570313
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=7 to_gold_edge=2547.1352539063 seconds_at_300=8.4904508463542
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=8 to_gold_edge=2436.5483398438 seconds_at_300=8.1218277994792
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=9 to_gold_edge=2551.68359375 seconds_at_300=8.5056119791667
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=10 to_gold_edge=2549.0192871094 seconds_at_300=8.4967309570313
+11/17 22:42:49 [VScript] [RIFT][ROUTES] team=11 to_gold_edge=2553.5676269531 seconds_at_300=8.5118920898437
+11/17 22:42:49 [VScript] [RIFT][ROUTES] min=2436.5483398438 max=2553.5676269531 spread=117.01928710938 seconds_spread_at_300=0.39006429036458
+11/17 22:42:49 [VScript] [RIFT][ROUTES] rift_river_camp_01 z=0 traversable=true blocked=false center_connected=true nearest_tower=1333.1983642578
+11/17 22:42:49 [VScript] [RIFT][ROUTES] rift_river_camp_02 z=0 traversable=true blocked=false center_connected=true nearest_tower=1471.5604248047
+11/17 22:42:49 [VScript] [RIFT][ROUTES] rift_river_camp_03 z=0 traversable=true blocked=false center_connected=true nearest_tower=1317.375
+11/17 22:42:49 [VScript] [RIFT][ROUTES] rift_river_camp_04 z=0 traversable=true blocked=false center_connected=true nearest_tower=1403.6684570313
+11/17 22:42:49 [VScript] [RIFT][FOCUS] center ground=128
+11/17 22:42:49 [VScript] [RIFT][FOCUS] public center vision 8x16 PASS
+11/17 22:42:54 [VScript] [RIFT][REVISION_NATIVE] center 4.0s gold=24 expected=24 xp=56 expected=56
+11/17 22:42:54 [VScript] [RIFT][REVISION_NATIVE] DONE; navigation, all-team vision, center gold and passive XP checked
+11/17 22:43:56 [VScript] [RIFT][INFO][RIVER] rift_river_camp_01 spawned=3 scale=1
+11/17 22:43:56 [VScript] [RIFT][INFO][RIVER] rift_river_camp_02 spawned=3 scale=1
+11/17 22:43:56 [VScript] [RIFT][INFO][RIVER] rift_river_camp_03 spawned=3 scale=1
+11/17 22:43:56 [VScript] [RIFT][INFO][RIVER] rift_river_camp_04 spawned=3 scale=1
+11/17 22:45:05 [VScript] [RIFT][PATH_WALK] PASS leg=1 seconds=14.8
+11/17 22:45:11 [VScript] [RIFT][INFO][RELIC] warning point=3 in 15 s
+11/17 22:45:20 [VScript] [RIFT][PATH_WALK] PASS leg=2 seconds=15.0
+11/17 22:45:26 [VScript] [RIFT][INFO][RELIC] spawn point=3
+11/17 22:45:55 [VScript] [RIFT][PATH_WALK] PASS leg=3 seconds=34.4
+11/17 22:45:55 [VScript] [RIFT][PATH_WALK] DONE base → center → NW pit → SE pit
+11/17 22:46:41 [VScript] [RIFT][INFO][RELIC] ended timeout
+11/17 22:47:26 [VScript] [RIFT][INFO][ROSHAN] walking 1 -> 2

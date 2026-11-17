@@ -83,7 +83,7 @@ for _,hero in ipairs(keys(B.heroes))do
  for _,path in ipairs({"physical","magical"})do local d=paths[path]
   for i,t in ipairs(d.talents)do
    local n=name(hero,path,i)
-   kv[#kv+1]=' "'..n..'"\n {\n  "BaseClass" "ability_lua"\n  "ScriptFile" "rift/abilities/branch_talent"\n  "AbilityType" "ABILITY_TYPE_ATTRIBUTES"\n  "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"\n  "RequiredLevel" "'..B.levels[math.ceil(i/2)]..'"\n  "MaxLevel" "1"\n }'
+   kv[#kv+1]=' "'..n..'"\n {\n  "BaseClass" "special_bonus_base"\n  "AbilityType" "ABILITY_TYPE_ATTRIBUTES"\n  "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"\n  "RequiredLevel" "'..B.levels[math.ceil(i/2)]..'"\n  "MaxLevel" "1"\n }'
    for lang=1,2 do
     token(lang,"DOTA_Tooltip_ability_"..n,describe(t,lang))
     token(lang,"DOTA_Tooltip_ability_"..n.."_Description",(lang==1 and "Один талант на ступень 10/15/20/25. Противоположные таланты открываются на 27/28/29/30 уровнях. Эффекты области и импульсов учитывают общий лимит усилений пути."or"One choice per tier at 10/15/20/25. Opposite talents unlock at 27/28/29/30. Area and pulse effects share the branch enhancement caps."))

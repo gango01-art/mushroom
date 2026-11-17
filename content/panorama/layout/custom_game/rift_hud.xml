@@ -33,6 +33,7 @@
       <Label id="DevLabel" class="DevLabel" text="#rift_hud_dev" />
       <Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
     </Panel>
+    <Button id="RoshanEvent" class="RoshanEvent Hidden" onactivate="RiftFocusEvent('roshan')"><Label id="RoshanStatus" class="RoshanStatus" /></Button>
     <Panel class="HudActions">
       <Button id="LabToggle" class="QuietButton Hidden" onactivate="RiftLabOpen()"><Label text="#rift_lab_title" /></Button>
       <Button class="QuietButton" onactivate="RiftOpenMenu()"><Label text="#rift_menu_open" /></Button>
@@ -78,11 +79,11 @@
         <Label class="LabHelp" text="#rift_lab_fresh_hint" />
       </Panel>
     </Panel>
-    <Panel id="RelicPanel" class="RelicPanel" hittest="false">
+    <Button id="RelicPanel" class="RelicPanel" onactivate="RiftFocusEvent('relic')">
       <Label id="RelicTitle" class="RelicTitle" text="#rift_relic_title" />
       <Label id="RelicLine1" class="RelicLine" text="" />
       <Label id="RelicLine2" class="RelicLine" text="" />
-    </Panel>
+    </Button>
     <Panel id="Board" class="Board Hidden" hittest="false">
       <Label class="BoardTitle" text="#rift_board_title" />
       <Panel id="BoardRows" class="BoardRows" hittest="false" />
@@ -96,10 +97,11 @@
       <Label id="OfferStatus" class="OfferStatus" text="" />
     </Panel>
     <Button id="OfferOpenButton" class="OfferOpenButton" onactivate="RiftOpenOffer()"><Label id="OfferOpenLabel" text="" /></Button>
-    <Panel id="BuildPanel" class="BuildPanel" hittest="false">
-      <Label id="BuildTitle" class="BuildTitle" text="#rift_build_title" />
+    <Button id="BuildToggle" class="BuildToggle" onactivate="RiftToggleBuild()" onmouseover="RiftBuildTooltip()" onmouseout="$.DispatchEvent('DOTAHideTextTooltip')"><Image id="BuildGlyph" class="BuildGlyph" scaling="stretch-to-fit-preserve-aspect" /><Label id="BuildCount" class="BuildCount" text="0" /></Button>
+    <Panel id="BuildPanel" class="BuildPanel Hidden">
+      <Panel class="BuildHeader"><Label id="BuildTitle" class="BuildTitle" text="#rift_build_title" /><Button class="QuietButton" onactivate="RiftToggleBuild()"><Label text="×" /></Button></Panel>
       <Label id="BuildDirection" class="BuildDirection" text="" />
-      <Panel id="BuildRows" class="BuildRows" hittest="false" />
+      <Panel id="BuildRows" class="BuildRows" />
     </Panel>
     <Panel id="Onboarding" class="Onboarding Hidden">
       <Panel class="MenuStripe" />

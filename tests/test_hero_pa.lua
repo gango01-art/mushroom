@@ -56,8 +56,8 @@ T.case("PA upgrades: bonus_total sums a key over implemented upgrades only", fun
   local ups, dirs = F.data("shipped")
   local reg = Registry.new(ups, dirs, { handlers = Effects.HANDLERS })
   T.eq(#reg:validate(), 0, table.concat(reg:validate(), "; "))
-  T.eq(Effects.bonus_total(reg, { pa_static_edge = 2 }, "chain_damage_bonus"), 80)
-  T.eq(Effects.bonus_total(reg, { pa_spirit_haste = 1, pa_static_edge = 1 }, "spirit_cooldown_reduction"), 1)
+  T.eq(Effects.bonus_total(reg, { pa_static_edge = 2 }, "chain_damage_bonus"), 24)
+  T.eq(Effects.bonus_total(reg, { pa_spirit_haste = 1, pa_static_edge = 1 }, "spirit_cooldown_reduction"), 0.4)
   T.eq(Effects.bonus_total(reg, { pa_bloodletter = 2 }, "crit_chance_bonus"), 0, "planned upgrade gives nothing")
   T.eq(Effects.bonus_total(reg, {}, "chain_damage_bonus"), 0)
 end)
@@ -76,11 +76,11 @@ T.case("direction upgrades of TA/LC/SF: valid data, right direction, bonuses sum
   local reg = Registry.new(ups, dirs, { handlers = Effects.HANDLERS })
   T.eq(#reg:validate(), 0, table.concat(reg:validate(), "; "))
   local expect = {
-    ta_crystal_tempo = { "physical", "crystal_cooldown_reduction", 2 }, ta_wave_power = { "magical", "wave_damage_bonus", 45 },
-    ta_wave_reach = { "magical", "wave_length_bonus", 200 }, lc_duel_haste = { "physical", "duel_cooldown_reduction", 8 },
-    lc_champion_vigor = { "physical", "champion_health_pct", 15 }, lc_statue_barbs = { "magical", "statue_arrow_bonus", 30 },
-    sf_sphere_edge = { "physical", "sphere_damage_pct", 12 }, sf_requiem_tempo = { "physical", "requiem_cooldown_reduction", 4 },
-    sf_ring_burn = { "magical", "ring_damage_bonus", 30 },
+    ta_crystal_tempo = { "physical", "crystal_cooldown_reduction", 0.8 }, ta_wave_power = { "magical", "wave_damage_bonus", 15 },
+    ta_wave_reach = { "magical", "wave_length_bonus", 80 }, lc_duel_haste = { "physical", "duel_cooldown_reduction", 3 },
+    lc_champion_vigor = { "physical", "champion_health_pct", 6 }, lc_statue_barbs = { "magical", "statue_arrow_bonus", 10 },
+    sf_sphere_edge = { "physical", "sphere_damage_pct", 4 }, sf_requiem_tempo = { "physical", "requiem_cooldown_reduction", 1.5 },
+    sf_ring_burn = { "magical", "ring_damage_bonus", 10 },
   }
   for id, e in pairs(expect) do
     local u = reg:get(id)

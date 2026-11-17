@@ -39,12 +39,16 @@ for p in l['bases']:
  out.append(f'<text x="{px:.2f}" y="{py-11:.2f}" text-anchor="middle" font-size="10">HOME {p["team"]}</text>')
  tower=p['tower'];tx,ty=cx+tower['x']*s,cy-tower['y']*s
  out.append(f'<path d="M {tx-4:.2f},{ty+5:.2f} l 4,-10 4,10 Z" fill="#ead9b0"/>')
+for p in l.get('ward_spots',[]):
+ px,py=cx+p['x']*s,cy-p['y']*s
+ out.append(f'<rect x="{px-7:.2f}" y="{py-7:.2f}" width="14" height="14" fill="#e9cd7b" stroke="#142029"/>')
+ out.append(f'<text x="{px:.2f}" y="{py+4:.2f}" text-anchor="middle" font-size="10" fill="#142029">W</text>')
 for p in l['relics']:
  px,py=cx+p['x']*s,cy-p['y']*s
  out.append(f'<path d="M {px:.2f},{py-6:.2f} l 6,6 -6,6 -6,-6 Z" fill="#8bdae5"/>')
 out+=['</g>',
 '<rect x="104.6" y="84.6" width="630.8" height="630.8" fill="none" stroke="#cfb475" stroke-width="2"/>',
-'<text x="420" y="742" text-anchor="middle" font-size="14">8 PROTECTED HOMES · FLAT CENTRAL GROUND · 4 RELIC SITES · 10 SHOPS</text>',
+'<text x="420" y="742" text-anchor="middle" font-size="14">8 PROTECTED HOMES · FLAT CENTRAL GROUND · 4 RELIC SITES · 8 SHOPS</text>',
 '<text x="420" y="770" text-anchor="middle" class="small">11264 × 11264 units · combat circle r=2304, one elevation · outer pockets retained</text>',
 '<text x="420" y="796" text-anchor="middle" class="small">Green: sanctuaries · Gold triangles: guardians · Cyan: relic sites</text>',
 '<text x="420" y="822" text-anchor="middle" class="small">Terrain schematic; models, sight blockers and physics need the native playtest.</text>','</svg>']

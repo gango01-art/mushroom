@@ -17,6 +17,10 @@ var RiftUIModel = (function () {
   function bySeat(rows) {
     return array(rows).sort(function (a, b) { return a.pid - b.pid; });
   }
-  return { array: array, time: time, progress: progress, bySeat: bySeat };
+  function canvasScale(width,height,designWidth,designHeight){
+    if(!(width>0&&height>0))return 1;
+    return Math.min(1,(1080*width/height-64)/designWidth,1016/designHeight);
+  }
+  return { array: array, time: time, progress: progress, bySeat: bySeat, canvasScale:canvasScale };
 })();
 if (typeof module !== "undefined") module.exports = RiftUIModel;

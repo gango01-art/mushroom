@@ -7,6 +7,19 @@ local ModifierList = require("rift.modifier_list")
 ModifierList.link(false)
 
 function Precache(context)
+  local relic=require("rift.core.config").relic
+  PrecacheResource("model",relic.model_ground,context)
+  PrecacheResource("particle",relic.particle_ground,context)
+  PrecacheResource("particle",relic.particle_carrier,context)
+  local boss=require("rift.core.config").roshan
+  PrecacheUnitByNameSync(boss.unit,context)
+  PrecacheResource("particle",boss.spawn_particle,context)
+  PrecacheResource("particle",boss.slam_particle,context)
+  PrecacheResource("particle",boss.torch_particle,context)
+  for _,d in ipairs(require("rift.core.config").river_camps.members)do PrecacheUnitByNameSync(d.unit,context)end
+  local center=require("rift.core.config").center_gold
+  PrecacheResource("particle",center.splash_particle,context)
+  PrecacheUnitByNameSync("npc_dota_observer_wards",context)
   PrecacheUnitByNameSync(require("rift.core.config").sanctuary.tower_unit,context)
   PrecacheResource("particle","particles/ui_mouseactions/range_display.vpcf",context)
   local expansion = require("rift.data.expansion")

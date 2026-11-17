@@ -42,6 +42,7 @@ function GameMode.new()
   self.last_raw_time = nil
   self.players = {}              -- pid -> { initialized, acc, team }
   self.spawn_recent = {}
+  self.reincarnating = {}
   self.teams = ffa_teams()
   self.ids = CombatIds.new()       -- victim life-cycle keys, unique effect ids
   self.ui = UiBridge.new(self)
@@ -64,6 +65,10 @@ function GameMode:Activate()
   self.lab = require("rift.engine.laboratory").new(self)
   self.sanctuary = require("rift.engine.sanctuary").new(self)
   self.sanctuary:start()
+  self.roshan=require("rift.engine.roshan").new(self)
+  self.river_camps=require("rift.engine.river_camps").new(self)
+  self.center_gold=require("rift.engine.center_gold").new(self)
+
   self.hero_selection = require("rift.engine.hero_selection").new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
@@ -207,6 +212,9 @@ function GameMode:OnStateChanged(from, to, now)
     -- relic is cleared immediately and permanently; no awards after this point
     self.relic:Tick(now, self.director.state:active_elapsed(now), false)
   end
+  if to=="FINISHED"and self.center_gold then self.center_gold:stop()end
+  if (to=="OVERTIME"or to=="FINISHED")and self.roshan then self.roshan:stop()end
+  if to=="FINISHED"and self.river_camps then self.river_camps:stop()end
   if to == "FINISHED" then self:OnFinished() end
   self.ui:Publish(true)
 end
@@ -294,6 +302,11 @@ function GameMode:OnNPCSpawned(keys)
     if not is_main_hero(unit) then return nil end
     local pid = unit:GetPlayerOwnerID()
     if self.lab and self.lab.enabled then self.lab:OnMainSpawn(unit,pid);return nil end
+    if self.reincarnating and self.reincarnating[unit:entindex()]then
+      self.reincarnating[unit:entindex()]=nil
+      self.upgrades:EnsureHero(pid,unit)
+      return nil -- Aegis revives at the death location, not at the sanctuary.
+    end
     local p = self:PlayerState(pid)
     self.ids:on_spawn(unit:entindex(), tostring(unit))
     if not p.initialized then
@@ -318,7 +331,8 @@ function GameMode:InitHero(hero, pid)
   Mods.add(hero, hero, nil, "modifier_rift_damage_tracker", {})
   self.upgrades:AddPlayer(pid, hero)
   self:PlaceAtSpawn(hero, pid)
-  Log.info("HERO", string.format("init pid=%d hero=%s level=%d", pid, hero:GetUnitName(), hero:GetLevel()))
+  require("rift.engine.couriers").ensure(self,hero,pid)
+  Log.info("HERO", string.format("init pid=%d hero=%s level=%d gold=%d", pid, hero:GetUnitName(), hero:GetLevel(),PlayerResource:GetGold(pid)))
   self.ui:Publish(true)
 end
 
@@ -339,6 +353,7 @@ end
 function GameMode:PlaceAtSpawn(hero, pid)
   local now = self:Now()
   local c=self.sanctuary and self.sanctuary:home(hero:GetTeamNumber())
+  if c then c=c.spawn or c end
   local ideal=true
   local unused
   if not c then c,unused,ideal=Rules.choose_spawn(self.cfg,self.map.spawns,self:LiveEnemyPositions(pid),self.spawn_recent,now)end
@@ -384,6 +399,8 @@ end
 function GameMode:OnEntityKilled(keys)
   local victim = EntIndexToHScript(keys.entindex_killed)
   require("rift.engine.sf_souls").on_death(victim)
+  if self.roshan and self.roshan:on_killed(victim,keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker))then return end
+  if self.river_camps and self.river_camps:on_killed(victim,keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker))then return end
   if self.lab and self.lab.enabled then
     local attacker=keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
     self.lab:OnKilled(victim,attacker)
@@ -392,7 +409,7 @@ function GameMode:OnEntityKilled(keys)
     return
   end
   if not is_main_hero(victim) then return end
-  if victim.IsReincarnating and victim:IsReincarnating() then return end
+  if victim.IsReincarnating and victim:IsReincarnating() then self.reincarnating[victim:entindex()]=true;return end
   local now = self:Now()
   local vpid = owner_pid(victim)
   local attacker = keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
@@ -421,9 +438,10 @@ end
 function GameMode:Think()
   if self.hero_selection and self.director.state:is("HERO_SELECTION") then self.hero_selection:Publish() end
   require("rift.engine.arena_service").tick(self)
+  if self.center_gold then self.center_gold:vision()end
   if self.lab then
     self.lab:Tick()
-    if self.lab.enabled then self.ui:Publish(false);return THINK_INTERVAL end
+    if self.lab.enabled then self.last_raw_time=GameRules:GetGameTime();self.ui:Publish(false);return THINK_INTERVAL end
   end
   local raw = GameRules:GetGameTime()
   local dt = self.last_raw_time and (raw - self.last_raw_time) or 0
@@ -432,14 +450,22 @@ function GameMode:Think()
   if st:rewards_open() and dt > 0 then
     for pid, p in pairs(self.players) do
       if PlayerResource:IsValidPlayerID(pid) then
-        local g, x = Rules.accumulate(p.acc, self.cfg, dt)
+        local g, x = Rules.accumulate(p.acc, self.cfg, dt, nil, st:active_elapsed(self:Now()))
         self:Grant(pid, g, x)
       end
     end
   end
   local now = self:Now()
+  if self.center_gold then
+    if st:is("ACTIVE")and dt>0 then
+      local elapsed=math.min(st:active_elapsed(now),self.cfg.match.active_seconds)
+      self.center_gold:tick(math.max(0,elapsed-dt),elapsed)
+    end
+  end
   if st:rewards_open() then
-    -- regular offers only during ACTIVE (not after 18:00 / in overtime); expiry keeps running
+    if self.roshan and st:is("ACTIVE")then self.roshan:tick(now,st:active_elapsed(now))end
+    if self.river_camps and st:is("ACTIVE")then self.river_camps:tick(now,st:active_elapsed(now))end
+    -- regular offers only during ACTIVE (not after match time limit / in overtime); expiry keeps running
     self.upgrades:Tick(now, st:active_elapsed(now), st:is("ACTIVE"))
   end
   -- relic only in ACTIVE; overtime/finished clears it permanently

@@ -1,4 +1,4 @@
-.SetupRoot { width:100%; height:100%; font-family:Radiance; background-color:gradient(linear,0% 0%,100% 100%,from(#293a44),color-stop(.5,#111d26),to(#080f15)); }
+.SetupRoot { width:100%; height:100%; font-family:Radiance; background-color:gradient(linear,0% 0%,100% 100%,from(#30382f),color-stop(.5,#181f19),to(#090e0a)); }
 .SetupScreen { width:1600px; height:920px; horizontal-align:center; vertical-align:center; flow-children:down; }
 .SetupHeader { width:100%; height:120px; flow-children:right; border-bottom:1px solid #a4b5bd44; margin-bottom:36px; }
 .SetupBrand { width:fill-parent-flow(1); flow-children:down; }
@@ -33,3 +33,19 @@
 .SetupActions .PickConfirm { width:fill-parent-flow(1); height:60px; border-radius:4px; }
 .SetupAssign:disabled { saturation:0; brightness:.5; }
 .SetupRoot.Closed { visibility:collapse; }
+.SetupScreen { transform-origin:50% 50%; }
+.SetupLobby { background-color:gradient(linear,0% 0%,100% 100%,from(#242d22ef),to(#0d150f)); border-radius:3px; border-color:#81745466; }
+.SetupSeat { border-radius:2px; background-color:gradient(linear,0% 0%,100% 100%,from(#343b2daa),to(#121b14)); border-color:#6e765444; }
+.SetupSeat.Empty { background-color:#15201577; }
+.SetupTitle { color:#e2d9bc; }
+
+/* Owner-supplied fire/arcane identity. The PNG keeps its original alpha. */
+.SetupRoot { background-color:gradient(linear,0% 0%,100% 100%,from(#29201d),color-stop(.45,#14151c),to(#10101b)); }
+.SetupArtwork { height:300px; background-color:gradient(linear,0% 50%,100% 50%,from(#b4481010),color-stop(.5,#11131a00),to(#5541af14)); border-bottom:1px solid #9c8aa52e; }
+.SetupLogo { width:100%; height:100%; horizontal-align:center; vertical-align:center; }
+.SetupLobby { background-color:gradient(linear,0% 0%,100% 100%,from(#28252af2),to(#11131dee)); border-color:#70616b77; border-top-color:#b79472; }
+.SetupSeat { background-color:gradient(linear,0% 0%,100% 100%,from(#34313aaa),to(#151720)); border-color:#736b8144; }
+.SetupSeat.Empty { background-color:#1a1c2633; border-style:solid; }
+.SetupSeat.Self { background-color:#be7d3520; border-color:#bb936a; }
+.SetupEyebrow { color:#d2a16e; }
+.SetupActions .PickConfirm { background-color:gradient(linear,0% 0%,100% 100%,from(#76543b),to(#352f46)); border-color:#b99776; }

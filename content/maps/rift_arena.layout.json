@@ -2,7 +2,7 @@
   "name": "The Verdant Reach",
   "base": "Valve Overthrow forest_solo",
   "source_sha256": "8cd6bdfa4d11fc8c602bd92c1e60ee2498aed298d1eaa933189ce06d70d43d2d",
-  "terrain_sha256": "e533e1207a5650a9873053e741d6134cfe836a72e76e4971ee7c64e8b8db59cf",
+  "terrain_sha256": "d47865a92987425233c5d5298fc23e419de0baf077a27e956ec4d32cb702f6d2",
   "bounds": [
     -5632,
     -5632,
@@ -32,7 +32,7 @@
       "name": "rift_spawn_04",
       "x": 3704,
       "y": -2827,
-      "z": 160
+      "z": 128
     },
     {
       "name": "rift_spawn_05",
@@ -62,7 +62,7 @@
       "name": "rift_spawn_09",
       "x": -3704,
       "y": 2827,
-      "z": 160
+      "z": 128
     },
     {
       "name": "rift_spawn_10",
@@ -112,43 +112,43 @@
   "starts": [
     {
       "team": 2,
-      "x": 1544,
-      "y": 4396
+      "x": 1352,
+      "y": 4460
     },
     {
       "team": 3,
-      "x": 3833,
-      "y": 2649
+      "x": 4089,
+      "y": 2777
     },
     {
       "team": 6,
-      "x": 4658,
-      "y": -110
+      "x": 4786,
+      "y": 18
     },
     {
       "team": 7,
       "x": 1335,
-      "y": -4464
+      "y": -4080
     },
     {
       "team": 8,
-      "x": -1544,
-      "y": -4396
+      "x": -1288,
+      "y": -4652
     },
     {
       "team": 9,
-      "x": -3833,
-      "y": -2649
+      "x": -4089,
+      "y": -2905
     },
     {
       "team": 10,
-      "x": -4658,
-      "y": 110
+      "x": -4914,
+      "y": 46
     },
     {
       "team": 11,
-      "x": -1335,
-      "y": 4464
+      "x": -1271,
+      "y": 4400
     }
   ],
   "bases": [
@@ -160,8 +160,14 @@
       "name": "rift_base_2",
       "tower": {
         "name": "rift_base_tower_2",
-        "x": 1646,
-        "y": 4021,
+        "x": 1681,
+        "y": 4242,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_2",
+        "x": 1352,
+        "y": 4460,
         "z": 128
       }
     },
@@ -173,8 +179,14 @@
       "name": "rift_base_3",
       "tower": {
         "name": "rift_base_tower_3",
-        "x": 3695,
-        "y": 2286,
+        "x": 3853,
+        "y": 2444,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_3",
+        "x": 4089,
+        "y": 2777,
         "z": 128
       }
     },
@@ -186,8 +198,14 @@
       "name": "rift_base_6",
       "tower": {
         "name": "rift_base_tower_6",
-        "x": 4333,
-        "y": -322,
+        "x": 4554,
+        "y": -288,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_6",
+        "x": 4786,
+        "y": 18,
         "z": 128
       }
     },
@@ -199,8 +217,14 @@
       "name": "rift_base_7",
       "tower": {
         "name": "rift_base_tower_7",
-        "x": 1033,
-        "y": -4220,
+        "x": 1134,
+        "y": -4420,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_7",
+        "x": 1335,
+        "y": -4080,
         "z": 128
       }
     },
@@ -212,8 +236,14 @@
       "name": "rift_base_8",
       "tower": {
         "name": "rift_base_tower_8",
-        "x": -1646,
-        "y": -4021,
+        "x": -1681,
+        "y": -4242,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_8",
+        "x": -1288,
+        "y": -4652,
         "z": 128
       }
     },
@@ -225,8 +255,14 @@
       "name": "rift_base_9",
       "tower": {
         "name": "rift_base_tower_9",
-        "x": -3695,
-        "y": -2286,
+        "x": -3853,
+        "y": -2444,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_9",
+        "x": -4089,
+        "y": -2905,
         "z": 128
       }
     },
@@ -238,8 +274,14 @@
       "name": "rift_base_10",
       "tower": {
         "name": "rift_base_tower_10",
-        "x": -4333,
-        "y": 322,
+        "x": -4554,
+        "y": 288,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_10",
+        "x": -4914,
+        "y": 46,
         "z": 128
       }
     },
@@ -251,26 +293,22 @@
       "name": "rift_base_11",
       "tower": {
         "name": "rift_base_tower_11",
-        "x": -1033,
-        "y": 4220,
+        "x": -1134,
+        "y": 4420,
+        "z": 128
+      },
+      "spawn": {
+        "name": "rift_team_start_11",
+        "x": -1271,
+        "y": 4400,
         "z": 128
       }
     }
   ],
   "shops": [
     {
-      "x": 3936.0,
-      "y": -2368.0,
-      "z": 127.9998779296875
-    },
-    {
       "x": -927.999755859375,
       "y": 4544.0,
-      "z": 127.9998779296875
-    },
-    {
-      "x": -3936.0,
-      "y": 2464.0,
       "z": 127.9998779296875
     },
     {
@@ -309,9 +347,75 @@
       "z": 127.9998779296875
     }
   ],
-  "overview_map_sha256": "898d6081bbb5644e1bafa0e62237a054e02fdadeb7507fd423f882b9b80cc71b",
-  "revision": 2,
+  "overview_map_sha256": "d032f1753e3556c41bf854f7acce0139100460f9d14141d12e9a773da509f786",
+  "revision": 7,
   "flat_radius": 2304,
   "flat_level": 0,
-  "outer_terrain_sha256": "e72497041fc007c9b3a651a393c1e9bbab1268b9bca068466147fb7a4b930f89"
+  "outer_terrain_sha256": "e72497041fc007c9b3a651a393c1e9bbab1268b9bca068466147fb7a4b930f89",
+  "ward_spots": [
+    {
+      "name": "rift_ward_01",
+      "x": 1792,
+      "y": 1792,
+      "z": 384
+    },
+    {
+      "name": "rift_ward_02",
+      "x": -1792,
+      "y": 1792,
+      "z": 384
+    },
+    {
+      "name": "rift_ward_03",
+      "x": -1792,
+      "y": -1792,
+      "z": 384
+    },
+    {
+      "name": "rift_ward_04",
+      "x": 1792,
+      "y": -1792,
+      "z": 384
+    }
+  ],
+  "river_camps": [
+    {
+      "name": "rift_river_camp_01",
+      "x": 3876,
+      "y": 1111,
+      "z": 0
+    },
+    {
+      "name": "rift_river_camp_02",
+      "x": 268,
+      "y": 3831,
+      "z": 0
+    },
+    {
+      "name": "rift_river_camp_03",
+      "x": -2522,
+      "y": -3228,
+      "z": 0
+    },
+    {
+      "name": "rift_river_camp_04",
+      "x": 2171,
+      "y": -3474,
+      "z": 0
+    }
+  ],
+  "roshan_pockets": [
+    {
+      "name": "rift_roshan_01",
+      "x": -3704,
+      "y": 2827,
+      "z": 128
+    },
+    {
+      "name": "rift_roshan_02",
+      "x": 3704,
+      "y": -2827,
+      "z": 128
+    }
+  ]
 }

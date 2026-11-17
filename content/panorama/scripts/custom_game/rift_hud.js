@@ -7,6 +7,11 @@ var RiftRoster = [];
 var RiftMenuSeen = false;
 var RiftMenuAuto = false;
 var RiftBoardKey = "";
+var RiftEvents={};
+function RiftFocusEvent(kind){
+ var v=RiftEvents[kind];if(!v||typeof v.x!=="number"||typeof v.y!=="number")return;
+ GameUI.SetCameraTargetPosition([v.x,v.y,v.z||128],.2);
+}
 
 function fmtTime(sec) {
   return RiftUIModel.time(sec);
@@ -45,6 +50,17 @@ function onMatchState(data) {
     RiftMenuAuto = false; // Dedicated HeroSelection screen owns the initial flow.
   }
   if (RiftMenuAuto && (data.state === "ACTIVE" || data.state === "FINISHED")) RiftHideOnboarding();
+}
+
+function onRoshan(data) {
+ RiftEvents.roshan=data;
+ var label=$("#RoshanStatus");if (!label) return;
+ $("#RoshanEvent").SetHasClass("Hidden", !data || data.disabled === 1);
+ if (!data || data.disabled === 1) return;
+ var name=$.Localize("#rift_roshan_name")+": ";
+ if (!data.alive) label.text=name+$.Localize("#rift_roshan_respawn")+" "+fmtTime(data.respawn);
+ else if (data.moving) label.text=name+$.Localize("#rift_roshan_travelling")+" "+$.Localize("#rift_roshan_pocket_"+data.target);
+ else label.text=name+$.Localize("#rift_roshan_pocket_"+data.pocket)+" · "+$.Localize("#rift_roshan_move")+" "+fmtTime(data.next_move);
 }
 
 function renderSeats(rows) {
@@ -172,6 +188,7 @@ function onRoster(data) {
 (function () {
   CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
     if (key === "state") onMatchState(data);
+    else if (key === "roshan") onRoshan(data);
     else if (key === "result") onResult(data);
     else if (key === "roster") onRoster(data);
   });
@@ -233,32 +250,39 @@ function buildCard(parent, offer, opt) {
   card.AddClass("OfferCard");
   if (opt.rarity) card.AddClass(opt.rarity);
   if (opt.direction) card.AddClass(opt.direction);
-  var top = $.CreatePanel("Panel", card, "");
-  top.AddClass("CardTop");
-  var icon = $.CreatePanel("Image", top, "");
+  var icon = $.CreatePanel("Image", card, "");
   icon.AddClass("CardIcon");
   if (opt.icon) {
     var isItem = opt.icon.indexOf("item_") === 0;
+    icon.SetHasClass("ItemIcon",isItem);
     icon.SetImage(isItem ? "file://{images}/items/" + opt.icon.substring(5) + ".png"
                          : "file://{images}/spellicons/" + opt.icon + ".png");
   }
-  var name = $.CreatePanel("Label", top, "");
+  var body = $.CreatePanel("Panel", card, "");
+  body.AddClass("CardBody");
+  var name = $.CreatePanel("Label", body, "");
   name.AddClass("CardName");
   name.text = $.Localize("#" + opt.loc_name);
-  var tag = $.CreatePanel("Label", card, "");
+  var desc = $.CreatePanel("Label", body, "");
+  desc.AddClass("CardDesc");
+  desc.text = locFill(opt.loc_desc, opt.values);
+  if (opt.total_values && opt.rank_now > 0) {
+    var total = $.CreatePanel("Label", body, ""); total.AddClass("OfferTotal");
+    total.text = $.Localize("#rift_offer_rank_total") + " " + locFill(opt.loc_desc, opt.total_values);
+  }
+  var meta = $.CreatePanel("Panel", body, "");
+  meta.AddClass("CardMeta");
+  var tag = $.CreatePanel("Label", meta, "");
   tag.AddClass("CardRarity");
   if (opt.kind === "direction") tag.text = $.Localize("#rift_dir_" + opt.direction);
   else if (opt.rarity) tag.text = $.Localize("#rift_rarity_" + opt.rarity);
-  var desc = $.CreatePanel("Label", card, "");
-  desc.AddClass("CardDesc");
-  desc.text = locFill(opt.loc_desc, opt.values);
   if (opt.kind === "upgrade") {
-    var rank = $.CreatePanel("Label", card, "");
+    var rank = $.CreatePanel("Label", meta, "");
     rank.AddClass("CardRank");
     rank.text = locFill("rift_rank", { now: opt.rank_now, next: opt.rank_next, max: opt.max_rank });
   }
   if (opt.is_default === 1) {
-    var def = $.CreatePanel("Label", card, "");
+    var def = $.CreatePanel("Label", body, "");
     def.AddClass("CardDefault");
     def.text = $.Localize("#rift_offer_default");
   }
@@ -317,16 +341,50 @@ function renderBuild() {
   var rows = $("#BuildRows");
   rows.RemoveAndDeleteChildren();
   var list = objToArray(st.build);
+  var count=0;list.forEach(function(b){count+=Number(b.rank)||0;});
+  $("#BuildCount").text=String(count);
   if (list.length === 0) {
     var empty = $.CreatePanel("Label", rows, "");
     empty.AddClass("BuildRow");
     empty.text = $.Localize("#rift_build_empty");
   }
   for (var i = 0; i < list.length; i++) {
-    var l = $.CreatePanel("Label", rows, "");
-    l.AddClass("BuildRow");
-    l.text = $.Localize("#" + list[i].loc_name) + " " + list[i].rank + "/" + list[i].max_rank;
+    var b=list[i],row=$.CreatePanel("Panel",rows,"");row.AddClass("BuildEntry");
+    var icon=$.CreatePanel("Image",row,"");icon.AddClass("BuildIcon");
+    if(b.icon){var item=b.icon.indexOf("item_")===0;icon.SetImage("file://{images}/"+(item?"items/"+b.icon.substring(5):"spellicons/"+b.icon)+".png");if(item)icon.AddClass("ItemIcon");}
+    var body=$.CreatePanel("Panel",row,"");body.AddClass("BuildEntryBody");
+    var l = $.CreatePanel("Label", body, "");l.AddClass("BuildRow");
+    l.text = $.Localize("#" + b.loc_name) + "  " + b.rank + "/" + b.max_rank;
+    if(b.loc_desc){var desc=$.CreatePanel("Label",body,"");desc.AddClass("BuildEntryDesc");desc.text=locFill(b.loc_desc,b.values);}
   }
+}
+function RiftToggleBuild(){
+  $("#BuildPanel").ToggleClass("Hidden");
+  $("#BuildToggle").SetHasClass("Selected",!$("#BuildPanel").BHasClass("Hidden"));
+}
+function RiftBuildTooltip(){
+ $.DispatchEvent("DOTAShowTextTooltip",$("#BuildToggle"),$.Localize("#rift_build_title"));
+}
+
+// Follow the actual native HUD gap; avoid fixed offsets that drift on 4:3/ultrawide.
+function RiftPositionBuildButton(){
+  var panel=$.GetContextPanel(),hud=panel;while(hud.GetParent())hud=hud.GetParent();
+  var map=hud.FindChildTraverse("minimap_container"),portrait=hud.FindChildTraverse("portraitHUD");
+  if(map&&portrait&&hud.actuallayoutheight>0){
+    var scale=1080/hud.actuallayoutheight;
+    var mapPos=map.GetPositionWithinWindow(), portraitPos=portrait.GetPositionWithinWindow();
+    var left=Number(mapPos.x === undefined ? mapPos[0] : mapPos.x)+map.actuallayoutwidth;
+    var right=Number(portraitPos.x === undefined ? portraitPos[0] : portraitPos.x);
+    if(isFinite(left)&&isFinite(right)&&map.actuallayoutheight>0){
+      var x=Math.max(16,(left+right)*scale/2-27),bottom=90;
+      if(right-left<62/scale){x=Math.max(16,left*scale-54);bottom=map.actuallayoutheight*scale+12;}
+      if(x<=520 && bottom<=360){
+        $("#BuildToggle").style.marginLeft=x+"px";$("#BuildToggle").style.marginBottom=bottom+"px";
+        $("#BuildPanel").style.marginLeft=Math.max(16,x-18)+"px";$("#BuildPanel").style.marginBottom=(bottom+72)+"px";
+      }
+    }
+  }
+  $.Schedule(.5,RiftPositionBuildButton);
 }
 
 function RiftCollapseOffer() {
@@ -376,6 +434,7 @@ function offerTick() {
 // Heart of the Rift (public state)
 // ---------------------------------------------------------------------------
 function onRelic(v) {
+  RiftEvents.relic=v;
   if (!v) return;
   var panel = $("#RelicPanel");
   var next = $("#NextEventLabel");
@@ -403,3 +462,7 @@ function onRelic(v) {
   });
   onRelic(CustomNetTables.GetTableValue("rift_match", "relic"));
 })();
+
+onRoshan(CustomNetTables.GetTableValue("rift_match", "roshan"));
+$("#BuildGlyph").SetImage("s2r://panorama/images/spellicons/attribute_bonus_png.vtex");
+if (typeof $.GetContextPanel === "function") RiftPositionBuildButton();

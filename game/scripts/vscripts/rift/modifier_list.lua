@@ -3,7 +3,11 @@
 -- addon_game_mode.lua are NOT visible to required modules (verified in Dota), so
 -- the list lives in a module.
 local M = {
+  "modifier_rift_courier",
   "modifier_rift_sanctuary_aura",
+  "modifier_rift_center_gold",
+  "modifier_rift_roshan",
+  "modifier_rift_river_neutral",
   "modifier_rift_sanctuary",
   "modifier_rift_base_guardian",
   "modifier_rift_aghanim_item",

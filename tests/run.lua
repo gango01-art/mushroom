@@ -33,7 +33,8 @@ end
 
 local suites = { "test_match_state", "test_scoring", "test_director", "test_rules", "test_hero_selection", "test_sf_souls",
                  "test_rng", "test_registry", "test_offers", "test_storm", "test_effects",
-                 "test_hero_lc", "test_hero_sf", "test_hero_ta", "test_hero_pa", "test_hero_data", "test_combat_core", "test_relic", "test_engine_lc", "test_engine_pa_sf", "test_engine_layout", "test_expansion", "test_balance_rework", "test_arena", "test_resources", "test_laboratory", "test_progression", "test_balance_budget", "test_solo_items", "test_ta_innate", "test_aghanim", "test_sanctuary" }
+                 "test_hero_lc", "test_hero_sf", "test_hero_ta", "test_hero_pa", "test_hero_data", "test_combat_core", "test_relic", "test_engine_lc", "test_engine_pa_sf", "test_engine_layout", "test_expansion", "test_balance_rework", "test_arena", "test_resources", "test_laboratory", "test_progression", "test_balance_budget", "test_solo_items", "test_ta_innate", "test_aghanim", "test_sanctuary", "test_center_gold", "test_river_camps", "test_roshan" }
+suites[#suites+1]="test_couriers"
 for _, s in ipairs(suites) do
   T.current = s
   require(s)

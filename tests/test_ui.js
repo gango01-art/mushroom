@@ -2,12 +2,13 @@
 "use strict";
 const fs = require("fs"), vm = require("vm"), assert = require("node:assert/strict");
 const base = "content/panorama/";
-const panels = new Map(), tables = {}, net = {}, events = {}, sent = [], hidden = [];
+const panels = new Map(), tables = {}, net = {}, events = {}, sent = [], hidden = [], dispatched=[];
 function panel(type, parent, id = "") {
   const p = { type, id, parent, children: [], classes: new Set(), style: {}, handlers: {}, text: "", enabled: true,
     AddClass(c) { this.classes.add(c); }, RemoveClass(c) { this.classes.delete(c); },
     SetHasClass(c, b) { b ? this.AddClass(c) : this.RemoveClass(c); },
     ToggleClass(c) { this.SetHasClass(c, !this.classes.has(c)); },
+    BHasClass(c) { return this.classes.has(c); },
     Children() { return this.children; }, GetParent() { return this.parent; },
     RemoveAndDeleteChildren() { this.children = []; },
     DeleteAsync() { if (this.parent) this.parent.children = this.parent.children.filter(p => p !== this); },
@@ -21,7 +22,7 @@ const xml = fs.readFileSync(base + "layout/custom_game/rift_hud.xml", "utf8");
 // Native Panorama rejects an id on the root panel. Keep RiftRoot inside an
 // anonymous host so its selectors remain valid after ResourceCompiler builds.
 assert.ok(!/<Panel\b[^>]*\bid=/.test(xml.match(/<Panel\b[^>]*>/)[0]), "Panorama root panel must be anonymous");
-for (const m of xml.matchAll(/<(Panel|Label|Button)\b[^>]*\bid="([^"]+)"[^>]*>/g)) {
+for (const m of xml.matchAll(/<(Panel|Label|Button|Image)\b[^>]*\bid="([^"]+)"[^>]*>/g)) {
   const p = panel(m[1], null, m[2]);
   const classes = m[0].match(/\bclass="([^"]+)"/);
   if (classes) classes[1].split(" ").forEach(c => p.AddClass(c));
@@ -34,6 +35,7 @@ const $ = selector => {
 $.CreatePanel = panel;
 $.Localize = token => token; // Keeping tokens makes expected localization bindings explicit.
 $.Schedule = () => {};
+$.DispatchEvent = (...args) => dispatched.push(args);
 const localPid = 2, selected = [];
 const context = vm.createContext({ $, Players: { GetLocalPlayer: () => localPid, GetPlayerName: pid => "Player " + pid },
   Game: { GetGameTime: () => 100 }, GameUI: { SetDefaultUIEnabled: (k, v) => hidden.push([k, v]), SelectUnit: (e) => selected.push(e) },
@@ -86,9 +88,19 @@ assert.equal(context.RiftOffer.pendingOfferId,-1);
 events.rift_private_state({visible_offer:-1,pending:{},build:{}});
 assert.ok(!$("#OfferPanel").classes.has("Visible"));
 assert.ok(!$("#RiftRoot").classes.has("Choosing"));
+context.RiftToggleBuild();assert.ok(!$("#BuildPanel").BHasClass("Hidden"));
+context.RiftToggleBuild();assert.ok($("#BuildPanel").BHasClass("Hidden"));
+context.RiftBuildTooltip();assert.equal(dispatched.at(-1)[0],"DOTAShowTextTooltip");assert.equal(dispatched.at(-1)[1],$("#BuildToggle"));
+events.rift_private_state({visible_offer:-1,pending:{},build:{1:{loc_name:"hp",loc_desc:"hp_desc",icon:"item_vitality_booster",rank:2,max_rank:3,values:{health:100}}}});
+assert.equal($("#BuildCount").text,"2");assert.equal($("#BuildRows").children.length,1);
+assert.ok($("#BuildRows").children[0].children[0].classes.has("ItemIcon"));
 publish("rift_match","state",{state:"OVERTIME",remaining:120,active_total:1080});
 assert.ok($("#RiftRoot").classes.has("Overtime"));
 const model = require("../" + base + "scripts/custom_game/rift_ui_model.js");
+for(const [w,h]of [[1280,720],[1920,1080],[1280,800],[1024,768],[3440,1440]]){
+ const s=model.canvasScale(w,h,1600,980);assert.ok(s<=1&&s>0);
+ assert.ok(1600*s<=1080*w/h-64+.001&&980*s<=1016+.001,"uniform canvas fit");
+}
 assert.equal(model.time(-20),"0:00");assert.equal(model.time(1080),"18:00");
 assert.equal(model.progress(200,100),100);assert.equal(model.progress(50,0),0);
 const lab = {available:1,enabled:1,hero:hero.hero,path:"physical",rank:3,owner:localPid,free:0,gallery_count:11,target_count:1,active_entity:42};

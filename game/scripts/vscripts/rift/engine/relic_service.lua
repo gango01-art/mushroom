@@ -26,13 +26,17 @@ local function vec(p) return GetGroundPosition(Vector(p.x, p.y, p.z or 0), nil) 
 
 function Service:_fx_ground(pos)
   self:_fx_clear()
+  self.ground_model=SpawnEntityFromTableSynchronous("prop_dynamic",{model=self.cfg.model_ground,origin=pos+Vector(0,0,24),solid=0})
+  if self.ground_model then self.ground_model:SetModelScale(self.cfg.model_scale)end
   if self.cfg.particle_ground and self.cfg.particle_ground ~= "" then
-    self.ground_fx = ParticleManager:CreateParticle(self.cfg.particle_ground, PATTACH_WORLDORIGIN, nil)
+    self.ground_fx = ParticleManager:CreateParticle(self.cfg.particle_ground, PATTACH_ABSORIGIN_FOLLOW, self.ground_model)
     ParticleManager:SetParticleControl(self.ground_fx, 0, pos)
   end
 end
 
 function Service:_fx_clear()
+  if self.ground_model and not self.ground_model:IsNull()then UTIL_Remove(self.ground_model)end
+  self.ground_model=nil
   if self.ground_fx then
     ParticleManager:DestroyParticle(self.ground_fx, false)
     ParticleManager:ReleaseParticleIndex(self.ground_fx)
@@ -77,6 +81,7 @@ function Service:_drop(now, pos, why)
   local ok, out = self.relic:drop(now)
   if not ok then return end
   if hero and not hero:IsNull() then hero:RemoveModifierByName("modifier_rift_relic_carrier") end
+  self.carrier_hero=nil
   local target = self:_valid_drop(pos) and pos or self:_nearest_point(pos or self.last_valid_carrier_pos or Vector(0, 0, 0))
   self:_set_ground(target)
   Log.info("RELIC", "dropped (" .. why .. ")")
@@ -96,8 +101,9 @@ function Service:_handle(events, now)
       self.gm.scoring:add_score(e.pid, e.points, now, "relic")
       self.gm.ui:Publish(true)
     elseif e.kind == "ended" or e.kind == "cleared" then
-      local hero = self:_carrier_hero()
+      local hero = self.carrier_hero or self:_carrier_hero()
       if hero and not hero:IsNull() then hero:RemoveModifierByName("modifier_rift_relic_carrier") end
+      self.carrier_hero=nil
       self:_fx_clear()
       self.ground_pos = nil
       Log.info("RELIC", e.kind .. " " .. tostring(e.reason or ""))
@@ -109,6 +115,9 @@ end
 function Service:Tick(now, active_elapsed, allowed)
   self:_handle(self.relic:tick(now, active_elapsed, allowed), now)
   local st = self.relic.state
+  if self.ground_model and not self.ground_model:IsNull()then
+    for _,team in ipairs(self.gm.teams)do AddFOWViewer(team,self.ground_model:GetAbsOrigin(),self.cfg.ground_vision,.6,false)end
+  end
   if st == "ground" and self.ground_pos then
     self:_try_pickup(now)
   elseif st == "carried" then
@@ -146,6 +155,7 @@ function Service:_try_pickup(now)
   end
   if best and self.relic:pickup(best, now) then
     local h = PlayerResource:GetSelectedHeroEntity(best)
+    self.carrier_hero=h
     Mods.add(h, h, nil, "modifier_rift_relic_carrier",
       { slow = self.cfg.carrier_move_slow_pct, particle = self.cfg.particle_carrier })
     self:_fx_clear()
@@ -182,6 +192,8 @@ function Service:View(now, active_elapsed)
   local p = v.point > 0 and self.points[v.point] or nil
   v.x, v.y = p and p.x or 0, p and p.y or 0
   if self.ground_pos then v.x, v.y = self.ground_pos.x, self.ground_pos.y end
+  local hero=self:_carrier_hero()
+  if hero and not hero:IsNull()then local pos=hero:GetAbsOrigin();v.x,v.y,v.z=pos.x,pos.y,pos.z end
   return v
 end
 

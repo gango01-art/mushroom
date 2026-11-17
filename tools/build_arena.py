@@ -11,11 +11,28 @@ import json
 import math
 import uuid
 from vendor import datamodel as dm
+from arena_mesh import water, center_barrier
 
 ROOT = Path(__file__).resolve().parents[1]
 TEAMS = [2, 3, 6, 7, 8, 9, 10, 11]
 FLAT_RADIUS = 2304
 FLAT_LEVEL = 0
+WARD_LEVEL = 2
+WARD_SPOTS = [(1792,1792),(-1792,1792),(-1792,-1792),(1792,-1792)]
+ROSHAN_PITS = [(-3704,2827),(3704,-2827)]
+PIT_RADIUS = 900
+
+def in_roshan_pocket(x,y):
+    return any(math.hypot(x-px,y-py)<=PIT_RADIUS for px,py in ROSHAN_PITS)
+
+PIT_BASELINE=json.loads((ROOT/'tools/templates/forest_pit_baseline.json').read_text())
+# Native connected path samples, target ~2550 units; all within R400 of home.
+BALANCED_STARTS = {2:(1352,4460),3:(4089,2777),6:(4786,18),7:(1335,-4080),
+                   8:(-1288,-4652),9:(-4089,-2905),10:(-4914,46),11:(-1271,4400)}
+
+def ward_vertex_level(x, y):
+    return FLAT_LEVEL
+
 # Original Forest-derived source outside the central island, before revision 2.
 SOURCE_OUTER_TERRAIN_SHA256 = "e72497041fc007c9b3a651a393c1e9bbab1268b9bca068466147fb7a4b930f89"
 
@@ -24,7 +41,7 @@ def outer_terrain_digest(layer):
     """The revision may change only height/water inside the combat circle."""
     values = []
     for key in ['verticesHeight', 'verticesWater']:
-        values.append([v for i, v in enumerate(layer[key])
+        values.append([0 if key=='verticesHeight' and (-8192+(i%65)*256,-8192+(i//65)*256)in WARD_SPOTS else v for i, v in enumerate(layer[key])
                        if math.hypot(-8192+(i % 65)*256, -8192+(i // 65)*256) > FLAT_RADIUS])
     for key in ['edgesPath', 'objectsTreeType', 'objectsTreeSize',
                 'cellsTileSet', 'cellsMaterialSet', 'gridnavFlags']:
@@ -41,10 +58,23 @@ def revise_arena(model, layout):
     """
     world = model.root['world']
     layer = next(e for e in model.elements if e.type == 'CMapDotaTileGrid')['layerData'][0]
+    # The previous water conversion generated missing transition tiles. Restore
+    # every touched height/water pair before asserting the outer terrain digest.
+    for field, vertices in PIT_BASELINE.items():
+        for index, value in vertices.items():
+            layer[field][int(index)] = value
     before = outer_terrain_digest(layer)
     assert before == SOURCE_OUTER_TERRAIN_SHA256, "Restore the original outer terrain before revising the center"
     removed = []
     def keep(e):
+        name=e.name or ''
+        if name.startswith(('rift_pit_water_', 'rift_water_shore_')) or (name.startswith('rift_pit_') and '_cascade_' in name):
+            removed.append(e.name);return False
+        if e.type=='CMapPrefab' and e.get('targetMapPath','')=='maps/prefabs/shop_sithil.vmap':
+            x,y,_=e.get('origin',[99999,99999,0])
+            if in_roshan_pocket(x,y):removed.append('roshan_shop');return False
+        if e.type=='CMapMesh' and (e.name or '').startswith('rift_ward_pillar_'):
+            removed.append(e.name);return False
         x, y, _ = e.get('origin', [99999, 99999, 0])
         if e.type == 'CMapMesh' and math.hypot(x, y) < 512:
             if 'materials/tools/toolsskip.vmat' in e['meshData']['materials']:
@@ -59,12 +89,17 @@ def revise_arena(model, layout):
             e['children'] = dm.make_array([c for c in e['children'] if keep(c)], dm.Element)
         return True
     keep(world)
+    layout['shops']=[p for p in layout['shops']if not in_roshan_pocket(p['x'],p['y'])]
     for y in range(65):
         for x in range(65):
             if math.hypot(-8192+x*256, -8192+y*256) <= FLAT_RADIUS:
                 i = y*65+x
-                layer['verticesHeight'][i] = FLAT_LEVEL
+                layer['verticesHeight'][i] = ward_vertex_level(-8192+x*256,-8192+y*256)
                 layer['verticesWater'][i] = False
+    # Only these four isolated native high points are permitted outside the center.
+    for x,y in WARD_SPOTS:
+        i=(y//256+32)*65+x//256+32
+        layer['verticesHeight'][i]=WARD_LEVEL
     assert outer_terrain_digest(layer) == before
     nodes = []
     def walk(e):
@@ -72,6 +107,11 @@ def revise_arena(model, layout):
         for c in e.get('children', []): walk(c)
     walk(world)
     entities = {e['entity_properties'].get('targetname', ''): e for e in nodes if e.type == 'CMapEntity'}
+    lowered=layout.pop('pit_lowered_props',{})
+    for e in nodes:
+        if str(e.id) in lowered:
+            x,y,_=e['origin']
+            e['origin']=dm.Vector3([x,y,lowered[str(e.id)]])
     node = max(e.get('nodeID', 0) for e in model.elements)+1
     def anchor(name, x, y, z, team):
         nonlocal node
@@ -89,20 +129,61 @@ def revise_arena(model, layout):
             p['classname'], p['targetname'], p['teamnumber'] = 'info_target', name, str(team)
             e['entity_properties'] = p; world['children'].append(e)
         e['origin'] = dm.Vector3([x,y,z])
+        return e
+    def prop(name,asset,x,y,z,yaw=0,scale=1,solid=6,dynamic=False):
+        e=anchor(name,x,y,z,0);p=e['entity_properties']
+        p['classname']='prop_dynamic'if dynamic else'prop_static'
+        p['model']=asset;p['solid']=str(solid)
+        e['angles']=dm.Angle([0,yaw,0]);e['scales']=dm.Vector3([scale]*3)
     for p in layout['relics']:
         p['z'] = 128 + FLAT_LEVEL*128; entities[p['name']]['origin'] = dm.Vector3([p['x'],p['y'],p['z']])
     entities['rift_center']['origin'] = dm.Vector3([0,0,128 + FLAT_LEVEL*128])
     for team, base in zip(TEAMS, layout['bases']):
         x,y = base['x'],base['y']; r = math.hypot(x,y)
         ix,iy = -x/r,-y/r
-        tx,ty = round(x+ix*320-iy*220),round(y+iy*320+ix*220)
+        tx,ty = round(x+ix*100-iy*180),round(y+iy*100+ix*180)
         base.update(team=team,name=f'rift_base_{team}',z=128,
                     tower={'name':f'rift_base_tower_{team}','x':tx,'y':ty,'z':128})
         anchor(base['name'],x,y,128,team)
         anchor(base['tower']['name'],tx,ty,128,team)
-    layout.update(revision=2, flat_radius=FLAT_RADIUS, flat_level=FLAT_LEVEL,
+        sx,sy=BALANCED_STARTS[team]
+        assert math.hypot(sx-x,sy-y)<=400
+        base['spawn']={'name':f'rift_team_start_{team}','x':sx,'y':sy,'z':128}
+        entities[base['spawn']['name']]['origin']=dm.Vector3([sx,sy,128])
+        next(s for s in layout['starts']if s['team']==team).update(x=sx,y=sy)
+    layout['ward_spots'] = []
+    for i,(x,y) in enumerate(WARD_SPOTS,1):
+        name=f'rift_ward_{i:02}'
+        anchor(name,x,y,384,0)
+        prop(f'rift_ward_glyph_{i:02}','models/effects/wardspot_00.vmdl',x,y,386,solid=0,dynamic=True)
+        layout['ward_spots'].append(dict(name=name,x=x,y=y,z=128+WARD_LEVEL*128))
+    layout['river_camps']=[]
+    for i,(x,y) in enumerate([(3876,1111),(268,3831),(-2522,-3228),(2171,-3474)],1):
+        name=f'rift_river_camp_{i:02}';anchor(name,x,y,0,0)
+        layout['river_camps'].append(dict(name=name,x=x,y=y,z=0))
+    layout['roshan_pockets']=[]
+    for i,index in enumerate([8,3],1):
+        p=layout['spawns'][index];name=f'rift_roshan_{i:02}'
+        x,y=ROSHAN_PITS[i-1]
+        z=128
+        p['z']=z;entities[p['name']]['origin']=dm.Vector3([x,y,z])
+        anchor(name,x,y,z,0)
+        layout['roshan_pockets'].append(dict(name=name,x=x,y=y,z=z))
+        facing=math.atan2(-y,-x)
+        for j,degrees in enumerate([75,110,145,180,215,250,285],1):
+            a=facing+math.radians(degrees)
+            prop(f'rift_pit_{i}_rock_{j}','models/props_rock/badside_rocks001.vmdl',round(x+430*math.cos(a)),round(y+430*math.sin(a)),z,math.degrees(a),1.2)
+        for j,side in enumerate([-1,1],1):
+            px=x+math.cos(facing)*260-math.sin(facing)*side*300
+            py=y+math.sin(facing)*260+math.cos(facing)*side*300
+            prop(f'rift_pit_{i}_torch_{j}','models/props_generic/roshan_torch.vmdl',round(px),round(py),z,math.degrees(facing),.8,0,True)
+        a=facing+math.pi
+        prop(f'rift_pit_{i}_banner','models/props_gameplay/roshans_banner.vmdl',round(x+math.cos(a)*330),round(y+math.sin(a)*330),z,math.degrees(facing),.8,0,True)
+    water(model)
+    center_barrier(model)
+    layout.update(revision=7, flat_radius=FLAT_RADIUS, flat_level=FLAT_LEVEL,
                   outer_terrain_sha256=before, terrain_sha256=terrain_digest(layer))
-    print('Arena revision 2:', len(removed), 'obsolete center objects removed; flat radius', FLAT_RADIUS)
+    print(f'Arena revision 7: restored both native pit floors; removed {len(removed)} obsolete objects')
 
 
 def terrain_digest(layer):

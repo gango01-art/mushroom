@@ -18,6 +18,7 @@ const ctx=vm.createContext({$,Players:{GetLocalPlayer:()=>0,GetPlayerName:pid=>"
  SetRemainingSetupTime:n=>calls.push(n),PlayerJoinTeam:t=>calls.push(t)}});
 vm.runInContext(fs.readFileSync("content/panorama/scripts/custom_game/rift_ui_model.js","utf8"),ctx);
 vm.runInContext(fs.readFileSync("content/panorama/scripts/custom_game/rift_setup.js","utf8"),ctx);
+assert.ok(panels.get("SetupLogo").image.endsWith("/custom_game/duality_logo.png"));
 assert.equal(panels.get("SetupSeats").children.length,4);assert.ok(panels.get("SetupSeats").children.every(row=>row.children.length===2));assert.equal(panels.get("SetupStart").enabled,false);
 ctx.RiftSetupStart();assert.equal(calls.length,0,"non-host cannot submit start controls");
 panels.get("SetupSeats").children[1].children[0].handlers.onactivate();assert.equal(calls.pop(),6);

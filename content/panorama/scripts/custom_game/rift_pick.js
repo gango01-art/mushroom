@@ -82,6 +82,8 @@ function RiftPickResult(ev) {
 }
 function RiftPickState(data) {
   if(!data)return;RiftPick.state=data;
+  var screen=$("#PickScreen"),host=screen.GetParent();
+  if(host.actuallayoutheight>0)screen.style.transform="scale3d("+RiftUIModel.canvasScale(host.actuallayoutwidth,host.actuallayoutheight,1600,980)+","+RiftUIModel.canvasScale(host.actuallayoutwidth,host.actuallayoutheight,1600,980)+",1)";
   $("#PickScreen").GetParent().SetHasClass("Closed",data.state!=="HERO_SELECTION");
   $("#PickTimer").text=String(Math.max(0,data.selection_remaining||0));
 }

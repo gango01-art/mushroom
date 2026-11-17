@@ -12,9 +12,12 @@ function RiftSetupStart(){
   }
 }
 (function(){
- $("#SetupArtLC").SetImage("file://{images}/heroes/selection/npc_dota_hero_legion_commander.png");
- $("#SetupArtSF").SetImage("file://{images}/heroes/selection/npc_dota_hero_nevermore.png");
+ $("#SetupLogo").SetImage("file://{images}/custom_game/duality_logo.png");
  function render(){
+  var screen=$("#SetupScreen"),host=screen.GetParent();
+  var container=host.GetParent();
+  if(container&&container.style){container.style.margin="0px";container.style.padding="0px";container.style.width="100%";container.style.height="100%";}
+  if(host.actuallayoutheight>0){var fit=RiftUIModel.canvasScale(host.actuallayoutwidth,host.actuallayoutheight,1600,920);screen.style.transform="scale3d("+fit+","+fit+",1)";}
   var setup=Game.GetState()===DOTA_GameState.DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP;
   $("#SetupScreen").GetParent().SetHasClass("Closed",!setup);
   if(!setup){$.Schedule(.25,render);return;}

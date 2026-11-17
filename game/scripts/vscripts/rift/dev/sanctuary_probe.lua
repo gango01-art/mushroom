@@ -18,8 +18,8 @@ local function cleanup()
  end
 end
 local low,high,samples=1e9,-1e9,0
-for x=-1800,1800,300 do for y=-1800,1800,300 do
- if x*x+y*y<=1800*1800 then
+for x=-800,800,100 do for y=-800,800,100 do
+ if x*x+y*y<=800*800 then
   local p=GetGroundPosition(Vector(x,y,0),nil);low=math.min(low,p.z);high=math.max(high,p.z);samples=samples+1
  end
 end end
