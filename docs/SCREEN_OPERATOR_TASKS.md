@@ -12,6 +12,39 @@ addon называется **`duality`**, файлы скопированы (н�
 потом без `-WhatIf`. Скрипт ничего не удаляет в addon. Запуск: `dota_launch_custom_game duality dota`.
 
 ---
+## OP-032 — native потолок прогрессии 22 веток
+- Статус: verified (2026-11-16; только описанный сценарий).
+- Цель: проверить реальные таланты/предметы и статический CDR.
+- Инструмент: Tools, VConsole, `rift/dev/balance_probe`.
+- Шаги: одиночный lab, explicit script_reload_code; уровень 30, восемь талантов, разрешённые улучшения, Scepter/Shard/Octarine; R1/2/3.
+- Успех: 22/22 и 66 rank checks; без ошибки запрещённых attack upgrades у TA magical.
+- Отчёт: завершён. [Методика](BALANCE_PASS_2026-11-16.md), `operator_logs/2026-11-16_balance.log`. Фактический таймер предметного CDR/PvP не измерен.
+
+## OP-033 — соло-предметы и native подсказки
+- Статус: verified (2026-11-16–17; границы в TEST_RESULTS).
+- Цель: self-only, MR/барьеры/heal lockout, два рецепта, отсутствие инвиза; нормальные имена и tooltip.
+- Инструмент: Tools, `rift/dev/solo_items_probe`, `rift/dev/tooltip_scene`, native hover screenshots.
+- Шаги: полный restart после установки; 17 независимых item cases, сброс shared CD между случаями, две Crown в рецептах; отдельно hover Boots/Glimmer.
+- Успех: 17/17 + 2 recipes; цена/силовая иерархия по data; Glimmer +10 allstats, active MR10 без инвиза; tooltips без старой цели/дальности/чисел.
+- Отчёт: native assertions завершены; Boots +14 regen и Glimmer metadata визуально перепроверены. Все on-hit/Break/lifesteal/Assault в PvP не проверены. `SOLO_ITEMS.md`, TEST_RESULTS, screenshots/*-tooltip-final.jpg.
+
+## OP-034 — выбранная арена и native навигация
+- Статус: verified для загрузки/24 точек/трёх маршрутов; полный PvP и полный обход pending.
+- Цель: выбрать между Desert Duo/Forest Solo и загрузить адаптацию в Duality.
+- Инструмент: отдельная штатная копия `duality_map_review`, Hammer, ResourceCompiler, `rift/dev/arena_probe`, `rift/dev/arena_walk`.
+- Шаги: native обзор обеих исходных карт; Forest Solo Save As vmap40; удалить механику Overthrow, добавить контракт; compile/load после restart, export minimap, reload; 24 точки и три маршрута.
+- Успех: нет fallback; UI/герой/миникарта видны; 24/24; три реальных прохода.
+- Отчёт: 304 compiled/0 failed; 24/24 от проходимого пола рядом с центральным основанием. Сам marker непроходим и логируется. Движение: 4.8/22.4/32.0 с, остаток <100. [Сравнение](ARENA_COMPARISON_2026-11-17.md), [сборка](ARENA_BUILD.md), `operator_logs/2026-11-17_arena_final.log`.
+
+## OP-035 — золотые стрелы LC и очистка
+- Статус: verified для осмотра/очистки; совместный бой восьми игроков pending.
+- Цель: компактная модель, glow/trail без постоянного фрагмента.
+- Инструмент: ResourceCompiler, native reload, `rift/dev/lc_visual`, screenshots.
+- Шаги: воспроизвести след после исчезновения статуи, исправить lifecycle, reload карты, повторить; короткий залп осмотреть в замедлении и вернуть host_timescale 1.
+- Успех: нет постоянного светового фрагмента после окончания; жёлтая стрела/след, уменьшенная модель.
+- Отчёт: безусловный Decay модели/child, life1.25/1.2, radius .65. Native reload подтверждён логом, осмотр выполнен, нормальный темп восстановлен; финальный кадр без прежнего фрагмента. TEST_RESULTS, screenshots/2026-11-17-lc-trail-*.
+
+---
 ## OP-030 — SF: HP-счётчик, крылья и повторный R
 - Статус: verified (2026-11-16).
 - Цель: исключить отстающие метки и раннее исчезновение крыльев; проверить повторный R.

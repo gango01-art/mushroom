@@ -547,7 +547,8 @@ class _StringDictionary(list):
 			out_file.write( _encode_binary_string(string) )
 		else:
 			assert(string is None or string in self)
-			out_file.write( struct.pack("h" if self.indice_size == shortsize else "i", self.index(string) if string else -1 ) )
+			# DUALITY: empty strings are valid dictionary entries, not null refs.
+			out_file.write( struct.pack("h" if self.indice_size == shortsize else "i", self.index(string) if string is not None else -1 ) )
 
 	def write_dictionary(self,out_file):
 		if not self.dummy:
@@ -1014,7 +1015,11 @@ def load(path = None, in_file = None, element_path = None):
 					else:
 						return dm.elements[element_index]
 
-				elif attr_type == str:		return get_str(in_file) if encoding_ver < 4 or from_array else dm._string_dict.read_string(in_file)
+				elif attr_type == str:
+					# Native DMX can encode a null string index. Keep the declared
+					# string type, otherwise the next echo writes an element ref.
+					value = get_str(in_file) if encoding_ver < 4 or from_array else dm._string_dict.read_string(in_file)
+					return value if value is not None else ""
 				elif attr_type == int:		return get_int(in_file)
 				elif attr_type == float:	return get_float(in_file)
 				elif attr_type == bool:		return get_bool(in_file)

@@ -3,8 +3,8 @@
     _class = "CParticleSystemDefinition"
     m_nBehaviorVersion = 12
     m_nMaxParticles = 1
-    m_flConstantRadius = 2.0
-    m_flConstantLifespan = 0.2
+    m_flConstantRadius = 0.65
+    m_flConstantLifespan = 1.25
     m_ConstantColor = [255, 211, 55, 255]
     m_Renderers = [
         { _class = "C_OP_RenderModels"
@@ -12,9 +12,6 @@
           m_bAnimated = true m_bForceLoopingAnimation = true },
         { _class = "C_OP_RenderSprites" m_vecTexturesInput = [{ m_hTexture = resource:"materials/duality/lc_gold_glow.vtex" }]
           m_flRadiusScale = 6.0
-          m_flSelfIllumAmount = 1.0 m_flDiffuseAmount = 0.0 m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD" },
-        { _class = "C_OP_RenderTrails" m_vecTexturesInput = [{ m_hTexture = resource:"materials/duality/lc_gold_glow.vtex" }]
-          m_flRadiusScale = 2.5
           m_flSelfIllumAmount = 1.0 m_flDiffuseAmount = 0.0 m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD" },
         { _class = "C_OP_RenderDeferredLight"
           m_flRadiusScale = 50.0 m_flAlphaScale = 2.0 m_flStartFalloff = 0.1
@@ -28,8 +25,11 @@
     ]
     m_Operators = [
         { _class = "C_OP_BasicMovement" },
-        { _class = "C_OP_Decay" m_nOpEndCapState = 1 }
+        { _class = "C_OP_Decay" },
+        { _class = "C_OP_SetControlPointsToParticle"
+          m_nFirstControlPoint = 3 m_bSetOrientation = true }
     ]
     m_Emitters = [{ _class = "C_OP_InstantaneousEmitter"
         m_nParticlesToEmit = { m_nType = "PF_TYPE_LITERAL" m_flLiteralValue = 1.0 } }]
+    m_Children = [{ m_ChildRef = resource:"particles/duality/lc_gold_trail.vpcf" }]
 }

@@ -1,0 +1,133 @@
+hero,path,rank,loadout,raw_path_damage,cooldown_before_items,cooldown_at_25pct_item_cdr,duration,extra,notes
+axe,physical,1,base,235.00,32.000,24.000,0.00,1.000,all pulses connect; line at maximum distance
+axe,physical,1,ceiling30,335.40,25.600,19.200,0.00,1.000,all pulses connect; line at maximum distance
+axe,physical,2,base,423.00,28.000,21.000,0.00,1.000,all pulses connect; line at maximum distance
+axe,physical,2,ceiling30,585.00,22.400,16.800,0.00,1.000,all pulses connect; line at maximum distance
+axe,physical,3,base,705.00,24.000,18.000,0.00,1.000,all pulses connect; line at maximum distance
+axe,physical,3,ceiling30,956.80,19.200,14.400,0.00,1.000,all pulses connect; line at maximum distance
+axe,magical,1,base,294.00,40.000,30.000,4.00,6.000,all pulses connect; line at maximum distance
+axe,magical,1,ceiling30,439.04,32.000,24.000,5.60,8.000,all pulses connect; line at maximum distance
+axe,magical,2,base,468.00,35.000,26.250,4.00,6.000,all pulses connect; line at maximum distance
+axe,magical,2,ceiling30,698.88,28.000,21.000,5.60,8.000,all pulses connect; line at maximum distance
+axe,magical,3,base,684.00,30.000,22.500,4.00,6.000,all pulses connect; line at maximum distance
+axe,magical,3,ceiling30,1021.44,24.000,18.000,5.60,8.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,1,base,260.00,24.000,18.000,0.90,4.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,1,ceiling30,524.40,21.600,16.200,1.50,6.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,2,base,532.00,22.000,16.500,0.90,4.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,2,ceiling30,1007.40,19.800,14.850,1.50,6.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,3,base,980.00,20.000,15.000,0.90,4.000,all pulses connect; line at maximum distance
+crystal_maiden,physical,3,ceiling30,1794.00,18.000,13.500,1.50,6.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,1,base,376.00,70.000,52.500,4.20,8.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,1,ceiling30,526.40,56.000,42.000,5.40,10.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,2,base,592.00,60.000,45.000,4.20,8.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,2,ceiling30,828.80,48.000,36.000,5.40,10.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,3,base,856.00,50.000,37.500,4.20,8.000,all pulses connect; line at maximum distance
+crystal_maiden,magical,3,ceiling30,1198.40,40.000,30.000,5.40,10.000,all pulses connect; line at maximum distance
+juggernaut,physical,1,base,100.00,40.000,30.000,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,physical,1,ceiling30,160.00,32.000,24.000,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,physical,2,base,180.00,35.000,26.250,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,physical,2,ceiling30,240.00,28.000,21.000,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,physical,3,base,300.00,30.000,22.500,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,physical,3,ceiling30,360.00,24.000,18.000,0.00,1.000,one real attack per victim; native attack procs excluded
+juggernaut,magical,1,base,490.00,50.000,37.500,4.50,10.000,all pulses connect; line at maximum distance
+juggernaut,magical,1,ceiling30,658.56,40.000,30.000,5.50,12.000,all pulses connect; line at maximum distance
+juggernaut,magical,2,base,780.00,44.000,33.000,4.50,10.000,all pulses connect; line at maximum distance
+juggernaut,magical,2,ceiling30,1048.32,35.200,26.400,5.50,12.000,all pulses connect; line at maximum distance
+juggernaut,magical,3,base,1140.00,38.000,28.500,4.50,10.000,all pulses connect; line at maximum distance
+juggernaut,magical,3,ceiling30,1532.16,30.400,22.800,5.50,12.000,all pulses connect; line at maximum distance
+legion_commander,physical,1,base,900.00,60.000,45.000,10.00,1.000,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,physical,1,ceiling30,1188.00,46.800,35.100,10.00,1.500,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,physical,2,base,2880.00,50.000,37.500,10.00,1.000,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,physical,2,ceiling30,3520.00,37.800,28.350,10.00,1.500,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,physical,3,base,8100.00,40.000,30.000,10.00,1.000,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,physical,3,ceiling30,9504.00,30.000,22.500,10.00,1.500,warrior attacks; owner attacks absent; extra=HP multiplier
+legion_commander,magical,1,base,600.00,22.000,16.500,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+legion_commander,magical,1,ceiling30,960.00,18.000,13.500,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+legion_commander,magical,2,base,600.00,20.000,15.000,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+legion_commander,magical,2,ceiling30,960.00,16.200,12.150,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+legion_commander,magical,3,base,600.00,18.000,13.500,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+legion_commander,magical,3,ceiling30,960.00,14.400,10.800,10.00,4.000,one ray per salvo per victim; hit refunds and earned amp excluded
+lina,physical,1,base,148.50,36.000,27.000,0.80,3.000,all pulses connect; line at maximum distance
+lina,physical,1,ceiling30,370.88,28.800,21.600,1.60,5.000,all pulses connect; line at maximum distance
+lina,physical,2,base,354.00,32.000,24.000,0.80,3.000,all pulses connect; line at maximum distance
+lina,physical,2,ceiling30,805.00,25.600,19.200,1.60,5.000,all pulses connect; line at maximum distance
+lina,physical,3,base,727.50,28.000,21.000,0.80,3.000,all pulses connect; line at maximum distance
+lina,physical,3,ceiling30,1561.12,22.400,16.800,1.60,5.000,all pulses connect; line at maximum distance
+lina,magical,1,base,261.00,55.000,41.250,1.30,3.000,all pulses connect; line at maximum distance
+lina,magical,1,ceiling30,487.20,44.000,33.000,2.60,5.000,all pulses connect; line at maximum distance
+lina,magical,2,base,387.00,48.000,36.000,1.30,3.000,all pulses connect; line at maximum distance
+lina,magical,2,ceiling30,722.40,38.400,28.800,2.60,5.000,all pulses connect; line at maximum distance
+lina,magical,3,base,546.00,40.000,30.000,1.30,3.000,all pulses connect; line at maximum distance
+lina,magical,3,ceiling30,1019.20,32.000,24.000,2.60,5.000,all pulses connect; line at maximum distance
+nevermore,physical,1,base,720.00,40.000,30.000,15.00,12.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,physical,1,ceiling30,1350.72,36.000,27.000,17.00,14.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,physical,2,base,1404.00,35.000,26.250,15.00,13.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,physical,2,ceiling30,2572.80,31.000,23.250,17.00,16.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,physical,3,base,2340.00,30.000,22.500,15.00,13.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,physical,3,ceiling30,4373.76,26.000,19.500,17.00,17.000,sphere bonus only; no Shadowraze/native attacks
+nevermore,magical,1,base,210.00,120.000,90.000,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+nevermore,magical,1,ceiling30,510.00,72.000,54.000,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+nevermore,magical,2,base,300.00,110.000,82.500,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+nevermore,magical,2,ceiling30,600.00,64.000,48.000,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+nevermore,magical,3,base,390.00,100.000,75.000,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+nevermore,magical,3,ceiling30,690.00,56.000,42.000,1.80,3.000,ring bonus only; native Requiem and Shadowraze stacking excluded
+phantom_assassin,physical,1,base,200.00,24.000,18.000,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,physical,1,ceiling30,399.60,18.000,13.500,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,physical,2,base,585.00,20.000,15.000,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,physical,2,ceiling30,900.60,15.000,11.250,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,physical,3,base,1350.00,16.000,12.000,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,physical,3,ceiling30,1809.60,12.000,9.000,0.00,0.000,guaranteed spirit hit; attack and dagger CDR excluded
+phantom_assassin,magical,1,base,60.00,6.000,4.500,0.00,0.200,expected lightning per victim; requires both daggers; attacks excluded
+phantom_assassin,magical,1,ceiling30,189.00,6.000,4.500,0.00,0.350,expected lightning per victim; requires both daggers; attacks excluded
+phantom_assassin,magical,2,base,98.80,6.000,4.500,0.00,0.260,expected lightning per victim; requires both daggers; attacks excluded
+phantom_assassin,magical,2,ceiling30,254.20,6.000,4.500,0.00,0.410,expected lightning per victim; requires both daggers; attacks excluded
+phantom_assassin,magical,3,base,147.20,6.000,4.500,0.00,0.320,expected lightning per victim; requires both daggers; attacks excluded
+phantom_assassin,magical,3,ceiling30,315.00,6.000,4.500,0.00,0.450,expected lightning per victim; requires both daggers; attacks excluded
+pudge,physical,1,base,510.00,45.000,33.750,2.50,6.000,target stays within leash
+pudge,physical,1,ceiling30,837.20,36.000,27.000,3.50,8.000,target stays within leash
+pudge,physical,2,base,768.00,38.000,28.500,2.50,6.000,target stays within leash
+pudge,physical,2,ceiling30,1242.00,30.400,22.800,3.50,8.000,target stays within leash
+pudge,physical,3,base,1170.00,31.000,23.250,2.50,6.000,target stays within leash
+pudge,physical,3,ceiling30,1867.60,24.800,18.600,3.50,8.000,target stays within leash
+pudge,magical,1,base,418.88,50.000,37.500,3.90,7.000,all pulses connect; line at maximum distance
+pudge,magical,1,ceiling30,656.41,40.000,30.000,5.20,9.000,all pulses connect; line at maximum distance
+pudge,magical,2,base,647.36,40.000,30.000,3.90,7.000,all pulses connect; line at maximum distance
+pudge,magical,2,ceiling30,1014.45,32.000,24.000,5.20,9.000,all pulses connect; line at maximum distance
+pudge,magical,3,base,942.48,30.000,22.500,3.90,7.000,all pulses connect; line at maximum distance
+pudge,magical,3,ceiling30,1476.92,24.000,18.000,5.20,9.000,all pulses connect; line at maximum distance
+sven,physical,1,base,360.00,55.000,41.250,9.00,3.000,bonus procs only; continuous hero attacks
+sven,physical,1,ceiling30,625.60,44.000,33.000,12.00,4.000,bonus procs only; continuous hero attacks
+sven,physical,2,base,1160.00,48.000,36.000,9.00,5.000,bonus procs only; continuous hero attacks
+sven,physical,2,ceiling30,2012.50,38.400,28.800,12.00,7.000,bonus procs only; continuous hero attacks
+sven,physical,3,base,3600.00,41.000,30.750,9.00,9.000,bonus procs only; continuous hero attacks
+sven,physical,3,ceiling30,5796.00,32.800,24.600,12.00,12.000,bonus procs only; continuous hero attacks
+sven,magical,1,base,424.00,55.000,41.250,2.10,4.000,all pulses connect; line at maximum distance
+sven,magical,1,ceiling30,712.32,44.000,33.000,3.50,6.000,all pulses connect; line at maximum distance
+sven,magical,2,base,568.00,40.000,30.000,2.10,4.000,all pulses connect; line at maximum distance
+sven,magical,2,ceiling30,954.24,32.000,24.000,3.50,6.000,all pulses connect; line at maximum distance
+sven,magical,3,base,764.00,35.000,26.250,2.10,4.000,all pulses connect; line at maximum distance
+sven,magical,3,ceiling30,1283.52,28.000,21.000,3.50,6.000,all pulses connect; line at maximum distance
+templar_assassin,physical,1,base,300.00,10.000,7.500,6.00,3.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,physical,1,ceiling30,600.00,7.500,5.625,9.00,5.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,physical,2,base,540.00,9.000,6.750,6.00,3.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,physical,2,ceiling30,1000.00,6.750,5.062,9.00,5.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,physical,3,base,900.00,8.000,6.000,6.00,3.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,physical,3,ceiling30,1600.00,6.000,4.500,9.00,5.000,all owner hits; max native Psi Blades; Meld/crits excluded
+templar_assassin,magical,1,base,160.00,14.000,10.500,0.00,0.000,blast only; QWE waves and Refraction excluded
+templar_assassin,magical,1,ceiling30,295.00,12.600,9.450,0.00,0.000,blast only; QWE waves and Refraction excluded
+templar_assassin,magical,2,base,230.00,12.000,9.000,0.00,0.000,blast only; QWE waves and Refraction excluded
+templar_assassin,magical,2,ceiling30,365.00,10.800,8.100,0.00,0.000,blast only; QWE waves and Refraction excluded
+templar_assassin,magical,3,base,300.00,10.000,7.500,0.00,0.000,blast only; QWE waves and Refraction excluded
+templar_assassin,magical,3,ceiling30,435.00,9.000,6.750,0.00,0.000,blast only; QWE waves and Refraction excluded
+windrunner,physical,1,base,240.00,45.000,33.750,8.00,4.000,bonus procs only; continuous hero attacks
+windrunner,physical,1,ceiling30,396.75,36.000,27.000,11.00,5.000,bonus procs only; continuous hero attacks
+windrunner,physical,2,base,1197.00,38.000,28.500,10.00,9.000,bonus procs only; continuous hero attacks
+windrunner,physical,2,ceiling30,1834.25,30.400,22.800,13.00,11.000,bonus procs only; continuous hero attacks
+windrunner,physical,3,base,4680.00,31.000,23.250,12.00,18.000,bonus procs only; continuous hero attacks
+windrunner,physical,3,ceiling30,6957.50,24.800,18.600,15.00,22.000,bonus procs only; continuous hero attacks
+windrunner,magical,1,base,430.65,50.000,37.500,1.10,3.000,all pulses connect; line at maximum distance
+windrunner,magical,1,ceiling30,803.88,40.000,30.000,2.20,5.000,all pulses connect; line at maximum distance
+windrunner,magical,2,base,688.05,43.000,32.250,1.10,3.000,all pulses connect; line at maximum distance
+windrunner,magical,2,ceiling30,1284.36,34.400,25.800,2.20,5.000,all pulses connect; line at maximum distance
+windrunner,magical,3,base,999.90,36.000,27.000,1.10,3.000,all pulses connect; line at maximum distance
+windrunner,magical,3,ceiling30,1866.48,28.800,21.600,2.20,5.000,all pulses connect; line at maximum distance

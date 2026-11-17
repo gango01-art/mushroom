@@ -33,8 +33,8 @@ end
 function M.primary(unit,ability)
  local d=M.definition(unit);return d and ability and d.ult==ability:GetAbilityName()
 end
-function M.cooldown(unit,ability,base)
- return M.primary(unit,ability)and Core.cooldown(base,M.totals(unit),B)or base
+function M.cooldown(unit,ability,base,flat)
+ return M.primary(unit,ability)and Core.cooldown(base,M.totals(unit),B,flat)or math.max(1,base-(flat or 0))
 end
 function M.radius(unit,ability,base)
  return M.primary(unit,ability)and Core.radius(base,M.totals(unit),B)or base

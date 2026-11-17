@@ -17,6 +17,7 @@ local fields = {
   {"attacks","every"}, {"duration","duration"}, {"slow","slow"}, {"root","root"},
   {"radius","radius"}, {"range","range"}, {"interval","interval"}, {"delay","delay"},
   {"attack_speed","attack_speed"}, {"hit_cdr","hit_cdr"}, {"max_targets","max_targets"},
+  {"series_refund_cap_pct","hit_cdr_cap_fraction",100},{"creep_refund_pct","creep_hit_cdr_fraction",100},
   {"ordinary_hit_cdr","ordinary_hit_cdr"},{"mana_regen_damage","mana_regen_damage"},
   {"pull_distance","pull_distance"}, {"stun","stun"}, {"expand","expand"},
   {"heal_pct","heal_fraction",100}, {"heal_cap_pct","heal_cap",100},

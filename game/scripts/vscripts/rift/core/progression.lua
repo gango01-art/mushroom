@@ -13,8 +13,11 @@ function M.total(def,learned,scepter,shard)
  if shard then add(def.shard)end
  return out
 end
-function M.cooldown(base,bonus,cfg)
- return math.max(1,base*(1-math.min(cfg.cooldown_cap_pct,math.max(0,bonus.ult_cooldown_pct or 0))/100))
+function M.cooldown(base,bonus,cfg,flat)
+ -- Build upgrades and branch talents/items share one budget, measured against
+ -- the ORIGINAL cooldown. Native inventory CDR is applied by Dota afterwards.
+ local pct=math.min(cfg.cooldown_cap_pct,math.max(0,bonus.ult_cooldown_pct or 0))/100
+ return math.max(1,base*(1-cfg.cooldown_cap_pct/100),(base-math.max(0,flat or 0))*(1-pct))
 end
 function M.radius(base,bonus,cfg)
  return base+math.min(base*cfg.radius_cap_fraction,math.max(0,bonus.ult_radius or 0))

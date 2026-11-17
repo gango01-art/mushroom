@@ -5,7 +5,7 @@ sf_requiem_physical = sf_requiem_physical or ((type(class) == "function") and cl
 local function r(l) return math.max(1, math.min(3, l)) end
 function sf_requiem_physical:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "requiem_cooldown_reduction")
-  return require("rift.engine.progression").cooldown(self:GetCaster(),self,math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut))
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,B.cooldown[r(require("rift.engine.ability_level")(self,l))],cut)
 end
 function sf_requiem_physical:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
 -- Cosmetic sphere flight; damage remains tied to the original attack record.

@@ -199,6 +199,7 @@ local function sleight(s)
   local c, a, d = s.caster, s.ability, s.def
   local targets = units(s, s.point, s.radius, true)
   if #targets == 0 then return end
+  local refunds={spent=0,cap=Math.rank(d.cooldown,s.rank)*d.hit_cdr_cap_fraction}
   local mod = Mods.add(c,c,a,"modifier_rift_sleight",{duration=d.max_targets*d.interval+0.5})
   local i = 0
   local function finish()
@@ -218,8 +219,10 @@ local function sleight(s)
       M.effect(d,u:GetAbsOrigin(),nil,d.interval)
       -- Real attacks: evasion and attack/item procs follow the normal engine path.
       c._rift_sleight_attack=true
+      c._rift_sleight_context=refunds
       c:PerformAttack(u,true,true,true,true,false,false,false)
       c._rift_sleight_attack=nil
+      c._rift_sleight_context=nil
     end
     return d.interval
   end,0)

@@ -26,14 +26,14 @@ GameRules:GetGameModeEntity():SetContextThink("rift_progression_effects",functio
    if i==1 then
     local m=c:FindModifierByName("modifier_rift_sf_spheres")
     if not m then assert(now<deadline,"sphere modifier missing");return .1 end
-    assert(m:GetRemainingTime()>17 and m:GetRemainingTime()<=18.1,"SF duration")
-    assert(math.abs(m.session:regen_time()-1.2)<.001,"SF regen")
+    assert(m:GetRemainingTime()>15 and m:GetRemainingTime()<=16.1,"SF duration")
+    assert(math.abs(m.session:regen_time()-1.35)<.001,"SF regen")
     print(string.format("[RIFT][PROGRESSION_CAST] SF duration=%.2f regen=%.2f",m:GetRemainingTime(),m.session:regen_time()))
    elseif i==2 then
     local crystal=a.crystal
     if not crystal or crystal:IsNull()then assert(now<deadline,"crystal missing");return .1 end
     local m=crystal:FindModifierByName("modifier_rift_ta_crystal")
-    assert(crystal:GetMaxHealth()==5,"crystal durability")
+    assert(crystal:GetMaxHealth()==4,"crystal durability")
     assert(math.abs(m.radius-520)<.001,"crystal radius")
     print("[RIFT][PROGRESSION_CAST] TA crystal durability="..crystal:GetMaxHealth().." radius="..m.radius)
    else

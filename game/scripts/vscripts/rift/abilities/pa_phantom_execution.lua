@@ -16,7 +16,7 @@ function pa_phantom_execution:GetIntrinsicModifierName() return "modifier_rift_a
 -- Upgrade "pa_spirit_haste" shortens the cooldown (server value; the client tooltip shows the base).
 function pa_phantom_execution:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "spirit_cooldown_reduction")
-  return require("rift.engine.progression").cooldown(self:GetCaster(),self,math.max(1, B.cooldown[r(require("rift.engine.ability_level")(self,l))] - cut))
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,B.cooldown[r(require("rift.engine.ability_level")(self,l))],cut)
 end
 function pa_phantom_execution:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
 function pa_phantom_execution:GetCastRange() return B.range+require("rift.engine.progression").get(self:GetCaster(),"ult_cast_range") end

@@ -165,7 +165,7 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
   foreach ($pair in $panorama) {
     $compilePlan += @{ Source = (Join-Path $contentRoot ('panorama/' + $pair[0])); Relative = ('panorama/' + $pair[1]) }
   }
-  foreach ($pattern in @('*.vtex', '*.vpcf')) {
+  foreach ($pattern in @('*.vtex', '*.vpcf', '*.vmat')) {
     $packageContent = Join-Path $PackageRoot 'content'
     foreach ($asset in Get-ChildItem -LiteralPath $packageContent -Recurse -File -Filter $pattern) {
       $relative = $asset.FullName.Substring($packageContent.Length + 1)
@@ -173,7 +173,9 @@ if ($BuildAssets -or $BuildMap -or $Launch) {
     }
   }
   if ($BuildMap -or ($Launch -and $Mode -eq 'Match')) {
-    $compilePlan += @{ Source = (Join-Path $contentRoot 'maps/rift_arena.vmap'); Relative = 'maps/rift_arena.vmap_c' }
+    # Current Dota map compiler packages the world/nav/resources in a map VPK.
+    # Verified on the installed Tools; no standalone .vmap_c is emitted.
+    $compilePlan += @{ Source = (Join-Path $contentRoot 'maps/rift_arena.vmap'); Relative = 'maps/rift_arena.vpk' }
   }
   # Save all old outputs before compiling anything: a layout build may also
   # compile included resources. Preserve owner work even on a failed build.

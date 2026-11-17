@@ -21,7 +21,7 @@ end
 function Storm.values_at(balance, rank, bonus)
   rank = math.max(1, math.min(3, rank or 1))
   bonus = bonus or {}
-  return { chain_chance = math.min(1, balance.chain_chance[rank] + (bonus.chain_chance or 0)),
+  return { chain_chance = math.min(balance.chain_chance_cap or 1, balance.chain_chance[rank] + (bonus.chain_chance or 0)),
            chain_damage = balance.chain_damage[rank] + (bonus.chain_damage or 0),
            cast_context_seconds = balance.cast_context_seconds }
 end

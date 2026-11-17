@@ -1,0 +1,20 @@
+-- Compact native section headings, installed Dota localization 2026-11-16.
+return {
+glimmer_cape={"Активное: Glimmer","Active: Glimmer"},
+invis_sword={"Активное: Shadow Walk","Active: Shadow Walk"},
+silver_edge={"Активное: Shadow Walk","Active: Shadow Walk"},
+pipe={"Активное: Barrier","Active: Barrier"},
+crimson_guard={"Активное: Guard","Active: Guard"},
+pavise={"Активное: Protect","Active: Protect"},
+solar_crest={"Активное: Shine","Active: Shine"},
+mekansm={"Активное: Restore","Active: Restore"},
+guardian_greaves={"Активное: Mend","Active: Mend"},
+vladmir={"Пассивное: Vladmir's Aura","Passive: Vladmir's Aura"},
+assault={"Пассивное: Assault Aura","Passive: Assault Aura"},
+ancient_janggo={"Активное: Endurance","Active: Endurance"},
+boots_of_bearing={"Активное: Endurance","Active: Endurance"},
+headdress={"Пассивное: Regeneration Aura","Passive: Regeneration Aura"},
+buckler={"Пассивное: Buckler Aura","Passive: Buckler Aura"},
+ring_of_basilius={"Пассивное: Basilius Aura","Passive: Basilius Aura"},
+arcane_boots={"Активное: Replenish","Active: Replenish"},
+}

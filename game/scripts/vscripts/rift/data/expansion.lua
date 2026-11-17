@@ -16,8 +16,8 @@ local function hero(key, unit, ult, icon, physical, magical)
 end
 
 hero("axe", "axe", "axe_culling_blade", "axe_culling_blade", {
-  mode = "pull", target = "none", cooldown = { 38, 32, 26 }, mana = { 100, 125, 150 },
-  damage = { 80, 120, 160 }, attack = { 1.0, 1.2, 1.4 }, radius = 425, range = 0, pull_distance = 220,
+  mode = "pull", target = "none", cooldown = { 32, 28, 24 }, mana = { 100, 125, 150 },
+  damage = { 120, 180, 240 }, attack = { 1.15, 1.35, 1.55 }, radius = 425, range = 0, pull_distance = 220,
   particle = "particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf",
   sound = "Hero_Axe.Culling_Blade_Success",
 }, {
@@ -27,13 +27,13 @@ hero("axe", "axe", "axe_culling_blade", "axe_culling_blade", {
   particle = "particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf", sound = "Hero_Axe.Berserkers_Call",
 })
 hero("lina", "lina", "lina_laguna_blade", "lina_laguna_blade", {
-  mode = "line", target = "point", cooldown = { 45, 38, 31 }, mana = { 125, 150, 175 },
+  mode = "line", target = "point", cooldown = { 36, 32, 28 }, mana = { 125, 150, 175 },
   damage = { 0, 0, 0 }, attack = { 0.30, 0.35, 0.40 }, attack_speed_damage = { .15, .25, .35 }, ticks = 3, interval = 0.4, delay = 0.45,
   radius = 100, range = 1050, projectile_speed=1200, particle = "particles/units/heroes/hero_lina/lina_spell_dragon_slave.vpcf",
   sound = "Hero_Lina.DragonSlave.Cast",
 }, {
-  mode = "zone", target = "point", cooldown = { 65, 55, 45 }, mana = { 175, 225, 275 },
-  damage = { 45, 60, 75 }, intellect = 0.4, ticks = 3, interval = 0.65, delay = 0.9,
+  mode = "zone", target = "point", cooldown = { 55, 48, 40 }, mana = { 175, 225, 275 },
+  damage = { 65, 85, 105 }, intellect = 0.55, ticks = 3, interval = 0.65, delay = 0.9,
   radius = 330, range = 800, slow = 15, expand = 65, effect_radius_cp=1, effect_origin_cp=3,
   particle = "particles/units/heroes/hero_lina/lina_spell_light_strike_array.vpcf", sound = "Ability.LightStrikeArray",
 })
@@ -41,6 +41,7 @@ hero("juggernaut", "juggernaut", "juggernaut_omni_slash", "juggernaut_omni_slash
   mode = "sleight", target = "point", cooldown = { 40, 35, 30 }, mana = { 150, 175, 200 },
   damage = { 0, 0, 0 }, attack = { 1, 1, 1 }, interval = 0.2,
   radius = 425, range = 700, max_targets = 12, hit_cdr = { 1, 1.5, 2 }, ordinary_hit_cdr=.1,
+  hit_cdr_cap_fraction=.25, creep_hit_cdr_fraction=.2,
   particle = "particles/units/heroes/hero_juggernaut/juggernaut_omni_slash_tgt.vpcf", sound = "Hero_Juggernaut.OmniSlash",
 }, {
   mode = "orbit", target = "none", cooldown = { 50, 44, 38 }, mana = { 150, 175, 200 },

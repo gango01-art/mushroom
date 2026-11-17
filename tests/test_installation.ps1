@@ -56,7 +56,7 @@ try {
       $extension = [IO.Path]::GetExtension($output)
       if ($extension -in @('.js','.css','.xml')) {
         $output = [IO.Path]::ChangeExtension($output, 'v' + $extension.Substring(1) + '_c')
-      } else { $output += '_c' }
+      } elseif ($extension -eq '.vmap') { $output = [IO.Path]::ChangeExtension($output, 'vpk') } else { $output += '_c' }
       New-Item -ItemType Directory -Force (Split-Path -Parent $output) | Out-Null
       [IO.File]::WriteAllText($output, 'MOCK ONLY - NOT SOURCE 2')
       if ($global:DualityInstallTest.Mode -eq 'error-log') {
@@ -89,14 +89,16 @@ try {
     'materials/duality/lc_gold_glow.vtex_c',
     'materials/duality/sf_charge.vtex_c',
     'particles/duality/lc_gold_powershot.vpcf_c',
+    'particles/duality/lc_gold_trail.vpcf_c',
     'particles/duality/sf_orb.vpcf_c',
     'particles/duality/sf_wings.vpcf_c',
-    'maps/rift_arena.vmap_c'
+    'materials/overviews/rift_arena.vmat_c',
+    'maps/rift_arena.vpk'
   )
   foreach ($relative in $outputs) {
     Check (Test-Path (Join-Path $FakeDota ('game/dota_addons/duality/' + $relative))) ("Build output missing: " + $relative)
   }
-  Check ($global:DualityInstallTest.Inputs.Count -eq 19) 'Unexpected compile count (thirteen Panorama, five FX, one map)'
+  Check ($global:DualityInstallTest.Inputs.Count -eq 21) 'Unexpected compile count (thirteen Panorama, six FX, minimap material, one map)'
   Check ($global:DualityInstallTest.Inputs[0] -like '*rift_ui_model.js') 'Panorama model must build before HUD'
   Check (-not ($global:DualityInstallTest.Inputs -contains $ExtraSource)) 'Unrelated owner resource was compiled'
   $LayoutBackups = @(Get-ChildItem (Join-Path $FakeDota 'duality_backups') -Recurse -File | Where-Object Name -eq 'rift_hud.vxml_c')

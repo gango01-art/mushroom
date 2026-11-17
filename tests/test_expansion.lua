@@ -221,7 +221,7 @@ T.case("AoE items expand hit geometry and preview equally without changing damag
   u:SetAbsOrigin(Vector(400,d.radius+30,0))
   a:OnSpellStart();S.advance(1)
   T.eq(#S.damage,1)
-  T.eq(S.damage[1].damage,75+50*.4)
+  T.eq(S.damage[1].damage,105+50*.55)
 end)
 T.case("AoE items are unique by type, backpack excluded and narrow beams capped at 25 percent",function()
   local S,c,_,a,d=setup("rift_wr_magical")
@@ -278,6 +278,6 @@ for rank=1,3 do
     a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u})
     T.eq(a:GetCooldownTimeRemaining(),9.9)
     u.team=c.team;local left=a:GetCooldownTimeRemaining();m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),left)
-    u.team=3;c._rift_sleight_attack=true;a:StartCooldown(.2);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),0)
+    u.team=3;c._rift_sleight_attack=true;c._rift_sleight_context={spent=0,cap=10};a:StartCooldown(.2);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),0)
   end)
 end

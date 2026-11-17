@@ -11,7 +11,7 @@ T.case("Juggernaut series records keep rank CDR while ordinary attacks only give
  local a=S.ability(3);function a:GetAbilityName()return "rift_juggernaut_physical" end
  local m=S.lua_modifier("modifier_rift_attack_cooldowns",c,a)
  a:StartCooldown(10);m:OnAttackLanded({attacker=c,target=u});T.eq(a:GetCooldownTimeRemaining(),9.9)
- c._rift_sleight_attack=true;m:OnAttackRecord({attacker=c,record=77});c._rift_sleight_attack=nil
+ c._rift_sleight_context={spent=0,cap=7.5};c._rift_sleight_attack=true;m:OnAttackRecord({attacker=c,record=77});c._rift_sleight_attack=nil
  m:OnAttackLanded({attacker=c,target=u,record=77,no_attack_cooldown=true});T.eq(a:GetCooldownTimeRemaining(),7.9)
  m:OnAttackRecordDestroy({record=77});T.eq(m.sleight_records[77],nil)
  m:OnAttackLanded({attacker=c,target=u,record=78,no_attack_cooldown=true});T.eq(a:GetCooldownTimeRemaining(),7.9)

@@ -1,0 +1,88 @@
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] center traversable=false blocked=false z=256
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000006E5418 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000000062BE50 [600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000000062BE98 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=false z=128
+11/17 03:08:03 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=0 fail=20 total=20; path sampling does not replace full manual traversal
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] center traversable=false blocked=false z=256
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000006644F0 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000664538 [600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000664580 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] path origin: central floor offset 0,-600; marker itself is not walkable
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=true z=128
+11/17 03:09:14 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=20 fail=0 total=20; path sampling does not replace full manual traversal
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] center traversable=false blocked=false z=256
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000000061DE68 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000392DE8 [600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000392E30 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=false
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] path origin: central floor offset 0,-600; marker itself is not walkable
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=true z=128
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_relic_01 traversable=true connected=true
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_relic_02 traversable=true connected=true
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_relic_03 traversable=true connected=true
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] rift_relic_04 traversable=true connected=true
+11/17 03:19:12 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=24 fail=0 total=24; path sampling does not replace full manual traversal
+11/17 03:19:12 [VScript] [RIFT][ARENA_WALK] START leg=1
+11/17 03:19:17 [VScript] [RIFT][ARENA_WALK] PASS leg=1 time=4.8 distance=88.0
+11/17 03:19:17 [VScript] [RIFT][ARENA_WALK] START leg=2
+11/17 03:19:39 [VScript] [RIFT][ARENA_WALK] PASS leg=2 time=22.4 distance=41.8
+11/17 03:19:39 [VScript] [RIFT][ARENA_WALK] START leg=3
+11/17 03:20:11 [VScript] [RIFT][ARENA_WALK] PASS leg=3 time=32.0 distance=37.6
+11/17 03:20:11 [VScript] [RIFT][ARENA_WALK] DONE 3/3 actual movement legs; not a full perimeter/shop test

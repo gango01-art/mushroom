@@ -3,6 +3,16 @@
 -- addon_game_mode.lua are NOT visible to required modules (verified in Dota), so
 -- the list lives in a module.
 local M = {
+  "modifier_rift_solo_item",
+  "modifier_rift_item_glimmer_cape",
+  "modifier_rift_item_shadow_weapon",
+  "modifier_rift_item_pipe",
+  "modifier_rift_item_crimson_guard",
+  "modifier_rift_item_solar",
+  "modifier_rift_item_drums",
+  "modifier_rift_item_recovery_lockout",
+  "modifier_rift_item_assault_debuff",
+  "modifier_rift_item_break",
   "modifier_rift_progression",
   "modifier_rift_damage_tracker",
   "modifier_rift_spawn_shield",

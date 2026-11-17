@@ -129,7 +129,7 @@
  "HasShardUpgrade" "1"
 		"AbilityValues"
 		{
-			"path_base_damage" "100 160 220"
+			"path_base_damage" "160 230 300"
 			"path_delay" "0.5"
 			"path_duration" "3"
 			"path_radius" "250"
@@ -190,6 +190,7 @@
 		"AbilityValues"
 		{
 			"path_attack_cdr" "1"
+			"path_creep_refund_pct" "20"
 			"path_hit_cdr" "1 1.5 2"
 			"path_range" "800"
 		}
@@ -213,6 +214,7 @@
 		{
 			"path_base_damage" "300 380 460"
 			"path_chance" "20 26 32"
+			"path_chance_cap" "45"
 			"path_radius" "600"
 		}
 	}
@@ -342,12 +344,12 @@
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityCastRange" "0"
-		"AbilityCooldown" "38 32 26"
+		"AbilityCooldown" "32 28 24"
 		"AbilityManaCost" "100 125 150"
 		"AbilityValues"
 		{
-			"path_base_damage" "80 120 160"
-			"path_attack_pct" "100 120 140"
+			"path_base_damage" "120 180 240"
+			"path_attack_pct" "115 135 155"
 			"path_radius" "425"
 			"path_range" "0"
 			"path_pull_distance" "220"
@@ -409,7 +411,7 @@
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastRange" "1050"
-		"AbilityCooldown" "45 38 31"
+		"AbilityCooldown" "36 32 28"
 		"AbilityManaCost" "125 150 175"
 		"AbilityValues"
 		{
@@ -443,12 +445,12 @@
 
 		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityCastRange" "800"
-		"AbilityCooldown" "65 55 45"
+		"AbilityCooldown" "55 48 40"
 		"AbilityManaCost" "175 225 275"
 		"AbilityValues"
 		{
-			"path_base_damage" "45 60 75"
-			"path_intellect_pct" "40"
+			"path_base_damage" "65 85 105"
+			"path_intellect_pct" "55"
 			"path_hits" "3"
 			"path_slow" "15"
 			"path_radius" "330"
@@ -489,6 +491,8 @@
 			"path_interval" "0.2"
 			"path_hit_cdr" "1 1.5 2"
 			"path_max_targets" "12"
+			"path_series_refund_cap_pct" "25"
+			"path_creep_refund_pct" "20"
 			"path_ordinary_hit_cdr" "0.1"
 		}
 	}

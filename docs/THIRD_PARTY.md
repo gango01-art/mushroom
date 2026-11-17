@@ -1,18 +1,18 @@
 # Сторонние материалы
 
-## Terrain-шаблон Barebones
+## Основа арены Valve Overthrow
 
-`content/maps/rift_arena.vmap` содержит изменённую основу Terrain и настройки освещения из `template_map.vmap` проекта [BMD / barebones](https://github.com/bmddota/barebones), commit `873bcb971c127a9babd36afb3f27d6aeeb20d25f`.
+С 2026-11-17 `content/maps/rift_arena.vmap` — изменённая карта **forest_solo** из установленного примера Valve Overthrow для Dota 2 Workshop Tools. Valve выпустила эти исходники как [пример создания Custom Games](https://www.dota2.com/reborn/part2/?l=english). Используются в addon для Dota 2; это материалы Valve, а не полностью оригинальная геометрия DUALITY и не ассет под Apache/MIT.
 
-Copyright 2014 BMD. Apache License 2.0: [текст](licenses/Barebones-Apache-2.0.txt), [NOTICE](licenses/Barebones-NOTICE.txt).
+Исходный `forest_solo.vmap`: SHA256 `003bfe7c7f7d21093543c1ee8bb8bb089ad56cab69d2b8e0799da4a0097b6501`. Оригинал не менялся. Через штатный Create Addon создана копия `duality_map_review`, карта сохранена нынешним Hammer в vmap 40 и обработана `tools/build_arena.py`. Сохранены рельеф, вода, native ramps и деревья; удалена механика Overthrow, добавлены имена контракта Duality и восемь командных стартов. Подробности: [сравнение](ARENA_COMPARISON_2026-11-17.md).
 
-Изменения DUALITY: край арены, расстановка деревьев, цветовой план, старты восьми команд, 12 spawn/4 relic/center/bounds, четыре штатных shop-prefab; старые стартовые группы удалены из world children. Это исходник карты для дополнительной сборки и проверки в текущем Hammer.
+Прежняя геометрическая заготовка Barebones заменена этой основой. Лицензионные файлы Barebones остаются для используемой ниже текстуры и VFX reference: Copyright 2014 BMD, Apache License 2.0, [текст](licenses/Barebones-Apache-2.0.txt), [NOTICE](licenses/Barebones-NOTICE.txt).
 
 ## Python DMX
 
 `tools/vendor/datamodel.py`: [BlenderSourceTools / Tom Edwards](https://github.com/Artfunkel/BlenderSourceTools/blob/master/io_scene_valvesource/datamodel.py), MIT License (полный текст в начале файла). Используется только инструментами разработки, не включается в VScript.
 
-Локальные исправления: строки prefix attributes читаются без ещё не созданного string dictionary; UInt8/UInt64 и их массивы сохраняют ширину и тип при binary round trip; убраны хвостовые пробелы. Авторский генератор арены не изменяет лицензию этого модуля.
+Локальные исправления: строки prefix attributes читаются без ещё не созданного string dictionary; UInt8/UInt64 и их массивы сохраняют ширину и тип при binary round trip; пустая строка не превращается в null/element при повторном сохранении; убраны хвостовые пробелы. Авторский генератор арены не изменяет лицензию этого модуля.
 
 ## API и штатные ресурсы
 
