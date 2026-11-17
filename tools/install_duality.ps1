@@ -132,7 +132,7 @@ function Invoke-DualityCompile {
   }
   Get-Content -LiteralPath $log -Tail 25 | ForEach-Object { Write-Host $_ }
   if ($compilerExitCode -ne 0) { throw "ResourceCompiler failed ($compilerExitCode). Log: $log" }
-    if (Select-String -LiteralPath $log -Pattern '^\s*(ERROR|FATAL)\s*:' -Quiet) {
+    if (Select-String -LiteralPath $log -Pattern '^\s*(ERROR|FATAL)\s*:|^\s*Write .+ Failed!\s*$' -Quiet) {
       throw "ResourceCompiler reported an error despite a zero exit code. Log: $log"
     }
   if (-not (Test-Path $Output) -or (Get-Item $Output).Length -eq 0 -or (Get-Item $Output).LastWriteTimeUtc -lt (Get-Item $Source).LastWriteTimeUtc) {

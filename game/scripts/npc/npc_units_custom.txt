@@ -1,5 +1,7 @@
+#base "npc_sanctuary_units.txt"
 "DOTAUnits"
 {
+
 	// Psionic Crystal (TA physical). Spawned on the neutral team so both its owner and
 	// enemies can attack it. Damage is blocked by modifier_rift_ta_crystal; health shows
 	// the remaining durability (3/2/1). Model path: VERIFY in Asset Browser (OP-013).

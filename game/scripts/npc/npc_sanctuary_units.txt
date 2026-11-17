@@ -1,0 +1,32 @@
+// Generated from core/config.lua by tools/sync_sanctuary.lua.
+"DOTAUnits"
+{
+ "npc_rift_base_guardian"
+ {
+  "ArmorPhysical" "25"
+  "AttackAcquisitionRange" "1000"
+  "AttackAnimationPoint" "0.1"
+  "AttackCapabilities" "DOTA_UNIT_CAP_RANGED_ATTACK"
+  "AttackDamageMax" "120"
+  "AttackDamageMin" "120"
+  "AttackRange" "1000"
+  "AttackRate" "1"
+  "BaseClass" "npc_dota_tower"
+  "BoundsHullName" "DOTA_HULL_SIZE_TOWER"
+  "BountyGoldMax" "0"
+  "BountyGoldMin" "0"
+  "BountyXP" "0"
+  "IsNeutralUnitType" "0"
+  "Level" "1"
+  "MagicalResistance" "80"
+  "Model" "models/props_structures/tower_good.vmdl"
+  "ModelScale" "0.85"
+  "MovementCapabilities" "DOTA_UNIT_CAP_MOVE_NONE"
+  "ProjectileModel" "particles/base_attacks/ranged_tower_good.vpcf"
+  "ProjectileSpeed" "1200"
+  "StatusHealth" "10000"
+  "StatusMana" "0"
+  "VisionDaytimeRange" "1100"
+  "VisionNighttimeRange" "1100"
+ }
+}

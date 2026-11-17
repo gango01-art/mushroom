@@ -7,6 +7,8 @@ local ModifierList = require("rift.modifier_list")
 ModifierList.link(false)
 
 function Precache(context)
+  PrecacheUnitByNameSync(require("rift.core.config").sanctuary.tower_unit,context)
+  PrecacheResource("particle","particles/ui_mouseactions/range_display.vpcf",context)
   local expansion = require("rift.data.expansion")
   for _, hero in ipairs(expansion.heroes) do PrecacheUnitByNameSync(hero.unit, context) end
   for _, d in pairs(expansion.abilities) do

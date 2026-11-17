@@ -37,5 +37,6 @@ lua5.1 tools/sync_path_tooltips.lua --check || fail=1
 lua5.1 tools/sync_ability_details.lua --check || fail=1
 lua5.1 tools/sync_progression.lua --check || fail=1
 lua5.1 tools/sync_solo_items.lua --check || fail=1
+lua5.1 tools/sync_sanctuary.lua --check || fail=1
 if [ $fail -eq 0 ]; then echo "ALL CHECKS PASSED"; else echo "CHECKS FAILED"; fi
 exit $fail

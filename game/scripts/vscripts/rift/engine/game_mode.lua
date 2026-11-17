@@ -62,6 +62,8 @@ function GameMode:Activate()
   self.ui:PublishRoster()
   self.relic = RelicService.new(self, self.upgrades.seed)
   self.lab = require("rift.engine.laboratory").new(self)
+  self.sanctuary = require("rift.engine.sanctuary").new(self)
+  self.sanctuary:start()
   self.hero_selection = require("rift.engine.hero_selection").new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
@@ -104,6 +106,7 @@ function GameMode:ConfigureRules()
   Log.try(ent, "GameMode", "SetUseDefaultDOTARuneSpawnLogic", false)
   Log.try(ent, "GameMode", "SetModifyGoldFilter", Dynamic_Wrap(GameMode, "FilterGold"), self)
   Log.try(ent, "GameMode", "SetDamageFilter", Dynamic_Wrap(GameMode, "FilterDamage"), self)
+  Log.try(ent, "GameMode", "SetModifierGainedFilter", Dynamic_Wrap(GameMode, "FilterModifier"), self)
   Log.try(ent, "GameMode", "SetModifyExperienceFilter", Dynamic_Wrap(GameMode, "FilterXP"), self)
 
   -- Disable runes explicitly (design: no runes in alpha).
@@ -138,6 +141,7 @@ function GameMode:MarkCrystalHit(owner)
 end
 
 function GameMode:FilterDamage(ev)
+  if self.sanctuary and not self.sanctuary:filter_damage(ev)then return false end
   require("rift.engine.spell_crit").filter(ev)
   local t = self.crystal_hit and ev.entindex_attacker_const and self.crystal_hit[ev.entindex_attacker_const]
   if t and ev.entindex_inflictor_const and GameRules:GetGameTime() - t < 0.05 then
@@ -158,6 +162,10 @@ function GameMode:FilterDamage(ev)
     end
   end
   return true
+end
+
+function GameMode:FilterModifier(ev)
+  return not self.sanctuary or self.sanctuary:filter_modifier(ev)
 end
 
 function GameMode:FilterGold(ev)
@@ -330,7 +338,10 @@ end
 
 function GameMode:PlaceAtSpawn(hero, pid)
   local now = self:Now()
-  local c, _, ideal = Rules.choose_spawn(self.cfg, self.map.spawns, self:LiveEnemyPositions(pid), self.spawn_recent, now)
+  local c=self.sanctuary and self.sanctuary:home(hero:GetTeamNumber())
+  local ideal=true
+  local unused
+  if not c then c,unused,ideal=Rules.choose_spawn(self.cfg,self.map.spawns,self:LiveEnemyPositions(pid),self.spawn_recent,now)end
   if not c then return end
   self.spawn_recent[c.name] = now
   local pos = GetGroundPosition(Vector(c.x, c.y, c.z or 0), hero)

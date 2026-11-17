@@ -65,6 +65,17 @@ Config.respawn = {
   recent_use_penalty = 600,      -- units subtracted from score for recent use
 }
 
+-- Protected home bases on the authored arena. Standard-map lab has no bases.
+Config.sanctuary = {
+  teams={2,3,6,7,8,9,10,11}, radius=650, hp_regen_pct=20, mana_regen_pct=20,
+  purge_interval=.2, tower_range=1000, tower_damage=120, tower_attack_rate=1,
+  knockback_distance=500, knockback_duration=.35, knockback_height=45,
+  tower_unit="npc_rift_base_guardian",
+  tower_model="models/props_structures/tower_good.vmdl", tower_scale=.85,
+  tower_health=10000,tower_armor=25,tower_magic_resistance=80,tower_vision=1100,
+  guardian_buffer=200, guardian_think=.2,
+}
+
 -- 12 regular upgrade offers, seconds of ACTIVE.
 Config.upgrades = {
   schedule = { 30, 120, 210, 300, 390, 480, 570, 660, 750, 840, 930, 1020 },

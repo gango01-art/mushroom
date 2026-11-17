@@ -1439,5 +1439,8 @@
 		"rift_agh_choose_path" "Choose a path when learning R at level 6"
 		"rift_agh_owned" "OWNED"
 		"rift_agh_missing" "NOT OWNED"
+		"npc_rift_base_guardian" "Sanctuary Guardian"
+		"DOTA_Tooltip_modifier_rift_sanctuary" "Home sanctuary"
+		"DOTA_Tooltip_modifier_rift_sanctuary_Description" "Restores 20% max health and 20% max mana per second. Repeated strong dispels. Inside your 650-radius home, damage and hostile effects are blocked in both directions, including through controlled units. Attacks and abilities are disabled. Protection ends on exit."
 	}
 }

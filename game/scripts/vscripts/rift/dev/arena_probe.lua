@@ -10,15 +10,7 @@ for _,offset in ipairs({Vector(0,-600,0),Vector(600,0,0),Vector(-600,0,0)})do
  local p=GetGroundPosition(center+offset,nil)
  log("inner "..tostring(offset).." traversable="..tostring(GridNav:IsTraversable(p)).." blocked="..tostring(GridNav:IsBlocked(p)).." path="..tostring(GridNav:CanFindPath(center,p)))
 end
--- The centre marker may be on a decorative plinth. Query actual routes from
--- the nearby floor and report that origin explicitly; never hide a blocked
--- spawn/relic endpoint by snapping the endpoint to a different location.
-if not GridNav:IsTraversable(center) or GridNav:IsBlocked(center) then
- local floor=GetGroundPosition(center+Vector(0,-600,0),nil)
- assert(GridNav:IsTraversable(floor)and not GridNav:IsBlocked(floor),'no walkable central floor')
- center=floor
- log('path origin: central floor offset 0,-600; marker itself is not walkable')
-end
+assert(GridNav:IsTraversable(center) and not GridNav:IsBlocked(center), "center must itself be walkable")
 local pass,fail=0,0
 for _,p in ipairs(gm.map.spawns)do
  local point=GetGroundPosition(Vector(p.x,p.y,p.z),nil)

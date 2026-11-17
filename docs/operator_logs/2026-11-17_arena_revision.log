@@ -1,0 +1,67 @@
+# Before terrain revision
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 0,0 z=256 traversable=false blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample -640,0 z=256 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 640,0 z=256 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 0,-640 z=256 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 0,640 z=256 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 2400,0 z=128 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample -2400,0 z=128 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 0,2400 z=128 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 0,-2400 z=128 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample 3200,0 z=0 traversable=true blocked=false
+11/17 14:47:51 [VScript] [RIFT][CENTER] sample -3200,0 z=0 traversable=true blocked=false
+11/17 14:47:55 [VScript] [RIFT][CENTER] walk-to-origin remaining=226.65098571777 actual=-224.38485717773,31.97039604187,256
+
+[CENTER_SCOPE] Original source restored after owner rejected broad R=3840 revision.
+[CENTER_SCOPE] 185 height vertices changed; max changed radius=1949.6379151; water/tree/path/material/nav arrays unchanged.
+[CENTER_SCOPE] Original outer terrain digest=e72497041fc007c9b3a651a393c1e9bbab1268b9bca068466147fb7a4b930f89
+[CENTER_SCOPE] Outer authored nodes unchanged=55; removed only 48 central stair props and one central invisible skip-solid.
+
+# Native final central-only revision after full restart
+11/17 15:32:36 [VScript] [RIFT][SANCTUARY] flat samples=113 z_min=128 z_max=128
+11/17 15:32:36 [VScript] [RIFT][SANCTUARY] bases connected/guardians=8/8; center walkable
+11/17 15:32:37 [VScript] [RIFT][SANCTUARY] home spawn and strong dispel PASS; 1.1s hp_gain=600 mana_gain=205
+11/17 15:32:37 [VScript] [RIFT][SANCTUARY] lethal100000/outgoing1000/debuffs/summon blocked PASS; summon_owner=0
+11/17 15:32:37 [VScript] [RIFT][SANCTUARY] exit clears protection and restores outgoing damage PASS
+11/17 15:32:38 [VScript] [RIFT][SANCTUARY] automatic real guardian hit pushed=428.57574462891 PASS; DONE
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 0,0 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample -640,0 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 640,0 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 0,-640 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 0,640 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 2400,0 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample -2400,0 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 0,2400 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 0,-2400 z=128 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample 3200,0 z=0 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][CENTER] sample -3200,0 z=0 traversable=true blocked=false
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] center traversable=true blocked=false z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000484848 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] inner Vector 0000000000484890 [600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] inner Vector 00000000004848D8 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=true z=128
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_relic_01 traversable=true connected=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_relic_02 traversable=true connected=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_relic_03 traversable=true connected=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] rift_relic_04 traversable=true connected=true
+11/17 15:33:17 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=24 fail=0 total=24; path sampling does not replace full manual traversal
+11/17 15:33:21 [VScript] [RIFT][CENTER] walk-to-origin remaining=0 actual=0,0,128

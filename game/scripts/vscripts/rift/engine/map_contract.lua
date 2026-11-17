@@ -21,7 +21,7 @@ end
 
 -- Returns contract table and list of missing names.
 function MapContract.load(dev)
-  local c = { spawns = {}, relics = {}, center = nil, fallback = false }
+  local c = { spawns = {}, relics = {}, bases={}, center = nil, fallback = false }
   local missing = {}
   for i = 1, MapContract.SPAWN_COUNT do
     local n = name2("rift_spawn_", i)
@@ -39,6 +39,12 @@ function MapContract.load(dev)
   if not c.bounds_min then table.insert(missing, "rift_bounds_min") end
   c.bounds_max = find("rift_bounds_max")
   if not c.bounds_max then table.insert(missing, "rift_bounds_max") end
+  for _,team in ipairs(require("rift.core.config").sanctuary.teams)do
+    local base=find("rift_base_"..team)
+    local tower=find("rift_base_tower_"..team)
+    if base and tower then base.team,base.tower=team,tower;c.bases[#c.bases+1]=base
+    else missing[#missing+1]="rift_base/tower_"..team end
+  end
 
   if #missing == 0 then
     for _, err in ipairs(require("rift.core.arena").validate(c)) do missing[#missing+1] = err end
@@ -61,7 +67,7 @@ end
 function MapContract.apply_fallback(c)
   Log.warn("MAP", "DEV FALLBACK spawn ring in use - not a real arena map")
   c.fallback = true
-  c.spawns, c.relics = {}, {}
+  c.spawns, c.relics, c.bases = {}, {}, {}
   local R = 2400
   for i = 1, MapContract.SPAWN_COUNT do
     local a = (i - 1) / MapContract.SPAWN_COUNT * 2 * math.pi

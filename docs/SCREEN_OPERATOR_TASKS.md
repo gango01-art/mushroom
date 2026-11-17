@@ -13,6 +13,16 @@ addon называется **`duality`**, файлы скопированы (н�
 
 ---
 
+## OP-037 — только центральный остров и безопасные базы
+- Статус: verified (2026-11-17; перечисленные одиночные native сценарии).
+- Цель: исправить центр без изменения внешней геометрии, безопасное восстановление дома и отталкивание башней.
+- Инструмент: Workshop Tools / ResourceCompiler / VConsole / Sky; dev center_probe, arena_probe, sanctuary_probe.
+- Пути: source/installed duality; исходная карта сохранена в C:/Games/anime/backups/20261117-base-terrain.
+- Шаги: восстановить внешнюю геометрию, bounded central edit, сравнить с backup, закрыть Dota, BuildMap, полный restart; 24 точки/проход origin, реальные regen/dispel/damage/modifier/summon/автоатака, экспорт миникарты.
+- Успех: исходный outer digest, центр проходим, 8 баз соединены, защита в обе стороны и снятие вне зоны, настоящий knockback.
+- Отчёт: [подробный](ARENA_REVISION_2026-11-17.md). 185 высотных вершин, 113 flat samples, origin0, 24/24nav, bases8/8, HP+600/MP+205, blocked100000/1000/summon/stuns, push428.58. 469/0; installer191 mock. Обычный multiplayer respawn, FFA и полный внешний обход остаются pending.
+- Зависимость: реальная арена, одиночный Tools lab, разрешение владельца на ПК.
+
 ## OP-036 — только DUALITY Aghanim, общие Shard, TA innate и значки
 - Статус: verified (2026-11-17; только перечисленные сценарии).
 - Цель: отключить старые штатные улучшения, сохранить общие Shard, проверить TA и исключить двойные значки.

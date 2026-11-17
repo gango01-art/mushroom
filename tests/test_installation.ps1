@@ -50,7 +50,7 @@ try {
     [IO.File]::WriteAllText($RedirectStandardOutput, 'MOCK ONLY - NOT SOURCE 2')
     [IO.File]::WriteAllText($RedirectStandardError, '')
     if ($global:DualityInstallTest.Mode -eq 'fail') { return [pscustomobject]@{ExitCode=17} }
-    if ($global:DualityInstallTest.Mode -in @('ok','error-log')) {
+    if ($global:DualityInstallTest.Mode -in @('ok','error-log','write-fail')) {
       $relative = $source.Substring((Join-Path $global:DualityInstallTest.Root 'content').Length+1)
       $output = Join-Path $global:DualityInstallTest.Root ('game/' + $relative)
       $extension = [IO.Path]::GetExtension($output)
@@ -61,6 +61,9 @@ try {
       [IO.File]::WriteAllText($output, 'MOCK ONLY - NOT SOURCE 2')
       if ($global:DualityInstallTest.Mode -eq 'error-log') {
         [IO.File]::WriteAllText($RedirectStandardOutput, 'ERROR: mock parse failure with exit code zero')
+      }
+      if ($global:DualityInstallTest.Mode -eq 'write-fail') {
+        [IO.File]::WriteAllText($RedirectStandardOutput, "Write C:\locked\rift_arena.vpk Failed!`nOK: 273 compiled, 0 failed")
       }
     }
     return [pscustomobject]@{ExitCode=0}
@@ -110,6 +113,9 @@ try {
   $global:DualityInstallTest.Mode = 'error-log'; $Rejected = $false
   try { & $Installer -DotaPath $FakeDota -BuildAssets } catch { $Rejected = $_.Exception.Message -match 'reported an error' }
   Check $Rejected 'Zero-exit/compiler ERROR log was reported successful'
+  $global:DualityInstallTest.Mode = 'write-fail'; $Rejected = $false
+  try { & $Installer -DotaPath $FakeDota -BuildMap } catch { $Rejected = $_.Exception.Message -match 'reported an error' }
+  Check $Rejected 'Zero-exit/failed VPK write was reported successful'
   $global:DualityInstallTest.Mode = 'fail'; $Rejected = $false
   try { & $Installer -DotaPath $FakeDota -BuildAssets } catch { $Rejected = $_.Exception.Message -match 'failed \(17\)' }
   Check $Rejected 'Nonzero Panorama compiler exit was ignored'
