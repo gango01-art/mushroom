@@ -42,6 +42,7 @@ function GameMode.new()
   self.last_raw_time = nil
   self.players = {}              -- pid -> { initialized, acc, team }
   self.spawn_recent = {}
+  self.reincarnating = {}
   self.teams = ffa_teams()
   self.ids = CombatIds.new()       -- victim life-cycle keys, unique effect ids
   self.ui = UiBridge.new(self)
@@ -59,7 +60,16 @@ function GameMode:Activate()
   self:ConfigureRules()
   self.map = MapContract.load(self.dev)
   self.upgrades = UpgradeBridge.new(self)
+  self.ui:PublishRoster()
   self.relic = RelicService.new(self, self.upgrades.seed)
+  self.lab = require("rift.engine.laboratory").new(self)
+  self.sanctuary = require("rift.engine.sanctuary").new(self)
+  self.sanctuary:start()
+  self.roshan=require("rift.engine.roshan").new(self)
+  self.river_camps=require("rift.engine.river_camps").new(self)
+  self.center_gold=require("rift.engine.center_gold").new(self)
+
+  self.hero_selection = require("rift.engine.hero_selection").new(self)
 
   ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(GameMode, "OnGameRulesStateChange"), self)
   ListenToGameEvent("npc_spawned", Dynamic_Wrap(GameMode, "OnNPCSpawned"), self)
@@ -101,6 +111,7 @@ function GameMode:ConfigureRules()
   Log.try(ent, "GameMode", "SetUseDefaultDOTARuneSpawnLogic", false)
   Log.try(ent, "GameMode", "SetModifyGoldFilter", Dynamic_Wrap(GameMode, "FilterGold"), self)
   Log.try(ent, "GameMode", "SetDamageFilter", Dynamic_Wrap(GameMode, "FilterDamage"), self)
+  Log.try(ent, "GameMode", "SetModifierGainedFilter", Dynamic_Wrap(GameMode, "FilterModifier"), self)
   Log.try(ent, "GameMode", "SetModifyExperienceFilter", Dynamic_Wrap(GameMode, "FilterXP"), self)
 
   -- Disable runes explicitly (design: no runes in alpha).
@@ -135,6 +146,8 @@ function GameMode:MarkCrystalHit(owner)
 end
 
 function GameMode:FilterDamage(ev)
+  if self.sanctuary and not self.sanctuary:filter_damage(ev)then return false end
+  require("rift.engine.spell_crit").filter(ev)
   local t = self.crystal_hit and ev.entindex_attacker_const and self.crystal_hit[ev.entindex_attacker_const]
   if t and ev.entindex_inflictor_const and GameRules:GetGameTime() - t < 0.05 then
     local inflictor = EntIndexToHScript(ev.entindex_inflictor_const)
@@ -143,7 +156,21 @@ function GameMode:FilterDamage(ev)
       return false
     end
   end
+  if ev.entindex_inflictor_const and ev.entindex_attacker_const and ev.entindex_victim_const then
+    local a=EntIndexToHScript(ev.entindex_inflictor_const)
+    local c=EntIndexToHScript(ev.entindex_attacker_const)
+    local u=EntIndexToHScript(ev.entindex_victim_const)
+    if a and c and u and not c:IsNull() and not u:IsNull() and a:GetAbilityName()=="templar_assassin_psi_blades"
+      and c:FindAbilityByName("ta_psionic_crystal") then
+      require("rift.engine.path_combat").effect({particle="particles/units/heroes/hero_templar_assassin/templar_assassin_psi_blade.vpcf"},
+        c:GetAbsOrigin()+Vector(0,0,64),u:GetAbsOrigin()+Vector(0,0,64),0.35)
+    end
+  end
   return true
+end
+
+function GameMode:FilterModifier(ev)
+  return not self.sanctuary or self.sanctuary:filter_modifier(ev)
 end
 
 function GameMode:FilterGold(ev)
@@ -169,6 +196,7 @@ function GameMode:OnGameRulesStateChange()
     st:advance("SETUP", now)
     self:AssignTeams()
   elseif s == DOTA_GAMERULES_STATE_HERO_SELECTION then
+    self.selection_started=GameRules:GetGameTime()
     self:AssignTeams()
     st:advance("HERO_SELECTION", now)
   elseif s == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -184,6 +212,9 @@ function GameMode:OnStateChanged(from, to, now)
     -- relic is cleared immediately and permanently; no awards after this point
     self.relic:Tick(now, self.director.state:active_elapsed(now), false)
   end
+  if to=="FINISHED"and self.center_gold then self.center_gold:stop()end
+  if (to=="OVERTIME"or to=="FINISHED")and self.roshan then self.roshan:stop()end
+  if to=="FINISHED"and self.river_camps then self.river_camps:stop()end
   if to == "FINISHED" then self:OnFinished() end
   self.ui:Publish(true)
 end
@@ -227,6 +258,7 @@ end
 
 function GameMode:OnPlayerConnectFull(keys)
   self:AssignTeams()
+  if self.hero_selection then self.hero_selection:Publish() end
   self.ui:Publish(true)
 end
 
@@ -254,6 +286,7 @@ end
 
 function GameMode:OnNPCSpawned(keys)
   local unit = EntIndexToHScript(keys.entindex)
+  if unit and not unit:IsNull() and unit._rift_lab_display then return end
   if unit and not unit:IsNull() and unit.IsIllusion and unit:IsIllusion() then
     -- Illusions of a magical TA must not bring normal attacks back.
     local pid = unit:GetPlayerOwnerID()
@@ -268,6 +301,12 @@ function GameMode:OnNPCSpawned(keys)
   unit:SetContextThink("rift_spawned", function()
     if not is_main_hero(unit) then return nil end
     local pid = unit:GetPlayerOwnerID()
+    if self.lab and self.lab.enabled then self.lab:OnMainSpawn(unit,pid);return nil end
+    if self.reincarnating and self.reincarnating[unit:entindex()]then
+      self.reincarnating[unit:entindex()]=nil
+      self.upgrades:EnsureHero(pid,unit)
+      return nil -- Aegis revives at the death location, not at the sanctuary.
+    end
     local p = self:PlayerState(pid)
     self.ids:on_spawn(unit:entindex(), tostring(unit))
     if not p.initialized then
@@ -292,7 +331,8 @@ function GameMode:InitHero(hero, pid)
   Mods.add(hero, hero, nil, "modifier_rift_damage_tracker", {})
   self.upgrades:AddPlayer(pid, hero)
   self:PlaceAtSpawn(hero, pid)
-  Log.info("HERO", string.format("init pid=%d hero=%s level=%d", pid, hero:GetUnitName(), hero:GetLevel()))
+  require("rift.engine.couriers").ensure(self,hero,pid)
+  Log.info("HERO", string.format("init pid=%d hero=%s level=%d gold=%d", pid, hero:GetUnitName(), hero:GetLevel(),PlayerResource:GetGold(pid)))
   self.ui:Publish(true)
 end
 
@@ -312,7 +352,11 @@ end
 
 function GameMode:PlaceAtSpawn(hero, pid)
   local now = self:Now()
-  local c, _, ideal = Rules.choose_spawn(self.cfg, self.map.spawns, self:LiveEnemyPositions(pid), self.spawn_recent, now)
+  local c=self.sanctuary and self.sanctuary:home(hero:GetTeamNumber())
+  if c then c=c.spawn or c end
+  local ideal=true
+  local unused
+  if not c then c,unused,ideal=Rules.choose_spawn(self.cfg,self.map.spawns,self:LiveEnemyPositions(pid),self.spawn_recent,now)end
   if not c then return end
   self.spawn_recent[c.name] = now
   local pos = GetGroundPosition(Vector(c.x, c.y, c.z or 0), hero)
@@ -334,6 +378,7 @@ local function owner_pid(unit)
 end
 
 function GameMode:OnHeroDamaged(victim, attacker, damage)
+  if self.lab and self.lab.enabled then return end
   if not self.director.state:rewards_open() then return end
   if not is_main_hero(victim) then return end
   local vpid, apid = owner_pid(victim), owner_pid(attacker)
@@ -353,8 +398,18 @@ end
 
 function GameMode:OnEntityKilled(keys)
   local victim = EntIndexToHScript(keys.entindex_killed)
+  require("rift.engine.sf_souls").on_death(victim)
+  if self.roshan and self.roshan:on_killed(victim,keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker))then return end
+  if self.river_camps and self.river_camps:on_killed(victim,keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker))then return end
+  if self.lab and self.lab.enabled then
+    local attacker=keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
+    self.lab:OnKilled(victim,attacker)
+    if victim and not victim:IsNull() then self.ids:on_death(victim:entindex()) end
+    if is_main_hero(victim) then victim:SetTimeUntilRespawn(Config.lab.respawn_seconds) end
+    return
+  end
   if not is_main_hero(victim) then return end
-  if victim.IsReincarnating and victim:IsReincarnating() then return end
+  if victim.IsReincarnating and victim:IsReincarnating() then self.reincarnating[victim:entindex()]=true;return end
   local now = self:Now()
   local vpid = owner_pid(victim)
   local attacker = keys.entindex_attacker and EntIndexToHScript(keys.entindex_attacker) or nil
@@ -381,6 +436,13 @@ end
 -- Think
 ---------------------------------------------------------------------------
 function GameMode:Think()
+  if self.hero_selection and self.director.state:is("HERO_SELECTION") then self.hero_selection:Publish() end
+  require("rift.engine.arena_service").tick(self)
+  if self.center_gold then self.center_gold:vision()end
+  if self.lab then
+    self.lab:Tick()
+    if self.lab.enabled then self.last_raw_time=GameRules:GetGameTime();self.ui:Publish(false);return THINK_INTERVAL end
+  end
   local raw = GameRules:GetGameTime()
   local dt = self.last_raw_time and (raw - self.last_raw_time) or 0
   self.last_raw_time = raw
@@ -388,14 +450,22 @@ function GameMode:Think()
   if st:rewards_open() and dt > 0 then
     for pid, p in pairs(self.players) do
       if PlayerResource:IsValidPlayerID(pid) then
-        local g, x = Rules.accumulate(p.acc, self.cfg, dt)
+        local g, x = Rules.accumulate(p.acc, self.cfg, dt, nil, st:active_elapsed(self:Now()))
         self:Grant(pid, g, x)
       end
     end
   end
   local now = self:Now()
+  if self.center_gold then
+    if st:is("ACTIVE")and dt>0 then
+      local elapsed=math.min(st:active_elapsed(now),self.cfg.match.active_seconds)
+      self.center_gold:tick(math.max(0,elapsed-dt),elapsed)
+    end
+  end
   if st:rewards_open() then
-    -- regular offers only during ACTIVE (not after 18:00 / in overtime); expiry keeps running
+    if self.roshan and st:is("ACTIVE")then self.roshan:tick(now,st:active_elapsed(now))end
+    if self.river_camps and st:is("ACTIVE")then self.river_camps:tick(now,st:active_elapsed(now))end
+    -- regular offers only during ACTIVE (not after match time limit / in overtime); expiry keeps running
     self.upgrades:Tick(now, st:active_elapsed(now), st:is("ACTIVE"))
   end
   -- relic only in ACTIVE; overtime/finished clears it permanently

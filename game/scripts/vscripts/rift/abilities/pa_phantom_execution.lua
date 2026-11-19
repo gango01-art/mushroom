@@ -11,14 +11,15 @@ local NATIVE = "phantom_assassin_coup_de_grace"
 pa_phantom_execution = pa_phantom_execution or ((type(class) == "function") and class({}) or {})
 
 local function r(l) return math.max(1, math.min(3, l)) end
+function pa_phantom_execution:GetIntrinsicModifierName() return "modifier_rift_attack_cooldowns" end
 
 -- Upgrade "pa_spirit_haste" shortens the cooldown (server value; the client tooltip shows the base).
 function pa_phantom_execution:GetCooldown(l)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "spirit_cooldown_reduction")
-  return math.max(1, B.cooldown[r(l + 1)] - cut)
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,B.cooldown[r(require("rift.engine.ability_level")(self,l))],cut)
 end
-function pa_phantom_execution:GetManaCost(l) return B.mana[r(l + 1)] end
-function pa_phantom_execution:GetCastRange() return B.range end
+function pa_phantom_execution:GetManaCost(l) return B.mana[r(require("rift.engine.ability_level")(self,l))] end
+function pa_phantom_execution:GetCastRange() return B.range+require("rift.engine.progression").get(self:GetCaster(),"ult_cast_range") end
 
 -- Keep the hidden native at the same rank: its passive crit must grow with the ultimate.
 function pa_phantom_execution:OnUpgrade()
@@ -33,6 +34,7 @@ function pa_phantom_execution:OnSpellStart()
   local n = c:FindAbilityByName(NATIVE)
   local rank = r(self:GetLevel())
   local crit = Exec.crit_percent(n and n:GetSpecialValueFor("crit_bonus") or 0, rank, B.crit_fallback)
+  crit=crit+require("rift.engine.progression").get(c,"spirit_crit_bonus")
   local spirit = self:SpawnSpirit(c, target)
   ProjectileManager:CreateTrackingProjectile({
     Target = target, Source = c, Ability = self, EffectName = spirit and "" or B.spirit_particle,
@@ -49,9 +51,11 @@ function pa_phantom_execution:SpawnSpirit(c, target)
   local u = CreateUnitByName(B.spirit_unit, c:GetAbsOrigin(), false, c, c, c:GetTeamNumber())
   if not u then return nil end
   require("rift.engine.mods").add(u, c, self, "modifier_rift_pa_spirit", {})
+  u:StartGesture(ACT_DOTA_SPAWN)
   local dt, deadline = 0.03, GameRules:GetGameTime() + B.range / B.speed * 3 + 2
   u:SetContextThink("rift_pa_spirit_fly", function()
     if u:IsNull() then return nil end
+    if u._rift_impact then return nil end
     if target:IsNull() or GameRules:GetGameTime() > deadline then UTIL_Remove(u); return nil end
     local pos, goal = u:GetAbsOrigin(), target:GetAbsOrigin()
     local d = goal - pos
@@ -71,7 +75,16 @@ end
 function pa_phantom_execution:OnProjectileHit_ExtraData(target, _, data)
   local c = self:GetCaster()
   local spirit = tonumber(data.spirit) and tonumber(data.spirit) >= 0 and EntIndexToHScript(tonumber(data.spirit)) or nil
-  if spirit and not spirit:IsNull() then UTIL_Remove(spirit) end
+  if spirit and not spirit:IsNull() then
+    spirit._rift_impact=true
+    local mod=spirit:FindModifierByName("modifier_rift_pa_spirit")
+    if mod then mod:SetStackCount(ACT_DOTA_ATTACK) end
+    spirit:StartGesture(ACT_DOTA_ATTACK)
+    require("rift.engine.path_combat").effect({particle=B.spirit_impact},spirit:GetAbsOrigin(),nil,0.6)
+    spirit:SetContextThink("rift_pa_spirit_finish",function()
+      if not spirit:IsNull() then UTIL_Remove(spirit) end
+    end,0.3)
+  end
   if not c or c:IsNull() then return true end
   local exists = target ~= nil and not target:IsNull()
   local ok = Exec.can_hit({

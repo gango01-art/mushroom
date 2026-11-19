@@ -39,6 +39,17 @@ end
 
 function Offers:player(pid) return self.players[pid] end
 
+-- Engine-authorized laboratory reset. Keep offer IDs monotonic so a stale click
+-- can never resolve a new hero's offer. Normal match code does not call this.
+function Offers:reset_player(pid, hero_id)
+  for id,o in pairs(self.offers) do if o.owner==pid then self.offers[id]=nil end end
+  local keep={}
+  for _,ev in ipairs(self.queue) do if ev.pid~=pid then keep[#keep+1]=ev end end
+  self.queue=keep
+  self.players[pid]=nil
+  return self:add_player(pid,hero_id)
+end
+
 local function push(self, ev) table.insert(self.queue, ev) end
 function Offers:events()
   local q = self.queue

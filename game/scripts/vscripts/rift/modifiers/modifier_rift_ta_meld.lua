@@ -12,6 +12,16 @@ function modifier_rift_ta_meld:GetTexture() return "templar_assassin_meld" end
 function modifier_rift_ta_meld:OnCreated()
   local a = self:GetAbility()
   self.bonus = B.bonus_damage[math.max(1, math.min(4, a and a:GetLevel() or 1))]
+  if IsServer() then
+    local p=self:GetParent()
+    self.meld_fx=ParticleManager:CreateParticle(B.effect,PATTACH_ABSORIGIN_FOLLOW,p)
+    ParticleManager:SetParticleControlEnt(self.meld_fx,1,p,PATTACH_ABSORIGIN_FOLLOW,"",p:GetAbsOrigin(),true)
+  end
+end
+function modifier_rift_ta_meld:OnDestroy()
+  if not IsServer() or not self.meld_fx then return end
+  ParticleManager:DestroyParticle(self.meld_fx,false);ParticleManager:ReleaseParticleIndex(self.meld_fx)
+  self.meld_fx=nil
 end
 
 function modifier_rift_ta_meld:CheckState()
@@ -19,11 +29,12 @@ function modifier_rift_ta_meld:CheckState()
 end
 
 function modifier_rift_ta_meld:DeclareFunctions()
-  return { MODIFIER_PROPERTY_INVISIBILITY_LEVEL, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+  return { MODIFIER_PROPERTY_INVISIBILITY_LEVEL, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_PROPERTY_PROJECTILE_NAME,
            MODIFIER_EVENT_ON_UNIT_MOVED, MODIFIER_EVENT_ON_ABILITY_EXECUTED, MODIFIER_EVENT_ON_ATTACK }
 end
 
 function modifier_rift_ta_meld:GetModifierInvisibilityLevel() return 1 end
+function modifier_rift_ta_meld:GetModifierProjectileName() return B.projectile end
 function modifier_rift_ta_meld:GetModifierPreAttack_BonusDamage() return self.bonus or 0 end
 
 function modifier_rift_ta_meld:OnUnitMoved(p)

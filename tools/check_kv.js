@@ -48,8 +48,9 @@ for (const f of [...walk("content/panorama", ".xml"), ...walk("content/panorama"
 }
 const states = ["BOOT","SETUP","HERO_SELECTION","PREPARATION","ACTIVE","OVERTIME","FINISHED"];
 states.forEach(s => used.add("rift_state_" + s));
-// reasons emitted by Lua: collect reason = "..." literals
-for (const f of walk("game/scripts/vscripts", ".lua")) {
+// Match-result reasons originate in the core. Engine RPC error reasons use
+// their own localization namespace (for example rift_lab_error_loading).
+for (const f of walk("game/scripts/vscripts/rift/core", ".lua")) {
   const src = fs.readFileSync(f, "utf8");
   for (const m of src.matchAll(/reason\s*=\s*"([a-z_]+)"/g)) {
     if (!["kill","environment_credit","no_credit"].includes(m[1])) used.add("rift_reason_" + m[1]);

@@ -1,0 +1,52 @@
+Sanitized native observations on the owner's PC, Dota Workshop Tools, addon duality.
+No full console telemetry included.
+
+[RIFT][COURAGE] R1 cooldown=60 per_second=1
+[RIFT][COURAGE] R2 cooldown=50 per_second=1.3
+[RIFT][COURAGE] R3 cooldown=40 per_second=1.6
+
+08:26:07 FOLLOWUP nevermore
+08:27:08 FOLLOWUP templar_assassin
+08:28:09 FOLLOWUP sven
+08:29:11 FOLLOWUP legion_commander
+08:30:11 FOLLOWUP DONE
+The script finishing is not proof that every visual was inspected.
+
+Observed: native gold SF charge label above HP and native wing model; TA Meld
+attack flash; Sven attack poses/Warcry effect. Screenshots saved for TA and Sven.
+LC Courage initially appeared off the hero; after explicit world CP0/CP1 setup,
+the green flash appeared near the hit. Forced attack cadence is a visual test.
+
+Steam initially blocked launch with Family View. The owner unlocked it manually.
+No security/parental settings were changed by the agent.
+
+Final SF test after reinstall and full Dota restart:
+script_reload_code rift/dev/sf_visual_watch
+Three cycles of R; movement through four waypoints every three seconds.
+Observed native health label above HP, no diamond particle trail on ground.
+Observed wings and label before expiry, absent after expiry.
+Cycle 2 recasts R at t~8; both visual and charge session extend together.
+The previous refresh bug (modifier active but internal charges expire at t=15)
+was reproduced and fixed without granting free charges on refresh.
+Literal-label localization warnings were reproduced and fixed with RU/EN tokens.
+Final log has no rift_sf_charges/diamond localization warnings or Lua exceptions.
+
+Final build: 18 compiled outputs, backup 20261116-133955-8295.
+Full checks: 392 passed, 0 failed.
+11/16 16:43:13 [VScript] [RIFT][SF_WATCH] cycle=1 CAST
+11/16 16:43:27 [VScript] [RIFT][SF_WATCH] cycle=1 t=14 active=true remaining=1.00 charges=4
+11/16 16:43:28 [VScript] [RIFT][SF_WATCH] cycle=1 t=15 active=false remaining=0.00 charges=0
+11/16 16:43:33 [VScript] [RIFT][SF_WATCH] cycle=1 t=20 active=false remaining=0.00 charges=0
+11/16 16:43:37 [VScript] [RIFT][SF_WATCH] cycle=1 t=24 active=false remaining=0.00 charges=0
+11/16 16:43:41 [VScript] [RIFT][SF_WATCH] cycle=2 CAST
+11/16 16:43:49 [VScript] [RIFT][SF_WATCH] REFRESH
+11/16 16:43:55 [VScript] [RIFT][SF_WATCH] cycle=2 t=14 active=true remaining=9.00 charges=4
+11/16 16:43:56 [VScript] [RIFT][SF_WATCH] cycle=2 t=15 active=true remaining=8.00 charges=4
+11/16 16:44:01 [VScript] [RIFT][SF_WATCH] cycle=2 t=20 active=true remaining=3.00 charges=4
+11/16 16:44:05 [VScript] [RIFT][SF_WATCH] cycle=2 t=24 active=false remaining=0.00 charges=0
+11/16 16:44:09 [VScript] [RIFT][SF_WATCH] cycle=3 CAST
+11/16 16:44:23 [VScript] [RIFT][SF_WATCH] cycle=3 t=14 active=true remaining=1.00 charges=4
+11/16 16:44:24 [VScript] [RIFT][SF_WATCH] cycle=3 t=15 active=false remaining=0.00 charges=0
+11/16 16:44:29 [VScript] [RIFT][SF_WATCH] cycle=3 t=20 active=false remaining=0.00 charges=0
+11/16 16:44:33 [VScript] [RIFT][SF_WATCH] cycle=3 t=24 active=false remaining=0.00 charges=0
+11/16 16:44:37 [VScript] [RIFT][SF_WATCH] DONE

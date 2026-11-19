@@ -18,6 +18,16 @@ end
 
 function S:regen_time() return self.cfg.sphere_regen[self.rank] end
 
+-- Recasting extends the session together with the native modifier. Keep the
+-- current pool and regeneration deadline: refresh does not grant free charges.
+function S:refresh(now)
+  self:update(now)
+  self.start_time, self.active = now, true
+  if self.charges < self.cfg.spheres and not self.next_regen then
+    self.next_regen = now + self:regen_time()
+  end
+end
+
 function S:update(now)
   if not self.active then return end
   if now - self.start_time >= self.cfg.duration then

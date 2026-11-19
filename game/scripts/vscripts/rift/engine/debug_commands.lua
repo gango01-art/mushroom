@@ -22,6 +22,51 @@ function Debug.register(gm)
     end, help, FCVAR_CHEAT)
   end
 
+  cmd("rift_lab", "Open the single-player hero laboratory (Tools/cheats, one player only)", function()
+    for pid in pairs(gm.players) do
+      if gm.lab and gm.lab:Allowed(pid) then
+        local ok,why=gm.lab:Start(pid)
+        gm.lab:Publish()
+        Log.info("LAB", "start="..tostring(ok).." reason="..tostring(why))
+        return
+      end
+    end
+    Log.warn("LAB","requires one initialized player in Tools/cheats")
+  end)
+
+  local function with_lab(fn)
+    if not gm.lab then return end
+    for pid in pairs(gm.players) do
+      if gm.lab:Allowed(pid) then
+        if not gm.lab.enabled then
+          local ok,why=gm.lab:Start(pid)
+          if not ok then Log.warn("LAB",why);return end
+        end
+        local ok,why=fn(gm.lab)
+        gm.lab:Publish()
+        if ok==false then Log.warn("LAB",why) end
+        return
+      end
+    end
+    Log.warn("LAB","requires one player in Tools/cheats")
+  end
+  cmd("rift_lab_hero", "rift_lab_hero <hero or pa/ta/lc/sf/cm/wr> <base|physical|magical>",function(name,path)
+    with_lab(function(lab)
+      local hero=require("rift.core.laboratory").resolve_hero(name,lab.known)
+      if not hero then return false,"invalid_hero" end
+      return lab:Select(hero,path or "base")
+    end)
+  end)
+  cmd("rift_lab_all", "rift_lab_all [base|physical|magical]: exhibit all eleven heroes",function(path)
+    with_lab(function(lab) return lab:Gallery(path or lab.path or "base") end)
+  end)
+  cmd("rift_lab_target", "rift_lab_target [immortal|mortal|immune]",function(kind)
+    with_lab(function(lab) return lab:Target(kind or "immortal") end)
+  end)
+  cmd("rift_lab_reset", "Restore the controlled hero's health, mana and cooldowns",function()
+    with_lab(function(lab) lab:Refresh(PlayerResource:GetSelectedHeroEntity(lab.owner));return true end)
+  end)
+
   cmd("rift_status", "Print match state, time and scores", function()
     local st = gm.director.state
     local now = gm:Now()

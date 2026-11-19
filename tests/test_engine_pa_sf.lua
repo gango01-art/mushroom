@@ -7,6 +7,8 @@ local function pa_setup()
   local pa = S.hero("npc_dota_hero_phantom_assassin", 0, 2, Vector(0, 0, 0), { Damage = 100 })
   local a = S.hero("npc_dota_hero_axe", 1, 3, Vector(400, 0, 0), {})
   local b = S.hero("npc_dota_hero_axe", 2, 3, Vector(600, 0, 0), {})
+  S.simulate_attack_damage=true
+  pa.mods.modifier_rift_pa_dagger_attack=S.lua_modifier("modifier_rift_pa_dagger_attack",pa,S.ability(1))
   return S, pa, a, b
 end
 
@@ -25,11 +27,11 @@ T.case("PA execution: one crit hit = attack x 200%, physical, credited to PA; no
   T.eq(#S.projectiles, 1); T.eq(#S.created, 1, "spirit visual unit")
   land(S, ult)
   T.eq(#S.damage, 1); T.eq(S.damage[1].damage, 200); T.eq(S.damage[1].attacker, pa)
-  T.ok(S.created[1].removed, "spirit removed on hit")
+  T.ok(not S.created[1].removed, "impact animation remains briefly"); S.advance(0.4); T.ok(S.created[1].removed, "spirit removed after animation")
   ult:OnSpellStart()
   local p = S.projectiles[1]
   ult:OnProjectileHit_ExtraData(nil, nil, p.ExtraData) -- disjointed
-  T.eq(#S.damage, 1, "no damage when dodged"); T.ok(S.created[2].removed, "spirit removed on dodge")
+  T.eq(#S.damage, 1, "no damage when dodged"); S.advance(0.4); T.ok(S.created[2].removed, "spirit removed after dodge")
   T.eq(ult:GetCooldown(0), 24); T.eq(ult:GetManaCost(2), 120)
 end)
 
@@ -60,6 +62,7 @@ T.case("PA storm dagger: two daggers, dagger formula, chain 300 once per target 
     if d.damage == 300 then magic = magic + 1 else phys = phys + 1; T.eq(d.damage, 70 + 100 * 0.45) end
   end
   T.eq(phys, 2); T.eq(magic, 2, "chain damage once per target")
+  T.eq(#S.attacks,2);T.ok(S.attacks[1].procs,"native attack effects enabled")
   T.ok(a:HasModifier("modifier_rift_pa_dagger_slow")); T.ok(b:HasModifier("modifier_rift_pa_dagger_slow"))
 end)
 
@@ -100,6 +103,18 @@ T.case("SF spheres: an attack spends one sphere; its landing adds 60% physical o
   m:OnAttackRecordDestroy({ attacker = sf, record = 8 }) -- missed: sphere spent, no damage
   m:OnAttackLanded({ attacker = sf, target = foe, record = 8 })
   T.eq(#S.damage, 1); T.eq(m:GetStackCount(), 2)
+end)
+T.case("SF native health-bar counter tracks charges without world-space particles and clears on expiry",function()
+ local S,sf,foe=sf_setup();local alive,next_id={},0
+ ParticleManager.CreateParticle=function(_,path)next_id=next_id+1;alive[next_id]=path;return next_id end
+ ParticleManager.DestroyParticle=function(_,id,immediate)T.eq(immediate,true,"no lingering wings or legacy trails");alive[id]=nil end
+ local m=S.lua_modifier("modifier_rift_sf_spheres",sf,S.ability(1))
+ T.eq(next_id,1,"only wings: no floating world-space marks")
+ T.eq(sf.health_label,"#rift_sf_charges_4");T.eq(m:GetStackCount(),4)
+ m:OnAttack({attacker=sf,target=foe,record=12});T.eq(sf.health_label,"#rift_sf_charges_3");T.eq(m:GetStackCount(),3)
+ S.advance(B.sf.requiem_physical.sphere_regen[1]+.01);m:OnIntervalThink();T.eq(sf.health_label,"#rift_sf_charges_4")
+ m:OnRefresh();T.eq(next_id,2);T.eq(alive[1],nil);T.ok(alive[2],"refresh renews wings for the extended buff")
+ m:OnDestroy();T.eq(next(alive),nil);T.eq(sf.health_label,"")
 end)
 
 T.case("SF spheres: Shadowraze bonus once per cast and victim", function()

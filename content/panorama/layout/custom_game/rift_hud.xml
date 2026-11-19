@@ -1,69 +1,144 @@
 <root>
-	<styles>
-		<include src="file://{resources}/styles/custom_game/rift_hud.css" />
-	</styles>
-	<scripts>
-		<include src="file://{resources}/scripts/custom_game/rift_hud.js" />
-	</scripts>
-	<Panel class="RiftHudRoot" hittest="false">
-		<Panel id="TopBar" class="TopBar" hittest="false">
-			<Label id="StateLabel" class="StateLabel" text="" />
-			<Label id="TimerLabel" class="TimerLabel" text="--:--" />
-			<Panel class="TopStats" hittest="false">
-				<Label id="ScoreLabel" class="StatLabel" text="" />
-				<Label id="PlaceLabel" class="StatLabel" text="" />
-			</Panel>
-			<Label id="NextEventLabel" class="StatLabel" text="" />
-			<Label id="DevLabel" class="DevLabel" text="#rift_hud_dev" />
-			<Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
-		</Panel>
-
-		<Panel id="RelicPanel" class="RelicPanel" hittest="false">
-			<Label id="RelicTitle" class="RelicTitle" text="#rift_relic_title" />
-			<Label id="RelicLine1" class="RelicLine" text="" />
-			<Label id="RelicLine2" class="RelicLine" text="" />
-		</Panel>
-
-		<Panel id="Board" class="Board" hittest="false">
-			<Label class="BoardTitle" text="#rift_board_title" />
-			<Panel id="BoardRows" class="BoardRows" hittest="false" />
-		</Panel>
-
-		<Panel id="OfferPanel" class="OfferPanel">
-			<Panel class="OfferHeader">
-				<Label id="OfferTitle" class="OfferTitle" text="" />
-				<Label id="OfferTimer" class="OfferTimer" text="" />
-				<Button class="OfferCollapse" onactivate="RiftCollapseOffer()">
-					<Label text="#rift_offer_collapse" />
-				</Button>
-			</Panel>
-			<Panel id="OfferCards" class="OfferCards" />
-			<Label id="OfferStatus" class="OfferStatus" text="" />
-		</Panel>
-
-		<Button id="OfferOpenButton" class="OfferOpenButton" onactivate="RiftOpenOffer()">
-			<Label id="OfferOpenLabel" text="" />
-		</Button>
-
-		<Panel id="BuildPanel" class="BuildPanel" hittest="false">
-			<Label id="BuildTitle" class="BuildTitle" text="#rift_build_title" />
-			<Label id="BuildDirection" class="BuildDirection" text="" />
-			<Panel id="BuildRows" class="BuildRows" hittest="false" />
-		</Panel>
-
-		<Panel id="Onboarding" class="Onboarding">
-			<Label class="OnboardTitle" text="#rift_onboard_title" />
-			<Label class="OnboardText" text="#rift_onboard_text" />
-			<Button class="RiftButton" onactivate="RiftHideOnboarding()">
-				<Label text="#rift_onboard_close" />
-			</Button>
-		</Panel>
-
-		<Panel id="Result" class="Result">
-			<Label class="ResultTitle" text="#rift_result_title" />
-			<Label id="ResultWinner" class="ResultWinner" text="" />
-			<Label id="ResultReason" class="ResultReason" text="" />
-			<Panel id="ResultRows" class="BoardRows" />
-		</Panel>
-	</Panel>
+  <styles><include src="file://{resources}/styles/custom_game/rift_hud.css" /></styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/rift_ui_model.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_hud.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_lab.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_ranges.js" />
+    <include src="file://{resources}/scripts/custom_game/rift_aghanim.js" />
+  </scripts>
+  <Panel class="RiftHudRoot" hittest="false">
+  <Panel id="RiftRoot" class="RiftHudRoot" hittest="false">
+    <Panel id="AghanimInfo" class="AghanimInfo Hidden" hittest="false">
+      <Label id="AghanimPath" class="AghanimPath" />
+      <Panel class="AghanimHeading"><DOTAItemImage itemname="item_ultimate_scepter" /><Label text="Aghanim’s Scepter" /><Label id="AghanimScepterOwned" class="AghanimOwned" /></Panel>
+      <Label id="AghanimScepterText" class="AghanimText" />
+      <Panel class="AghanimHeading"><DOTAItemImage itemname="item_aghanims_shard" /><Label text="Aghanim’s Shard" /><Label id="AghanimShardOwned" class="AghanimOwned" /></Panel>
+      <Label id="AghanimShardText" class="AghanimText" />
+    </Panel>
+    <Panel id="TopBar" class="TopBar" hittest="false">
+      <Panel id="TopPlayersLeft" class="TopPlayers LeftSeats" hittest="false" />
+      <Panel class="MatchClock" hittest="false">
+        <Label class="BrandSmall" text="DUALITY" />
+        <Label id="TimerLabel" class="TimerLabel" text="--:--" />
+        <Label id="StateLabel" class="StateLabel" text="" />
+        <Panel class="ClockTrack"><Panel id="ClockProgress" class="ClockProgress" /></Panel>
+      </Panel>
+      <Panel id="TopPlayersRight" class="TopPlayers RightSeats" hittest="false" />
+    </Panel>
+    <Panel class="MatchSummary" hittest="false">
+      <Label id="ScoreLabel" class="StatLabel" text="" />
+      <Label id="PlaceLabel" class="StatLabel" text="" />
+      <Label id="NextEventLabel" class="StatLabel EventClock" text="" />
+      <Label id="DevLabel" class="DevLabel" text="#rift_hud_dev" />
+      <Label id="FallbackLabel" class="FallbackLabel" text="#rift_hud_map_fallback" />
+    </Panel>
+    <Button id="RoshanEvent" class="RoshanEvent Hidden" onactivate="RiftFocusEvent('roshan')"><Label id="RoshanStatus" class="RoshanStatus" /></Button>
+    <Panel class="HudActions">
+      <Button id="LabToggle" class="QuietButton Hidden" onactivate="RiftLabOpen()"><Label text="#rift_lab_title" /></Button>
+      <Button class="QuietButton" onactivate="RiftOpenMenu()"><Label text="#rift_menu_open" /></Button>
+      <Button class="QuietButton" onactivate="RiftToggleBoard()"><Label text="#rift_board_toggle" /></Button>
+    </Panel>
+    <Panel id="LabPanel" class="LabPanel Hidden">
+      <Panel class="LabHeader"><Label class="MenuSection" text="#rift_lab_title" /><Button class="QuietButton" onactivate="RiftLabClose()"><Label text="×" /></Button></Panel>
+      <Label id="LabStatus" class="LabStatus" text="#rift_lab_intro" />
+      <Panel id="LabIntro" class="LabIntro">
+        <Label class="RuleText" text="#rift_lab_start_warning" />
+        <Button class="RiftButton" onactivate="RiftLabSend({action:'start'})"><Label text="#rift_lab_start" /></Button>
+      </Panel>
+      <Panel id="LabBody" class="LabBody Hidden">
+        <Label class="LabSection" text="#rift_lab_choose" />
+        <Panel id="LabHeroes" class="LabHeroes" />
+        <Panel class="LabRow">
+          <Button id="LabBase" class="LabButton" onactivate="RiftLabChoosePath('base')"><Label text="#rift_lab_base" /></Button>
+          <Button id="LabPhysical" class="LabButton" onactivate="RiftLabChoosePath('physical')"><Label text="#rift_dir_physical" /></Button>
+          <Button id="LabMagical" class="LabButton" onactivate="RiftLabChoosePath('magical')"><Label text="#rift_dir_magical" /></Button>
+        </Panel>
+        <Panel class="LabRow">
+          <Button id="LabRank1" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:1})"><Label text="R · 1" /></Button>
+          <Button id="LabRank2" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:2})"><Label text="R · 2" /></Button>
+          <Button id="LabRank3" class="LabButton" onactivate="RiftLabSend({action:'rank',rank:3})"><Label text="R · 3" /></Button>
+        </Panel>
+        <Label class="LabSection" text="#rift_lab_gallery" />
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'gallery',path:RiftLab.state.path})"><Label text="#rift_lab_spawn_all" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'clear'})"><Label text="#rift_lab_clear" /></Button>
+        </Panel>
+        <Label class="LabHelp" text="#rift_lab_gallery_hint" />
+        <Label class="LabSection" text="#rift_lab_targets" />
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'immortal'})"><Label text="#rift_lab_target_immortal" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'mortal'})"><Label text="#rift_lab_target_mortal" /></Button>
+          <Button class="LabButton" onactivate="RiftLabSend({action:'target',kind:'immune'})"><Label text="#rift_lab_target_immune" /></Button>
+        </Panel>
+        <Panel class="LabRow">
+          <Button class="LabButton" onactivate="RiftLabSend({action:'reset'})"><Label text="#rift_lab_reset" /></Button>
+          <Button id="LabFree" class="LabButton" onactivate="RiftLabSend({action:'free'})"><Label text="#rift_lab_free" /></Button>
+        </Panel>
+        <Button class="LabButton" onactivate="RiftLabFocus()"><Label text="#rift_lab_focus" /></Button>
+        <Label class="LabHelp" text="#rift_lab_fresh_hint" />
+      </Panel>
+    </Panel>
+    <Button id="RelicPanel" class="RelicPanel" onactivate="RiftFocusEvent('relic')">
+      <Label id="RelicTitle" class="RelicTitle" text="#rift_relic_title" />
+      <Label id="RelicLine1" class="RelicLine" text="" />
+      <Label id="RelicLine2" class="RelicLine" text="" />
+    </Button>
+    <Panel id="Board" class="Board Hidden" hittest="false">
+      <Label class="BoardTitle" text="#rift_board_title" />
+      <Panel id="BoardRows" class="BoardRows" hittest="false" />
+    </Panel>
+    <Panel id="OfferPanel" class="OfferPanel">
+      <Panel class="OfferHeader">
+        <Panel class="OfferHeading"><Label id="OfferTitle" class="OfferTitle" text="" /><Label id="OfferTimer" class="OfferTimer" text="" /></Panel>
+        <Button class="OfferCollapse" onactivate="RiftCollapseOffer()"><Label text="#rift_offer_collapse" /></Button>
+      </Panel>
+      <Panel id="OfferCards" class="OfferCards" />
+      <Label id="OfferStatus" class="OfferStatus" text="" />
+    </Panel>
+    <Button id="OfferOpenButton" class="OfferOpenButton" onactivate="RiftOpenOffer()"><Label id="OfferOpenLabel" text="" /></Button>
+    <Button id="BuildToggle" class="BuildToggle" onactivate="RiftToggleBuild()" onmouseover="RiftBuildTooltip()" onmouseout="$.DispatchEvent('DOTAHideTextTooltip')"><Image id="BuildGlyph" class="BuildGlyph" scaling="stretch-to-fit-preserve-aspect" /><Label id="BuildCount" class="BuildCount" text="0" /></Button>
+    <Panel id="BuildPanel" class="BuildPanel Hidden">
+      <Panel class="BuildHeader"><Label id="BuildTitle" class="BuildTitle" text="#rift_build_title" /><Button class="QuietButton" onactivate="RiftToggleBuild()"><Label text="×" /></Button></Panel>
+      <Label id="BuildDirection" class="BuildDirection" text="" />
+      <Panel id="BuildRows" class="BuildRows" />
+    </Panel>
+    <Panel id="Onboarding" class="Onboarding Hidden">
+      <Panel class="MenuStripe" />
+      <Panel class="MenuHeader">
+        <Label class="MenuKicker" text="#rift_menu_kicker" />
+        <Label class="MenuWordmark" text="DUALITY" />
+        <Label class="MenuSubtitle" text="#rift_menu_subtitle" />
+        <Label class="MenuAlpha" text="#rift_menu_alpha" />
+      </Panel>
+      <Panel class="MenuBody">
+        <Panel class="MenuRules">
+          <Label class="MenuSection" text="#rift_menu_rules" />
+          <Label class="RuleTitle" text="#rift_menu_score" /><Label class="RuleText" text="#rift_menu_score_body" />
+          <Label class="RuleTitle" text="#rift_menu_paths" /><Label class="RuleText" text="#rift_menu_paths_body" />
+          <Label class="RuleTitle" text="#rift_menu_map" /><Label class="RuleText" text="#rift_menu_map_body" />
+          <Label class="RuleFoot" text="#rift_menu_rules_body" />
+        </Panel>
+        <Panel class="MenuRoster">
+          <Label class="MenuSection" text="#rift_menu_roster" />
+          <Panel id="HeroGallery" class="HeroGallery" />
+          <Label class="GalleryHint" text="#rift_menu_path_hint" />
+          <Label id="GalleryHero" class="GalleryHero" text="" />
+          <Panel class="PathPreview">
+            <Panel class="PreviewPath PhysicalPreview"><Label class="PathTag" text="#rift_path_physical" /><Label id="GalleryPhysicalName" class="PreviewName" text="" /><Label id="GalleryPhysicalDesc" class="PreviewDesc" text="" /></Panel>
+            <Panel class="PreviewPath MagicalPreview"><Label class="PathTag" text="#rift_path_magical" /><Label id="GalleryMagicalName" class="PreviewName" text="" /><Label id="GalleryMagicalDesc" class="PreviewDesc" text="" /></Panel>
+          </Panel>
+        </Panel>
+      </Panel>
+      <Panel class="MenuFooter"><Label text="#rift_arena_name" /><Button class="RiftButton" onactivate="RiftHideOnboarding()"><Label text="#rift_menu_close" /></Button></Panel>
+    </Panel>
+    <Panel id="Result" class="Result">
+      <Label class="MenuKicker" text="DUALITY" />
+      <Label class="ResultTitle" text="#rift_result_title" />
+      <Label id="ResultWinner" class="ResultWinner" text="" />
+      <Label id="ResultReason" class="ResultReason" text="" />
+      <Panel id="ResultRows" class="BoardRows" />
+    </Panel>
+  </Panel>
+  </Panel>
 </root>

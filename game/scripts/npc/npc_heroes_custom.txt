@@ -1,0 +1,188 @@
+// Generated native talent slots. Q/W/E/R, innates and facets are inherited.
+"DOTAHeroes"
+{
+ "npc_dota_hero_axe"
+ {
+  "Ability10" "special_bonus_duality_axe_physical_1"
+  "Ability11" "special_bonus_duality_axe_physical_2"
+  "Ability12" "special_bonus_duality_axe_physical_3"
+  "Ability13" "special_bonus_duality_axe_physical_4"
+  "Ability14" "special_bonus_duality_axe_physical_5"
+  "Ability15" "special_bonus_duality_axe_physical_6"
+  "Ability16" "special_bonus_duality_axe_physical_7"
+  "Ability17" "special_bonus_duality_axe_physical_8"
+  "AbilityDefinitions"
+  {
+   "axe_battle_hunger" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+   "axe_berserkers_call" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+   "axe_counter_helix" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_crystal_maiden"
+ {
+  "Ability10" "special_bonus_duality_crystal_maiden_physical_1"
+  "Ability11" "special_bonus_duality_crystal_maiden_physical_2"
+  "Ability12" "special_bonus_duality_crystal_maiden_physical_3"
+  "Ability13" "special_bonus_duality_crystal_maiden_physical_4"
+  "Ability14" "special_bonus_duality_crystal_maiden_physical_5"
+  "Ability15" "special_bonus_duality_crystal_maiden_physical_6"
+  "Ability16" "special_bonus_duality_crystal_maiden_physical_7"
+  "Ability17" "special_bonus_duality_crystal_maiden_physical_8"
+  "AbilityDefinitions"
+  {
+   "crystal_maiden_crystal_clone" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByShard" "0" }
+   "crystal_maiden_freezing_field" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_juggernaut"
+ {
+  "Ability10" "special_bonus_duality_juggernaut_physical_1"
+  "Ability11" "special_bonus_duality_juggernaut_physical_2"
+  "Ability12" "special_bonus_duality_juggernaut_physical_3"
+  "Ability13" "special_bonus_duality_juggernaut_physical_4"
+  "Ability14" "special_bonus_duality_juggernaut_physical_5"
+  "Ability15" "special_bonus_duality_juggernaut_physical_6"
+  "Ability16" "special_bonus_duality_juggernaut_physical_7"
+  "Ability17" "special_bonus_duality_juggernaut_physical_8"
+  "AbilityDefinitions"
+  {
+   "juggernaut_healing_ward" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "juggernaut_swift_slash" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByScepter" "0" }
+   "juggernaut_trinity" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByShard" "0" }
+   "juggernaut_vaulted_strike" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByShard" "0" }
+  }
+ }
+ "npc_dota_hero_legion_commander"
+ {
+  "Ability10" "special_bonus_duality_legion_commander_physical_1"
+  "Ability11" "special_bonus_duality_legion_commander_physical_2"
+  "Ability12" "special_bonus_duality_legion_commander_physical_3"
+  "Ability13" "special_bonus_duality_legion_commander_physical_4"
+  "Ability14" "special_bonus_duality_legion_commander_physical_5"
+  "Ability15" "special_bonus_duality_legion_commander_physical_6"
+  "Ability16" "special_bonus_duality_legion_commander_physical_7"
+  "Ability17" "special_bonus_duality_legion_commander_physical_8"
+  "AbilityDefinitions"
+  {
+   "legion_commander_duel" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "legion_commander_intimidate" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "legion_commander_overwhelming_odds" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+   "legion_commander_press_the_attack" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_lina"
+ {
+  "Ability10" "special_bonus_duality_lina_physical_1"
+  "Ability11" "special_bonus_duality_lina_physical_2"
+  "Ability12" "special_bonus_duality_lina_physical_3"
+  "Ability13" "special_bonus_duality_lina_physical_4"
+  "Ability14" "special_bonus_duality_lina_physical_5"
+  "Ability15" "special_bonus_duality_lina_physical_6"
+  "Ability16" "special_bonus_duality_lina_physical_7"
+  "Ability17" "special_bonus_duality_lina_physical_8"
+  "AbilityDefinitions"
+  {
+   "lina_flame_cloak" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByScepter" "0" }
+   "lina_laguna_blade" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_nevermore"
+ {
+  "Ability10" "special_bonus_duality_nevermore_physical_1"
+  "Ability11" "special_bonus_duality_nevermore_physical_2"
+  "Ability12" "special_bonus_duality_nevermore_physical_3"
+  "Ability13" "special_bonus_duality_nevermore_physical_4"
+  "Ability14" "special_bonus_duality_nevermore_physical_5"
+  "Ability15" "special_bonus_duality_nevermore_physical_6"
+  "Ability16" "special_bonus_duality_nevermore_physical_7"
+  "Ability17" "special_bonus_duality_nevermore_physical_8"
+  "AbilityDefinitions"
+  {
+   "nevermore_requiem" { "HasScepterUpgrade" "1" "HasShardUpgrade" "0" }
+   "nevermore_shadowraze1" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+   "nevermore_shadowraze2" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+   "nevermore_shadowraze3" { "HasScepterUpgrade" "0" "HasShardUpgrade" "1" }
+  }
+ }
+ "npc_dota_hero_phantom_assassin"
+ {
+  "Ability10" "special_bonus_duality_phantom_assassin_physical_1"
+  "Ability11" "special_bonus_duality_phantom_assassin_physical_2"
+  "Ability12" "special_bonus_duality_phantom_assassin_physical_3"
+  "Ability13" "special_bonus_duality_phantom_assassin_physical_4"
+  "Ability14" "special_bonus_duality_phantom_assassin_physical_5"
+  "Ability15" "special_bonus_duality_phantom_assassin_physical_6"
+  "Ability16" "special_bonus_duality_phantom_assassin_physical_7"
+  "Ability17" "special_bonus_duality_phantom_assassin_physical_8"
+  "AbilityDefinitions"
+  {
+   "phantom_assassin_blur" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "phantom_assassin_fan_of_knives" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByScepter" "0" }
+  }
+ }
+ "npc_dota_hero_pudge"
+ {
+  "Ability10" "special_bonus_duality_pudge_physical_1"
+  "Ability11" "special_bonus_duality_pudge_physical_2"
+  "Ability12" "special_bonus_duality_pudge_physical_3"
+  "Ability13" "special_bonus_duality_pudge_physical_4"
+  "Ability14" "special_bonus_duality_pudge_physical_5"
+  "Ability15" "special_bonus_duality_pudge_physical_6"
+  "Ability16" "special_bonus_duality_pudge_physical_7"
+  "Ability17" "special_bonus_duality_pudge_physical_8"
+  "AbilityDefinitions"
+  {
+   "pudge_meat_hook" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "pudge_rot" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_sven"
+ {
+  "Ability10" "special_bonus_duality_sven_physical_1"
+  "Ability11" "special_bonus_duality_sven_physical_2"
+  "Ability12" "special_bonus_duality_sven_physical_3"
+  "Ability13" "special_bonus_duality_sven_physical_4"
+  "Ability14" "special_bonus_duality_sven_physical_5"
+  "Ability15" "special_bonus_duality_sven_physical_6"
+  "Ability16" "special_bonus_duality_sven_physical_7"
+  "Ability17" "special_bonus_duality_sven_physical_8"
+  "AbilityDefinitions"
+  {
+   "sven_storm_bolt" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "sven_warcry" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+ "npc_dota_hero_templar_assassin"
+ {
+  "Ability10" "special_bonus_duality_templar_assassin_physical_1"
+  "Ability11" "special_bonus_duality_templar_assassin_physical_2"
+  "Ability12" "special_bonus_duality_templar_assassin_physical_3"
+  "Ability13" "special_bonus_duality_templar_assassin_physical_4"
+  "Ability14" "special_bonus_duality_templar_assassin_physical_5"
+  "Ability15" "special_bonus_duality_templar_assassin_physical_6"
+  "Ability16" "special_bonus_duality_templar_assassin_physical_7"
+  "Ability17" "special_bonus_duality_templar_assassin_physical_8"
+  "AbilityDefinitions"
+  {
+   "templar_assassin_psionic_trap" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "templar_assassin_refraction" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+   "templar_assassin_trap_teleport" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByScepter" "0" }
+  }
+ }
+ "npc_dota_hero_windrunner"
+ {
+  "Ability10" "special_bonus_duality_windrunner_physical_1"
+  "Ability11" "special_bonus_duality_windrunner_physical_2"
+  "Ability12" "special_bonus_duality_windrunner_physical_3"
+  "Ability13" "special_bonus_duality_windrunner_physical_4"
+  "Ability14" "special_bonus_duality_windrunner_physical_5"
+  "Ability15" "special_bonus_duality_windrunner_physical_6"
+  "Ability16" "special_bonus_duality_windrunner_physical_7"
+  "Ability17" "special_bonus_duality_windrunner_physical_8"
+  "AbilityDefinitions"
+  {
+   "windrunner_gale_force" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" "IsGrantedByShard" "0" }
+   "windrunner_tailwind" { "HasScepterUpgrade" "0" "HasShardUpgrade" "0" }
+  }
+ }
+}

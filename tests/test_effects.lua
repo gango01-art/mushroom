@@ -5,8 +5,8 @@ local F = require("fixtures")
 T.case("values_at clamps rank and reads values", function()
   local ups, dirs = F.data("shipped")
   local reg = Registry.new(ups, dirs)
-  T.eq(Effects.values_at(reg:get("pa_keen_edge"), 2).attack_damage, 20)
-  T.eq(Effects.values_at(reg:get("pa_keen_edge"), 9).attack_damage, 28)
+  T.eq(Effects.values_at(reg:get("pa_keen_edge"), 2).attack_damage, 7)
+  T.eq(Effects.values_at(reg:get("pa_keen_edge"), 9).attack_damage, 10)
   T.eq(next(Effects.values_at(reg:get("pa_keen_edge"), 0)), nil)
 end)
 
@@ -14,7 +14,7 @@ T.case("stat totals sum only stat_bonus upgrades", function()
   local ups, dirs = F.data("shipped")
   local reg = Registry.new(ups, dirs)
   local t = Effects.stat_totals(reg, { pa_shadow_guard = 2, u_iron_skin = 1, u_vitality = 3, pa_static_edge = 2 })
-  T.eq(t.armor, 7); T.eq(t.health, 350); T.eq(t.attack_damage, 0)
+  T.eq(t.armor, 2.8); T.eq(t.health, 140); T.eq(t.attack_damage, 0)
 end)
 
 -- Parses addon_<lang>.txt token keys (simple KV1 "key" "value" lines).
@@ -44,4 +44,13 @@ T.case("every implemented stat key is supported by the stat modifier", function(
       for k in pairs(u.values_by_rank) do T.ok(known[k], u.id .. ": unknown stat " .. k) end
     end
   end
+end)
+
+T.case("regular upgrade cards show rank increment and preserve cumulative totals",function()
+ local ups,dirs=F.data("shipped");local reg=Registry.new(ups,dirs)
+ T.eq(Effects.gain_at(reg:get("u_vitality"),1).health,60)
+ T.eq(Effects.gain_at(reg:get("u_vitality"),2).health,40)
+ T.eq(Effects.values_at(reg:get("u_vitality"),2).health,100)
+ T.eq(Effects.gain_at(reg:get("u_focus"),2).mana,40)
+ T.eq(Effects.values_at(reg:get("u_steadfast"),2).status_resistance,5)
 end)

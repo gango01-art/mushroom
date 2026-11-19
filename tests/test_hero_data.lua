@@ -13,7 +13,7 @@ T.case("every direction has a resolvable balance_ref", function()
   for _, d in ipairs(dirs) do
     if d.balance_ref then n = n + 1; T.ok(resolve(d.balance_ref), d.id .. " -> " .. d.balance_ref) end
   end
-  T.eq(n, 8)
+  T.eq(n, 22)
 end)
 
 T.case("rank-indexed arrays have the right length", function()
@@ -30,8 +30,9 @@ end)
 
 T.case("owner-required values unchanged", function()
   local d = B.lc.duel_physical
-  T.eq(d.per_second[3], 1.4); T.eq(d.victory_multiplier, 1.5); T.eq(d.champion_death_penalty_fraction, 0.30)
+  T.eq(d.per_second[3], 1.6); T.eq(d.victory_multiplier, 1.5); T.eq(d.champion_death_penalty_fraction, 0.30)
   T.eq(B.sf.requiem_physical.sphere_damage_fraction, 0.60); T.eq(B.sf.requiem_physical.duration, 15)
   T.eq(B.ta.crystal_physical.durability, 3); T.eq(B.ta.waves_magical.q_base, 120)
-  T.eq(B.lc.statue.cdr_per_hit, 2); T.eq(B.lc.statue.cooldown, 25); T.eq(B.lc.duel_magical.cap_spell_amp[3], 20)
+  T.eq(B.lc.statue.cdr_per_hit, 2); T.eq(B.lc.statue.cooldown[1],22);T.eq(B.lc.statue.cooldown[2],20);T.eq(B.lc.statue.cooldown[3],18)
+  T.eq(B.lc.duel_magical.cap_spell_amp[3], 20)
 end)

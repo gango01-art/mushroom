@@ -3,6 +3,8 @@
 modifier_rift_pa_spirit = modifier_rift_pa_spirit or ((type(class) == "function") and class({}) or {})
 function modifier_rift_pa_spirit:IsHidden() return true end
 function modifier_rift_pa_spirit:IsPurgable() return false end
+function modifier_rift_pa_spirit:GetEffectName() return require("rift.data.hero_balance").pa.execution_physical.spirit_ambient end
+function modifier_rift_pa_spirit:GetEffectAttachType() return PATTACH_ABSORIGIN_FOLLOW end
 function modifier_rift_pa_spirit:CheckState()
   return { [MODIFIER_STATE_INVULNERABLE] = true, [MODIFIER_STATE_NO_HEALTH_BAR] = true,
            [MODIFIER_STATE_UNSELECTABLE] = true, [MODIFIER_STATE_NO_UNIT_COLLISION] = true,
@@ -11,4 +13,6 @@ function modifier_rift_pa_spirit:CheckState()
            [MODIFIER_STATE_ATTACK_IMMUNE] = true, [MODIFIER_STATE_MAGIC_IMMUNE] = true }
 end
 function modifier_rift_pa_spirit:DeclareFunctions() return { MODIFIER_PROPERTY_OVERRIDE_ANIMATION } end
-function modifier_rift_pa_spirit:GetOverrideAnimation() return ACT_DOTA_RUN end
+function modifier_rift_pa_spirit:GetOverrideAnimation()
+  return self:GetStackCount()>0 and self:GetStackCount() or ACT_DOTA_RUN
+end

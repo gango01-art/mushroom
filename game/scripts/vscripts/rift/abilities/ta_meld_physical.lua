@@ -6,8 +6,8 @@ ta_meld_physical = ta_meld_physical or ((type(class) == "function") and class({}
 
 local function rank(l) return math.max(1, math.min(4, l)) end
 
-function ta_meld_physical:GetCooldown(level) return B.cooldown[rank(level + 1)] end
-function ta_meld_physical:GetManaCost(level) return B.mana[rank(level + 1)] end
+function ta_meld_physical:GetCooldown(level) return B.cooldown[rank(require("rift.engine.ability_level")(self,level))] end
+function ta_meld_physical:GetManaCost(level) return B.mana[rank(require("rift.engine.ability_level")(self,level))] end
 
 function ta_meld_physical:OnSpellStart()
   local caster = self:GetCaster()

@@ -145,16 +145,28 @@ function Adapter:ApplyKit(hero)
 end
 
 function Adapter:Apply(pid, def)
-  self.locked[pid] = nil
-  self.applied[pid] = def.id
   local hero = hero_of(pid)
-  if not hero then return end
+  if not hero then return false end
+  local ok = self:ApplyToHero(hero,def)
+  if ok then self.locked[pid]=nil; self.applied[pid]=def.id end
+  return ok
+end
+
+-- Gallery copies use the same kit transformation without changing a player's
+-- permanent match choice. Ownership/authorization belongs to laboratory.lua.
+function Adapter:ApplyToHero(hero, def)
+  for _,swap in ipairs(def.swaps or {}) do
+    if not hero:FindAbilityByName(swap.from) then
+      Log.error("DIRECTION","native ability missing: "..tostring(swap.from))
+      return false
+    end
+  end
   local before, was_visible = layout(hero)
   Log.info("DIRECTION", "layout before: " .. before)
   local swapped = {}
   for _, swap in ipairs(def.swaps or {}) do
     swapped[swap.from] = true
-    self:_swap(hero, swap, def.transfer_policy)
+    if not self:_swap(hero, swap, def.transfer_policy) then return false end
   end
   for _, name in ipairs(def.hide or {}) do
     local a = hero:FindAbilityByName(name)
@@ -183,9 +195,11 @@ function Adapter:Apply(pid, def)
     end
   end
   Log.info("DIRECTION", "layout after: " .. (layout(hero)))
-  local ult = self:_ultimate(pid, hero)
+  local ult = hero:FindAbilityByName(def.ultimate_ability_id)
   if ult then ult:SetActivated(true) end
   self:_ensure_modifiers(hero, def)
+  require("rift.engine.progression").ensure(hero,def.direction)
+  return true
 end
 
 function Adapter:_ensure_modifiers(hero, def)

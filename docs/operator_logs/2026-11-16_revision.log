@@ -1,0 +1,48 @@
+Operator: Codex direct Windows GUI + VConsole, owner's PC, Dota Workshop Tools.
+Map: dota. Addon: duality. Single-player laboratory.
+Sanitized measurements; full native logs remain local.
+
+07:18:06 CM regen=60.59 attack=144.0 wave_raw=194.79
+07:18:08 CM target lost 600 HP over the exercise.
+07:18:09 Jug ordinary cooldown=19.799999 from initial 20 (~0.1 elapsed).
+07:18:10 Jug series cooldown=25.399998 from initial 30 (2 enemies, R3).
+07:18:11 PA ordinary cooldown=18.899999 from initial 20 (~0.1 elapsed).
+07:18:12 PA dagger cooldown=17.020033 from initial 20 (~1 elapsed, R3).
+07:18:14 PA crowd targets=2, four available targets.
+07:18:15 Forced PA chain damage logged=460; total exercise HP loss=1159.
+Forced proc verifies the chain mechanism, not its chance distribution.
+07:18:17 WR rank3 modifier duration=12.
+07:18:19 WR rank2 modifier duration=10.
+07:18:20 WR rank1 modifier duration=8.
+07:18:21 Sven R3 GetCooldown(-1)=35.
+07:18:23 TA shield modifier=true charges=6 (visual separately checked).
+07:18:25 LC statue model=models/heroes/earth_spirit/stonesummon.vmdl.
+07:18:25 DONE.
+
+Native visual observations:
+- Stone LC statue, compact gold arrows observed and captured.
+- Lina effect is now centered near cast point; screenshot lina-bounded.
+- TA first visual attempt exposed missing native CP1 binding; corrected afterward.
+
+07:29:06 Native crash on a repeated Juggernaut magical path replacement.
+Minidump: 0xc0000005 in particles.dll + 0x1f156c.
+Immediately preceding diagnostics: equipped Juggernaut cosmetic models not
+loaded/deleted/pending. No Lua exception identified as the crash site.
+Lab previously skipped PrecacheUnitByNameAsync on subsequent same-hero swaps.
+Removed that bypass; every replacement now awaits player-specific precache.
+Native revalidation and remaining limits are recorded in the revision report.
+
+07:35:23 RELOAD pass=1 path=base
+07:35:25 RELOAD pass=2 path=physical
+07:35:28 RELOAD pass=3 path=magical
+07:35:30 RELOAD pass=4 path=base
+07:35:32 RELOAD pass=5 path=physical
+07:35:34 RELOAD pass=6 path=magical
+07:35:34 RELOAD DONE six Juggernaut replacements
+No newer crash dump at the end of this series.
+TA after explicit CP1 attachment: native shield ring visible around the hero;
+saved screenshot 2026-11-16-ta-shield.jpg.
+Native picker after CSS rebuild: all four attribute names/icons visible.
+Hovered LC card loads DOTAHeroMovie; large movie changes across two frames
+captured 0.9s apart. Screenshot 2026-11-16-picker-movies.jpg.
+LC final compact gold salvo captured as 2026-11-16-lc-gold.jpg.

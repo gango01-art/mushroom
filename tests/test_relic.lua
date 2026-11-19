@@ -82,16 +82,14 @@ T.case("overtime/finished clears and blocks further events", function()
   T.eq(kinds(r:tick(1500, 500, false)), "")
 end)
 
-T.case("schedule 3/6/9/12/15 min; one relic at a time; past entries skipped after clock jump", function()
-  local r = setup()
-  local spawns = 0
-  for _, e in ipairs(run(r, 0, 1000, 1)) do if e.kind == "spawn" then spawns = spawns + 1 end end
-  T.eq(spawns, 5)
-  local r2 = setup()
-  local ev = r2:tick(1000 + 700, 700, true) -- jumped past 3:00 and 6:00 entirely, 9:00 too (540+75<700)
-  T.eq(kinds(ev), "")
-  ev = r2:tick(1000 + 705, 705, true)
-  T.eq(ev[1].kind, "warning") -- 12:00 warning at 705
+T.case("30-minute relic schedule has seven separated events and skips expired entries", function()
+ local r=setup();local spawns=0
+ for _,e in ipairs(run(r,0,1800,1))do if e.kind=="spawn"then spawns=spawns+1 end end
+ T.eq(spawns,7)
+ local r2=setup()
+ T.eq(kinds(r2:tick(1000+800,800,true)),"") -- first three events fully expired
+ local ev=r2:tick(1000+885,885,true)
+ T.eq(ev[1].kind,"warning") -- 15:00 event warning
 end)
 
 T.case("view exposes timers without private data", function()

@@ -1,0 +1,355 @@
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary_aura (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_center_gold (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_roshan (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_river_neutral (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_base_guardian (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_item (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_state (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_shard (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_blessing (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_inner_peace (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_solo_item (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_glimmer_cape (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_shadow_weapon (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_pipe (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_crimson_guard (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_solar (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_drums (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_recovery_lockout (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_assault_debuff (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_break (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_progression (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_damage_tracker (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_spawn_shield (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_probe (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_relic_carrier (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_upgrade_stats (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_crystal (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_meld (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_dummy (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_no_attack (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_refraction (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_dash (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_trap_slow (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_spheres (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_soul_gain (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_rings (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_fear (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_slow (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_attack (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_spirit (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_throne (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_champion (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_courage (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lina_burn (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_duel_damage (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_spell_amp (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_statue (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_stance (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sleight (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_echo (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_mystic (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_helix (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_pull (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_cooldowns (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_area_items (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_slow (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_root (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_display (server)
+11/17 18:02:40 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_target (server)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary_aura (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_center_gold (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_roshan (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_river_neutral (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_base_guardian (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_item (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_state (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_shard (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_blessing (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_inner_peace (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_solo_item (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_glimmer_cape (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_shadow_weapon (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_pipe (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_crimson_guard (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_solar (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_drums (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_recovery_lockout (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_assault_debuff (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_break (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_progression (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_damage_tracker (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_spawn_shield (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_probe (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_relic_carrier (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_upgrade_stats (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_crystal (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_meld (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_dummy (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_no_attack (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_refraction (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_dash (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_trap_slow (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_spheres (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_soul_gain (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_rings (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_fear (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_slow (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_attack (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_spirit (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_throne (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_champion (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_courage (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lina_burn (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_duel_damage (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_spell_amp (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_statue (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_stance (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sleight (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_echo (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_mystic (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_helix (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_pull (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_cooldowns (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_area_items (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_slow (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_root (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_display (client)
+11/17 18:02:49 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_target (client)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary_aura (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_center_gold (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_roshan (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_river_neutral (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sanctuary (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_base_guardian (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_item (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_state (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_shard (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_aghanim_blessing (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_inner_peace (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_solo_item (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_glimmer_cape (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_shadow_weapon (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_pipe (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_crimson_guard (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_solar (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_drums (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_recovery_lockout (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_assault_debuff (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_item_break (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_progression (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_damage_tracker (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_spawn_shield (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_probe (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_relic_carrier (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_upgrade_stats (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_crystal (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_meld (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_dummy (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_no_attack (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_refraction (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_dash (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_ta_trap_slow (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_spheres (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_soul_gain (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_rings (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sf_fear (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_slow (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_dagger_attack (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_pa_spirit (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_throne (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_champion (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_courage (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lina_burn (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_duel_damage (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_spell_amp (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lc_statue (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_stance (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sleight (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_echo (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_sven_mystic (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_helix (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_axe_pull (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_attack_cooldowns (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_area_items (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_slow (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_path_root (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_display (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][MODS] link modifier_rift_lab_target (server)
+11/17 18:02:51 [VScript] [RIFT][INFO][BOOT] RIFT ARENA 0.3.0-lab dev=true
+11/17 18:02:51 [VScript] [RIFT][INFO][MAP] contract OK: 12 spawns, 4 relic points, center, bounds
+11/17 18:02:51 [VScript] [RIFT][INFO][UPGRADES] seed=1490530665
+11/17 18:02:51 [VScript] [RIFT][INFO][BASE] sanctuaries=8; own-base damage and hostile effects blocked in both directions
+11/17 18:02:51 [VScript] [RIFT][INFO][STATE] BOOT -> SETUP t=5.6
+11/17 18:02:51 [VScript] [RIFT][INFO][TEAM] player 0 -> team 2
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] center traversable=true blocked=false z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000000020F6E8 [0.000000 -600.000000 0.000000] traversable=true blocked=false path=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000004055D370 [600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] inner Vector 000000004055D3B8 [-600.000000 0.000000 0.000000] traversable=true blocked=false path=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_01 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_02 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_03 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_04 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_05 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_06 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_07 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_08 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_09 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_10 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_11 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_spawn_12 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=2 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=3 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=6 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=7 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=8 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=9 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=10 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] base team=11 traversable=true connected=true z=128
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_relic_01 traversable=true connected=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_relic_02 traversable=true connected=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_relic_03 traversable=true connected=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] rift_relic_04 traversable=true connected=true
+11/17 18:03:54 [VScript] [RIFT][ARENA_NATIVE] RESULT pass=24 fail=0 total=24; path sampling does not replace full manual traversal
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=2 to_gold_edge=2553.5676269531 seconds_at_300=8.5118920898437
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=3 to_gold_edge=2551.68359375 seconds_at_300=8.5056119791667
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=6 to_gold_edge=2549.0192871094 seconds_at_300=8.4967309570313
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=7 to_gold_edge=2547.1352539063 seconds_at_300=8.4904508463542
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=8 to_gold_edge=2436.5483398438 seconds_at_300=8.1218277994792
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=9 to_gold_edge=2551.68359375 seconds_at_300=8.5056119791667
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=10 to_gold_edge=2549.0192871094 seconds_at_300=8.4967309570313
+11/17 18:03:54 [VScript] [RIFT][ROUTES] team=11 to_gold_edge=2553.5676269531 seconds_at_300=8.5118920898437
+11/17 18:03:54 [VScript] [RIFT][ROUTES] min=2436.5483398438 max=2553.5676269531 spread=117.01928710938 seconds_spread_at_300=0.39006429036458
+11/17 18:03:54 [VScript] [RIFT][ROUTES] rift_river_camp_01 z=0 traversable=true blocked=false center_connected=true nearest_tower=1333.1983642578
+11/17 18:03:54 [VScript] [RIFT][ROUTES] rift_river_camp_02 z=0 traversable=true blocked=false center_connected=true nearest_tower=1471.5604248047
+11/17 18:03:54 [VScript] [RIFT][ROUTES] rift_river_camp_03 z=0 traversable=true blocked=false center_connected=true nearest_tower=1317.375
+11/17 18:03:54 [VScript] [RIFT][ROUTES] rift_river_camp_04 z=0 traversable=true blocked=false center_connected=true nearest_tower=1403.6684570313
+11/17 18:04:17 [VScript] [RIFT][INFO][STATE] SETUP -> HERO_SELECTION t=91.0
+11/17 18:05:08 [VScript] [RIFT][INFO][PICK] confirmed pid=0 hero=npc_dota_hero_axe
+11/17 18:05:08 [VScript] [RIFT][INFO][STATE] HERO_SELECTION -> PREPARATION t=142.1
+11/17 18:05:09 [VScript] [RIFT][INFO][HERO] init pid=0 hero=npc_dota_hero_axe level=3 gold=600
+11/17 18:05:18 [VScript] [RIFT][INFO][STATE] PREPARATION -> ACTIVE t=152.2
+11/17 18:05:18 [VScript] [RIFT][CENTER_WARDS] duration=1800 start=600 wallet=600 expected_passive_wallet=600.13336181641
+11/17 18:05:19 [VScript] [RIFT][INFO][ROSHAN] spawn pocket=1 hp=7000
+11/17 18:05:22 [VScript] [RIFT][CENTER_WARDS] outside 4s gold_gain=16
+11/17 18:05:27 [VScript] [RIFT][CENTER_WARDS] center 4s gold_gain=24 buff=true
+11/17 18:05:30 [VScript] [RIFT][CENTER_WARDS] normal fog center_before_wards=true
+11/17 18:05:30 [VScript] [RIFT][CENTER_WARDS] public vision: 8 teams x 16 circle-edge samples PASS
+11/17 18:05:30 [VScript] [RIFT][CENTER_WARDS] ward_pad=1 actual_z=384 walk_from_center=false
+11/17 18:05:31 [VScript] [RIFT][CENTER_WARDS] cast hero=Vector 00000000405D9328 [1565.725830 1565.725830 128.000000] distance=320 range=500
+11/17 18:05:35 [VScript] [RIFT][CENTER_WARDS] ward=1 item_cast PASS z=384 center_visible=true
+11/17 18:05:35 [VScript] [RIFT][CENTER_WARDS] ward=1 approach_visible=true point=2357.685546875,2357.685546875
+11/17 18:05:37 [VScript] [RIFT][CENTER_WARDS] ward_pad=2 actual_z=384 walk_from_center=false
+11/17 18:05:38 [VScript] [RIFT][CENTER_WARDS] cast hero=Vector 00000000406AF628 [-1565.725830 1565.725830 128.000000] distance=320 range=500
+11/17 18:05:42 [VScript] [RIFT][CENTER_WARDS] ward=2 item_cast PASS z=384 center_visible=true
+11/17 18:05:42 [VScript] [RIFT][CENTER_WARDS] ward=2 approach_visible=true point=-2357.685546875,2357.685546875
+11/17 18:05:44 [VScript] [RIFT][CENTER_WARDS] ward_pad=3 actual_z=384 walk_from_center=false
+11/17 18:05:45 [VScript] [RIFT][CENTER_WARDS] cast hero=Vector 000000004056A2F0 [-1565.725830 -1565.725830 128.000000] distance=320 range=500
+11/17 18:05:49 [VScript] [RIFT][CENTER_WARDS] ward=3 item_cast PASS z=384 center_visible=true
+11/17 18:05:49 [VScript] [RIFT][CENTER_WARDS] ward=3 approach_visible=true point=-2357.685546875,-2357.685546875
+11/17 18:05:51 [VScript] [RIFT][CENTER_WARDS] ward_pad=4 actual_z=384 walk_from_center=false
+11/17 18:05:52 [VScript] [RIFT][CENTER_WARDS] cast hero=Vector 00000000406A4928 [1565.725830 -1565.725830 128.000000] distance=320 range=500
+11/17 18:05:56 [VScript] [RIFT][CENTER_WARDS] ward=4 item_cast PASS z=384 center_visible=true
+11/17 18:05:56 [VScript] [RIFT][CENTER_WARDS] ward=4 approach_visible=true point=2357.685546875,-2357.685546875
+11/17 18:05:56 [VScript] [RIFT][CENTER_WARDS] DONE wards4/4; real income matched current phases; normal fog; final ward left for screenshot
+11/17 18:06:34 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=1 regular -> u_quick_feet by=timeout
+11/17 18:06:49 [VScript] [RIFT][INFO][RIVER] rift_river_camp_01 spawned=3 scale=1
+11/17 18:06:49 [VScript] [RIFT][INFO][RIVER] rift_river_camp_02 spawned=3 scale=1
+11/17 18:06:49 [VScript] [RIFT][INFO][RIVER] rift_river_camp_03 spawned=3 scale=1
+11/17 18:06:49 [VScript] [RIFT][INFO][RIVER] rift_river_camp_04 spawned=3 scale=1
+11/17 18:06:54 [VScript] [RIFT][BOSS_PROBE] river 4x3 live units PASS
+11/17 18:06:59 [VScript] [RIFT][BOSS_PROBE] river real AI damage=66
+11/17 18:06:59 [VScript] [RIFT][BOSS_PROBE] ERROR scripts\vscripts\rift/dev/boss_probe.lua:28: camp payout wrong 91
+11/17 18:07:45 [VScript] [RIFT][INFO][DIRECTION] layout before: 0:axe_berserkers_call 1:axe_battle_hunger 2:axe_counter_helix 3:generic_hidden(h) 4:generic_hidden(h) 5:axe_culling_blade 6:axe_one_man_army(h)
+11/17 18:07:45 [VScript] [RIFT][INFO][DIRECTION] swap axe_culling_blade -> rift_axe_physical level=1 cd=0.0
+11/17 18:07:45 [VScript] [RIFT][INFO][DIRECTION] layout after: 0:axe_berserkers_call 1:axe_battle_hunger 2:axe_counter_helix 3:generic_hidden(h) 4:generic_hidden(h) 5:rift_axe_physical 6:axe_one_man_army(h)
+11/17 18:07:45 [VScript] [RIFT][INFO][UPGRADES] direction rift_axe_physical pid=0
+11/17 18:07:45 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=3 ultimate_direction -> rift_axe_physical by=player
+11/17 18:07:46 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_8
+11/17 18:07:47 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:07:48 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_3
+11/17 18:07:49 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_6
+11/17 18:07:50 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_8
+11/17 18:07:50 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_6
+11/17 18:07:51 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_8
+11/17 18:07:53 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_3
+11/17 18:07:54 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_6
+11/17 18:08:00 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:08:00 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:08:01 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:08:01 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:08:02 [VScript] [RIFT][TALENT] rejected locked choice special_bonus_duality_axe_physical_2
+11/17 18:08:04 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=2 regular -> u_focus by=timeout
+11/17 18:08:04 [VScript] [RIFT][INFO][RELIC] warning point=2 in 14.933334350586 s
+11/17 18:08:18 [VScript] [RIFT][INFO][RELIC] spawn point=2
+11/17 18:08:29 [VScript] [RIFT][INFO][RIVER] rift_river_camp_01 spawned=3 scale=1
+11/17 18:08:43 [VScript] [RIFT][INFO][RELIC] picked up by pid=0
+11/17 18:09:31 [VScript] [RIFT][INFO][RELIC] ended budget
+11/17 18:10:03 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=4 regular -> u_arcane_edge by=timeout
+11/17 18:10:18 [VScript] [RIFT][INFO][ROSHAN] walking 1 -> 2
+11/17 18:10:58 [VScript] [RIFT][INFO][ROSHAN] arrived pocket=2
+11/17 18:11:22 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=5 regular -> u_quick_feet by=player
+11/17 18:12:04 [VScript] [RIFT][INFO][RELIC] warning point=1 in 14.999984741211 s
+11/17 18:12:19 [VScript] [RIFT][INFO][RELIC] spawn point=1
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=1 level=5 type=2 attribute=false required=10 native_can_upgrade=2 policy=true
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=2 level=0 type=2 attribute=false required=27 native_can_upgrade=0 policy=false
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=3 level=0 type=2 attribute=false required=28 native_can_upgrade=0 policy=false
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=4 level=5 type=2 attribute=false required=15 native_can_upgrade=2 policy=true
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=5 level=4 type=2 attribute=false required=20 native_can_upgrade=2 policy=true
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=6 level=0 type=2 attribute=false required=29 native_can_upgrade=0 policy=false
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=7 level=4 type=2 attribute=false required=25 native_can_upgrade=2 policy=true
+11/17 18:12:45 [VScript] [RIFT][TALENT_NATIVE] index=8 level=0 type=2 attribute=false required=30 native_can_upgrade=0 policy=false
+11/17 18:13:34 [VScript] [RIFT][INFO][RELIC] ended timeout
+11/17 18:14:04 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=6 regular -> u_focus by=timeout
+11/17 18:15:19 [VScript] [RIFT][INFO][ROSHAN] walking 2 -> 1
+11/17 18:15:41 [VScript] [RIFT][BOSS_PROBE] complete camp selected: live=3 expected_gold=120
+11/17 18:15:46 [VScript] [RIFT][BOSS_PROBE] river real AI damage=2
+11/17 18:15:47 [VScript] [RIFT][BOSS_PROBE] river gold=118.99987792969 respawn90s PASS
+11/17 18:15:52 [VScript] [RIFT][BOSS_PROBE] Roshan actual AI damage=310
+11/17 18:15:52 [VScript] [RIFT][BOSS_PROBE] ERROR ..._addons\duality\scripts\vscripts\rift\dev\boss_probe.lua:38: no combat timestamp
+11/17 18:16:00 [VScript] [RIFT][INFO][ROSHAN] arrived pocket=1
+11/17 18:16:04 [VScript] [RIFT][INFO][RELIC] warning point=3 in 14.999984741211 s
+11/17 18:16:04 [VScript] [RIFT][INFO][UPGRADES] pid=0 offer=7 regular -> u_arcane_edge by=timeout
+11/17 18:16:19 [VScript] [RIFT][INFO][RELIC] spawn point=3
+11/17 18:17:16 [VScript] [RIFT][INFO][RIVER] rift_river_camp_02 spawned=3 scale=1.5
+11/17 18:17:34 [VScript] [RIFT][INFO][RELIC] ended timeout
+11/17 18:18:12 [VScript] [RIFT][BOSS_PROBE] Roshan actual AI damage=143
+11/17 18:18:14 [VScript] [RIFT][BOSS_PROBE] migration clock advanced; checking native grab/throw before real walk
+11/17 18:18:14 [VScript] [RIFT][INFO][ROSHAN] walking 1 -> 2
+11/17 18:18:18 [VScript] [RIFT][BOSS_PROBE] native toss damage=415 displacement=879.95050048828 max_z=537.576171875 count=2
+11/17 18:18:55 [VScript] [RIFT][INFO][ROSHAN] arrived pocket=2
+11/17 18:18:55 [VScript] [RIFT][BOSS_PROBE] real migration arrived pocket=2 hp=7000 PASS
+11/17 18:18:55 [VScript] [RIFT][BOSS_PROBE] ERROR ..._addons\duality\scripts\vscripts\rift\dev\boss_probe.lua:49: boss payout wrong 3
+11/17 18:22:58 [VScript] [RIFT][ROSHAN_DUMP] paid=false respawn_at=nil now=735.33335876465 unit=table: 0x40591068
+11/17 18:22:58 [VScript] [RIFT][ROSHAN_DUMP] alive=true hp=7000 invulnerable=false owner_match=true
+11/17 18:22:58 [VScript] [RIFT][ROSHAN_DUMP] modifier=modifier_rift_roshan
+11/17 18:23:15 [VScript] [RIFT][INFO][ROSHAN] walking 2 -> 1
+11/17 18:23:55 [VScript] [RIFT][INFO][ROSHAN] arrived pocket=1
+11/17 18:24:00 [VScript] [RIFT][BOSS_PROBE] Roshan actual AI damage=72
+11/17 18:24:02 [VScript] [RIFT][BOSS_PROBE] migration clock advanced; checking native grab/throw before real walk
+11/17 18:24:02 [VScript] [RIFT][INFO][ROSHAN] walking 1 -> 2
+11/17 18:24:06 [VScript] [RIFT][BOSS_PROBE] native toss damage=480 displacement=897.36853027344 max_z=537.576171875 count=2
+11/17 18:24:42 [VScript] [RIFT][INFO][ROSHAN] arrived pocket=2
+11/17 18:24:43 [VScript] [RIFT][BOSS_PROBE] real migration arrived pocket=2 hp=7000 PASS
+11/17 18:24:43 [VScript] [RIFT][INFO][ROSHAN] killed: aegis=1 gold=500 respawn_in=300
+11/17 18:24:44 [VScript] [RIFT][BOSS_PROBE] gold=500 native Aegis drop=1 respawn deadline300 PASS
+11/17 18:24:45 [VScript] [RIFT][BOSS_PROBE] ERROR ..._addons\duality\scripts\vscripts\rift\dev\boss_probe.lua:62: native Aegis pickup failed
+11/17 18:26:49 [VScript] [RIFT][AEGIS_PROBE] real native pickup order PASS
+11/17 18:26:55 [VScript] [RIFT][AEGIS_PROBE] native rebirth in place, no PvP death PASS; DONE
+11/17 18:26:55 [VScript] [RIFT][INFO][RELIC] spawn point=3
+11/17 18:27:01 [VScript] [RIFT][RELIC_PROBE] model+particle still present after6s, public vision8/8 PASS
+11/17 18:27:01 [VScript] [RIFT][INFO][RELIC] picked up by pid=0
+11/17 18:27:01 [VScript] [RIFT][RELIC_PROBE] real proximity pickup+carrier effect PASS
+11/17 18:27:14 [VScript] [RIFT][RELIC_PROBE] one point after12s PASS
+11/17 18:27:14 [VScript] [RIFT][INFO][RELIC] dropped (death)
+11/17 18:27:14 [VScript] [RIFT][INFO][KILL] victim=0 killer=nil score=nil repeat=nil assists=0 reason=no_credit
+11/17 18:27:14 [VScript] [RIFT][RELIC_PROBE] actual death drops model/particle and removes buff PASS
+11/17 18:27:22 [VScript] [RIFT][INFO][RELIC] picked up by pid=0
+11/17 18:27:23 [VScript] [RIFT][INFO][RELIC] dropped (out_of_game)
+11/17 18:27:23 [VScript] [RIFT][INFO][RELIC] picked up by pid=0
+11/17 18:27:23 [VScript] [RIFT][INFO][RELIC] ended dev
+11/17 18:27:23 [VScript] [RIFT][RELIC_PROBE] end removes all effects PASS; DONE
+11/17 18:29:44 [VScript] [RIFT][INFO][ROSHAN] spawn pocket=1 hp=9450
+11/17 18:29:44 [VScript] [RIFT][ROSHAN_RESPAWN] actual_seconds=300 pocket=1

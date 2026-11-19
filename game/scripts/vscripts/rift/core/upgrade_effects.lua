@@ -5,6 +5,7 @@ local Effects = {}
 
 -- Handlers implemented in the engine. Registry validation uses this set.
 Effects.HANDLERS = {
+  path_combat = true,
   stat_bonus = true,
   -- ultimate direction handlers implemented in the engine (abilities/modifiers)
   ta_psionic_crystal = true,   -- TA physical (verified OP-013/015)
@@ -41,6 +42,13 @@ function Effects.values_at(u, rank)
     if type(list) == "table" then out[k] = list[math.min(rank, #list)] end
   end
   return out
+end
+
+-- Offer cards show the gain from this rank; build summaries show total values.
+function Effects.gain_at(u,rank)
+ local next_values=Effects.values_at(u,rank);local previous=Effects.values_at(u,rank-1);local gain={}
+ for k,v in pairs(next_values)do gain[k]=v-(previous[k]or 0)end
+ return gain
 end
 
 -- Sum of stat_bonus values over a build { upgrade_id = rank }.

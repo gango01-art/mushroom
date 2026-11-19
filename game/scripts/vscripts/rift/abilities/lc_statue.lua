@@ -1,10 +1,14 @@
 -- LC magical third ability: a stationary archer statue (replaces Moment of Courage).
--- Lives 10 s, shoots a magic arrow at a visible enemy hero on a fixed schedule; each arrow
--- hit on a real enemy hero cuts this ability's cooldown by 2 s. State: engine/lc_magic.
+-- Lives 10 s, emits four yellow piercing rays per salvo on a fixed schedule.
+-- Each real hero hit cuts cooldown by 2 s. State: engine/lc_magic.
 -- Rules: core/heroes/lc_magic. Numbers: hero_balance.
 local B = require("rift.data.hero_balance").lc.statue
 lc_statue = lc_statue or ((type(class) == "function") and class({}) or {})
-function lc_statue:GetCooldown() return B.cooldown end
+function lc_statue:GetCooldown()
+  local c=self:GetCaster()
+  local r=c and c:FindAbilityByName("lc_duel_magical")
+  return require("rift.engine.progression").cooldown(c,self,B.cooldown[math.max(1,math.min(3,r and r:GetLevel() or 1))],require("rift.engine.progression").get(c,"statue_cooldown_reduction"))
+end
 function lc_statue:GetManaCost() return B.mana end
 function lc_statue:GetCastRange() return B.cast_range end
 function lc_statue:OnSpellStart()
@@ -13,6 +17,5 @@ function lc_statue:OnSpellStart()
   EmitSoundOn("Hero_LegionCommander.PressTheAttack", c)
 end
 function lc_statue:OnProjectileHit_ExtraData(target, _, data)
-  require("rift.engine.lc_magic").on_arrow_hit(self, target, data)
-  return true
+  return require("rift.engine.lc_magic").on_beam_hit(self, target, data)
 end

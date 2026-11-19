@@ -1,0 +1,697 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>DUALITY — design mock</title><style>/* Source 2 Panorama CSS, 1080p design canvas (engine scales at other resolutions). */
+.RiftHudRoot { width: 100%; height: 100%; font-family: Radiance; }
+.Hidden { display: none; }
+.TopBar { horizontal-align: center; display: flex; flex-direction: row; height: 100px; }
+.TopPlayers { display: flex; flex-direction: row; margin-top: 4px; width: 424px; }
+.PlayerSeat { width: 102px; height: 78px; margin: 0 2px; background-color: #0c1118f5; border-bottom: 2px solid #788597; }
+.PlayerSeat.Self { border-bottom: 3px solid #e8c77a; box-shadow: #d5ac4a38 0px 0px 8px 1px; }
+.SeatPortrait { width: 100%; height: 54px; wash-color: #e0e5ec; }
+.PlayerSeat.Dead .SeatPortrait { saturation: 0; brightness: 0.3; }
+.SeatRank { font-size: 13px; color: #f2d493; margin: 2px 4px; text-shadow: 0px 1px 3px 3 #000000; }
+.SeatName { width: 100%; height: 20px; margin-top: 35px; padding: 1px 4px; font-size: 12px; color: #ffffff; text-overflow: ellipsis; background-color: #070b12c9; }
+.SeatScore { horizontal-align: center; vertical-align: bottom; font-size: 21px; color: #edd095; font-weight: bold; }
+.SeatDeath { horizontal-align: center; margin-top: 8px; font-size: 28px; font-weight: bold; color: #ffb5a2; text-shadow: 0px 1px 4px 3 #000000; }
+.SeatPath { horizontal-align: right; margin: 3px; color: #d8dce5; font-size: 12px; }
+.PlayerSeat.Physical { border-bottom-color: #e59b55; }
+.PlayerSeat.Magical { border-bottom-color: #76cbd7; }
+.MatchClock { width: 168px; height: 98px; background: linear-gradient(145deg, #1b2533, #0a0e17f5); border: 1px solid #a88a4b; display: flex; flex-direction: column; padding: 4px 0 0; }
+.BrandSmall { horizontal-align: center; letter-spacing: 4px; font-size: 14px; color: #dbc18c; }
+.TimerLabel { horizontal-align: center; font-size: 35px; color: #faf0dc; font-weight: bold; margin-top: -2px; }
+.StateLabel { horizontal-align: center; text-transform: uppercase; font-size: 13px; color: #aab9c8; }
+.ClockTrack { width: 100%; height: 3px; margin-top: 5px; background-color: #000000; }
+.ClockProgress { height: 100%; width: 100%; background: linear-gradient(90deg, #df9a53, #7bd4dc); transition-property: width; transition-duration: 0.45s; }
+.Overtime .MatchClock { border-color: #f58e65; }
+.Overtime .TimerLabel { color: #ffb08b; }
+.MatchSummary { horizontal-align: center; margin-top: 102px; display: flex; flex-direction: row; background-color: #0c111bcc; padding: 3px 12px; }
+.StatLabel { color: #d6c6a2; font-size: 14px; margin: 0 8px; }
+.EventClock { color: #86d0d9; }
+.DevLabel, .FallbackLabel { display: none; font-size: 12px; color: #f1a679; margin-left: 6px; }
+.DevLabel.Visible, .FallbackLabel.Visible { display: flex; }
+.HudActions { horizontal-align: right; display: flex; flex-direction: row; margin: 18px 18px 0 0; }
+.QuietButton { padding: 6px 10px; margin-left: 4px; background-color: #101722ed; border-bottom: 1px solid #6e6044; }
+.QuietButton Label { font-size: 13px; color: #d1c29f; letter-spacing: 1px; }
+.QuietButton:hover { background-color: #2d3948; }
+.Board { horizontal-align: right; margin: 60px 18px 0 0; width: 350px; display: flex; flex-direction: column; padding: 14px; background-color: #0b111cf5; border-top: 2px solid #ae9258; }
+.BoardTitle { font-size: 18px; color: #dfc78f; text-transform: uppercase; margin-bottom: 10px; }
+.BoardRows { display: flex; flex-direction: column; width: 100%; }
+.BoardRow { display: flex; flex-direction: row; width: 100%; padding: 5px 2px; border-bottom: 1px solid #75819318; }
+.BoardRow.Self { background-color: #e5b35718; }
+.BoardRow Label { font-size: 15px; color: #dce2ec; }
+.BoardRow .Name { flex: 1; min-width: 0; text-overflow: ellipsis; }
+.BoardRow .Score { width: 40px; color: #f0d095; font-weight: bold; text-align: center; }
+.BoardRow .KDA { width: 65px; color: #8795a9; text-align: right; }
+.Choosing .Board { display: none; }
+.RelicPanel { horizontal-align: center; margin-top: 136px; padding: 8px 22px; display: flex; flex-direction: column; background-color: #15212bef; border-top: 2px solid #6dcbd1; display: none; }
+.RelicPanel.Visible { display: flex; }
+.RelicTitle { horizontal-align: center; font-size: 17px; color: #8de4e4; text-transform: uppercase; letter-spacing: 2px; }
+.RelicLine { horizontal-align: center; font-size: 15px; color: #d6e2e5; }
+.OfferPanel { horizontal-align: right; vertical-align: center; margin-right: 22px; width: 340px; padding: 14px; display: flex; flex-direction: column; background-color: #0b111cf5; border-top: 2px solid #c9b075; display: none; }
+.OfferPanel.Visible { display: flex; }
+.OfferPanel.Ultimate { width: 390px; border-top-color: #f2d295; }
+.OfferHeader { display: flex; flex-direction: row; width: 100%; margin-bottom: 10px; }
+.OfferHeading { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.OfferTitle { font-size: 19px; color: #f6ead2; }
+.OfferTimer { font-size: 14px; color: #cbae73; margin-top: 4px; }
+.OfferCollapse { padding: 4px 8px; border: 1px solid #6f7c8c; background-color: #263346; }
+.OfferCollapse Label { font-size: 13px; color: #aab6c5; }
+.OfferCards { display: flex; flex-direction: column; width: 100%; }
+.OfferStatus { font-size: 14px; color: #f9a37d; width: 100%; margin-top: 6px; }
+.OfferCard { width: 100%; display: flex; flex-direction: column; margin-bottom: 8px; padding: 10px 12px; background: linear-gradient(145deg, #263343, #121b27); border-left: 3px solid #9baabd; border-top: 1px solid #8c9bb22a; }
+.OfferCard:hover { brightness: 1.45; }
+.OfferCard.common { border-left-color: #a2aeb5; }
+.OfferCard.rare { border-left-color: #70b2ed; }
+.OfferCard.epic { border-left-color: #c18ce4; }
+.OfferCard.physical { border-left-color: #efa65e; background: linear-gradient(145deg, #3b2922, #171b24); }
+.OfferCard.magical { border-left-color: #7bcfdc; background: linear-gradient(145deg, #173540, #171b24); }
+.OfferCard.Pending, .OfferCard.Disabled { opacity: 0.45; }
+.CardTop { display: flex; flex-direction: row; width: 100%; }
+.CardIcon { width: 42px; height: 42px; margin-right: 10px; border: 1px solid #d0bb8e55; }
+.CardName { font-size: 19px; color: #f5ebd8; flex: 1; min-width: 0; vertical-align: center; }
+.CardRarity { font-size: 12px; color: #b2c2d2; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.CardDesc { font-size: 15px; color: #c9d3e0; margin-top: 5px; width: 100%; }
+.CardRank, .CardDefault { font-size: 12px; color: #e9c88c; margin-top: 5px; }
+.OfferOpenButton { horizontal-align: right; vertical-align: center; margin-right: 22px; padding: 12px 20px; background-color: #293649; border: 1px solid #c9b075; display: none; }
+.OfferOpenButton.Visible { display: flex; }
+.OfferOpenButton Label { font-size: 17px; color: #f5e5c6; }
+.BuildPanel { horizontal-align: left; vertical-align: center; margin-left: 16px; width: 210px; padding: 10px; display: flex; flex-direction: column; background-color: #101720ad; border-left: 2px solid #7d7055; }
+.BuildTitle { font-size: 15px; color: #d2b77d; text-transform: uppercase; letter-spacing: 2px; }
+.BuildDirection { font-size: 14px; color: #9acece; margin-bottom: 5px; }
+.BuildRows { display: flex; flex-direction: column; width: 100%; }
+.BuildRow { font-size: 13px; color: #b6c0cd; margin-top: 2px; }
+/* Field guide: non-blocking, user-opened during combat; dismissed for real offers. */
+.Onboarding { horizontal-align: center; vertical-align: center; width: 1140px; max-height: 840px; background: linear-gradient(145deg, #202c3bf9, #080e19fc); border: 1px solid #a78a55; box-shadow: #000000bb 0px 12px 36px 10px; display: flex; flex-direction: column; }
+.MenuStripe { width: 100%; height: 3px; background: linear-gradient(90deg, #e5a35b, #d1bf8e, #77c9d5); }
+.MenuHeader { width: 100%; padding: 26px 34px 20px; display: flex; flex-direction: column; border-bottom: 1px solid #72829935; }
+.MenuKicker { font-size: 13px; color: #c8b789; letter-spacing: 3px; }
+.MenuWordmark { font-family: Trajan Pro; font-size: 66px; letter-spacing: 16px; color: #f4e6c9; text-shadow: 0px 2px 5px 2 #000000; }
+.MenuSubtitle { font-size: 17px; color: #a6b6ca; margin-top: 3px; width: 850px; }
+.MenuAlpha { horizontal-align: right; margin-top: -28px; color: #80bfc9; font-size: 12px; letter-spacing: 1px; }
+.MenuBody { width: 100%; display: flex; flex-direction: row; padding: 24px 34px; }
+.MenuRules { width: 280px; padding-right: 24px; display: flex; flex-direction: column; }
+.MenuSection { color: #a7b6ca; font-size: 13px; letter-spacing: 3px; margin-bottom: 14px; }
+.RuleTitle { color: #dcc593; font-size: 16px; letter-spacing: 1px; margin-top: 12px; }
+.RuleText { color: #afbed0; font-size: 16px; margin-top: 5px; width: 100%; }
+.RuleFoot { color: #8093aa; font-size: 14px; margin-top: 20px; width: 100%; }
+.MenuRoster { flex: 1; min-width: 0; display: flex; flex-direction: column; border-left: 1px solid #72829935; padding-left: 26px; }
+.HeroGallery { width: 100%; display: flex; flex-flow: row wrap; min-height: 136px; }
+.GalleryCard { width: 110px; height: 62px; margin: 0 7px 7px 0; border: 1px solid #586778; background-color: #111b2b; }
+.GalleryCard.Selected { border: 2px solid #e3c082; brightness: 1.2; }
+.GalleryCard:hover { brightness: 1.35; }
+.GalleryPortrait { width: 100%; height: 100%; }
+.GalleryHint { color: #7e92ab; font-size: 13px; margin-top: 3px; }
+.GalleryHero { color: #f1dfb9; font-size: 26px; margin-top: 14px; margin-bottom: 10px; }
+.PathPreview { width: 100%; display: flex; flex-direction: row; }
+.PreviewPath { flex: 1; min-width: 0; min-height: 180px; padding: 12px; display: flex; flex-direction: column; }
+.PhysicalPreview { margin-right: 12px; border-top: 2px solid #dfa163; background-color: #c3853b0c; }
+.MagicalPreview { border-top: 2px solid #7ccdd5; background-color: #45b0cb0c; }
+.PathTag { color: #b9c4d3; font-size: 12px; letter-spacing: 2px; }
+.PreviewName { color: #f0e6d4; font-size: 20px; margin-top: 10px; width: 100%; }
+.PreviewDesc { color: #b2c1d4; font-size: 15px; margin-top: 7px; width: 100%; }
+.MenuFooter { width: 100%; display: flex; flex-direction: row; padding: 16px 34px; border-top: 1px solid #72829935; }
+.MenuFooter > Label { color: #8097ae; letter-spacing: 3px; font-size: 13px; vertical-align: center; }
+.RiftButton { horizontal-align: right; padding: 12px 28px; background: linear-gradient(90deg, #785e35, #3f3b30); border: 1px solid #cdb17a; }
+.RiftButton:hover { brightness: 1.4; }
+.RiftButton Label { color: #f7e5c0; font-size: 16px; letter-spacing: 1px; }
+.Result { horizontal-align: center; vertical-align: center; width: 620px; padding: 30px; display: flex; flex-direction: column; background-color: #0b1422fa; border: 2px solid #d3b379; display: none; }
+.Result.Visible { display: flex; }
+.ResultTitle { font-size: 32px; color: #f1e6d0; margin-top: 8px; }
+.ResultWinner { color: #e9ca8b; font-size: 24px; margin-top: 12px; }
+.ResultReason { color: #94a9c0; font-size: 16px; margin-bottom: 20px; }
+
+/* Single-player hero laboratory. Scroll stays above the native minimap. */
+.LabPanel { width: 390px; height: 710px; margin: 132px 0 0 18px; padding: 14px; display: flex; flex-direction: column; background-color: #0b1423f7; border-top: 2px solid #7dced4; }
+.LabHeader { width: 100%; display: flex; flex-direction: row; }
+.LabHeader .MenuSection { vertical-align: center; flex: 1; min-width: 0; margin-bottom: 0; }
+.LabHeader .QuietButton { padding: 2px 10px; }
+.LabStatus { width: 100%; color: #90becd; font-size: 14px; margin: 10px 0; }
+.LabIntro { display: flex; flex-direction: column; width: 100%; }
+.LabIntro .RiftButton { margin-top: 18px; }
+.LabBody { width: 100%; height: fill-parent-flow(1); display: flex; flex-direction: column; overflow: squish scroll; padding-right: 6px; }
+.LabSection { font-size: 13px; color: #d4bd88; letter-spacing: 2px; margin: 12px 0 8px; }
+.LabHeroes { display: flex; flex-flow: row wrap; width: 100%; }
+.LabHero { width: 108px; height: 57px; margin: 0 6px 6px 0; border: 1px solid #53667e; background-color: #192b42; }
+.LabHero.Selected { border: 2px solid #ddbe7f; }
+.LabHeroPortrait { width: 100%; height: 100%; }
+.LabHeroName { vertical-align: bottom; width: 100%; font-size: 12px; color: #e7e5dd; text-overflow: ellipsis; background-color: #050c15d9; padding: 2px; }
+.LabRow { display: flex; flex-direction: row; width: 100%; margin-bottom: 5px; }
+.LabButton { flex: 1; min-width: 0; padding: 8px 5px; margin-right: 5px; background-color: #253348; border-bottom: 1px solid #576e86; }
+.LabButton.Selected { background-color: #4d4b35; border-bottom-color: #e4c38b; }
+.LabButton:hover, .LabHero:hover { brightness: 1.3; }
+.LabButton Label { font-size: 13px; color: #d6e3ec; horizontal-align: center; }
+.LabHelp { font-size: 13px; color: #8197ad; width: 100%; margin: 5px 0 10px; }
+.LabOpen .BuildPanel { display: none; }
+.LabMode .EventClock, .LabMode .RelicPanel { display: none; }
+
+* {box-sizing:border-box; flex-shrink:0} body {margin:0;background:#111a25;color:#cbd4e3;font-family:Georgia,serif}
+button {font:inherit;cursor:pointer;color:inherit;outline:0;border:0} div {position:relative} .RiftHudRoot {position:relative;width:1920px;height:1080px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#344350,#121d2d 65%)}
+.TopBar {position:absolute;top:0;left:50%;transform:translateX(-50%)} .MatchClock>* {text-align:center} .TopPlayers{margin-top:4px}
+.MatchSummary {position:absolute;top:0;left:50%;transform:translateX(-50%)} .HudActions {position:absolute;top:0;right:0}
+.RelicPanel {position:absolute;top:0;left:50%;transform:translateX(-50%)} .Board{position:absolute;top:0;right:0}
+.BuildPanel {position:absolute;top:45%;left:0} .OfferPanel,.OfferOpenButton {position:absolute;top:50%;right:0;transform:translateY(-50%)}
+.PlayerSeat>div {position:absolute} .SeatPortrait{top:0;display:flex;align-items:center;justify-content:center;font:18px Georgia;color:#e9ddc4;background:linear-gradient(135deg,#475463,#212e40)}
+.SeatRank {top:0;left:0}.SeatName{top:0}.SeatScore{bottom:0;left:0;width:100%;text-align:center}.SeatPath{top:0;right:0}.SeatDeath{top:0;left:0;width:100%;text-align:center}.SeatPortrait{font-size:12px;overflow:hidden}.OfferCard{text-align:left}
+.Onboarding,.Result {position:absolute;left:50%;top:53%;transform:translate(-50%,-50%)} .Onboarding.Hidden,.Hidden{display:none!important}
+.MenuWordmark{font-family:Georgia,serif}.MenuAlpha{margin-left:auto}.MenuFooter{align-items:center}.MenuFooter .RiftButton{margin-left:auto}
+.GalleryPortrait {display:flex;align-items:center;justify-content:center;color:#d1d9e5;font-size:13px;background:linear-gradient(135deg,#506070,#1d293c)}
+.RiftButton:hover,.OfferCard:hover,.GalleryCard:hover{filter:brightness(1.3)} .PreviewPath{min-width:0;white-space:normal;text-align:left}
+.HeroGallery{align-content:flex-start;flex:0 0 auto}.GalleryCard{padding:0}.MenuRoster{min-width:0}.RuleText,.PreviewDesc{line-height:1.25}
+.LabPanel{position:absolute;top:132px;left:18px;margin:0}.LabBody{flex:1;min-height:0;overflow-y:auto}.LabHero{position:relative;padding:0;background:#192b42}.LabHero>*{position:absolute;left:0}.LabHeroName{bottom:0;white-space:nowrap;overflow:hidden}.LabHeroPortrait{display:flex;align-items:center;justify-content:center;font-size:11px;background:#263c52}.ClockProgress{transition:width .45s}.MockNote{position:absolute;bottom:16px;right:20px;font:13px sans-serif;letter-spacing:1px;color:#7990a6}
+.MockActions {position:absolute;left:16px;bottom:16px;display:flex;gap:8px}.MockActions button{padding:10px;background:#334255;color:#d8e2ed}
+</style><div id="RiftRoot" class="RiftHudRoot"><div id="TopBar" class="TopBar"><div id="TopPlayersLeft" class="TopPlayers LeftSeats"></div><div class="MatchClock"><div class="BrandSmall">DUALITY</div><div id="TimerLabel" class="TimerLabel">--:--</div><div id="StateLabel" class="StateLabel"></div><div class="ClockTrack"><div id="ClockProgress" class="ClockProgress"></div></div></div><div id="TopPlayersRight" class="TopPlayers RightSeats"></div></div><div class="MatchSummary"><div id="ScoreLabel" class="StatLabel"></div><div id="PlaceLabel" class="StatLabel"></div><div id="NextEventLabel" class="StatLabel EventClock"></div><div id="DevLabel" class="DevLabel">РЕЖИМ РАЗРАБОТКИ</div><div id="FallbackLabel" class="FallbackLabel">Временные точки появления: карта арены не загружена</div></div><div class="HudActions"><button id="LabToggle" class="QuietButton Hidden" onclick="RiftLabOpen()"><div >ПОЛИГОН ГЕРОЕВ</div></button><button class="QuietButton" onclick="RiftOpenMenu()"><div >ПУТЕВОДИТЕЛЬ</div></button><button class="QuietButton" onclick="RiftToggleBoard()"><div >РЕЙТИНГ</div></button></div><div id="LabPanel" class="LabPanel Hidden"><div class="LabHeader"><div class="MenuSection">ПОЛИГОН ГЕРОЕВ</div><button class="QuietButton" onclick="RiftLabClose()"><div >×</div></button></div><div id="LabStatus" class="LabStatus">Tools / один игрок. Все 11 героев и оба пути.</div><div id="LabIntro" class="LabIntro"><div class="RuleText">Включить полигон до конца этой сессии. Счёт и таймер матча остановятся. Для PvP начните новую игру.</div><button class="RiftButton" onclick="RiftLabSend({action:&#x27;start&#x27;})"><div >ВОЙТИ НА ПОЛИГОН</div></button></div><div id="LabBody" class="LabBody Hidden"><div class="LabSection">ВАШ УПРАВЛЯЕМЫЙ ГЕРОЙ</div><div id="LabHeroes" class="LabHeroes"></div><div class="LabRow"><button id="LabBase" class="LabButton" onclick="RiftLabChoosePath(&#x27;base&#x27;)"><div >Базовый</div></button><button id="LabPhysical" class="LabButton" onclick="RiftLabChoosePath(&#x27;physical&#x27;)"><div >Физическое</div></button><button id="LabMagical" class="LabButton" onclick="RiftLabChoosePath(&#x27;magical&#x27;)"><div >Магическое</div></button></div><div class="LabRow"><button id="LabRank1" class="LabButton" onclick="RiftLabSend({action:&#x27;rank&#x27;,rank:1})"><div >R · 1</div></button><button id="LabRank2" class="LabButton" onclick="RiftLabSend({action:&#x27;rank&#x27;,rank:2})"><div >R · 2</div></button><button id="LabRank3" class="LabButton" onclick="RiftLabSend({action:&#x27;rank&#x27;,rank:3})"><div >R · 3</div></button></div><div class="LabSection">ВЕСЬ РОСТЕР</div><div class="LabRow"><button class="LabButton" onclick="RiftLabSend({action:&#x27;gallery&#x27;,path:RiftLab.state.path})"><div >Вызвать всех 11</div></button><button class="LabButton" onclick="RiftLabSend({action:&#x27;clear&#x27;})"><div >Убрать копии / цели</div></button></div><div class="LabHelp">Все копии получают текущий путь. Осмотрите их на карте; для игры за героя выберите портрет выше.</div><div class="LabSection">ЦЕЛИ</div><div class="LabRow"><button class="LabButton" onclick="RiftLabSend({action:&#x27;target&#x27;,kind:&#x27;immortal&#x27;})"><div >Бессмертная</div></button><button class="LabButton" onclick="RiftLabSend({action:&#x27;target&#x27;,kind:&#x27;mortal&#x27;})"><div >Смертная</div></button><button class="LabButton" onclick="RiftLabSend({action:&#x27;target&#x27;,kind:&#x27;immune&#x27;})"><div >Иммунная</div></button></div><div class="LabRow"><button class="LabButton" onclick="RiftLabSend({action:&#x27;reset&#x27;})"><div >Здоровье / мана / кд</div></button><button id="LabFree" class="LabButton" onclick="RiftLabSend({action:&#x27;free&#x27;})"><div >Свободные кд</div></button></div><button class="LabButton" onclick="RiftLabFocus()"><div >Выделить своего героя</div></button><div class="LabHelp">Смена героя, пути или ранга создаёт нового героя 25-го уровня без предметов и улучшений. Q/W/E изучены, R — выбранного ранга.</div></div></div><div id="RelicPanel" class="RelicPanel"><div id="RelicTitle" class="RelicTitle">Сердце разлома</div><div id="RelicLine1" class="RelicLine"></div><div id="RelicLine2" class="RelicLine"></div></div><div id="Board" class="Board Hidden"><div class="BoardTitle">Таблица</div><div id="BoardRows" class="BoardRows"></div></div><div id="OfferPanel" class="OfferPanel"><div class="OfferHeader"><div class="OfferHeading"><div id="OfferTitle" class="OfferTitle"></div><div id="OfferTimer" class="OfferTimer"></div></div><button class="OfferCollapse" onclick="RiftCollapseOffer()"><div >Свернуть</div></button></div><div id="OfferCards" class="OfferCards"></div><div id="OfferStatus" class="OfferStatus"></div></div><button id="OfferOpenButton" class="OfferOpenButton" onclick="RiftOpenOffer()"><div id="OfferOpenLabel"></div></button><div id="BuildPanel" class="BuildPanel"><div id="BuildTitle" class="BuildTitle">Сборка</div><div id="BuildDirection" class="BuildDirection"></div><div id="BuildRows" class="BuildRows"></div></div><div id="Onboarding" class="Onboarding Hidden"><div class="MenuStripe"></div><div class="MenuHeader"><div class="MenuKicker">КАЖДЫЙ ЗА СЕБЯ  /  ДВА ПУТИ. ОДНА СУДЬБА.</div><div class="MenuWordmark">DUALITY</div><div class="MenuSubtitle">Выберите героя на стандартном экране. Изучите ультимейт, затем определите свой путь.</div><div class="MenuAlpha">АЛЬФА  /  11 ГЕРОЕВ · 22 ПУТИ</div></div><div class="MenuBody"><div class="MenuRules"><div class="MenuSection">ПРАВИЛА</div><div class="RuleTitle">ЗАСЛУЖИТЕ МЕСТО</div><div class="RuleText">Убийства, помощь и удержание Сердца приносят очки. Золото — на предметы; регулярные предложения формируют сборку.</div><div class="RuleTitle">ВЫБЕРИТЕ ЭВОЛЮЦИЮ</div><div class="RuleText">Первое очко в R открывает выбор физического или магического пути до конца матча. По истечении таймера выбирается физический.</div><div class="RuleTitle">СРАЖАЙТЕСЬ ЗА ЦЕНТР</div><div class="RuleText">Внешние маршруты дают укрытия. Открытый центр делает носителя Сердца уязвимым. Удерживайте Сердце ради очков и следите за таймером события.</div><div class="RuleFoot">8 игроков. 18 минут. Убийство +3, помощь +1. Сердце появляется каждые 3 минуты начиная с 3:00. При равенстве лидеров — овертайм.</div></div><div class="MenuRoster"><div class="MenuSection">ПРЕТЕНДЕНТЫ</div><div id="HeroGallery" class="HeroGallery"></div><div class="GalleryHint">Наведите на героя, чтобы изучить пути. Путеводитель не выбирает героя.</div><div id="GalleryHero" class="GalleryHero"></div><div class="PathPreview"><div class="PreviewPath PhysicalPreview"><div class="PathTag">ФИЗИЧЕСКИЙ ПУТЬ</div><div id="GalleryPhysicalName" class="PreviewName"></div><div id="GalleryPhysicalDesc" class="PreviewDesc"></div></div><div class="PreviewPath MagicalPreview"><div class="PathTag">МАГИЧЕСКИЙ ПУТЬ</div><div id="GalleryMagicalName" class="PreviewName"></div><div id="GalleryMagicalDesc" class="PreviewDesc"></div></div></div></div></div><div class="MenuFooter"><div >РАСКОЛОТЫЙ КОНКОРС</div><button class="RiftButton" onclick="RiftHideOnboarding()"><div >ВЕРНУТЬСЯ НА АРЕНУ</div></button></div></div><div id="Result" class="Result"><div class="MenuKicker">DUALITY</div><div class="ResultTitle">Итоги матча</div><div id="ResultWinner" class="ResultWinner"></div><div id="ResultReason" class="ResultReason"></div><div id="ResultRows" class="BoardRows"></div></div></div><div class="MockActions"><button onclick="RiftOpenMenu()">МЕНЮ</button><button onclick="mockOffer()">ВЫБОР ПУТИ</button><button onclick="mockLab()">ПОЛИГОН</button><button onclick="RiftHideOnboarding();RiftCollapseOffer()">HUD</button></div><div class="MockNote">BROWSER DESIGN MOCK · NOT A DOTA TEST · PORTRAIT PLACEHOLDERS</div><script>var TOKENS={"Language": "Russian", "addon_game_name": "DUALITY", "rift_state_BOOT": "Загрузка", "rift_state_SETUP": "Подготовка лобби", "rift_state_HERO_SELECTION": "Выбор героя", "rift_state_PREPARATION": "Подготовка к бою", "rift_state_ACTIVE": "Бой", "rift_state_OVERTIME": "Овертайм", "rift_state_FINISHED": "Матч завершён", "rift_hud_score": "Очки", "rift_hud_place": "Место", "rift_hud_dev": "РЕЖИМ РАЗРАБОТКИ", "rift_hud_map_fallback": "Временные точки появления: карта арены не загружена", "rift_board_title": "Таблица", "rift_board_player": "Игрок", "rift_board_kda": "У/С/П", "rift_onboard_title": "DUALITY", "rift_onboard_text": "Каждый сам за себя. Убийство +3, помощь +1. Через 18 минут побеждает лидер по очкам. Ничья — овертайм до первого очка. С 3:00 каждые 3 минуты появляется Сердце разлома: держите его, чтобы получать очки.", "rift_onboard_close": "Понятно", "rift_result_title": "Итоги матча", "rift_result_winner": "Победитель", "rift_reason_score": "Больше всех очков", "rift_reason_overtime_first_point": "Первое очко в овертайме", "rift_reason_tiebreak_kills": "Ничья: больше убийств", "rift_reason_tiebreak_deaths": "Ничья: меньше смертей", "rift_reason_tiebreak_earlier_score": "Ничья: раньше набрал итоговый счёт", "rift_reason_tiebreak_player_order": "Ничья: технический порядок игроков", "rift_reason_no_players": "Нет участников", "rift_reason_unknown": "—", "rift_up_pa_keen_edge": "Острая кромка", "rift_up_pa_keen_edge_desc": "+{attack_damage} к урону атаки.", "rift_up_pa_veil_step": "Шаг вуали", "rift_up_pa_veil_step_desc": "+{move_speed} к скорости передвижения.", "rift_up_pa_shadow_guard": "Теневая защита", "rift_up_pa_shadow_guard_desc": "+{armor} к броне.", "rift_up_u_vitality": "Живучесть", "rift_up_u_vitality_desc": "+{health} к максимальному здоровью.", "rift_up_u_focus": "Сосредоточенность", "rift_up_u_focus_desc": "+{mana} к максимальной мане.", "rift_up_u_swift_hands": "Быстрые руки", "rift_up_u_swift_hands_desc": "+{attack_speed} к скорости атаки.", "rift_up_u_arcane_edge": "Тайная грань", "rift_up_u_arcane_edge_desc": "+{spell_amp}% к усилению заклинаний.", "rift_up_u_iron_skin": "Железная кожа", "rift_up_u_iron_skin_desc": "+{armor} к броне.", "rift_up_u_quick_feet": "Лёгкая поступь", "rift_up_u_quick_feet_desc": "+{move_speed} к скорости передвижения.", "rift_up_u_mending": "Затягивание ран", "rift_up_u_mending_desc": "+{health_regen} к восстановлению здоровья в секунду.", "rift_up_u_steadfast": "Непоколебимость", "rift_up_u_steadfast_desc": "+{status_resistance}% к сопротивлению эффектам.", "rift_offer_title": "Выберите улучшение", "rift_offer_title_ultimate": "Выберите направление ультимейта", "rift_offer_title_compensation": "Подходящих улучшений нет", "rift_up_compensation_gold": "Компенсация", "rift_up_compensation_gold_desc": "+{gold} золота.", "rift_offer_collapse": "Свернуть", "rift_offer_open": "Улучшение ({count})", "rift_offer_timeout": "Осталось: {seconds} с", "rift_offer_default": "По умолчанию при истечении времени", "rift_offer_pending": "Подтверждение…", "rift_rarity_common": "Обычное", "rift_rarity_rare": "Редкое", "rift_rarity_epic": "Эпическое", "rift_rank": "Ранг {now} → {next} из {max}", "rift_build_title": "Сборка", "rift_build_empty": "Пока нет улучшений", "rift_dir_physical": "Физическое", "rift_dir_magical": "Магическое", "rift_offer_error_expired": "Время выбора истекло", "rift_offer_error_already_resolved": "Выбор уже сделан", "rift_offer_error_generic": "Выбор не принят", "rift_relic_title": "Сердце разлома", "rift_relic_next": "Сердце разлома: {time}", "rift_relic_warning": "Появится через {seconds} с — точка отмечена на карте", "rift_relic_on_ground": "Лежит на земле — подберите!", "rift_relic_carrier": "Носитель: {name} · следующее очко через {seconds} с", "rift_relic_you": "вы", "rift_relic_status": "Осталось {time} · очков в запасе: {budget}", "DOTA_Tooltip_ability_ta_psionic_crystal": "Psionic Crystal · физ.", "DOTA_Tooltip_ability_ta_psionic_crystal_Description": "Ставит кристалл в пределах дальности атаки. Ваш удар по кристаллу выпускает Psi Blades по всем вражеским героям вокруг него (урон = удар × коэффициент Psi Blades). Кристалл выдерживает 3 атаки (враги тоже могут его разбить), живёт 6 с.", "DOTA_Tooltip_ability_ta_meld_physical": "Meld · физ.", "DOTA_Tooltip_ability_ta_meld_physical_Description": "Невидимость, пока стоите на месте. Следующая атака наносит дополнительный физический урон. Не снижает броню цели.", "DOTA_Tooltip_modifier_rift_ta_meld": "Meld", "DOTA_Tooltip_modifier_rift_ta_meld_Description": "Невидимость; следующая атака усилена.", "rift_dir_ta_crystal_physical": "Psionic Crystal", "rift_dir_ta_crystal_physical_desc": "Физическое: ловушка заменена кристаллом-передатчиком Psi Blades. Meld без снижения брони, но с большим уроном.", "DOTA_Tooltip_Ability_ta_psionic_crystal_SummaryDescription": "Удар по кристаллу выпускает Psi Blades во все стороны.", "DOTA_Tooltip_Ability_ta_meld_physical_SummaryDescription": "Невидимость на месте и усиленный удар без снижения брони.", "DOTA_Tooltip_ability_ta_refraction_magical": "Refraction · маг.", "DOTA_Tooltip_ability_ta_refraction_magical_Description": "Защитные заряды на себя (каждый поглощает часть одного удара) и волна Psi в сторону курсора: 120 магического урона + 60% интеллекта.", "DOTA_Tooltip_Ability_ta_refraction_magical_SummaryDescription": "Заряды защиты и магическая волна.", "DOTA_Tooltip_ability_ta_meld_dash": "Meld · маг.", "DOTA_Tooltip_ability_ta_meld_dash_Description": "Короткий рывок к курсору; в конце — волна Psi вдоль направления рывка (120 магического урона + 60% интеллекта). Без невидимости. Корни и оглушение прерывают рывок без волны.", "DOTA_Tooltip_Ability_ta_meld_dash_SummaryDescription": "Рывок и волна в его конце.", "DOTA_Tooltip_ability_ta_psi_wave": "Psi Blades · маг.", "DOTA_Tooltip_ability_ta_psi_wave_Description": "Направленная волна Psi: магический урон по всем врагам на линии (каждому один раз) + 60% интеллекта.", "DOTA_Tooltip_Ability_ta_psi_wave_SummaryDescription": "Активная волна вместо пассивного разлёта.", "DOTA_Tooltip_ability_ta_psionic_blast": "Psionic Trap · маг.", "DOTA_Tooltip_ability_ta_psionic_blast_Description": "Под выбранным врагом через 0.5 с взрывается ловушка (место фиксируется при касте): магический урон и замедление. Поддержаны только урон и замедление; молчание и другие эффекты обычной ловушки не включены.", "DOTA_Tooltip_Ability_ta_psionic_blast_SummaryDescription": "Взрыв ловушки под врагом.", "DOTA_Tooltip_modifier_rift_ta_refraction": "Refraction", "DOTA_Tooltip_modifier_rift_ta_refraction_Description": "Каждый заряд поглощает часть одного удара.", "DOTA_Tooltip_modifier_rift_ta_trap_slow": "Psionic Trap", "DOTA_Tooltip_modifier_rift_ta_trap_slow_Description": "Замедление.", "rift_err_rooted": "Нельзя под корнями", "rift_dir_ta_waves_magical": "Psionic Trap", "rift_dir_ta_waves_magical_desc": "Магическое: без обычных атак. Q — защита и волна, W — рывок с волной, E — активная волна, R — взрыв ловушки под врагом.", "DOTA_Tooltip_ability_sf_requiem_physical": "Requiem of Souls · физ.", "DOTA_Tooltip_ability_sf_requiem_physical_Description": "На 15 с за спиной появляются 4 красные сферы. Каждая атака по врагу тратит одну сферу и наносит дополнительный физический удар (60% урона атаки, без крита). Сферы постепенно восстанавливаются. Попадание Shadowraze добавляет физический урон от атаки. Обычный взрыв Requiem и Requiem при смерти отключены.", "DOTA_Tooltip_Ability_sf_requiem_physical_SummaryDescription": "Красные сферы усиливают атаки и Shadowraze.", "DOTA_Tooltip_modifier_rift_sf_spheres": "Requiem · сферы", "DOTA_Tooltip_modifier_rift_sf_spheres_Description": "Число — доступные сферы.", "rift_dir_sf_requiem_physical": "Requiem of Souls", "rift_dir_sf_requiem_physical_desc": "Физическое: вместо взрыва — 15 с красных сфер, усиливающих атаки, и физическая добавка к Shadowraze.", "DOTA_Tooltip_modifier_rift_sf_fear": "Страх (Requiem)", "DOTA_Tooltip_modifier_rift_sf_fear_Description": "Короткий страх, проходящий сквозь иммунитет к дебаффам.", "rift_dir_sf_requiem_magical": "Requiem of Souls", "rift_dir_sf_requiem_magical_desc": "Магическое: обычный Requiem + три кольца Shadowraze вокруг точки каста. Страх проходит сквозь иммунитет к дебаффам, урон по такой цели — нет.", "rift_dir_pa_phantom_execution": "Призрачная казнь", "rift_dir_pa_phantom_execution_desc": "Физическое: криты Coup de Grace сохраняются. Ульта становится активной: дух летит во врага и наносит один гарантированный критический удар.", "rift_dir_pa_storm_daggers": "Грозовые кинжалы", "rift_dir_pa_storm_daggers_desc": "Магическое: криты Coup de Grace отключены. Stifling Dagger летит в две цели; с шансом 20% между ними бьёт цепная молния.", "DOTA_Tooltip_ability_pa_phantom_execution": "Призрачная казнь", "DOTA_Tooltip_ability_pa_phantom_execution_Description": "Дух летит во врага (дальность 800) и наносит один гарантированный критический физический удар с множителем Coup de Grace. Учитывает броню. Не является атакой: эффекты предметов не срабатывают, криты предметов не умножают урон. От духа можно увернуться. Обычные атаки сохраняют криты Coup de Grace.", "DOTA_Tooltip_Ability_pa_phantom_execution_SummaryDescription": "Дух наносит врагу один гарантированный критический удар.", "DOTA_Tooltip_ability_pa_storm_charge": "Грозовые кинжалы", "DOTA_Tooltip_ability_pa_storm_charge_Description": "Пассивно. Stifling Dagger летит ещё в одного врага рядом с целью (радиус 600, сначала герои). С шансом 20% за применение, если оба кинжала попали, каждая из двух целей получает магический урон молнии: 300 / 380 / 460. Криты Coup de Grace отключены.", "DOTA_Tooltip_Ability_pa_storm_charge_SummaryDescription": "Второй кинжал и цепная молния между целями.", "DOTA_Tooltip_ability_pa_storm_dagger": "Stifling Dagger · маг.", "DOTA_Tooltip_ability_pa_storm_dagger_Description": "Кинжал наносит часть урона атаки и замедляет цель, как обычный Stifling Dagger. Второй кинжал летит в ещё одного врага рядом с целью. Не более двух целей за применение.", "DOTA_Tooltip_Ability_pa_storm_dagger_SummaryDescription": "Кинжал в две цели с шансом цепной молнии.", "DOTA_Tooltip_modifier_rift_pa_dagger_slow": "Stifling Dagger", "DOTA_Tooltip_modifier_rift_pa_dagger_slow_Description": "Замедление.", "rift_up_pa_spirit_haste": "Спешка духа", "rift_up_pa_spirit_haste_desc": "Кулдаун «Призрачной казни» меньше на {spirit_cooldown_reduction} с.", "rift_up_pa_static_edge": "Статическая кромка", "rift_up_pa_static_edge_desc": "+{chain_damage_bonus} к урону цепной молнии по каждой цели.", "rift_up_pa_conductive_blade": "Проводящий клинок", "rift_up_pa_conductive_blade_desc": "+{chain_chance_bonus_pct}% к шансу цепной молнии.", "DOTA_Tooltip_ability_lc_duel_physical": "Duel · физ.", "DOTA_Tooltip_ability_lc_duel_physical_Description": "Призывает воина-чемпиона против выбранного героя на срок до 10 с. Legion Commander садится на трон: неуязвима, не двигается, не атакует, не применяет способности и предметы. Чемпион получает её урон, броню и здоровье и 90% скорости атаки. За каждую секунду боя (чемпион попал по цели за последние 2 с) — постоянный урон 0.8 / 1.1 / 1.4. Победа над целью доводит награду до 12 / 16.5 / 21. Если чемпион убит, Legion Commander теряет 30% максимального здоровья и оглушается на 1 с. Связь рвётся, если цель дольше 1 с дальше 900 от трона. Эффекты атак и предметы чемпиону пока не передаются.", "DOTA_Tooltip_Ability_lc_duel_physical_SummaryDescription": "Чемпион сражается вместо Legion Commander и приносит постоянный урон.", "DOTA_Tooltip_modifier_rift_lc_throne": "Трон", "DOTA_Tooltip_modifier_rift_lc_throne_Description": "Неуязвима и не может действовать, пока сражается чемпион.", "DOTA_Tooltip_modifier_rift_lc_champion": "Чемпион", "DOTA_Tooltip_modifier_rift_lc_champion_Description": "Сражается только с выбранным героем.", "DOTA_Tooltip_modifier_rift_lc_duel_damage": "Duel: постоянный урон", "DOTA_Tooltip_modifier_rift_lc_duel_damage_Description": "Число — накопленный урон ×10.", "DOTA_Tooltip_ability_lc_duel_magical": "Duel · маг.", "DOTA_Tooltip_ability_lc_duel_magical_Description": "Пассивно усиливает урон заклинаний на 3 / 5 / 7%. Убийство вражеского героя добавляет 1%, помощь — 0.5%, до предела 10 / 15 / 20%. Накопленное сохраняется после смерти. Break временно отключает усиление.", "DOTA_Tooltip_Ability_lc_duel_magical_SummaryDescription": "Урон заклинаний растёт за убийства героев.", "DOTA_Tooltip_ability_lc_statue": "Статуя-лучник", "DOTA_Tooltip_ability_lc_statue_Description": "Призывает статую на 10 секунд. На 0,5 / 3,5 / 6,5 / 9,5 секунде она выпускает четыре жёлтых пробивающих луча под прямыми углами. Первый направлен к ближайшему видимому вражескому герою или вперёд, если героев рядом нет. Каждая цель получает урон один раз за залп. Каждое попадание по настоящему вражескому герою сокращает перезарядку на 2 секунды. Лимита на залп нет; кд не опускается ниже нуля.", "DOTA_Tooltip_Ability_lc_statue_SummaryDescription": "Статуя стреляет магическими стрелами по героям.", "DOTA_Tooltip_modifier_rift_lc_spell_amp": "Duel: усиление заклинаний", "DOTA_Tooltip_modifier_rift_lc_spell_amp_Description": "Число — усиление в процентах ×10.", "DOTA_Tooltip_modifier_rift_lc_statue": "Статуя-лучник", "DOTA_Tooltip_modifier_rift_lc_statue_Description": "Стреляет по вражеским героям.", "rift_dir_lc_duel_physical": "Duel · физическое", "rift_dir_lc_duel_physical_desc": "Физическое: вместо Duel вызывается чемпион, который сражается за вас, пока вы неуязвимы на троне. Бои приносят постоянный урон атаки.", "rift_dir_lc_duel_magical": "Duel · магическое", "rift_dir_lc_duel_magical_desc": "Магический путь: убийства и помощь усиливают заклинания. Moment of Courage заменяется статуей, выпускающей четыре жёлтых пробивающих луча за залп. Одна цель получает урон один раз за залп; каждое попадание по настоящему герою сокращает кд статуи на 2 секунды.", "rift_up_ta_crystal_tempo": "Темп кристалла", "rift_up_ta_crystal_tempo_desc": "Кулдаун Psionic Crystal меньше на {crystal_cooldown_reduction} с.", "rift_up_ta_wave_power": "Сила волны", "rift_up_ta_wave_power_desc": "+{wave_damage_bonus} к урону каждой пси-волны.", "rift_up_ta_wave_reach": "Дальняя волна", "rift_up_ta_wave_reach_desc": "+{wave_length_bonus} к длине пси-волн.", "rift_up_lc_duel_haste": "Скорый вызов", "rift_up_lc_duel_haste_desc": "Кулдаун Duel меньше на {duel_cooldown_reduction} с.", "rift_up_lc_champion_vigor": "Стойкость чемпиона", "rift_up_lc_champion_vigor_desc": "+{champion_health_pct}% к максимальному здоровью чемпиона.", "rift_up_lc_statue_barbs": "Зазубренные стрелы", "rift_up_lc_statue_barbs_desc": "+{statue_arrow_bonus} к урону стрел статуи.", "rift_up_sf_sphere_edge": "Острые сферы", "rift_up_sf_sphere_edge_desc": "+{sphere_damage_pct}% к урону красных сфер.", "rift_up_sf_requiem_tempo": "Темп реквиема", "rift_up_sf_requiem_tempo_desc": "Кулдаун Requiem of Souls (физ.) меньше на {requiem_cooldown_reduction} с.", "rift_up_sf_ring_burn": "Жгучие кольца", "rift_up_sf_ring_burn_desc": "+{ring_damage_bonus} к урону каждого кольца Shadowraze.", "rift_dir_rift_axe_physical": "Железный приговор", "rift_dir_rift_axe_physical_desc": "Физический удар и рассечение рядом с целью усиливаются от недостающего здоровья цели. Убийство настоящего героя возвращает половину оставшейся перезарядки. Мгновенной казни нет.", "DOTA_Tooltip_ability_rift_axe_physical": "Железный приговор", "DOTA_Tooltip_ability_rift_axe_physical_Description": "Физический удар и рассечение рядом с целью усиливаются от недостающего здоровья цели. Убийство настоящего героя возвращает половину оставшейся перезарядки. Мгновенной казни нет.", "DOTA_Tooltip_ability_rift_axe_physical_Lore": "DUALITY", "rift_dir_rift_axe_magical": "Кровавый круг", "rift_dir_rift_axe_magical_desc": "Отмечает область, которая пульсирует магическим уроном и замедляет. Урон настоящим героям лечит Axe с общим лимитом за импульс. Выйдите из круга, чтобы избежать урона.", "DOTA_Tooltip_ability_rift_axe_magical": "Кровавый круг", "DOTA_Tooltip_ability_rift_axe_magical_Description": "Отмечает область, которая пульсирует магическим уроном и замедляет. Урон настоящим героям лечит Axe с общим лимитом за импульс. Выйдите из круга, чтобы избежать урона.", "DOTA_Tooltip_ability_rift_axe_magical_Lore": "DUALITY", "rift_dir_rift_lina_physical": "Залп солнца", "rift_dir_rift_lina_physical_desc": "Три узких физических луча в выбранном направлении с уроном от силы атаки. Направление фиксировано: уйдите в сторону.", "DOTA_Tooltip_ability_rift_lina_physical": "Залп солнца", "DOTA_Tooltip_ability_rift_lina_physical_Description": "Три узких физических луча в выбранном направлении с уроном от силы атаки. Направление фиксировано: уйдите в сторону.", "DOTA_Tooltip_ability_rift_lina_physical_Lore": "DUALITY", "rift_dir_rift_lina_magical": "Солнечное схождение", "rift_dir_rift_lina_magical_desc": "После заметной задержки область трижды взрывается и расширяется. Магический урон зависит от интеллекта. Не стойте у расширяющегося края.", "DOTA_Tooltip_ability_rift_lina_magical": "Солнечное схождение", "DOTA_Tooltip_ability_rift_lina_magical_Description": "После заметной задержки область трижды взрывается и расширяется. Магический урон зависит от интеллекта. Не стойте у расширяющегося края.", "DOTA_Tooltip_ability_rift_lina_magical_Lore": "DUALITY", "rift_dir_rift_juggernaut_physical": "Вальс клинков", "rift_dir_rift_juggernaut_physical_desc": "Пять физических ударов с прыжками между видимыми героями поблизости. Без неуязвимости и эффектов предметов. Оглушение, бессилие или уход из исходной области прерывают серию.", "DOTA_Tooltip_ability_rift_juggernaut_physical": "Вальс клинков", "DOTA_Tooltip_ability_rift_juggernaut_physical_Description": "Пять физических ударов с прыжками между видимыми героями поблизости. Без неуязвимости и эффектов предметов. Оглушение, бессилие или уход из исходной области прерывают серию.", "DOTA_Tooltip_ability_rift_juggernaut_physical_Lore": "DUALITY", "rift_dir_rift_juggernaut_magical": "Хоровод духов", "rift_dir_rift_juggernaut_magical_desc": "Магическая буря следует за Juggernaut и замедляет героев рядом. Можно атаковать и применять способности; смерть прекращает бурю. Невосприимчивости к эффектам нет.", "DOTA_Tooltip_ability_rift_juggernaut_magical": "Хоровод духов", "DOTA_Tooltip_ability_rift_juggernaut_magical_Description": "Магическая буря следует за Juggernaut и замедляет героев рядом. Можно атаковать и применять способности; смерть прекращает бурю. Невосприимчивости к эффектам нет.", "DOTA_Tooltip_ability_rift_juggernaut_magical_Lore": "DUALITY", "rift_dir_rift_cm_physical": "Ледяная копейщица", "rift_dir_rift_cm_physical_desc": "Развеиваемая стойка увеличивает дальность атаки. Каждая третья попавшая атака по герою раскалывает лёд вокруг цели, нанося физический урон и ненадолго накладывая оцепенение.", "DOTA_Tooltip_ability_rift_cm_physical": "Ледяная копейщица", "DOTA_Tooltip_ability_rift_cm_physical_Description": "Развеиваемая стойка увеличивает дальность атаки. Каждая третья попавшая атака по герою раскалывает лёд вокруг цели, нанося физический урон и ненадолго накладывая оцепенение.", "DOTA_Tooltip_ability_rift_cm_physical_Lore": "DUALITY", "rift_dir_rift_cm_magical": "Белая мгла", "rift_dir_rift_cm_magical_desc": "Создаёт после задержки расширяющуюся снежную область. Магические импульсы замедляют; каждый третий ненадолго обездвиживает оставшихся внутри героев. Без прерываемого произнесения и неуязвимости.", "DOTA_Tooltip_ability_rift_cm_magical": "Белая мгла", "DOTA_Tooltip_ability_rift_cm_magical_Description": "Создаёт после задержки расширяющуюся снежную область. Магические импульсы замедляют; каждый третий ненадолго обездвиживает оставшихся внутри героев. Без прерываемого произнесения и неуязвимости.", "DOTA_Tooltip_ability_rift_cm_magical_Lore": "DUALITY", "rift_dir_rift_wr_physical": "Колчан бури", "rift_dir_rift_wr_physical_desc": "Во время развеиваемой стойки каждая вторая попавшая атака по герою выпускает сквозной физический выстрел через цель. Выстраивайте врагов в линию.", "DOTA_Tooltip_ability_rift_wr_physical": "Колчан бури", "DOTA_Tooltip_ability_rift_wr_physical_Description": "Во время развеиваемой стойки каждая вторая попавшая атака по герою выпускает сквозной физический выстрел через цель. Выстраивайте врагов в линию.", "DOTA_Tooltip_ability_rift_wr_physical_Lore": "DUALITY", "rift_dir_rift_wr_magical": "Копьё шторма", "rift_dir_rift_wr_magical_desc": "Три магические волны после задержки проходят по одной фиксированной линии. Урон зависит от интеллекта и пройденного расстояния. Прицел не следует за целью.", "DOTA_Tooltip_ability_rift_wr_magical": "Копьё шторма", "DOTA_Tooltip_ability_rift_wr_magical_Description": "Три магические волны после задержки проходят по одной фиксированной линии. Урон зависит от интеллекта и пройденного расстояния. Прицел не следует за целью.", "DOTA_Tooltip_ability_rift_wr_magical_Lore": "DUALITY", "rift_dir_rift_sven_physical": "Ритм титана", "rift_dir_rift_sven_physical_desc": "Развеиваемая стойка накапливает ритм атаками по героям. Каждый третий удар создаёт физическую волну вокруг цели. Дополнительного усиления от стандартного God Strength нет.", "DOTA_Tooltip_ability_rift_sven_physical": "Ритм титана", "DOTA_Tooltip_ability_rift_sven_physical_Description": "Развеиваемая стойка накапливает ритм атаками по героям. Каждый третий удар создаёт физическую волну вокруг цели. Дополнительного усиления от стандартного God Strength нет.", "DOTA_Tooltip_ability_rift_sven_physical_Lore": "DUALITY", "rift_dir_rift_sven_magical": "Грозовая наковальня", "rift_dir_rift_sven_magical_desc": "Обозначает удар по земле. Первый импульс оглушает; последующие наносят магический урон от силы, без повторных оглушений.", "DOTA_Tooltip_ability_rift_sven_magical": "Грозовая наковальня", "DOTA_Tooltip_ability_rift_sven_magical_Description": "Обозначает удар по земле. Первый импульс оглушает; последующие наносят магический урон от силы, без повторных оглушений.", "DOTA_Tooltip_ability_rift_sven_magical_Lore": "DUALITY", "rift_dir_rift_pudge_physical": "Цепь мясника", "rift_dir_rift_pudge_physical_desc": "Связывает близкого врага цепью с периодическим физическим уроном. Оба героя могут действовать; жертва может разорвать связь расстоянием. Ограниченное лечение от урона настоящим героям.", "DOTA_Tooltip_ability_rift_pudge_physical": "Цепь мясника", "DOTA_Tooltip_ability_rift_pudge_physical_Description": "Связывает близкого врага цепью с периодическим физическим уроном. Оба героя могут действовать; жертва может разорвать связь расстоянием. Ограниченное лечение от урона настоящим героям.", "DOTA_Tooltip_ability_rift_pudge_physical_Lore": "DUALITY", "rift_dir_rift_pudge_magical": "Сад падали", "rift_dir_rift_pudge_magical_desc": "Создаёт неподвижное ядовитое поле с нарастающим магическим уроном и замедлением. Pudge лечится от урона настоящим героям, только находясь внутри своего поля.", "DOTA_Tooltip_ability_rift_pudge_magical": "Сад падали", "DOTA_Tooltip_ability_rift_pudge_magical_Description": "Создаёт неподвижное ядовитое поле с нарастающим магическим уроном и замедлением. Pudge лечится от урона настоящим героям, только находясь внутри своего поля.", "DOTA_Tooltip_ability_rift_pudge_magical_Lore": "DUALITY", "rift_menu": "DUALITY / ПУТЕВОДИТЕЛЬ", "rift_menu_kicker": "КАЖДЫЙ ЗА СЕБЯ  /  ДВА ПУТИ. ОДНА СУДЬБА.", "rift_menu_subtitle": "Выберите героя на стандартном экране. Изучите ультимейт, затем определите свой путь.", "rift_menu_roster": "ПРЕТЕНДЕНТЫ", "rift_menu_rules": "ПРАВИЛА", "rift_menu_rules_body": "8 игроков. 18 минут. Убийство +3, помощь +1. Сердце появляется каждые 3 минуты начиная с 3:00. При равенстве лидеров — овертайм.", "rift_menu_close": "ВЕРНУТЬСЯ НА АРЕНУ", "rift_menu_open": "ПУТЕВОДИТЕЛЬ", "rift_board_toggle": "РЕЙТИНГ", "rift_path_unselected": "Путь откроется с первым очком в ультимейт", "rift_path_physical": "ФИЗИЧЕСКИЙ ПУТЬ", "rift_path_magical": "МАГИЧЕСКИЙ ПУТЬ", "rift_top_kda": "У / С / П", "rift_menu_path_hint": "Наведите на героя, чтобы изучить пути. Путеводитель не выбирает героя.", "rift_menu_alpha": "АЛЬФА  /  11 ГЕРОЕВ · 22 ПУТИ", "rift_arena_name": "РАСКОЛОТЫЙ КОНКОРС", "rift_menu_score": "ЗАСЛУЖИТЕ МЕСТО", "rift_menu_score_body": "Убийства, помощь и удержание Сердца приносят очки. Золото — на предметы; регулярные предложения формируют сборку.", "rift_menu_paths": "ВЫБЕРИТЕ ЭВОЛЮЦИЮ", "rift_menu_paths_body": "Первое очко в R открывает выбор физического или магического пути до конца матча. По истечении таймера выбирается физический.", "rift_menu_map": "СРАЖАЙТЕСЬ ЗА ЦЕНТР", "rift_menu_map_body": "Внешние маршруты дают укрытия. Открытый центр делает носителя Сердца уязвимым. Удерживайте Сердце ради очков и следите за таймером события.", "rift_menu_preview": "ПУТИ ГЕРОЯ", "rift_hud_overtime": "ВНЕЗАПНАЯ СМЕРТЬ", "rift_board_empty": "Ожидание героев…", "DOTA_Tooltip_modifier_rift_path_stance": "Боевая стойка", "DOTA_Tooltip_modifier_rift_path_stance_Description": "Атакуйте вражеских героев для срабатывания эффекта пути. Развеивается; снимается при смерти.", "DOTA_Tooltip_modifier_rift_path_slow": "Замедление пути", "DOTA_Tooltip_modifier_rift_path_slow_Description": "Скорость передвижения снижена. Развеивается.", "DOTA_Tooltip_modifier_rift_path_root": "Ледяные оковы", "DOTA_Tooltip_modifier_rift_path_root_Description": "Оцепенение. Развеивается.", "DOTA_Tooltip_ability_rift_axe_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_axe_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_axe_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_axe_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_axe_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_axe_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_axe_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_axe_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_axe_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_axe_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_axe_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_axe_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_axe_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_axe_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_axe_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_axe_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_axe_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_axe_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_axe_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_axe_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_lina_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_lina_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_lina_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_lina_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_lina_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_lina_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_lina_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_lina_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_lina_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_lina_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_lina_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_lina_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_lina_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_lina_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_lina_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_lina_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_lina_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_lina_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_lina_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_lina_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_juggernaut_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_juggernaut_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_cm_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_cm_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_cm_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_cm_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_cm_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_cm_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_cm_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_cm_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_cm_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_cm_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_cm_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_cm_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_cm_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_cm_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_cm_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_cm_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_cm_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_cm_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_cm_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_cm_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_wr_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_wr_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_wr_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_wr_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_wr_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_wr_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_wr_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_wr_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_wr_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_wr_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_wr_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_wr_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_wr_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_wr_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_wr_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_wr_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_wr_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_wr_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_wr_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_wr_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_sven_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_sven_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_sven_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_sven_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_sven_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_sven_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_sven_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_sven_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_sven_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_sven_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_sven_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_sven_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_sven_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_sven_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_sven_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_sven_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_sven_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_sven_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_sven_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_sven_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_pudge_physical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_pudge_physical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_pudge_physical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_pudge_physical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_pudge_physical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_pudge_physical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_pudge_physical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_pudge_physical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_pudge_physical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_pudge_physical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "DOTA_Tooltip_ability_rift_pudge_magical_path_base_damage": "БАЗОВЫЙ УРОН:", "DOTA_Tooltip_ability_rift_pudge_magical_path_attack_pct": "УРОН ОТ АТАКИ (%):", "DOTA_Tooltip_ability_rift_pudge_magical_path_strength_pct": "УРОН ОТ СИЛЫ (%):", "DOTA_Tooltip_ability_rift_pudge_magical_path_intellect_pct": "УРОН ОТ ИНТЕЛЛЕКТА (%):", "DOTA_Tooltip_ability_rift_pudge_magical_path_agility_pct": "УРОН ОТ ЛОВКОСТИ (%):", "DOTA_Tooltip_ability_rift_pudge_magical_path_hits": "ИМПУЛЬСОВ / УДАРОВ:", "DOTA_Tooltip_ability_rift_pudge_magical_path_attacks": "АТАК ПО ГЕРОЮ ДЛЯ ЭФФЕКТА:", "DOTA_Tooltip_ability_rift_pudge_magical_path_duration": "ДЛИТЕЛЬНОСТЬ:", "DOTA_Tooltip_ability_rift_pudge_magical_path_slow": "ЗАМЕДЛЕНИЕ (%):", "DOTA_Tooltip_ability_rift_pudge_magical_path_root": "ДЛИТЕЛЬНОСТЬ ОЦЕПЕНЕНИЯ:", "rift_lab_title": "ПОЛИГОН ГЕРОЕВ", "rift_lab_intro": "Tools / один игрок. Все 11 героев и оба пути.", "rift_lab_start_warning": "Включить полигон до конца этой сессии. Счёт и таймер матча остановятся. Для PvP начните новую игру.", "rift_lab_start": "ВОЙТИ НА ПОЛИГОН", "rift_lab_choose": "ВАШ УПРАВЛЯЕМЫЙ ГЕРОЙ", "rift_lab_base": "Базовый", "rift_lab_gallery": "ВЕСЬ РОСТЕР", "rift_lab_spawn_all": "Вызвать всех 11", "rift_lab_clear": "Убрать копии / цели", "rift_lab_gallery_hint": "Все копии получают текущий путь. Осмотрите их на карте; для игры за героя выберите портрет выше.", "rift_lab_targets": "ЦЕЛИ", "rift_lab_target_immortal": "Бессмертная", "rift_lab_target_mortal": "Смертная", "rift_lab_target_immune": "Иммунная", "rift_lab_reset": "Здоровье / мана / кд", "rift_lab_free": "Свободные кд", "rift_lab_focus": "Выделить своего героя", "rift_lab_fresh_hint": "Смена героя, пути или ранга создаёт нового героя 25-го уровня без предметов и улучшений. Q/W/E изучены, R — выбранного ранга.", "rift_lab_pending": "Применяется…", "rift_lab_counts": "Копии: {heroes} / цели: {targets}", "rift_lab_native_map": "Полигон на штатной карте Dota", "rift_lab_error_generic": "Действие не выполнено. Проверьте Console [RIFT][LAB].", "rift_lab_error_target_limit": "Достигнут лимит целей. Уберите копии и цели.", "rift_lab_error_no_hero": "Дождитесь появления своего героя и повторите.", "rift_lab_error_no_space": "Рядом нет проходимого места. Переместите героя и повторите.", "rift_lab_error_spawn_failed": "Не удалось создать героя; проверьте серверный лог.", "rift_lab_error_path_failed": "Путь не применился. Возможна отсутствующая базовая способность или скрипт.", "rift_lab_error_gallery_partial": "Часть копий не появилась. Проверьте карту и серверный лог.", "rift_offer_error_lab_mode": "В этой сессии выбирайте путь кнопками полигона.", "DOTA_Tooltip_modifier_rift_lab_target": "Цель полигона", "DOTA_Tooltip_modifier_rift_lab_target_Description": "Пассивная цель. У бессмертной цели остаётся минимум 1 здоровья."};var ROSTER=[{"hero": "npc_dota_hero_axe", "physical": {"name": "rift_dir_rift_axe_physical", "desc": "rift_dir_rift_axe_physical_desc"}, "magical": {"name": "rift_dir_rift_axe_magical", "desc": "rift_dir_rift_axe_magical_desc"}}, {"hero": "npc_dota_hero_crystal_maiden", "physical": {"name": "rift_dir_rift_cm_physical", "desc": "rift_dir_rift_cm_physical_desc"}, "magical": {"name": "rift_dir_rift_cm_magical", "desc": "rift_dir_rift_cm_magical_desc"}}, {"hero": "npc_dota_hero_juggernaut", "physical": {"name": "rift_dir_rift_juggernaut_physical", "desc": "rift_dir_rift_juggernaut_physical_desc"}, "magical": {"name": "rift_dir_rift_juggernaut_magical", "desc": "rift_dir_rift_juggernaut_magical_desc"}}, {"hero": "npc_dota_hero_legion_commander", "physical": {"name": "rift_dir_lc_duel_physical", "desc": "rift_dir_lc_duel_physical_desc"}, "magical": {"name": "rift_dir_lc_duel_magical", "desc": "rift_dir_lc_duel_magical_desc"}}, {"hero": "npc_dota_hero_lina", "physical": {"name": "rift_dir_rift_lina_physical", "desc": "rift_dir_rift_lina_physical_desc"}, "magical": {"name": "rift_dir_rift_lina_magical", "desc": "rift_dir_rift_lina_magical_desc"}}, {"hero": "npc_dota_hero_nevermore", "physical": {"name": "rift_dir_sf_requiem_physical", "desc": "rift_dir_sf_requiem_physical_desc"}, "magical": {"name": "rift_dir_sf_requiem_magical", "desc": "rift_dir_sf_requiem_magical_desc"}}, {"hero": "npc_dota_hero_phantom_assassin", "physical": {"name": "rift_dir_pa_phantom_execution", "desc": "rift_dir_pa_phantom_execution_desc"}, "magical": {"name": "rift_dir_pa_storm_daggers", "desc": "rift_dir_pa_storm_daggers_desc"}}, {"hero": "npc_dota_hero_pudge", "physical": {"name": "rift_dir_rift_pudge_physical", "desc": "rift_dir_rift_pudge_physical_desc"}, "magical": {"name": "rift_dir_rift_pudge_magical", "desc": "rift_dir_rift_pudge_magical_desc"}}, {"hero": "npc_dota_hero_sven", "physical": {"name": "rift_dir_rift_sven_physical", "desc": "rift_dir_rift_sven_physical_desc"}, "magical": {"name": "rift_dir_rift_sven_magical", "desc": "rift_dir_rift_sven_magical_desc"}}, {"hero": "npc_dota_hero_templar_assassin", "physical": {"name": "rift_dir_ta_crystal_physical", "desc": "rift_dir_ta_crystal_physical_desc"}, "magical": {"name": "rift_dir_ta_waves_magical", "desc": "rift_dir_ta_waves_magical_desc"}}, {"hero": "npc_dota_hero_windrunner", "physical": {"name": "rift_dir_rift_wr_physical", "desc": "rift_dir_rift_wr_physical_desc"}, "magical": {"name": "rift_dir_rift_wr_magical", "desc": "rift_dir_rift_wr_magical_desc"}}];
+function adapt(p) {
+ if(p._adapted)return p;p._adapted=true;
+ p.AddClass=c=>p.classList.add(c);p.RemoveClass=c=>p.classList.remove(c);p.ToggleClass=c=>p.classList.toggle(c);
+ p.SetHasClass=(c,b)=>p.classList.toggle(c,b);p.GetParent=()=>p.parentNode;p.Children=()=>Array.from(p.children).map(adapt);
+ p.RemoveAndDeleteChildren=()=>p.replaceChildren();p.DeleteAsync=()=>p.remove();p.SetPanelEvent=(e,f)=>p.addEventListener(e==='onactivate'?'click':e.slice(2),f);
+ p.SetImage=s=>{var hero=s.match(/npc_dota_hero_([^.]+)/);if(hero){p.textContent=hero[1].replace(/_/g,' ').toUpperCase()}else{p.textContent='◆';p.style.display='grid';p.style.placeItems='center'}};
+ Object.defineProperty(p,'text',{get:()=>p.textContent,set:v=>p.textContent=v});return p;
+}
+var $=s=>adapt(document.querySelector(s));$.CreatePanel=(t,p,id)=>{var e=document.createElement(t==='Button'?'button':'div');if(id)e.id=id;p.append(e);return adapt(e)};
+$.Localize=t=>TOKENS[t.replace(/^#/,'')]||t.replace('#npc_dota_hero_','').replace(/_/g,' ');
+$.Schedule=(s,fn)=>setTimeout(fn,s*1000);
+var Players={GetLocalPlayer:()=>0,GetPlayerName:i=>['YOU','FROST','VANGUARD','EMBER','GHOST','ORACLE','IRON','STORM'][i]||'Spectator'};
+var Game={GetGameTime:()=>performance.now()/1000},GameUI={SetDefaultUIEnabled:()=>{},SelectUnit:()=>{}};
+var DotaDefaultUIElement_t={DOTA_DEFAULT_UI_TOP_HEROES:0,DOTA_DEFAULT_UI_TOP_TIMEOFDAY:1};
+var LISTENERS={},EVENTS={};
+var CustomNetTables={SubscribeNetTableListener:(t,fn)=>(LISTENERS[t]||(LISTENERS[t]=[])).push(fn),GetTableValue:(t,k)=>DATA[t]&&DATA[t][k]};
+var GameEvents={Subscribe:(e,f)=>EVENTS[e]=f,SendCustomGameEventToServer:()=>{}};
+function publish(t,k,v){(DATA[t]||(DATA[t]={}))[k]=v;(LISTENERS[t]||[]).forEach(f=>f(t,k,v))}
+var DATA={rift_match:{state:{state:'ACTIVE',remaining:824,active_total:1080},roster:{heroes:ROSTER}},rift_scores:{board:{rows:{}}}};
+var heroNames=['phantom_assassin','crystal_maiden','axe','lina','juggernaut','nevermore','windrunner','sven'];
+heroNames.forEach((h,i)=>DATA.rift_scores.board.rows[i+1]={pid:i,hero:'npc_dota_hero_'+h,score:24-i*2,kills:8-i,deaths:2,assists:i,direction:i%2?'magical':'physical',alive:i!==5?1:0,respawn:i===5?7:0});
+function mockOffer(){RiftHideOnboarding();EVENTS.rift_private_state({visible_offer:1,pending:{1:{id:1,type:'ultimate_direction',remaining:45,options:{1:{id:'a',kind:'direction',direction:'physical',loc_name:ROSTER[0].physical.name,loc_desc:ROSTER[0].physical.desc,icon:'axe_culling_blade',is_default:1},2:{id:'b',kind:'direction',direction:'magical',loc_name:ROSTER[0].magical.name,loc_desc:ROSTER[0].magical.desc,icon:'axe_culling_blade'}}}},build:{}})}
+function mockLab(){RiftHideOnboarding();EVENTS.rift_private_state({visible_offer:-1,pending:{},build:{}});publish('rift_match','state',{state:'ACTIVE',remaining:824,active_total:1080,lab:1});publish('rift_match','lab',{available:1,enabled:1,owner:0,hero:ROSTER[0].hero,path:'physical',rank:3,free:0,gallery_count:11,target_count:1,active_entity:42});}
+/* Pure helpers shared with Node tests; no Dota API or private player data. */
+"use strict";
+var RiftUIModel = (function () {
+  function array(rows) {
+    var out = [];
+    if (Array.isArray(rows)) return rows.slice();
+    for (var i = 1; rows && rows[String(i)] !== undefined; i++) out.push(rows[String(i)]);
+    return out;
+  }
+  function time(sec) {
+    sec = Math.max(0, Math.floor(Number(sec) || 0));
+    return Math.floor(sec / 60) + ":" + (sec % 60 < 10 ? "0" : "") + sec % 60;
+  }
+  function progress(remaining, total) {
+    return Math.max(0, Math.min(100, total > 0 ? 100 * remaining / total : 0));
+  }
+  function bySeat(rows) {
+    return array(rows).sort(function (a, b) { return a.pid - b.pid; });
+  }
+  return { array: array, time: time, progress: progress, bySeat: bySeat };
+})();
+if (typeof module !== "undefined") module.exports = RiftUIModel;
+
+"use strict";
+// RIFT ARENA HUD. Shows only server-confirmed state from CustomNetTables.
+
+var localPid = Players.GetLocalPlayer();
+var RiftSeats = {};
+var RiftRoster = [];
+var RiftMenuSeen = false;
+var RiftMenuAuto = false;
+var RiftBoardKey = "";
+
+function fmtTime(sec) {
+  return RiftUIModel.time(sec);
+}
+
+function playerName(pid) {
+  var name = Players.GetPlayerName(pid);
+  return name && name.length > 0 ? name : ("Player " + pid);
+}
+
+function heroName(unitName) {
+  return unitName ? $.Localize("#" + unitName) : "";
+}
+
+function rowsToArray(rows) {
+  return RiftUIModel.array(rows);
+}
+
+function onMatchState(data) {
+  if (!data) return;
+  $("#StateLabel").text = $.Localize("#rift_state_" + data.state);
+  var showTimer = data.state === "ACTIVE" || data.state === "OVERTIME";
+  $("#TimerLabel").text = showTimer ? fmtTime(data.remaining) : "--:--";
+  if (data.lab === 1) {
+    $("#TimerLabel").text = "∞";
+    $("#StateLabel").text = $.Localize("#rift_lab_title");
+  }
+  $("#RiftRoot").SetHasClass("LabMode", data.lab === 1);
+  $("#DevLabel").SetHasClass("Visible", data.dev === 1);
+  $("#FallbackLabel").SetHasClass("Visible", data.map_fallback === 1);
+  $("#FallbackLabel").text = $.Localize(data.lab === 1 ? "#rift_lab_native_map" : "#rift_hud_map_fallback");
+  $("#RiftRoot").SetHasClass("Overtime", data.state === "OVERTIME");
+  $("#ClockProgress").style.width = RiftUIModel.progress(data.remaining, data.active_total) + "%";
+  if (!RiftMenuSeen && (data.state === "HERO_SELECTION" || data.state === "PREPARATION")) {
+    $("#Onboarding").RemoveClass("Hidden");
+    RiftMenuSeen = true;
+    RiftMenuAuto = true;
+  }
+  if (RiftMenuAuto && (data.state === "ACTIVE" || data.state === "FINISHED")) RiftHideOnboarding();
+}
+
+function renderSeats(rows) {
+  var seated = RiftUIModel.bySeat(rows);
+  var ranks = {};
+  rows.forEach(function (r, i) { ranks[r.pid] = i + 1; });
+  var active = {};
+  seated.forEach(function (r, i) {
+    active[r.pid] = true;
+    var seat = RiftSeats[r.pid];
+    var parent = $(i < 4 ? "#TopPlayersLeft" : "#TopPlayersRight");
+    if (!seat || seat.panel.GetParent() !== parent) {
+      if (seat) seat.panel.DeleteAsync(0);
+      var p = $.CreatePanel("Panel", parent, ""); p.AddClass("PlayerSeat");
+      var portrait = $.CreatePanel("Image", p, ""); portrait.AddClass("SeatPortrait");
+      var name = $.CreatePanel("Label", p, ""); name.AddClass("SeatName");
+      var rank = $.CreatePanel("Label", p, ""); rank.AddClass("SeatRank");
+      var path = $.CreatePanel("Label", p, ""); path.AddClass("SeatPath");
+      var score = $.CreatePanel("Label", p, ""); score.AddClass("SeatScore");
+      var death = $.CreatePanel("Label", p, ""); death.AddClass("SeatDeath");
+      seat = RiftSeats[r.pid] = { panel: p, portrait: portrait, name: name, rank: rank, path: path, score: score, death: death, hero: "" };
+    }
+    if (r.hero && seat.hero !== r.hero) {
+      seat.portrait.SetImage("file://{images}/heroes/" + r.hero + ".png"); seat.hero = r.hero;
+    }
+    seat.name.text = playerName(r.pid);
+    seat.rank.text = "#" + ranks[r.pid];
+    seat.score.text = String(r.score);
+    seat.path.text = r.direction === "physical" ? "P" : r.direction === "magical" ? "M" : "";
+    seat.death.text = r.alive === 0 && r.respawn > 0 ? String(r.respawn) : "";
+    seat.panel.SetHasClass("Self", r.pid === localPid);
+    seat.panel.SetHasClass("Dead", r.alive === 0);
+    seat.panel.SetHasClass("Physical", r.direction === "physical");
+    seat.panel.SetHasClass("Magical", r.direction === "magical");
+  });
+  Object.keys(RiftSeats).forEach(function (pid) {
+    if (!active[pid]) { RiftSeats[pid].panel.DeleteAsync(0); delete RiftSeats[pid]; }
+  });
+}
+
+function fillRows(container, rows) {
+  container.RemoveAndDeleteChildren();
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i];
+    var row = $.CreatePanel("Panel", container, "");
+    row.AddClass("BoardRow");
+    row.SetHasClass("Self", r.pid === localPid);
+    var name = $.CreatePanel("Label", row, "");
+    name.AddClass("Name");
+    name.text = (i + 1) + ". " + playerName(r.pid) + (r.hero ? " (" + heroName(r.hero) + ")" : "");
+    var score = $.CreatePanel("Label", row, "");
+    score.AddClass("Score");
+    score.text = String(r.score);
+    var kda = $.CreatePanel("Label", row, "");
+    kda.AddClass("KDA");
+    kda.text = r.kills + "/" + r.deaths + "/" + r.assists;
+  }
+}
+
+function onScores(data) {
+  if (!data) return;
+  var rows = rowsToArray(data.rows);
+  var key = JSON.stringify(rows.map(function (r) { return [r.pid, r.score, r.kills, r.deaths, r.assists, r.hero, playerName(r.pid)]; }));
+  if (key !== RiftBoardKey) { fillRows($("#BoardRows"), rows); RiftBoardKey = key; }
+  renderSeats(rows);
+  var myScore = 0, myPlace = 0;
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].pid === localPid) { myScore = rows[i].score; myPlace = i + 1; }
+  }
+  $("#ScoreLabel").text = $.Localize("#rift_hud_score") + ": " + myScore;
+  $("#PlaceLabel").text = myPlace > 0 ? ($.Localize("#rift_hud_place") + ": " + myPlace + "/" + rows.length) : "";
+}
+
+function onResult(data) {
+  if (!data) return;
+  var panel = $("#Result");
+  panel.AddClass("Visible");
+  $("#ResultWinner").text = data.winner >= 0
+    ? ($.Localize("#rift_result_winner") + ": " + playerName(data.winner))
+    : "";
+  $("#ResultReason").text = $.Localize("#rift_reason_" + data.reason);
+  var board = CustomNetTables.GetTableValue("rift_scores", "board");
+  fillRows($("#ResultRows"), rowsToArray(board ? board.rows : null));
+}
+
+function RiftHideOnboarding() {
+  $("#Onboarding").AddClass("Hidden");
+  RiftMenuSeen = true;
+  RiftMenuAuto = false;
+}
+
+function RiftOpenMenu() {
+  $("#Onboarding").RemoveClass("Hidden");
+  RiftMenuSeen = true;
+  RiftMenuAuto = false;
+}
+
+function RiftToggleBoard() { $("#Board").ToggleClass("Hidden"); }
+
+function previewHero(hero, card) {
+  $("#GalleryHero").text = heroName(hero.hero);
+  ["physical", "magical"].forEach(function (path) {
+    var prefix = path === "physical" ? "#GalleryPhysical" : "#GalleryMagical";
+    $(prefix + "Name").text = hero[path] ? $.Localize("#" + hero[path].name) : "";
+    $(prefix + "Desc").text = hero[path] ? $.Localize("#" + hero[path].desc) : "";
+  });
+  $("#HeroGallery").Children().forEach(function (p) { p.SetHasClass("Selected", p === card); });
+}
+
+function onRoster(data) {
+  if (!data) return;
+  RiftRoster = rowsToArray(data.heroes);
+  var gallery = $("#HeroGallery");
+  gallery.RemoveAndDeleteChildren();
+  RiftRoster.forEach(function (hero, i) {
+    var card = $.CreatePanel("Button", gallery, ""); card.AddClass("GalleryCard");
+    var img = $.CreatePanel("Image", card, ""); img.AddClass("GalleryPortrait");
+    img.SetImage("file://{images}/heroes/" + hero.hero + ".png");
+    card.SetPanelEvent("onmouseover", function () { previewHero(hero, card); });
+    card.SetPanelEvent("onactivate", function () { previewHero(hero, card); });
+    if (i === 0) previewHero(hero, card);
+  });
+}
+
+(function () {
+  CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
+    if (key === "state") onMatchState(data);
+    else if (key === "result") onResult(data);
+    else if (key === "roster") onRoster(data);
+  });
+  CustomNetTables.SubscribeNetTableListener("rift_scores", function (_t, key, data) {
+    if (key === "board") onScores(data);
+  });
+  // Late-created panel / reconnect: restore from current state, not from past events.
+  onMatchState(CustomNetTables.GetTableValue("rift_match", "state"));
+  onScores(CustomNetTables.GetTableValue("rift_scores", "board"));
+  onResult(CustomNetTables.GetTableValue("rift_match", "result"));
+  onRoster(CustomNetTables.GetTableValue("rift_match", "roster"));
+  GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
+  GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false);
+})();
+
+// ---------------------------------------------------------------------------
+// Upgrade offers (private, addressed to this player only)
+// ---------------------------------------------------------------------------
+var RiftOffer = {
+  state: null,          // last server-confirmed private state
+  receivedAt: 0,        // Game.GetGameTime() when state arrived
+  collapsedOfferId: -1, // player collapsed this offer
+  pendingOfferId: -1,   // clicked, waiting for server confirmation
+  statusText: ""
+};
+
+function objToArray(o) {
+  var out = [];
+  if (!o) return out;
+  for (var i = 1; o[String(i)] !== undefined; i++) out.push(o[String(i)]);
+  return out;
+}
+
+function fmtNumber(v) {
+  if (typeof v !== "number") return String(v);
+  if (Math.abs(v - Math.round(v)) < 1e-6) return String(Math.round(v));
+  return (Math.round(v * 100) / 100).toString();
+}
+
+// Localized text with {key} placeholders filled from server-provided values.
+function locFill(token, values) {
+  var text = $.Localize("#" + token);
+  if (values) {
+    for (var k in values) text = text.split("{" + k + "}").join(fmtNumber(values[k]));
+  }
+  return text;
+}
+
+function visibleOffer() {
+  var st = RiftOffer.state;
+  if (!st || st.visible_offer < 0) return null;
+  var list = objToArray(st.pending);
+  for (var i = 0; i < list.length; i++) if (list[i].id === st.visible_offer) return list[i];
+  return null;
+}
+
+function buildCard(parent, offer, opt) {
+  var card = $.CreatePanel("Button", parent, "");
+  card.AddClass("OfferCard");
+  if (opt.rarity) card.AddClass(opt.rarity);
+  if (opt.direction) card.AddClass(opt.direction);
+  var top = $.CreatePanel("Panel", card, "");
+  top.AddClass("CardTop");
+  var icon = $.CreatePanel("Image", top, "");
+  icon.AddClass("CardIcon");
+  if (opt.icon) {
+    var isItem = opt.icon.indexOf("item_") === 0;
+    icon.SetImage(isItem ? "file://{images}/items/" + opt.icon.substring(5) + ".png"
+                         : "file://{images}/spellicons/" + opt.icon + ".png");
+  }
+  var name = $.CreatePanel("Label", top, "");
+  name.AddClass("CardName");
+  name.text = $.Localize("#" + opt.loc_name);
+  var tag = $.CreatePanel("Label", card, "");
+  tag.AddClass("CardRarity");
+  if (opt.kind === "direction") tag.text = $.Localize("#rift_dir_" + opt.direction);
+  else if (opt.rarity) tag.text = $.Localize("#rift_rarity_" + opt.rarity);
+  var desc = $.CreatePanel("Label", card, "");
+  desc.AddClass("CardDesc");
+  desc.text = locFill(opt.loc_desc, opt.values);
+  if (opt.kind === "upgrade") {
+    var rank = $.CreatePanel("Label", card, "");
+    rank.AddClass("CardRank");
+    rank.text = locFill("rift_rank", { now: opt.rank_now, next: opt.rank_next, max: opt.max_rank });
+  }
+  if (opt.is_default === 1) {
+    var def = $.CreatePanel("Label", card, "");
+    def.AddClass("CardDefault");
+    def.text = $.Localize("#rift_offer_default");
+  }
+  var pending = RiftOffer.pendingOfferId === offer.id;
+  card.SetHasClass("Pending", pending);
+  card.enabled = !pending;
+  card.SetPanelEvent("onactivate", function () {
+    if (RiftOffer.pendingOfferId === offer.id) return;
+    RiftOffer.pendingOfferId = offer.id;
+    RiftOffer.statusText = $.Localize("#rift_offer_pending");
+    GameEvents.SendCustomGameEventToServer("rift_offer_choose", { offer_id: offer.id, option_id: opt.id });
+    renderOffer();
+  });
+}
+
+function renderOffer() {
+  var panel = $("#OfferPanel");
+  var openBtn = $("#OfferOpenButton");
+  var offer = visibleOffer();
+  var count = RiftOffer.state ? objToArray(RiftOffer.state.pending).length : 0;
+  if (!offer) {
+    $("#RiftRoot").RemoveClass("Choosing");
+    panel.RemoveClass("Visible");
+    openBtn.RemoveClass("Visible");
+    return;
+  }
+  var collapsed = RiftOffer.collapsedOfferId === offer.id;
+  panel.SetHasClass("Visible", !collapsed);
+  $("#RiftRoot").SetHasClass("Choosing", !collapsed);
+  if (!collapsed) RiftHideOnboarding();
+  panel.SetHasClass("Ultimate", offer.type === "ultimate_direction");
+  openBtn.SetHasClass("Visible", collapsed);
+  $("#OfferOpenLabel").text = locFill("rift_offer_open", { count: count });
+  var title = offer.type === "ultimate_direction" ? "rift_offer_title_ultimate"
+            : offer.type === "compensation" ? "rift_offer_title_compensation" : "rift_offer_title";
+  $("#OfferTitle").text = $.Localize("#" + title);
+  var cards = $("#OfferCards");
+  cards.RemoveAndDeleteChildren();
+  var opts = objToArray(offer.options);
+  for (var i = 0; i < opts.length; i++) buildCard(cards, offer, opts[i]);
+  $("#OfferStatus").text = RiftOffer.statusText;
+  updateOfferTimer();
+}
+
+function updateOfferTimer() {
+  var offer = visibleOffer();
+  if (!offer) return;
+  var left = offer.remaining - (Game.GetGameTime() - RiftOffer.receivedAt);
+  $("#OfferTimer").text = locFill("rift_offer_timeout", { seconds: Math.max(0, Math.ceil(left)) });
+}
+
+function renderBuild() {
+  var st = RiftOffer.state;
+  if (!st) return;
+  $("#BuildDirection").text = st.direction ? $.Localize("#rift_dir_" + st.direction) : "";
+  var rows = $("#BuildRows");
+  rows.RemoveAndDeleteChildren();
+  var list = objToArray(st.build);
+  if (list.length === 0) {
+    var empty = $.CreatePanel("Label", rows, "");
+    empty.AddClass("BuildRow");
+    empty.text = $.Localize("#rift_build_empty");
+  }
+  for (var i = 0; i < list.length; i++) {
+    var l = $.CreatePanel("Label", rows, "");
+    l.AddClass("BuildRow");
+    l.text = $.Localize("#" + list[i].loc_name) + " " + list[i].rank + "/" + list[i].max_rank;
+  }
+}
+
+function RiftCollapseOffer() {
+  var offer = visibleOffer();
+  if (offer) RiftOffer.collapsedOfferId = offer.id;
+  renderOffer();
+}
+
+function RiftOpenOffer() {
+  RiftOffer.collapsedOfferId = -1;
+  renderOffer();
+}
+
+function offerTick() {
+  updateOfferTimer();
+  $.Schedule(0.25, offerTick);
+}
+
+(function () {
+  GameEvents.Subscribe("rift_private_state", function (data) {
+    RiftOffer.state = data;
+    RiftOffer.receivedAt = Game.GetGameTime();
+    var offer = visibleOffer();
+    // confirmed state arrived: clear pending if that offer is no longer pending
+    if (!offer || offer.id !== RiftOffer.pendingOfferId) {
+      RiftOffer.pendingOfferId = -1;
+      RiftOffer.statusText = "";
+    }
+    renderOffer();
+    renderBuild();
+  });
+  GameEvents.Subscribe("rift_offer_result", function (data) {
+    if (data.ok !== 1) {
+      var key = "rift_offer_error_" + data.reason;
+      var text = $.Localize("#" + key);
+      RiftOffer.statusText = (text === key || text === "#" + key) ? $.Localize("#rift_offer_error_generic") : text;
+      RiftOffer.pendingOfferId = -1;
+      renderOffer();
+    }
+  });
+  // Late panel / reconnect: ask the server for our private snapshot.
+  GameEvents.SendCustomGameEventToServer("rift_private_request", {});
+  offerTick();
+})();
+
+// ---------------------------------------------------------------------------
+// Heart of the Rift (public state)
+// ---------------------------------------------------------------------------
+function onRelic(v) {
+  if (!v) return;
+  var panel = $("#RelicPanel");
+  var next = $("#NextEventLabel");
+  next.text = v.next_event_in >= 0 && v.state === "idle"
+    ? locFill("rift_relic_next", { time: fmtTime(v.next_event_in) }) : "";
+  if (v.state === "idle") { panel.RemoveClass("Visible"); return; }
+  panel.AddClass("Visible");
+  if (v.state === "warned") {
+    $("#RelicLine1").text = locFill("rift_relic_warning", { seconds: Math.ceil(v.next_event_in) });
+    $("#RelicLine2").text = "";
+    return;
+  }
+  if (v.state === "ground") {
+    $("#RelicLine1").text = $.Localize("#rift_relic_on_ground");
+  } else {
+    var who = v.carrier === localPid ? $.Localize("#rift_relic_you") : playerName(v.carrier);
+    $("#RelicLine1").text = locFill("rift_relic_carrier", { name: who, seconds: Math.ceil(v.next_point_in) });
+  }
+  $("#RelicLine2").text = locFill("rift_relic_status", { time: fmtTime(v.remaining), budget: v.budget_left });
+}
+
+(function () {
+  CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
+    if (key === "relic") onRelic(data);
+  });
+  onRelic(CustomNetTables.GetTableValue("rift_match", "relic"));
+})();
+
+"use strict";
+var RiftLab = { state: null, roster: [], cards: {}, pending: 0, sequence: 0, opened: false, error: "", errorUntil: 0 };
+function RiftLabOpen() {
+  $("#LabPanel").RemoveClass("Hidden");
+  $("#RiftRoot").AddClass("LabOpen");
+  RiftHideOnboarding();
+}
+function RiftLabClose() {
+  $("#LabPanel").AddClass("Hidden");
+  $("#RiftRoot").RemoveClass("LabOpen");
+}
+function RiftLabSend(payload) {
+  if (RiftLab.pending || !RiftLab.state || RiftLab.state.available !== 1) return;
+  RiftLab.pending = ++RiftLab.sequence;
+  RiftLab.error = "";
+  var sequence = RiftLab.pending;
+  $("#LabStatus").text = $.Localize("#rift_lab_pending");
+  GameEvents.SendCustomGameEventToServer("rift_lab_request", payload);
+  // A dropped/rate-limited reply must not lock the controls permanently.
+  $.Schedule(1.5, function () { if (RiftLab.pending === sequence) RiftLab.pending = 0; });
+}
+function RiftLabChoosePath(path) {
+  var s = RiftLab.state;
+  if (s && s.enabled === 1 && s.hero) RiftLabSend({action:"select", hero:s.hero, path:path});
+}
+function RiftLabFocus() {
+  var s = RiftLab.state;
+  if (s && s.active_entity >= 0) GameUI.SelectUnit(s.active_entity, false);
+}
+function RiftLabRoster(data) {
+  if (!data) return;
+  RiftLab.roster = RiftUIModel.array(data.heroes);
+  var root = $("#LabHeroes"); root.RemoveAndDeleteChildren(); RiftLab.cards = {};
+  RiftLab.roster.forEach(function (hero) {
+    var card = $.CreatePanel("Button", root, ""); card.AddClass("LabHero");
+    var image = $.CreatePanel("Image", card, ""); image.AddClass("LabHeroPortrait");
+    image.SetImage("file://{images}/heroes/" + hero.hero + ".png");
+    var name = $.CreatePanel("Label", card, ""); name.AddClass("LabHeroName"); name.text = heroName(hero.hero);
+    card.SetPanelEvent("onactivate", function () {
+      RiftLabSend({ action:"select", hero:hero.hero, path:RiftLab.state ? RiftLab.state.path : "base" });
+    });
+    RiftLab.cards[hero.hero] = card;
+  });
+}
+function RiftLabState(s) {
+  if (!s) return;
+  var previous = RiftLab.state; RiftLab.state = s;
+  $("#LabToggle").SetHasClass("Hidden", s.available !== 1);
+  $("#LabIntro").SetHasClass("Hidden", s.enabled === 1);
+  $("#LabBody").SetHasClass("Hidden", s.enabled !== 1);
+  if (s.enabled === 1) {
+    if (!RiftLab.opened) { RiftLab.opened = true; RiftLabOpen(); }
+    $("#LabStatus").text = RiftLab.error && Game.GetGameTime() < RiftLab.errorUntil ? RiftLab.error :
+      heroName(s.hero) + " · R " + s.rank + " · " + locFill("rift_lab_counts", {heroes:s.gallery_count,targets:s.target_count});
+    Object.keys(RiftLab.cards).forEach(function (hero) { RiftLab.cards[hero].SetHasClass("Selected", hero === s.hero); });
+    ["base","physical","magical"].forEach(function (path, i) {
+      $("#Lab" + ["Base","Physical","Magical"][i]).SetHasClass("Selected", s.path === path);
+    });
+    [1,2,3].forEach(function (rank) { $("#LabRank" + rank).SetHasClass("Selected", s.rank === rank); });
+    $("#LabFree").SetHasClass("Selected", s.free === 1);
+    if (!previous || previous.active_entity !== s.active_entity) RiftLabFocus();
+  }
+}
+(function () {
+  CustomNetTables.SubscribeNetTableListener("rift_match", function (_t, key, data) {
+    if (key === "lab") RiftLabState(data);
+    if (key === "roster") RiftLabRoster(data);
+  });
+  GameEvents.Subscribe("rift_lab_focus", function (data) { if (data.entity >= 0) GameUI.SelectUnit(data.entity, false); });
+  GameEvents.Subscribe("rift_lab_result", function (data) {
+    RiftLab.pending = 0;
+    if (data.ok !== 1) {
+      var key = "#rift_lab_error_" + data.reason;
+      var message = $.Localize(key);
+      RiftLab.error = message === key || message === key.substring(1) ? $.Localize("#rift_lab_error_generic") : message;
+      RiftLab.errorUntil = Game.GetGameTime() + 4;
+      $("#LabStatus").text = RiftLab.error;
+    }
+  });
+  RiftLabRoster(CustomNetTables.GetTableValue("rift_match","roster"));
+  RiftLabState(CustomNetTables.GetTableValue("rift_match","lab"));
+})();
+
+RiftOpenMenu();</script></html>

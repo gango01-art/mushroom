@@ -17,6 +17,7 @@ function V:Normalized() local l = self:Length2D(); return l > 0 and vec(self.x /
 local Unit = {}
 Unit.__index = function(u, k)
   if Unit[k] then return Unit[k] end
+  if k:match("^_rift_") then return nil end
   local set = k:match("^Set(.+)$")
   if set then return function(self, v) self.props[set] = v end end
   local get = k:match("^Get(.+)$")
@@ -33,8 +34,11 @@ function Unit:IsAlive() return not self.removed and not self.dead end
 function Unit:IsRealHero() return self.hero end
 function Unit:IsHero() return self.hero end
 function Unit:IsIllusion() return false end
+function Unit:IsReincarnating() return false end
 function Unit:IsInvulnerable() return self.mods.modifier_rift_lc_throne ~= nil end
 function Unit:IsMagicImmune() return self.immune or false end
+function Unit:IsAttackImmune() return self.props.AttackImmune or false end
+function Unit:GetManaRegen() return self.props.ManaRegen or 0 end
 function Unit:PassivesDisabled() return self.broken or false end
 function Unit:GetUnitName() return self.name end
 function Unit:GetAbsOrigin() return self.pos end
@@ -44,7 +48,34 @@ function Unit:SetForwardVector() end
 function Unit:GetTeamNumber() return self.team end
 function Unit:GetPlayerOwnerID() return self.pid end
 function Unit:GetAverageTrueAttackDamage() return self.props.Damage end
+function Unit:GetCastRangeBonus() return self.props.CastRangeBonus or 0 end
+function Unit:GetItemInSlot(i) return self.inventory and self.inventory[i] end
+function Unit:GetRangedProjectileName() return "particles/units/heroes/hero_nevermore/nevermore_base_attack.vpcf" end
+function Unit:GetProjectileSpeed() return 1200 end
+function Unit:StartGesture() end
+function Unit:StartGestureWithPlaybackRate() end
+function Unit:FadeGesture() end
+function Unit:SetCustomHealthLabel(text)self.health_label=text end
+function Unit:GetModifierStackCount(name)return self.mods[name]and self.mods[name].stacks or 0 end
+function Unit:RemoveHorizontalMotionController() end
+function Unit:Script_GetAttackRange() return 150 end
+function Unit:PerformAttack(target,orb,procs,skip,ignore,projectile,fake,never_miss)
+  S.attacks[#S.attacks+1]={attacker=self,target=target}
+  S.attacks[#S.attacks].procs=procs
+  if S.simulate_attack_damage and (never_miss or not target.evasion) then
+    local damage=self.props.Damage
+    for _,m in pairs(self.mods) do
+      if m.GetModifierPreAttack_BonusDamage_Target then damage=damage+m:GetModifierPreAttack_BonusDamage_Target({target=target}) end
+    end
+    ApplyDamage({victim=target,attacker=self,damage=damage,damage_type=DAMAGE_TYPE_PHYSICAL})
+    for _,m in pairs(self.mods) do if m.OnAttackLanded then m:OnAttackLanded({attacker=self,target=target,damage=damage}) end end
+  end
+end
 function Unit:GetPhysicalArmorValue() return self.props.Armor end
+function Unit:GetDisplayAttackSpeed() return self.props.AttackSpeed or 100 end
+function Unit:GetEvasion() return self.props.Evasion or 0 end
+function Unit:Script_GetMagicalArmorValue() return .25 end
+function Unit:RemoveGesture() end
 function Unit:GetAttacksPerSecond() return self.props.APS end
 function Unit:Stop() end
 function Unit:SetIdleAcquire() end
@@ -59,6 +90,7 @@ function Unit:AddNewModifier(_, _, name, kv)
   local m = { name = name, kv = kv, stacks = 0 }
   function m:GetStackCount() return self.stacks end
   function m:SetStackCount(n) self.stacks = n end
+  function m:Destroy() self.destroyed=true end
   self.mods[name] = m
   return m
 end
@@ -68,6 +100,9 @@ function Unit:entindex() return self.index end
 function Unit:IsBuilding() return false end
 function Unit:IsOther() return false end
 function Unit:IsDebuffImmune() return self.immune or false end
+function Unit:IsStunned() return self.stunned or false end
+function Unit:IsDisarmed() return self.disarmed or false end
+function Unit:Heal(amount) self.props.Health = math.min(self.props.MaxHealth, (self.props.Health or 0) + amount) end
 function Unit:TriggerSpellAbsorb() return self.linkens or false end
 function Unit:GetStatusResistance() return 0 end
 
@@ -77,9 +112,10 @@ function S.unit(name, o)
   o = o or {}
   S.by_index = S.by_index or {}
   local u = { name = name, index = seq, props = o.props or {}, mods = {}, abilities = o.abilities or {},
-              pos = o.pos or vec(0, 0, 0), team = o.team or 2, pid = o.pid or -1, hero = o.hero or false,
+              inventory = {}, pos = o.pos or vec(0, 0, 0), team = o.team or 2, pid = o.pid or -1, hero = o.hero or false,
               removed = false, dead = false, broken = false, attack_target = false,
-              immune = false, linkens = false }
+              immune = false, linkens = false, stunned = false, disarmed = false }
+  u.evasion=false
   S.by_index[u.index] = u
   return setmetatable(u, Unit)
 end
@@ -110,7 +146,8 @@ function S.advance(dt, step)
 end
 
 function S.install()
-  S.now, S.thinks, S.damage, S.created, S.projectiles, S.heroes = 0, {}, {}, {}, {}, {}
+  S.now, S.thinks, S.damage, S.created, S.projectiles, S.heroes, S.attacks = 0, {}, {}, {}, {}, {}, {}
+  S.simulate_attack_damage=false
   local mode = S.unit("gamemode")
   _G.IsServer = function() return true end
   _G.IsInToolsMode = function() return false end
@@ -127,12 +164,14 @@ function S.install()
     return t.damage
   end
   _G.EmitSoundOn = function() end
+  _G.StopSoundOn = function() end
+  _G.FindClearSpaceForUnit = function(u, p) u:SetAbsOrigin(p) end
   _G.EmitSoundOnLocationWithCaster = function() end
   _G.SendOverheadEventMessage = function() end
   _G.EntIndexToHScript = function(i) return S.by_index[i] end
   _G.GetGroundPosition = function(p) return p end
   _G.class = function(t) return t or {} end
-  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end,
+  _G.ParticleManager = { CreateParticle = function() return 1 end, SetParticleControl = function() end, SetParticleControlEnt = function() end, SetParticleControlForward = function() end,
                          ReleaseParticleIndex = function() end, DestroyParticle = function() end }
   _G.FindUnitsInRadius = function(team, pos, _, radius)
     local out = {}
@@ -141,7 +180,10 @@ function S.install()
     end
     return out
   end
-  _G.ProjectileManager = { CreateTrackingProjectile = function(_, p) table.insert(S.projectiles, p) end }
+  _G.ProjectileManager = {
+    CreateTrackingProjectile = function(_, p) table.insert(S.projectiles, p) end,
+    CreateLinearProjectile = function(_, p) table.insert(S.projectiles, p);return #S.projectiles end,
+  }
   _G.PlayerResource = {
     GetConnectionState = function() return 2 end,
     GetSelectedHeroEntity = function(_, pid) for _, h in ipairs(S.heroes) do if h.pid == pid then return h end end end,
@@ -176,19 +218,25 @@ function S.lua_ability(name, caster, level)
 end
 
 -- Instance of a Lua modifier class (file under rift/modifiers) on a parent unit.
-function S.lua_modifier(name, parent, ability)
+function S.lua_modifier(name, parent, ability, params)
   package.loaded["rift.modifiers." .. name] = nil
   _G[name] = nil
   require("rift.modifiers." .. name)
   local m = { stacks = 0, destroyed = false }
   function m:GetParent() return parent end
+  function m:GetCaster() return ability:GetCaster() end
   function m:GetAbility() return ability end
   function m:GetStackCount() return self.stacks end
   function m:SetStackCount(n) self.stacks = n end
   function m:StartIntervalThink() end
-  function m:Destroy() self.destroyed = true end
+  function m:ApplyHorizontalMotionController() return not rawget(parent,"motion_denied") end
+  function m:Destroy()
+    if self.destroyed then return end
+    self.destroyed=true
+    if self.OnDestroy then self:OnDestroy() end
+  end
   setmetatable(m, { __index = _G[name] })
-  m:OnCreated({})
+  if m.OnCreated then m:OnCreated(params or {}) end
   return m
 end
 

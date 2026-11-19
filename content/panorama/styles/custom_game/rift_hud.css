@@ -1,163 +1,204 @@
-.RiftHudRoot { width: 100%; height: 100%; }
-
-.TopBar {
-	horizontal-align: center;
-	margin-top: 46px;
-	flow-children: right;
-	padding: 6px 16px;
-	background-color: #0d0a12dd;
-	border: 1px solid #6a3fa055;
-	border-radius: 6px;
-}
-.StateLabel { font-size: 18px; color: #c9b6e8; margin-right: 14px; vertical-align: center; }
-.TimerLabel { font-size: 26px; color: #ffffff; font-weight: bold; margin-right: 18px; vertical-align: center; }
-.TopStats { flow-children: right; vertical-align: center; }
-.StatLabel { font-size: 18px; color: #f0d890; margin-right: 14px; }
-.DevLabel { font-size: 14px; color: #ff7050; vertical-align: center; visibility: collapse; }
-.DevLabel.Visible { visibility: visible; }
-.FallbackLabel { font-size: 14px; color: #ffb040; vertical-align: center; margin-left: 10px; visibility: collapse; }
-.FallbackLabel.Visible { visibility: visible; }
-
-.Board {
-	horizontal-align: right;
-	margin-top: 120px;
-	margin-right: 12px;
-	width: 300px;
-	flow-children: down;
-	padding: 8px;
-	background-color: #0d0a12cc;
-	border-radius: 6px;
-}
-.BoardTitle { font-size: 16px; color: #c9b6e8; margin-bottom: 4px; }
+/* Source 2 Panorama CSS, 1080p design canvas (engine scales at other resolutions). */
+.RiftHudRoot { width: 100%; height: 100%; font-family: Radiance; }
+.Hidden { visibility: collapse; }
+.AghanimInfo { width: 390px; horizontal-align: center; vertical-align: bottom; margin-left: 650px; margin-bottom: 180px; padding: 16px; flow-children: down; background-color: gradient(linear, 0% 0%, 100% 100%, from(#1d2c38), to(#080e16f8)); border: 1px solid #637985; box-shadow: #000c 0px 0px 12px 2px; }
+.AghanimPath { color: #d8c394; font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; }
+.AghanimHeading { width: 100%; flow-children: right; vertical-align: center; margin-bottom: 8px; }
+.AghanimHeading DOTAItemImage { width: 36px; height: 28px; margin-right: 10px; }
+.AghanimHeading Label { color: #85b6eb; font-size: 20px; vertical-align: center; }
+.AghanimHeading .AghanimOwned { font-size: 11px; color: #b9c5c9; margin-left: 10px; }
+.AghanimText { width: 100%; white-space: normal; font-size: 17px; line-height: 22px; color: #c4d0dc; margin-bottom: 18px; }
+.TopBar { horizontal-align: center; flow-children: right; height: 100px; }
+.TopPlayers { flow-children: right; margin-top: 4px; width: 424px; }
+.PlayerSeat { width: 102px; height: 78px; margin: 0 2px; background-color: #0c1118f5; border-bottom: 2px solid #788597; }
+.PlayerSeat.Self { border-bottom: 3px solid #e8c77a; box-shadow: #d5ac4a38 0px 0px 8px 1px; }
+.SeatPortrait { width: 100%; height: 54px; wash-color: #e0e5ec; }
+.PlayerSeat.Dead .SeatPortrait { saturation: 0; brightness: 0.3; }
+.SeatRank { font-size: 13px; color: #f2d493; margin: 2px 4px; text-shadow: 0px 1px 3px 3 #000000; }
+.SeatName { width: 100%; height: 20px; margin-top: 35px; padding: 1px 4px; font-size: 12px; color: #ffffff; text-overflow: ellipsis; background-color: #070b12c9; }
+.SeatScore { horizontal-align: center; vertical-align: bottom; font-size: 21px; color: #edd095; font-weight: bold; }
+.SeatDeath { horizontal-align: center; margin-top: 8px; font-size: 28px; font-weight: bold; color: #ffb5a2; text-shadow: 0px 1px 4px 3 #000000; }
+.SeatPath { horizontal-align: right; margin: 3px; color: #d8dce5; font-size: 12px; }
+.PlayerSeat.Physical { border-bottom-color: #e59b55; }
+.PlayerSeat.Magical { border-bottom-color: #76cbd7; }
+.MatchClock { width: 168px; height: 98px; background-color: gradient(linear, 0% 0%, 0% 100%, from(#1b2533), to(#0a0e17f5)); border: 1px solid #a88a4b; flow-children: down; padding: 4px 0 0; }
+.BrandSmall { horizontal-align: center; letter-spacing: 4px; font-size: 14px; color: #dbc18c; }
+.TimerLabel { horizontal-align: center; font-size: 35px; color: #faf0dc; font-weight: bold; margin-top: -2px; }
+.StateLabel { horizontal-align: center; text-transform: uppercase; font-size: 13px; color: #aab9c8; }
+.ClockTrack { width: 100%; height: 3px; margin-top: 5px; background-color: #000000; }
+.ClockProgress { height: 100%; width: 100%; background-color: gradient(linear, 0% 0%, 100% 0%, from(#df9a53), to(#7bd4dc)); transition-property: width; transition-duration: 0.45s; }
+.Overtime .MatchClock { border-color: #f58e65; }
+.Overtime .TimerLabel { color: #ffb08b; }
+.MatchSummary { horizontal-align: center; margin-top: 102px; flow-children: right; background-color: #0c111bcc; padding: 3px 12px; }
+.StatLabel { color: #d6c6a2; font-size: 14px; margin: 0 8px; }
+.EventClock { color: #86d0d9; }
+.DevLabel, .FallbackLabel { visibility: collapse; font-size: 12px; color: #f1a679; margin-left: 6px; }
+.DevLabel.Visible, .FallbackLabel.Visible { visibility: visible; }
+.HudActions { horizontal-align: right; flow-children: right; margin: 18px 18px 0 0; }
+.QuietButton { padding: 6px 10px; margin-left: 4px; background-color: #101722ed; border-bottom: 1px solid #6e6044; }
+.QuietButton Label { font-size: 13px; color: #d1c29f; letter-spacing: 1px; }
+.QuietButton:hover { background-color: #2d3948; }
+.Board { horizontal-align: right; margin: 60px 18px 0 0; width: 350px; flow-children: down; padding: 14px; background-color: #0b111cf5; border-top: 2px solid #ae9258; }
+.BoardTitle { font-size: 18px; color: #dfc78f; text-transform: uppercase; margin-bottom: 10px; }
 .BoardRows { flow-children: down; width: 100%; }
-.BoardRow { flow-children: right; width: 100%; padding: 2px 0; }
-.BoardRow.Self { background-color: #6a3fa044; }
-.BoardRow Label { font-size: 15px; color: #e8e0f0; }
-.BoardRow .Name { width: 160px; text-overflow: ellipsis; }
-.BoardRow .Score { width: 40px; color: #f0d890; font-weight: bold; }
-.BoardRow .KDA { width: 80px; color: #b0a8c0; }
-
-.Onboarding {
-	horizontal-align: center;
-	vertical-align: center;
-	width: 520px;
-	flow-children: down;
-	padding: 20px;
-	background-color: #120c1cf0;
-	border: 2px solid #8a5fd0;
-	border-radius: 8px;
-}
-.Onboarding.Hidden { visibility: collapse; }
-.OnboardTitle { font-size: 26px; color: #ffffff; horizontal-align: center; margin-bottom: 10px; }
-.OnboardText { font-size: 18px; color: #e0d8ee; width: 100%; margin-bottom: 14px; }
-.RiftButton { horizontal-align: center; padding: 6px 24px; background-color: #6a3fa0; border-radius: 4px; }
-.RiftButton:hover { background-color: #8a5fd0; }
-.RiftButton Label { font-size: 18px; color: #ffffff; }
-
-.Result {
-	horizontal-align: center;
-	vertical-align: center;
-	width: 560px;
-	flow-children: down;
-	padding: 24px;
-	background-color: #120c1cf5;
-	border: 2px solid #f0d890;
-	border-radius: 8px;
-	visibility: collapse;
-}
-.Result.Visible { visibility: visible; }
-.ResultTitle { font-size: 30px; color: #ffffff; horizontal-align: center; }
-.ResultWinner { font-size: 22px; color: #f0d890; horizontal-align: center; margin-top: 8px; }
-.ResultReason { font-size: 16px; color: #c9b6e8; horizontal-align: center; margin-bottom: 12px; }
-
-/* ---- Upgrade offers ---- */
-.OfferPanel {
-	horizontal-align: center;
-	vertical-align: bottom;
-	margin-bottom: 190px; /* keep HP/mana/abilities visible */
-	flow-children: down;
-	padding: 10px 14px;
-	background-color: #0d0a12ee;
-	border: 1px solid #8a5fd0aa;
-	border-radius: 8px;
-	visibility: collapse;
-}
-.OfferPanel.Visible { visibility: visible; }
-.OfferPanel.Ultimate { border: 2px solid #f0d890; }
-.OfferHeader { flow-children: right; width: 100%; margin-bottom: 8px; }
-.OfferTitle { font-size: 20px; color: #ffffff; vertical-align: center; }
-.OfferTimer { font-size: 16px; color: #f0d890; margin-left: 14px; vertical-align: center; }
-.OfferCollapse { horizontal-align: right; padding: 3px 10px; background-color: #3a2a55; border-radius: 4px; margin-left: 20px; }
-.OfferCollapse Label { font-size: 14px; color: #e0d8ee; }
-.OfferCards { flow-children: right; }
-.OfferStatus { font-size: 14px; color: #ff9070; horizontal-align: center; margin-top: 4px; }
-
-.OfferCard {
-	width: 250px;
-	min-height: 150px;
-	flow-children: down;
-	margin: 0 6px;
-	padding: 10px;
-	background-color: #1c1428;
-	border: 2px solid #4a3a60;
-	border-radius: 6px;
-}
-.OfferCard:hover { background-color: #2a1e3c; }
-.OfferCard.common { border-color: #9aa0a8; }
-.OfferCard.rare { border-color: #4a90e8; }
-.OfferCard.epic { border-color: #b050e8; }
-/* Physical vs magical differ by label, icon and frame style, not only color */
-.OfferCard.physical { border-color: #e07040; border-style: solid; }
-.OfferCard.magical { border-color: #50b0f0; border-style: dashed; }
-.OfferCard.Pending { opacity: 0.6; }
-.OfferCard.Disabled { opacity: 0.4; }
-.CardTop { flow-children: right; width: 100%; }
-.CardIcon { width: 40px; height: 40px; margin-right: 8px; }
-.CardName { font-size: 17px; color: #ffffff; width: fill-parent-flow(1); vertical-align: center; }
-.CardRarity { font-size: 13px; color: #b0a8c0; margin-top: 4px; }
-.CardDesc { font-size: 15px; color: #e8e0f0; margin-top: 6px; width: 100%; }
-.CardRank { font-size: 13px; color: #c9b6e8; margin-top: 6px; }
-.CardDefault { font-size: 12px; color: #f0d890; margin-top: 4px; }
-
-.OfferOpenButton {
-	horizontal-align: center;
-	vertical-align: bottom;
-	margin-bottom: 190px;
-	padding: 6px 16px;
-	background-color: #6a3fa0;
-	border-radius: 4px;
-	visibility: collapse;
-}
-.OfferOpenButton.Visible { visibility: visible; }
-.OfferOpenButton Label { font-size: 16px; color: #ffffff; }
-
-/* ---- Build overview ---- */
-.BuildPanel {
-	horizontal-align: left;
-	vertical-align: center;
-	margin-left: 8px;
-	width: 220px;
-	flow-children: down;
-	padding: 6px 8px;
-	background-color: #0d0a12aa;
-	border-radius: 6px;
-}
-.BuildTitle { font-size: 15px; color: #c9b6e8; }
-.BuildDirection { font-size: 14px; color: #f0d890; }
-.BuildRows { flow-children: down; width: 100%; }
-.BuildRow { font-size: 13px; color: #e0d8ee; }
-
-/* ---- Heart of the Rift ---- */
-.RelicPanel {
-	horizontal-align: center;
-	margin-top: 96px;
-	flow-children: down;
-	padding: 6px 14px;
-	background-color: #1a0c12dd;
-	border: 1px solid #e05070;
-	border-radius: 6px;
-	visibility: collapse;
-}
+.BoardRow { flow-children: right; width: 100%; padding: 5px 2px; border-bottom: 1px solid #75819318; }
+.BoardRow.Self { background-color: #e5b35718; }
+.BoardRow Label { font-size: 15px; color: #dce2ec; }
+.BoardRow .Name { width: fill-parent-flow(1); text-overflow: ellipsis; }
+.BoardRow .Score { width: 40px; color: #f0d095; font-weight: bold; text-align: center; }
+.BoardRow .KDA { width: 65px; color: #8795a9; text-align: right; }
+.Choosing .Board { visibility: collapse; }
+.RelicPanel { horizontal-align: center; margin-top: 136px; padding: 8px 22px; flow-children: down; background-color: #15212bef; border-top: 2px solid #6dcbd1; visibility: collapse; }
 .RelicPanel.Visible { visibility: visible; }
-.RelicTitle { font-size: 17px; color: #ff8aa0; horizontal-align: center; }
-.RelicLine { font-size: 15px; color: #f0e0e8; horizontal-align: center; }
+.RelicTitle { horizontal-align: center; font-size: 17px; color: #8de4e4; text-transform: uppercase; letter-spacing: 2px; }
+.RelicLine { horizontal-align: center; font-size: 15px; color: #d6e2e5; }
+.OfferPanel { horizontal-align: right; vertical-align: center; margin-right: 22px; width: 324px; max-height: 670px; padding: 12px; flow-children: down; background-color: #10131a; border: 1px solid #51463b; border-top: 2px solid #a58361; box-shadow: #0009 0px 6px 22px 0px; visibility: collapse; }
+.OfferPanel.Visible { visibility: visible; }
+.OfferPanel.Ultimate { width: 390px; border-top-color: #f2d295; }
+.OfferHeader { flow-children: right; width: 100%; margin-bottom: 10px; }
+.OfferHeading { flow-children: down; width: fill-parent-flow(1); }
+.OfferTitle { font-size: 19px; color: #f6ead2; }
+.OfferTimer { font-size: 14px; color: #cbae73; margin-top: 4px; }
+.OfferCollapse { padding: 4px 8px; border: 1px solid #6f7c8c; background-color: #263346; }
+.OfferCollapse Label { font-size: 13px; color: #aab6c5; }
+.OfferCards { flow-children: down; width: 100%; max-height: 540px; overflow: squish scroll; }
+.OfferStatus { font-size: 14px; color: #f9a37d; width: 100%; margin-top: 6px; }
+.OfferCard { width: 100%; flow-children: right; margin-bottom: 6px; padding: 9px; background-color: #1e222a; border: 1px solid #665a453b; border-left: 2px solid #87909c; }
+.OfferCard:hover { brightness: 1.2; border-top-color: #bc9f76; border-right-color: #bc9f76; border-bottom-color: #bc9f76; }
+.OfferCard.common { border-left-color: #a2aeb5; }
+.OfferCard.rare { border-left-color: #70b2ed; }
+.OfferCard.epic { border-left-color: #c18ce4; }
+.OfferCard.physical { border-left-color: #efa65e; background-color: gradient(linear, 0% 0%, 100% 100%, from(#3b2922), to(#171b24)); }
+.OfferCard.magical { border-left-color: #7bcfdc; background-color: gradient(linear, 0% 0%, 100% 100%, from(#173540), to(#171b24)); }
+.OfferCard.Pending, .OfferCard.Disabled { opacity: 0.45; }
+.CardIcon { width: 38px; height: 38px; margin-right: 9px; border: 1px solid #c4a47955; }
+.CardIcon.ItemIcon { width: 48px; height: 36px; }
+.CardBody { width: fill-parent-flow(1); flow-children: down; }
+.CardMeta { width: 100%; flow-children: right-wrap; margin-top: 4px; }
+.CardName { font-size: 17px; color: #eedfc5; width: 100%; }
+.CardRarity { font-size: 11px; color: #b2b9c7; margin-right: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.CardDesc { font-size: 14px; color: #cbd0da; margin-top: 3px; width: 100%; }
+.CardRank, .CardDefault { font-size: 11px; color: #cdb68c; }
+.CardDefault { margin-top: 3px; width: 100%; }
+.OfferOpenButton { horizontal-align: right; vertical-align: center; margin-right: 22px; padding: 12px 20px; background-color: #293649; border: 1px solid #c9b075; visibility: collapse; }
+.OfferOpenButton.Visible { visibility: visible; }
+.OfferOpenButton Label { font-size: 17px; color: #f5e5c6; }
+.BuildToggle { horizontal-align:left; vertical-align:bottom; margin-left:340px; margin-bottom:90px; width:54px; height:54px; background-color:gradient(linear,0% 0%,0% 100%,from(#363630),to(#111310)); border:1px solid #918064; border-radius:50%; box-shadow:#000b 0px 3px 10px 2px; }
+.BuildToggle:hover, .BuildToggle.Selected { brightness:1.5; border-color:#d3bc89; }
+.BuildGlyph { horizontal-align:center; vertical-align:center; width:36px; height:36px; wash-color:#cfb88a; }
+.BuildCount { horizontal-align:right; vertical-align:bottom; font-size:13px; color:#e0d4bc; padding:1px 4px; background-color:#101410; border-radius:5px; }
+.BuildPanel { horizontal-align:left; vertical-align:bottom; margin-left:300px; margin-bottom:170px; width:390px; max-height:660px; padding:18px; flow-children:down; background-color:gradient(linear,0% 0%,100% 100%,from(#292c27f9),to(#0c100efa)); border:1px solid #665e4c; border-top:2px solid #b5a179; }
+.BuildHeader { width:100%; flow-children:right; margin-bottom:12px; }
+.BuildHeader .BuildTitle { width:fill-parent-flow(1); vertical-align:center; }
+.BuildRows { overflow:squish scroll; max-height:540px; padding-right:8px; }
+.BuildEntry { width:100%; flow-children:right; margin-top:8px; padding:10px 0; border-top:1px solid #b0a08022; }
+.BuildIcon { width:42px; height:42px; margin-right:12px; border:1px solid #7c715755; }
+.BuildIcon.ItemIcon { width:63px; }
+.BuildEntryBody { width:fill-parent-flow(1); flow-children:down; }
+.BuildEntryDesc { width:100%; color:#959e94; font-size:14px; margin-top:5px; white-space:normal; }
+.BuildTitle { font-size: 15px; color: #d2b77d; text-transform: uppercase; letter-spacing: 2px; }
+.BuildDirection { font-size: 14px; color: #9acece; margin-bottom: 5px; }
+.BuildRows { flow-children: down; width: 100%; }
+.BuildRow { font-size: 13px; color: #b6c0cd; margin-top: 2px; }
+/* Field guide: non-blocking, user-opened during combat; dismissed for real offers. */
+.Onboarding { horizontal-align: center; vertical-align: center; width: 1140px; max-height: 840px; background-color: gradient(linear, 0% 0%, 100% 100%, from(#202c3bf9), to(#080e19fc)); border: 1px solid #a78a55; box-shadow: #000000bb 0px 12px 36px 10px; flow-children: down; }
+.MenuStripe { width: 100%; height: 3px; background-color: gradient(linear, 0% 0%, 100% 0%, from(#e5a35b), color-stop(0.48, #d1bf8e), to(#77c9d5)); }
+.MenuHeader { width: 100%; padding: 26px 34px 20px; flow-children: down; border-bottom: 1px solid #72829935; }
+.MenuKicker { font-size: 13px; color: #c8b789; letter-spacing: 3px; }
+.MenuWordmark { font-family: Trajan Pro; font-size: 66px; letter-spacing: 16px; color: #f4e6c9; text-shadow: 0px 2px 5px 2 #000000; }
+.MenuSubtitle { font-size: 17px; color: #a6b6ca; margin-top: 3px; width: 850px; }
+.MenuAlpha { horizontal-align: right; margin-top: -28px; color: #80bfc9; font-size: 12px; letter-spacing: 1px; }
+.MenuBody { width: 100%; flow-children: right; padding: 24px 34px; }
+.MenuRules { width: 280px; padding-right: 24px; flow-children: down; }
+.MenuSection { color: #a7b6ca; font-size: 13px; letter-spacing: 3px; margin-bottom: 14px; }
+.RuleTitle { color: #dcc593; font-size: 16px; letter-spacing: 1px; margin-top: 12px; }
+.RuleText { color: #afbed0; font-size: 16px; margin-top: 5px; width: 100%; }
+.RuleFoot { color: #8093aa; font-size: 14px; margin-top: 20px; width: 100%; }
+.MenuRoster { width: fill-parent-flow(1); flow-children: down; border-left: 1px solid #72829935; padding-left: 26px; }
+.HeroGallery { width: 100%; flow-children: right-wrap; min-height: 136px; }
+.GalleryCard { width: 110px; height: 62px; margin: 0 7px 7px 0; border: 1px solid #586778; background-color: #111b2b; }
+.GalleryCard.Selected { border: 2px solid #e3c082; brightness: 1.2; }
+.GalleryCard:hover { brightness: 1.35; }
+.GalleryPortrait { width: 100%; height: 100%; }
+.GalleryHint { color: #7e92ab; font-size: 13px; margin-top: 3px; }
+.GalleryHero { color: #f1dfb9; font-size: 26px; margin-top: 14px; margin-bottom: 10px; }
+.PathPreview { width: 100%; flow-children: right; }
+.PreviewPath { width: fill-parent-flow(1); min-height: 180px; padding: 12px; flow-children: down; }
+.PhysicalPreview { margin-right: 12px; border-top: 2px solid #dfa163; background-color: #c3853b0c; }
+.MagicalPreview { border-top: 2px solid #7ccdd5; background-color: #45b0cb0c; }
+.PathTag { color: #b9c4d3; font-size: 12px; letter-spacing: 2px; }
+.PreviewName { color: #f0e6d4; font-size: 20px; margin-top: 10px; width: 100%; }
+.PreviewDesc { color: #b2c1d4; font-size: 15px; margin-top: 7px; width: 100%; }
+.MenuFooter { width: 100%; flow-children: right; padding: 16px 34px; border-top: 1px solid #72829935; }
+.MenuFooter > Label { color: #8097ae; letter-spacing: 3px; font-size: 13px; vertical-align: center; }
+.RiftButton { horizontal-align: right; padding: 12px 28px; background-color: gradient(linear, 0% 0%, 100% 0%, from(#785e35), to(#3f3b30)); border: 1px solid #cdb17a; }
+.RiftButton:hover { brightness: 1.4; }
+.RiftButton Label { color: #f7e5c0; font-size: 16px; letter-spacing: 1px; }
+.Result { horizontal-align: center; vertical-align: center; width: 620px; padding: 30px; flow-children: down; background-color: #0b1422fa; border: 2px solid #d3b379; visibility: collapse; }
+.Result.Visible { visibility: visible; }
+.ResultTitle { font-size: 32px; color: #f1e6d0; margin-top: 8px; }
+.ResultWinner { color: #e9ca8b; font-size: 24px; margin-top: 12px; }
+.ResultReason { color: #94a9c0; font-size: 16px; margin-bottom: 20px; }
+
+/* Single-player hero laboratory. Scroll stays above the native minimap. */
+.LabPanel { width: 390px; height: 710px; margin: 132px 0 0 18px; padding: 14px; flow-children: down; background-color: #0b1423f7; border-top: 2px solid #7dced4; }
+.LabHeader { width: 100%; flow-children: right; }
+.LabHeader .MenuSection { vertical-align: center; width: fill-parent-flow(1); margin-bottom: 0; }
+.LabHeader .QuietButton { padding: 2px 10px; }
+.LabStatus { width: 100%; color: #90becd; font-size: 14px; margin: 10px 0; }
+.LabIntro { flow-children: down; width: 100%; }
+.LabIntro .RiftButton { margin-top: 18px; }
+.LabBody { width: 100%; height: fill-parent-flow(1); flow-children: down; overflow: squish scroll; padding-right: 6px; }
+.LabSection { font-size: 13px; color: #d4bd88; letter-spacing: 2px; margin: 12px 0 8px; }
+.LabHeroes { flow-children: right-wrap; width: 100%; }
+.LabHero { width: 108px; height: 57px; margin: 0 6px 6px 0; border: 1px solid #53667e; background-color: #192b42; }
+.LabHero.Selected { border: 2px solid #ddbe7f; }
+.LabHeroPortrait { width: 100%; height: 100%; }
+.LabHeroName { vertical-align: bottom; width: 100%; font-size: 12px; color: #e7e5dd; text-overflow: ellipsis; background-color: #050c15d9; padding: 2px; }
+.LabRow { flow-children: right; width: 100%; margin-bottom: 5px; }
+.LabButton { width: fill-parent-flow(1); padding: 8px 5px; margin-right: 5px; background-color: #253348; border-bottom: 1px solid #576e86; }
+.LabButton.Selected { background-color: #4d4b35; border-bottom-color: #e4c38b; }
+.LabButton:hover, .LabHero:hover { brightness: 1.3; }
+.LabButton Label { font-size: 13px; color: #d6e3ec; horizontal-align: center; }
+.LabHelp { font-size: 13px; color: #8197ad; width: 100%; margin: 5px 0 10px; }
+.LabOpen .BuildPanel { visibility: collapse; }
+.LabMode .EventClock, .LabMode .RelicPanel { visibility: collapse; }
+.LabPanel, .BuildPanel, .MenuPanel, .BoardPanel { border-radius:8px; box-shadow:#00000066 0px 6px 18px 0px; }
+.LabButton, .QuietButton, .RiftButton, .LabHero { border-radius:4px; }
+.LabPanel { background-color:gradient(linear,0% 0%,100% 100%,from(#21333cf7),to(#0a131cf9)); }
+.LabButton { background-color:gradient(linear,0% 0%,0% 100%,from(#344652),to(#23333f)); }
+
+.RoshanEvent { horizontal-align:center; margin-top:126px; padding:5px 14px; background-color:#141913ee; border:1px solid #87724966; }
+.RoshanEvent:hover { brightness:1.4; }
+.RoshanStatus { horizontal-align:center; font-size:15px; color:#c9bba0; }
+.RelicPanel { margin-top:165px; }
+.RelicPanel:hover { brightness:1.25; }
+
+.OfferTotal { font-size: 13px; color: #859cab; margin-top: 3px; }
+
+/* Charcoal stone, muted brass and warm text; preserve native Dota icon ratios. */
+.MatchClock { background-color:gradient(linear,0% 0%,0% 100%,from(#30342d),to(#0c100ff5)); border-color:#8a7a56; }
+.TopBar .SeatPortrait { background-size:cover; }
+.Onboarding, .Result, .Board { background-color:gradient(linear,0% 0%,100% 100%,from(#242a25fa),to(#0b100efa)); border-color:#74684d; border-radius:3px; }
+.CardName, .OfferTitle, .BuildTitle { font-family:Trajan Pro; color:#dfd4b8; }
+.RoshanStatus { color:#d0bca0; background-color:#141913e8; border-bottom:1px solid #87724966; }
+.RelicPanel { background-color:#141b18ef; border-top-color:#8bafaa; }
+.RelicTitle { font-family:Trajan Pro; color:#b0cdc5; }
+
+/* Fire / arcane accents from the DUALITY logo, over subdued stone panels. */
+.MatchClock { background-color:gradient(linear,0% 0%,100% 100%,from(#302622),to(#151621f5)); border-color:#9b7c65; }
+.ClockProgress, .MenuStripe { background-color:gradient(linear,0% 0%,100% 0%,from(#dc8c48),color-stop(.5,#b8a0a4),to(#888be4)); }
+.PlayerSeat.Physical { border-bottom-color:#df9456; }
+.PlayerSeat.Magical { border-bottom-color:#8a8fe0; }
+.Onboarding, .Result, .Board, .BuildPanel { background-color:gradient(linear,0% 0%,100% 100%,from(#28242df9),to(#11151dfb)); border-color:#786775; }
+.OfferCard.physical { background-color:gradient(linear,0% 0%,100% 100%,from(#3a2b24),to(#1a1d27)); border-left-color:#df9456; }
+.OfferCard.magical { background-color:gradient(linear,0% 0%,100% 100%,from(#2a2841),to(#171c2a)); border-left-color:#8c91e5; }
+.BuildToggle { background-color:gradient(linear,0% 0%,100% 100%,from(#44342d),to(#1d2030)); border-color:#ac8b72; }
+.BuildEntryDesc { color:#a0a6b5; }
+.RelicPanel { background-color:#191b2aef; border-top-color:#9297da; }
+.RelicTitle { color:#c4c6f0; }
+.MagicalPreview { background-color:#625daa10; border-top-color:#8b91e2; }
+.PhysicalPreview { border-top-color:#dd9556; }
+.LabPanel { background-color:gradient(linear,0% 0%,100% 100%,from(#292731f7),to(#101722f9)); border-top-color:#9493d1; }
+#LabPhysical.Selected { border-bottom-color:#df9456; }
+#LabMagical.Selected { border-bottom-color:#8e92e6; }

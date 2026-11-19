@@ -8,10 +8,10 @@ local function rank(l) return math.max(1, math.min(3, l)) end
 
 function ta_psionic_crystal:GetCooldown(level)
   local cut = require("rift.engine.build_bonus").get(self:GetCaster(), "crystal_cooldown_reduction")
-  return math.max(1, B.cooldown[rank(level + 1)] - cut)
+  return require("rift.engine.progression").cooldown(self:GetCaster(),self,B.cooldown[rank(require("rift.engine.ability_level")(self,level))],cut)
 end
 function ta_psionic_crystal:GetManaCost(level) return B.mana end
-function ta_psionic_crystal:GetAOERadius() return B.radius[rank(self:GetLevel())] end
+function ta_psionic_crystal:GetAOERadius() return require("rift.engine.area").radius(self:GetCaster(),require("rift.engine.progression").radius(self:GetCaster(),self,B.radius[rank(self:GetLevel())])) end
 -- Placement range = owner's current attack range (no hidden doubling of bonuses).
 function ta_psionic_crystal:GetCastRange() return self:GetCaster():Script_GetAttackRange() end
 
@@ -29,7 +29,7 @@ function ta_psionic_crystal:OnSpellStart()
     return
   end
   unit:SetOwner(caster)
-  require("rift.engine.mods").add(unit, caster, self, "modifier_rift_ta_crystal", { duration = B.lifetime })
+  require("rift.engine.mods").add(unit, caster, self, "modifier_rift_ta_crystal", { duration = B.lifetime+require("rift.engine.progression").get(caster,"crystal_lifetime") })
   self.crystal = unit
   EmitSoundOn("Hero_TemplarAssassin.Trap", unit)
 end

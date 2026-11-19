@@ -1,0 +1,71 @@
+11/17 14:09:55 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_axe physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:09:56 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_axe magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:09:56 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_crystal_maiden physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:09:57 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_crystal_maiden magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:09:58 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_juggernaut physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:09:59 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_juggernaut magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:09:59 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_legion_commander physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:10:00 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_legion_commander magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:10:01 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_lina physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:01 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_lina magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:02 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_nevermore physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:10:03 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_nevermore magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:10:03 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_phantom_assassin physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:04 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_phantom_assassin magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:05 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_pudge physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:06 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_pudge magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:06 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_sven physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:07 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_sven magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:08 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_templar_assassin physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:08 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_templar_assassin magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:09 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_windrunner physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:10 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_windrunner magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:10:10 [VScript] [RIFT][AGHANIM] DONE 22/22; TA innate follow-up
+11/17 14:10:11 [VScript] [RIFT][AGHANIM] TA moving innate hp=9.9 mana=7
+11/17 14:10:11 [VScript] [RIFT][AGHANIM] TA positive damage resets stack=0; DONE
+11/17 14:10:51 [VScript] [RIFT][HYBRID] PASS axe physical Call applied Hunger to both heroes
+11/17 14:10:52 [VScript] [RIFT][HYBRID] PASS axe magical Call applied Hunger to both heroes
+11/17 14:10:53 [VScript] [RIFT][HYBRID] PASS legion_commander physical radius=700 barrier absorbed 100 pure
+11/17 14:10:55 [VScript] [RIFT][HYBRID] PASS legion_commander magical radius=700 barrier absorbed 100 pure
+11/17 14:10:56 [VScript] [RIFT][HYBRID] PASS nevermore physical two hero hits cooldown=4.6000003814697 slow=12 per stack
+11/17 14:10:58 [VScript] [RIFT][HYBRID] PASS nevermore magical two hero hits cooldown=4.6000003814697 slow=12 per stack
+11/17 14:10:58 [VScript] [RIFT][HYBRID] DONE 6/6
+11/17 14:15:18 [VScript] [RIFT][PROGRESSION_CAST] SF duration=15.90 regen=1.50
+11/17 14:15:22 [VScript] [RIFT][PROGRESSION_CAST] TA crystal durability=4 radius=520
+11/17 14:15:26 [VScript] [RIFT][PROGRESSION_CAST] TA shield charges=8
+11/17 14:15:29 [VScript] [RIFT][PROGRESSION_CAST] DONE 3/3
+
+# Final repeat after per-hero metadata cleanup
+11/17 14:24:00 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_axe physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:01 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_axe magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:02 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_crystal_maiden physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:03 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_crystal_maiden magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:03 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_juggernaut physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:04 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_juggernaut magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:05 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_legion_commander physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:05 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_legion_commander magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:06 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_lina physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:07 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_lina magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:07 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_nevermore physical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:08 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_nevermore magical nativeScepter=false nativeShard=true blessing=true stats=0
+11/17 14:24:08 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_phantom_assassin physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:09 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_phantom_assassin magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:10 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_pudge physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:10 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_pudge magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:11 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_sven physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:12 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_sven magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:12 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_templar_assassin physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:13 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_templar_assassin magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:14 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_windrunner physical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:14 [VScript] [RIFT][AGHANIM] PASS npc_dota_hero_windrunner magical nativeScepter=false nativeShard=false blessing=true stats=0
+11/17 14:24:14 [VScript] [RIFT][AGHANIM] DONE 22/22; TA innate follow-up
+11/17 14:24:16 [VScript] [RIFT][AGHANIM] TA moving innate hp=9.9 mana=7
+11/17 14:24:16 [VScript] [RIFT][AGHANIM] TA positive damage resets stack=0; DONE
+11/17 14:25:50 [VScript] [RIFT][AGH_SCENE] READY templar_assassin magical nativeScepter=false
+11/17 14:27:49 [VScript] [RIFT][HYBRID] PASS axe physical Call applied Hunger to both heroes
+11/17 14:27:50 [VScript] [RIFT][HYBRID] PASS axe magical Call applied Hunger to both heroes
+11/17 14:27:51 [VScript] [RIFT][HYBRID] PASS legion_commander physical radius=700 barrier absorbed 100 pure
+11/17 14:27:53 [VScript] [RIFT][HYBRID] PASS legion_commander magical radius=700 barrier absorbed 100 pure
+11/17 14:27:54 [VScript] [RIFT][HYBRID] PASS nevermore physical two hero hits cooldown=4.6000003814697 slow=12 per stack
+11/17 14:27:55 [VScript] [RIFT][HYBRID] PASS nevermore magical two hero hits cooldown=4.7000002861023 slow=12 per stack
+11/17 14:27:55 [VScript] [RIFT][HYBRID] DONE 6/6

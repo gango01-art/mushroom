@@ -1,0 +1,28 @@
+11/16 22:23:39 [VScript] [RIFT][SOLO_ITEMS] PASS item_ancient_janggo cast self-only invisible=false cooldown=34.800003051758
+11/16 22:23:40 [VScript] [RIFT][SOLO_ITEMS] PASS item_arcane_boots cast self-only invisible=false cooldown=49.800003051758
+11/16 22:23:41 [VScript] [RIFT][SOLO_ITEMS] PASS item_assault passive self-only
+11/16 22:23:44 [VScript] [RIFT][SOLO_ITEMS] ERROR index=4 phase=active ...s\duality\scripts\vscripts\rift\dev\solo_items_probe.lua:43: cast timeout item_boots_of_bearing
+11/16 22:25:53 [VScript] [RIFT][SOLO_ITEMS] PASS item_ancient_janggo cast self-only invisible=false cooldown=34.800003051758
+11/16 22:25:54 [VScript] [RIFT][SOLO_ITEMS] PASS item_arcane_boots cast self-only invisible=false cooldown=49.800003051758
+11/16 22:25:54 [VScript] [RIFT][SOLO_ITEMS] PASS item_assault passive self-only
+11/16 22:25:55 [VScript] [RIFT][SOLO_ITEMS] PASS item_boots_of_bearing cast self-only invisible=false cooldown=29.699998855591
+11/16 22:25:56 [VScript] [RIFT][SOLO_ITEMS] PASS item_buckler passive self-only
+11/16 22:25:57 [VScript] [RIFT][SOLO_ITEMS] PASS item_crimson_guard cast self-only invisible=false cooldown=34.800003051758
+11/16 22:25:58 [VScript] [RIFT][SOLO_ITEMS] Glimmer STR bonus=10 activeMR=0.50583523511887
+11/16 22:25:58 [VScript] [RIFT][SOLO_ITEMS] PASS item_glimmer_cape cast self-only invisible=false cooldown=19.799999237061
+11/16 22:25:59 [VScript] [RIFT][SOLO_ITEMS] PASS item_guardian_greaves cast self-only invisible=false cooldown=39.800003051758
+11/16 22:25:59 [VScript] [RIFT][SOLO_ITEMS] PASS item_headdress passive self-only
+11/16 22:26:00 [VScript] [RIFT][SOLO_ITEMS] PASS item_invis_sword cast self-only invisible=false cooldown=24.799999237061
+11/16 22:26:01 [VScript] [RIFT][SOLO_ITEMS] PASS item_mekansm cast self-only invisible=false cooldown=44.800003051758
+11/16 22:26:02 [VScript] [RIFT][SOLO_ITEMS] item_pavise barrier=180 -> 135
+11/16 22:26:02 [VScript] [RIFT][SOLO_ITEMS] PASS item_pavise cast self-only invisible=false cooldown=19.799999237061
+11/16 22:26:03 [VScript] [RIFT][SOLO_ITEMS] item_pipe barrier=450 -> 406
+11/16 22:26:03 [VScript] [RIFT][SOLO_ITEMS] PASS item_pipe cast self-only invisible=false cooldown=44.800003051758
+11/16 22:26:03 [VScript] [RIFT][SOLO_ITEMS] PASS item_ring_of_basilius passive self-only
+11/16 22:26:04 [VScript] [RIFT][SOLO_ITEMS] PASS item_silver_edge cast self-only invisible=false cooldown=22.699998855591
+11/16 22:26:05 [VScript] [RIFT][SOLO_ITEMS] item_solar_crest barrier=250 -> 202
+11/16 22:26:05 [VScript] [RIFT][SOLO_ITEMS] PASS item_solar_crest cast self-only invisible=false cooldown=21.699998855591
+11/16 22:26:06 [VScript] [RIFT][SOLO_ITEMS] PASS item_vladmir passive self-only
+11/16 22:26:07 [VScript] [RIFT][SOLO_ITEMS] PASS craft item_glimmer_cape two Crowns
+11/16 22:26:07 [VScript] [RIFT][SOLO_ITEMS] PASS craft item_invis_sword two Crowns
+11/16 22:26:08 [VScript] [RIFT][SOLO_ITEMS] DONE 17/17 + 2 recipes

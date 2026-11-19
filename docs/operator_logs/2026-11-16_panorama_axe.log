@@ -1,0 +1,14 @@
+PANORAMA before fix: Uncaught ReferenceError: RiftUIModel is not defined
+ResourceCompiler dependency check: Existing file invalid - Input dependency mismatch
+Native compile failure before XML fix: Found root panel with id attribute, which is not permitted.
+After XML fix: six Panorama outputs and two custom LC VFX outputs successfully compiled.
+Axe crash before precache: native access violation 0xc0000005 in particles.dll +0x1f156c.
+Axe crash log: nonresident models/items/axe/axe_winter_2025_* cosmetic models immediately after ReplaceHeroWith.
+After fix (current session):
+11/15 23:59:48 [VScript] [RIFT][INFO][LAB] precache player=0 hero=npc_dota_hero_legion_commander
+11/15 23:59:48 [VScript] [RIFT][INFO][LAB] single-player laboratory enabled; match progression suspended
+11/15 23:59:48 [VScript] [RIFT][INFO][LAB] selected hero=npc_dota_hero_legion_commander path=base rank=3
+11/15 23:59:52 [VScript] [RIFT][INFO][LAB] precache player=0 hero=npc_dota_hero_axe
+11/15 23:59:52 [VScript] [RIFT][INFO][LAB] selected hero=npc_dota_hero_axe path=base rank=3
+11/15 23:59:55 [VScript] [RIFT][INFO][LAB] selected hero=npc_dota_hero_axe path=physical rank=3
+11/16 00:00:41 [VScript] [RIFT][INFO][LAB] selected hero=npc_dota_hero_axe path=magical rank=3

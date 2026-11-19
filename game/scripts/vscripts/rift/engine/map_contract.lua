@@ -21,7 +21,7 @@ end
 
 -- Returns contract table and list of missing names.
 function MapContract.load(dev)
-  local c = { spawns = {}, relics = {}, center = nil, fallback = false }
+  local c = { spawns = {}, relics = {}, bases={}, ward_spots={}, river_camps={}, roshan_pockets={}, center = nil, fallback = false }
   local missing = {}
   for i = 1, MapContract.SPAWN_COUNT do
     local n = name2("rift_spawn_", i)
@@ -39,15 +39,35 @@ function MapContract.load(dev)
   if not c.bounds_min then table.insert(missing, "rift_bounds_min") end
   c.bounds_max = find("rift_bounds_max")
   if not c.bounds_max then table.insert(missing, "rift_bounds_max") end
+  for _,team in ipairs(require("rift.core.config").sanctuary.teams)do
+    local base=find("rift_base_"..team)
+    local tower=find("rift_base_tower_"..team)
+    if base and tower then base.team,base.tower=team,tower;base.spawn=find("rift_team_start_"..team);c.bases[#c.bases+1]=base
+    else missing[#missing+1]="rift_base/tower_"..team end
+  end
 
+  for i=1,4 do
+    local name=name2("rift_ward_",i);local p=find(name)
+    if p then c.ward_spots[#c.ward_spots+1]=p else missing[#missing+1]=name end
+  end
+  for i=1,4 do
+    local name=name2("rift_river_camp_",i);local p=find(name)
+    if p then c.river_camps[#c.river_camps+1]=p else missing[#missing+1]=name end
+  end
+  for i=1,2 do
+    local name=name2("rift_roshan_",i);local p=find(name)
+    if p then c.roshan_pockets[#c.roshan_pockets+1]=p else missing[#missing+1]=name end
+  end
+  if #missing == 0 then
+    for _, err in ipairs(require("rift.core.arena").validate(c)) do missing[#missing+1] = err end
+  end
   if #missing > 0 then
     for _, n in ipairs(missing) do
       if dev then Log.warn("MAP", "missing entity " .. n)
       else Log.error("MAP", "missing entity " .. n) end
     end
-    if #c.spawns < MapContract.SPAWN_COUNT then
-      MapContract.apply_fallback(c)
-    end
+    -- Never mix valid starts with an empty relic list or invalid bounds.
+    MapContract.apply_fallback(c)
   else
     Log.info("MAP", "contract OK: 12 spawns, 4 relic points, center, bounds")
   end
@@ -59,7 +79,7 @@ end
 function MapContract.apply_fallback(c)
   Log.warn("MAP", "DEV FALLBACK spawn ring in use - not a real arena map")
   c.fallback = true
-  c.spawns, c.relics = {}, {}
+  c.spawns, c.relics, c.bases = {}, {}, {}
   local R = 2400
   for i = 1, MapContract.SPAWN_COUNT do
     local a = (i - 1) / MapContract.SPAWN_COUNT * 2 * math.pi

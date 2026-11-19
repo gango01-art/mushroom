@@ -14,10 +14,24 @@ function Rules.new_accumulator()
   return { gold = 0, xp = 0 }
 end
 
+-- Integrate piecewise income exactly across phase boundaries.
+function Rules.income_between(phases, first, last, fallback)
+  first,last=math.max(0,first or 0),math.max(0,last or 0)
+  if last<=first then return 0 end
+  if not phases then return (last-first)*(fallback or 0)end
+  local total,left=0,0
+  for _,p in ipairs(phases)do
+    total=total+math.max(0,math.min(last,p.until_seconds)-math.max(first,left))*p.rate
+    left=p.until_seconds
+  end
+  return total
+end
+
 -- Returns integer gold, xp to grant now; keeps the remainder.
-function Rules.accumulate(acc, cfg, dt, xp_multiplier)
+function Rules.accumulate(acc, cfg, dt, xp_multiplier, active_end)
   if dt <= 0 then return 0, 0 end
-  acc.gold = acc.gold + cfg.economy.passive_gold_per_second * dt
+  local last=active_end or dt
+  acc.gold = acc.gold + Rules.income_between(cfg.economy.passive_gold_phases,last-dt,last,cfg.economy.passive_gold_per_second)
   acc.xp = acc.xp + cfg.economy.passive_xp_per_second * dt * (xp_multiplier or 1)
   local g = math.floor(acc.gold)
   local x = math.floor(acc.xp)

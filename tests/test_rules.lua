@@ -17,7 +17,7 @@ T.case("passive income is time-based and keeps fractions", function()
     local dg, dx = Rules.accumulate(acc, cfg, 0.25)
     g, x = g + dg, x + dx
   end
-  T.eq(g, 100); T.eq(x, 180)
+  T.eq(g, 40); T.eq(x, 140)
   local dg = Rules.accumulate(acc, cfg, 0)
   T.eq(dg, 0, "paused: no income")
 end)

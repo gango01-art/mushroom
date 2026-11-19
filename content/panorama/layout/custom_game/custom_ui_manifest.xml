@@ -1,5 +1,7 @@
 <root>
 	<Panel>
+		<CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/rift_setup.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/rift_hud.xml" />
+		<CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/rift_pick.xml" />
 	</Panel>
 </root>

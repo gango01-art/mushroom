@@ -12,6 +12,82 @@ addon называется **`duality`**, файлы скопированы (н�
 потом без `-WhatIf`. Скрипт ничего не удаляет в addon. Запуск: `dota_launch_custom_game duality dota`.
 
 ---
+
+## OP-037 — только центральный остров и безопасные базы
+- Статус: verified (2026-11-17; перечисленные одиночные native сценарии).
+- Цель: исправить центр без изменения внешней геометрии, безопасное восстановление дома и отталкивание башней.
+- Инструмент: Workshop Tools / ResourceCompiler / VConsole / Sky; dev center_probe, arena_probe, sanctuary_probe.
+- Пути: source/installed duality; исходная карта сохранена в C:/Games/anime/backups/20261117-base-terrain.
+- Шаги: восстановить внешнюю геометрию, bounded central edit, сравнить с backup, закрыть Dota, BuildMap, полный restart; 24 точки/проход origin, реальные regen/dispel/damage/modifier/summon/автоатака, экспорт миникарты.
+- Успех: исходный outer digest, центр проходим, 8 баз соединены, защита в обе стороны и снятие вне зоны, настоящий knockback.
+- Отчёт: [подробный](ARENA_REVISION_2026-11-17.md). 185 высотных вершин, 113 flat samples, origin0, 24/24nav, bases8/8, HP+600/MP+205, blocked100000/1000/summon/stuns, push428.58. 469/0; installer191 mock. Обычный multiplayer respawn, FFA и полный внешний обход остаются pending.
+- Зависимость: реальная арена, одиночный Tools lab, разрешение владельца на ПК.
+
+## OP-036 — только DUALITY Aghanim, общие Shard, TA innate и значки
+- Статус: verified (2026-11-17; только перечисленные сценарии).
+- Цель: отключить старые штатные улучшения, сохранить общие Shard, проверить TA и исключить двойные значки.
+- Инструмент: Workshop Tools, VConsole/Sky, native ResourceCompiler; `rift/dev/aghanim_probe`, `hybrid_shard_probe`, `progression_effects`, `aghanim_scene`.
+- Пути: обычные content/game addon duality, без изменения исходного Overthrow и index.html.
+- Шаги: установка с backup, полный restart, ownership/Blessing22, реальные Shard6, усиленные применения3, hover значков/предмета.
+- Успех: nativeScepter=false22/22; nativeShard только3 героев; TA движется с9.9HP/7mana и сбрасывается уроном; нет Projection; два прозрачных значка без накладок; подсказки показывают Duality.
+- Отчёт: [полный](AGHANIM_PLAYTEST_2026-11-17.md), [лог](operator_logs/2026-11-17_aghanim.log), screenshots/2026-11-17-*.jpg. Повтор22/22 и6/6 после очистки per-hero метаданных. Полный PvP/магазинный цикл/все эффекты не проверены; штатные предупреждения косметики/локализации перечислены в отчёте.
+- Зависимость: установленная Dota + Tools, одиночный dev lab.
+
+## OP-032 — native потолок прогрессии 22 веток
+- Статус: verified (2026-11-16; только описанный сценарий).
+- Цель: проверить реальные таланты/предметы и статический CDR.
+- Инструмент: Tools, VConsole, `rift/dev/balance_probe`.
+- Шаги: одиночный lab, explicit script_reload_code; уровень 30, восемь талантов, разрешённые улучшения, Scepter/Shard/Octarine; R1/2/3.
+- Успех: 22/22 и 66 rank checks; без ошибки запрещённых attack upgrades у TA magical.
+- Отчёт: завершён. [Методика](BALANCE_PASS_2026-11-16.md), `operator_logs/2026-11-16_balance.log`. Фактический таймер предметного CDR/PvP не измерен.
+
+## OP-033 — соло-предметы и native подсказки
+- Статус: verified (2026-11-16–17; границы в TEST_RESULTS).
+- Цель: self-only, MR/барьеры/heal lockout, два рецепта, отсутствие инвиза; нормальные имена и tooltip.
+- Инструмент: Tools, `rift/dev/solo_items_probe`, `rift/dev/tooltip_scene`, native hover screenshots.
+- Шаги: полный restart после установки; 17 независимых item cases, сброс shared CD между случаями, две Crown в рецептах; отдельно hover Boots/Glimmer.
+- Успех: 17/17 + 2 recipes; цена/силовая иерархия по data; Glimmer +10 allstats, active MR10 без инвиза; tooltips без старой цели/дальности/чисел.
+- Отчёт: native assertions завершены; Boots +14 regen и Glimmer metadata визуально перепроверены. Все on-hit/Break/lifesteal/Assault в PvP не проверены. `SOLO_ITEMS.md`, TEST_RESULTS, screenshots/*-tooltip-final.jpg.
+
+## OP-034 — выбранная арена и native навигация
+- Статус: verified для загрузки/24 точек/трёх маршрутов; полный PvP и полный обход pending.
+- Цель: выбрать между Desert Duo/Forest Solo и загрузить адаптацию в Duality.
+- Инструмент: отдельная штатная копия `duality_map_review`, Hammer, ResourceCompiler, `rift/dev/arena_probe`, `rift/dev/arena_walk`.
+- Шаги: native обзор обеих исходных карт; Forest Solo Save As vmap40; удалить механику Overthrow, добавить контракт; compile/load после restart, export minimap, reload; 24 точки и три маршрута.
+- Успех: нет fallback; UI/герой/миникарта видны; 24/24; три реальных прохода.
+- Отчёт: 304 compiled/0 failed; 24/24 от проходимого пола рядом с центральным основанием. Сам marker непроходим и логируется. Движение: 4.8/22.4/32.0 с, остаток <100. [Сравнение](ARENA_COMPARISON_2026-11-17.md), [сборка](ARENA_BUILD.md), `operator_logs/2026-11-17_arena_final.log`.
+
+## OP-035 — золотые стрелы LC и очистка
+- Статус: verified для осмотра/очистки; совместный бой восьми игроков pending.
+- Цель: компактная модель, glow/trail без постоянного фрагмента.
+- Инструмент: ResourceCompiler, native reload, `rift/dev/lc_visual`, screenshots.
+- Шаги: воспроизвести след после исчезновения статуи, исправить lifecycle, reload карты, повторить; короткий залп осмотреть в замедлении и вернуть host_timescale 1.
+- Успех: нет постоянного светового фрагмента после окончания; жёлтая стрела/след, уменьшенная модель.
+- Отчёт: безусловный Decay модели/child, life1.25/1.2, radius .65. Native reload подтверждён логом, осмотр выполнен, нормальный темп восстановлен; финальный кадр без прежнего фрагмента. TEST_RESULTS, screenshots/2026-11-17-lc-trail-*.
+
+---
+## OP-030 — SF: HP-счётчик, крылья и повторный R
+- Статус: verified (2026-11-16).
+- Цель: исключить отстающие метки и раннее исчезновение крыльев; проверить повторный R.
+- Инструмент: Dota Workshop Tools, VConsole2, экранные снимки Windows.
+- Пути: addon `duality`, `rift/dev/sf_visual_watch.lua`.
+- Шаги: после полного перезапуска войти в одиночный полигон; выполнить `script_reload_code rift/dev/sf_visual_watch`; наблюдать три цикла по 28 с, перемещения по четырём точкам и повторный R на t≈8 второго цикла.
+- Успех: надпись над HP движется вместе с ним; нет следа из мировых меток; крылья и надпись исчезают с модификатором; повторный R продлевает и внутреннюю сессию зарядов.
+- Записать: t=14/15 первого и третьего цикла, t=20/24 второго; ошибки Lua/локализации, скриншоты.
+- Зависимость: ручная разблокировка Steam владельцем, активный single-player lab.
+- Отчёт: все три цикла завершены. Первый/третий t=14 active/4, t=15 inactive; второй t=20 active/4, t=24 inactive. Визуально счётчик над HP, крылья до конца и очистка после. Воспроизведённые localization/refresh ошибки исправлены и перепроверены после перезапуска. [Подробный отчёт](VISUAL_FOLLOWUP_2026-11-16.md).
+
+## OP-031 — native таланты, Scepter и Shard по веткам
+- Статус: verified (2026-11-16, границы ниже).
+- Цель: native дерево и по восемь талантов, предметы и бонусы выбранного пути; повторная замена того же героя.
+- Инструмент: Dota Workshop Tools, VConsole2, Windows screenshots.
+- Пути: addon `duality`, `rift/dev/progression_probe.lua`, `rift/dev/progression_effects.lua`.
+- Шаги: полностью перезапустить Dota после установки; в одиночном lab выполнить `script_reload_code rift/dev/progression_probe`. Проверить 22/22, физический → магический путь с изученными талантами, восемь attribute abilities, сохранение очка при отклонении второго выбора. Отдельно выполнить `script_reload_code rift/dev/progression_effects` и проверить SF/TA 3/3. Мышью открыть физическое и магическое деревья, выбрать талант и проверить характеристику.
+- Успех: нет UpgradeName9 fatal и цикла OnUpgrade; предметы реальные, getter SF 40/35/30; SF 18 с/1.2 regen, кристалл 5/520, щит 8.
+- Записать: точные native значения, завершения обоих сценариев, скриншоты, ошибки и ограничения.
+- Зависимость: single-player lab; согласованное окно без ручного переключения героев.
+- Отчёт: финальные 22/22 и 3/3 завершены; физическое SF и магическое Axe деревья открыты и изучены мышью. Массовое повышение рангов — native callback с явным расходом lab-очков, не 88 ручных кликов. [Полный отчёт](TALENTS_PLAYTEST_2026-11-16.md). PvP и все сочетания не проверены.
+
 ## OP-001 — Обследовать установку Dota 2 и Workshop Tools
 - Статус: verified (2026-11-12)
 - Инструмент: Steam, Проводник Windows.

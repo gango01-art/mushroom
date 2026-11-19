@@ -23,20 +23,61 @@ function modifier_rift_sf_spheres:OnCreated()
   local p = self:GetParent()
   if p:IsIllusion() then self:Destroy(); return end -- illusions get no own sphere pool
   local a = self:GetAbility()
-  self.session = Spheres.start(B, math.max(1, a and a:GetLevel() or 1), GameRules:GetGameTime())
+  self.session = Spheres.start(self:Config(), math.max(1, a and a:GetLevel() or 1), GameRules:GetGameTime())
   self.records = {}
   self.raze_casts = {}
   self:SetStackCount(self.session.charges)
-  self.fx = {}
-  if B.wings_particle ~= "" then
-    table.insert(self.fx, ParticleManager:CreateParticle(B.wings_particle, PATTACH_ABSORIGIN_FOLLOW, p))
-  end
+  self.orbs = {}
+  self:UpdateWings()
   self:StartIntervalThink(0.1)
+  self:UpdateOrbs()
+end
+function modifier_rift_sf_spheres:Config()
+  local cfg={};for k,v in pairs(B)do cfg[k]=v end
+  local P=require("rift.engine.progression");local p=self:GetParent()
+  cfg.duration=B.duration+P.get(p,"sf_duration")
+  cfg.sphere_regen={};for i,v in ipairs(B.sphere_regen)do cfg.sphere_regen[i]=math.max(.5,v-P.get(p,"sphere_regen_reduction"))end
+  return cfg
+end
+function modifier_rift_sf_spheres:UpdateWings()
+  for _,fx in ipairs(self.fx or {})do
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx)
+  end
+  self.fx={}
+  if B.wings_particle~="" then
+    self.fx[1]=ParticleManager:CreateParticle(B.wings_particle,PATTACH_ABSORIGIN_FOLLOW,self:GetParent())
+  end
+end
+function modifier_rift_sf_spheres:OnRefresh()
+  if not IsServer() then return end
+  self.session.cfg=self:Config();self.session:refresh(GameRules:GetGameTime())
+  self:SetStackCount(self.session.charges)
+  self:UpdateOrbs()
+  self:UpdateWings()
+end
+function modifier_rift_sf_spheres:OrbPosition(i)
+  local p=self:GetParent()
+  local count=self.session and self.session.charges or B.spheres
+  return p:GetAbsOrigin()+Vector((i-(count+1)/2)*B.indicator_spacing,0,B.indicator_height)
+end
+function modifier_rift_sf_spheres:UpdateOrbs()
+  -- Retire old world-space marks as well when hot-reloading a live test session.
+  for i,fx in pairs(self.orbs or {})do
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx);self.orbs[i]=nil
+  end
+  local count=self.session.charges
+  if self.indicator_count==count then return end
+  self.indicator_count=count
+  -- Native health labels follow the health bar client-side, without a 10 Hz
+  -- stream of world coordinates or detached particles along the movement path.
+  local color=B.indicator_color
+  self:GetParent():SetCustomHealthLabel("#rift_sf_charges_"..count,color[1],color[2],color[3])
 end
 
 function modifier_rift_sf_spheres:OnIntervalThink()
   self.session:update(GameRules:GetGameTime())
   self:SetStackCount(self.session.charges)
+  self:UpdateOrbs()
 end
 
 function modifier_rift_sf_spheres:DeclareFunctions()
@@ -52,8 +93,13 @@ end
 function modifier_rift_sf_spheres:OnAttack(params)
   if not IsServer() or params.attacker ~= self:GetParent() then return end
   if self.session:consume(GameRules:GetGameTime(), valid_enemy(params.attacker, params.target)) then
+    ProjectileManager:CreateTrackingProjectile({Target=params.target,Source=self:GetParent(),Ability=self:GetAbility(),
+      EffectName=B.sphere_projectile,vSourceLoc=self:OrbPosition(self.session.charges+1),
+      iMoveSpeed=self:GetParent():GetProjectileSpeed(),bDodgeable=true,bProvidesVision=false,
+      ExtraData={rift_sphere_visual=1}})
     self.records[params.record] = true
     self:SetStackCount(self.session.charges)
+    self:UpdateOrbs()
   end
 end
 
@@ -100,8 +146,12 @@ end
 
 function modifier_rift_sf_spheres:OnDestroy()
   if not IsServer() then return end
+  self:GetParent():SetCustomHealthLabel("",255,255,255)
   for _, fx in ipairs(self.fx or {}) do
-    ParticleManager:DestroyParticle(fx, false)
+    ParticleManager:DestroyParticle(fx, true)
     ParticleManager:ReleaseParticleIndex(fx)
+  end
+  for _,fx in pairs(self.orbs or {}) do
+    ParticleManager:DestroyParticle(fx,true);ParticleManager:ReleaseParticleIndex(fx)
   end
 end

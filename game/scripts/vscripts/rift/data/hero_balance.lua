@@ -7,11 +7,12 @@
 -- Pure data, no engine globals.
 
 local B = {}
+B.expansion = require("rift.data.expansion").balance
 
 B.lc = {
   duel_physical = {
     max_seconds = 10,                         -- DR
-    per_second = { 0.8, 1.1, 1.4 },           -- [ult] DR permanent damage per live second
+    per_second = { 1, 1.3, 1.6 },             -- [ult] DR owner revision: permanent damage per live second
     victory_multiplier = 1.5,                 -- DR victory total = per_second * max_payouts * 1.5
     max_payouts = 10,                         -- PD (one per second, first at t>=1)
     hit_window = 2,                           -- PD payout needs a champion hit on target in last 2 s
@@ -22,7 +23,7 @@ B.lc = {
     champion_attack_speed_factor = 0.90,      -- DR of LC effective attacks per second
     leash_distance = 900,                     -- PD from throne
     leash_grace = 1.0,                        -- PD seconds beyond leash before break
-    cooldown = { 85, 75, 65 },                -- [ult] PD from successful summon
+    cooldown = { 60, 50, 40 },                -- [ult] DR owner revision, from successful summon
     mana = { 150, 175, 200 },                 -- [ult] PD
     cast_range = 550,                         -- PD
     champion_unit = "npc_rift_lc_champion",   -- custom unit, stats are snapshotted at summon
@@ -42,9 +43,10 @@ B.lc = {
     break_policy = "suspend",                 -- PD: Break disables bonus, keeps earned points
   },
   statue = {                                  -- replaces LC third ability in magical direction
+    projectile_context_seconds = 30,          -- PD retain late arrows, bound session memory in the lab
     lifetime = 10,                            -- DR
     shot_times = { 0.5, 3.5, 6.5, 9.5 },      -- [shot] PD (DR: one arrow per 3 s)
-    cooldown = 25,                            -- DR
+    cooldown = { 22, 20, 18 },                -- [ult] DR 2026-11-16, statue follows R rank
     cdr_per_hit = 2,                          -- DR seconds per arrow hit on a real enemy hero
     arrow_damage = { 60, 90, 120, 150 },      -- [e] PD magic spell damage
     health = { 400, 550, 700, 850 },          -- [e] PD
@@ -53,24 +55,31 @@ B.lc = {
     cast_range = 500,                         -- PD
     attack_range = 650,                       -- PD
     arrow_speed = 1200,                       -- PD
+    beam_range = 1100,                        -- PD four piercing rays per salvo (owner request 2026-11-15)
+    beam_half_width = 75,                     -- PD collision half width
     unit = "npc_rift_lc_statue",
-    arrow_particle = "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf",  -- VERIFY (OP-028)
+    arrow_particle = "particles/duality/lc_gold_powershot.vpcf", -- compact gold arrow, driven by the real projectile
+    shot_sound = "Ability.Powershot",
     mana = 90,                                -- PD
   },
 }
 
 B.sf = {
+  souls = { per_attack=1, per_raze=2, death_loss=0.30 }, -- DR 2026-11-16, both paths
   requiem_physical = {
     duration = 15,                            -- DR
     spheres = 4,                              -- DR start and max
     sphere_damage_fraction = 0.60,            -- DR of attack damage (no crit multiplier)
     sphere_regen = { 1.8, 1.65, 1.5 },        -- [ult] PD seconds per sphere (DR: 1.5 at max rank)
     raze_bonus_fraction = { 0.40, 0.60, 0.80 },-- [ult] PD of attack damage, physical (DR: 80% at max)
-    cooldown = { 80, 70, 60 },                -- [ult] PD
+    cooldown = { 40, 35, 30 },                -- [ult] OWNER 2026-11-16
     mana = { 150, 175, 200 },                 -- [ult] PD
     -- Visuals (DR: wings + red spheres). Paths must be found in Asset Browser (OP-016); "" = none yet.
-    wings_particle = "particles/items2_fx/satanic_buff.vpcf",  -- placeholder red aura; VERIFY (OP-016)
-    sphere_particle = "",
+    wings_particle = "particles/duality/sf_wings.vpcf", -- native wing model, instant visibility for the whole buff
+    sphere_particle = "particles/duality/sf_orb.vpcf",
+    indicator_height=230, indicator_spacing=24,
+    indicator_color={255,201,80}, -- native health-bar label; no server-positioned overhead particles
+    sphere_projectile = "particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_base_attack.vpcf",
   },
   requiem_magical = {
     ring_radius = { 300, 500, 700 },          -- [ring] PD (NOT ultimate ranks)
@@ -99,6 +108,8 @@ B.ta = {
     -- verified OP-006) - DR. No own coefficient.
   },
   meld_physical = {
+    effect="particles/units/heroes/hero_templar_assassin/templar_assassin_meld.vpcf",
+    projectile="particles/units/heroes/hero_templar_assassin/templar_assassin_meld_attack.vpcf",
     bonus_damage = { 100, 160, 220, 280 },    -- [w] PD, armor reduction removed (DR)
     cooldown = { 11, 9, 7, 5 },               -- [w] native copy (OP-006 dump)
     mana = { 35, 40, 45, 50 },                -- [w] native copy (OP-006 dump)
@@ -130,7 +141,7 @@ B.ta = {
     radius = 250,                             -- PD
     cooldown = { 14, 12, 10 },                -- [ult] PD
     mana = 90,                                -- PD
-    damage = { 100, 160, 220 },               -- [ult] PD magic
+    damage = { 160, 230, 300 },               -- [ult] PD balance: stronger without Aghanim
     slow = { 30, 40, 50 },                    -- [ult] PD percent
     slow_duration = 3,                        -- PD
     -- trap_debuff_policy: only damage + slow above. Native silence/extra effects (Scepter/talents) excluded.
@@ -151,12 +162,14 @@ B.pa = {
     -- Owner request: the spirit looks like Grimstroke's Phantom's Embrace. The native unit is spawned
     -- as a visual that flies with the (invisible) projectile. VERIFY (OP-024).
     spirit_unit = "npc_dota_grimstroke_ink_creature",
+    spirit_ambient = "particles/units/heroes/hero_grimstroke/grimstroke_phantom_ambient.vpcf",
+    spirit_impact = "particles/units/heroes/hero_grimstroke/grimstroke_phantom_death.vpcf",
     -- fallback projectile effect when the unit cannot be created
     spirit_particle = "particles/units/heroes/hero_necrolyte/necrolyte_pulse_enemy.vpcf",
   },
   storm_magical = {
-    extra_targets = 1,                        -- DR owner: max 2 different targets per cast
-    chain_chance = { 0.20, 0.20, 0.20 },      -- [ult] DR owner 20% at rank 1; ranks 2-3 PD keep 20%
+    chain_chance_cap = .45,                    -- PD combined talents/build/items ceiling
+    chain_chance = { 0.20, 0.26, 0.32 },      -- [ult] DR 2026-11-16
     chain_damage = { 300, 380, 460 },         -- [ult] DR owner 300 at rank 1; 380/460 PD
     second_target_radius = 600,               -- PD
     cast_context_seconds = 3,                 -- PD: max wait for both daggers
@@ -174,4 +187,119 @@ B.pa = {
   },
 }
 
+-- DR 2026-11-16: four-rank E replacements. AoE flat values are PD.
+B.passives = { sven_echo_cooldown = { 7, 6, 5, 4 }, sven_echo_gesture_rate=2.8, sven_radius = { 10, 15, 20, 25 },
+  sven_debuff = { 4, 8, 12, 16 }, jug_chance = 40, jug_multiplier = { 105, 110, 115, 120 },
+    pa_dagger_cdr = { 1, 1.5, 2 },pa_attack_cdr=1,pa_creep_cdr_fraction=.2 }
+B.area = { item_efficiency = 0.5, max_fraction = 0.25 }
+B.ta.inner_peace = { delay=.2, ramp=1.85, ramp_per_level=-.05, min_ramp=.4,
+  health_regen=2.7, health_per_level=.3, mana_regen=2.2, mana_per_level=.2,
+  interval=.05 } -- PD native regen curve; DR only positive damage resets it, never movement.
+B.axe = { helix_attacks={8,7,6,5}, pull_duration=.35 }
+B.lina = { burn_pct=50 }
+B.lc.courage_physical = { attacks={7,6,5,4}, lifesteal={10,20,30,40}, cooldown=.3,
+  effect="particles/units/heroes/hero_legion_commander/legion_commander_courage_hit.vpcf",
+  effect_target="particles/units/heroes/hero_legion_commander/legion_commander_courage_tgt.vpcf",
+  effect_lifetime=.6, gesture_rate=2.2 }
+B.lc.duel_physical.cyclone_height=300
+B.lc.duel_physical.cyclone_turn_speed=540
+
+-- 2026-11-16 combined balance pass (PD; owner authorized all-path rebalance).
+-- Eight native talents: two choices at hero levels 10/15/20/25.
+-- Percent reductions are capped; radius bonuses do not increase pulse counts.
+B.progression={levels={10,15,20,25},opposite_levels={27,28,29,30},cooldown_cap_pct=25,radius_cap_fraction=.20,
+  heroes={},stats={physical={20,200,25,20},magical={2,200,6,100}}}
+local function progression(hero,physical,magical)
+  B.progression.heroes["npc_dota_hero_"..hero]={physical=physical,magical=magical}
+end
+-- ult = the branch's primary custom ability (LC magical uses E).
+-- signature = level-25 right talent; power = level-25 left talent.
+progression("axe",
+ {ult="rift_axe_physical",power={ult_damage_pct=15},signature={pull_distance=100},
+  scepter={ult_damage_pct=15,ult_radius=60},shard={ult_cooldown_pct=10}},
+ {ult="rift_axe_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("crystal_maiden",
+ {ult="rift_cm_physical",power={ult_damage_pct=15},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=80},shard={mana_regen=4}},
+ {ult="rift_cm_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("juggernaut",
+ {ult="rift_juggernaut_physical",power={attack_damage=40},signature={jug_attack_cdr=.05},
+  scepter={ult_radius=80,ult_cooldown_pct=10},shard={jug_attack_cdr=.05}},
+ {ult="rift_juggernaut_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=60},shard={ult_cooldown_pct=10}})
+progression("legion_commander",
+ {ult="lc_duel_physical",unit_target=true,power={champion_health_pct=15},signature={courage_lifesteal=10},
+  scepter={champion_health_pct=20,champion_damage_pct=10},shard={courage_attacks=1}},
+ {ult="lc_statue",power={statue_arrow_bonus=25},signature={statue_cooldown_reduction=1},
+  scepter={statue_arrow_bonus=35,statue_beam_range=150},shard={statue_cooldown_reduction=1}})
+progression("lina",
+ {ult="rift_lina_physical",power={ult_damage_pct=15},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=20},shard={ult_cooldown_pct=10}},
+ {ult="rift_lina_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("nevermore",
+ {ult="sf_requiem_physical",power={sphere_damage_pct=10},signature={sf_duration=1},
+  scepter={sphere_damage_pct=12,sf_duration=1},shard={sphere_regen_reduction=.15}},
+ {ult="nevermore_requiem",power={ring_damage_bonus=30},signature={ring_radius=20},
+  scepter={ring_damage_bonus=40,ring_radius=20},shard={ult_cooldown_pct=10}})
+progression("phantom_assassin",
+ {ult="pa_phantom_execution",unit_target=true,power={spirit_crit_bonus=30},signature={spirit_cooldown_reduction=1.5},
+  scepter={spirit_crit_bonus=40,ult_cast_range=150},shard={spirit_cooldown_reduction=1.5}},
+ {ult="pa_storm_charge",power={chain_damage_bonus=60},signature={chain_chance_bonus_pct=4},
+  scepter={chain_damage_bonus=60},shard={chain_chance_bonus_pct=3}})
+progression("pudge",
+ {ult="rift_pudge_physical",unit_target=true,power={ult_damage_pct=15},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_cast_range=100},shard={ult_cooldown_pct=10}},
+ {ult="rift_pudge_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("sven",
+ {ult="rift_sven_physical",power={ult_damage_pct=15},signature={ult_duration=1.5},
+  scepter={ult_duration=1.5,ult_radius=50},shard={ult_cooldown_pct=10}},
+ {ult="rift_sven_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=50},shard={ult_cooldown_pct=10}})
+progression("templar_assassin",
+ {ult="ta_psionic_crystal",power={crystal_durability=1},signature={crystal_lifetime=3},
+  scepter={crystal_durability=1,ult_radius=60},shard={crystal_cooldown_reduction=.5}},
+ {ult="ta_psionic_blast",unit_target=true,power={blast_damage_bonus=60},signature={refraction_instances=2},
+  scepter={blast_damage_bonus=75,ult_radius=60},shard={refraction_instances=2}})
+progression("windrunner",
+ {ult="rift_wr_physical",power={ult_damage_pct=15},signature={ult_duration=1.5},
+  scepter={ult_duration=1.5,ult_radius=20},shard={ult_cooldown_pct=10}},
+ {ult="rift_wr_magical",power={ult_damage_pct=12},signature={ult_ticks=1},
+  scepter={ult_ticks=1,ult_radius=25},shard={ult_cooldown_pct=10}})
+for _,hero in pairs(B.progression.heroes)do
+  for path,d in pairs(hero)do
+    local s=B.progression.stats[path]
+    d.talents={
+      {[path=="physical" and "attack_damage" or "mana_regen"]=s[1]}, {health=s[2]},
+      {[path=="physical" and "attack_speed" or "spell_amp"]=s[3]},
+      {[path=="physical" and "move_speed" or "cast_range"]=s[4]},
+      {[d.unit_target and "ult_cast_range" or "ult_radius"]=d.unit_target and 100 or 40},
+      path=="magical" and d.ult=="pa_storm_charge" and {chain_chance_bonus_pct=3} or {ult_cooldown_pct=10},
+      d.power,d.signature,
+    }
+  end
+end
+B.progression.heroes.npc_dota_hero_nevermore.physical.talents[5]={sphere_regen_reduction=.1}
+B.progression.heroes.npc_dota_hero_nevermore.physical.talents[6]={health=250}
+B.progression.heroes.npc_dota_hero_nevermore.magical.talents[5]={ring_radius=15}
+B.progression.heroes.npc_dota_hero_phantom_assassin.magical.talents[5]={chain_damage_bonus=40}
+B.progression.agh_items={all_stats=10,health=175,mana=175,scepter_cost=4200,blessing_cost=5800,shard_cost=1400}
+-- DR: shared Shards suitable for both paths; no second branch-specific bonus.
+B.progression.hybrid_shards={
+ npc_dota_hero_axe={abilities={"axe_berserkers_call","axe_battle_hunger"},
+  ru="Berserker’s Call накладывает Battle Hunger. Несколько Battle Hunger складываются. Действует в обеих ветках.",
+  en="Berserker’s Call applies Battle Hunger. Multiple Battle Hunger instances stack. Works for both paths."},
+ npc_dota_hero_legion_commander={abilities={"legion_commander_overwhelming_odds"},
+  ru="Overwhelming Odds: +100 радиуса и барьер на 6 сек. от урона настоящим героям. Сохраняется общее улучшение обеих веток.",
+  en="Overwhelming Odds: +100 radius and a 6s barrier based on damage to real heroes. A shared upgrade for both paths."},
+ npc_dota_hero_nevermore={abilities={"nevermore_shadowraze1","nevermore_shadowraze2","nevermore_shadowraze3"},
+  ru="Shadowraze замедляет передвижение на 12% за эффект и сокращает свой кд на 2 сек. за попадание по герою. Работает в обеих ветках.",
+  en="Shadowraze slows movement by 12% per debuff stack and reduces its cooldown by 2s on hero hits. Works for both paths."},
+}
+for hero in pairs(B.progression.hybrid_shards)do
+ B.progression.heroes[hero].physical.shard={};B.progression.heroes[hero].magical.shard={}
+end
 return B

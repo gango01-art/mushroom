@@ -40,8 +40,13 @@ function modifier_rift_sf_rings:OnAbilityFullyCast(p)
   local gm = GameRules.RiftArena
   local cast_id = (gm and gm.ids) and gm.ids:next("requiem") or tostring(GameRules:GetGameTime())
   local o = me:GetAbsOrigin()
-  local s = Rings.start(B, rank, cast_id, { x = o.x, y = o.y }, GameRules:GetGameTime())
+  local cfg={};for k,v in pairs(B)do cfg[k]=v end
+  local radius_bonus=require("rift.engine.progression").get(me,"ring_radius")
+  cfg.ring_radius={};for i,v in ipairs(B.ring_radius)do cfg.ring_radius[i]=v+radius_bonus end
+  local s = Rings.start(cfg, rank, cast_id, { x = o.x, y = o.y }, GameRules:GetGameTime())
   s.ability, s.z = p.ability, o.z
+  s.eruption_radius=require("rift.engine.area").radius(me,B.eruption_radius)
+  s.soul_claims={}
   -- Main Requiem: fear pierces debuff immunity (its damage does not - native rules keep that).
   local units = FindUnitsInRadius(me:GetTeamNumber(), o, nil, B.requiem_radius, DOTA_UNIT_TARGET_TEAM_ENEMY,
     DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES +
@@ -73,15 +78,19 @@ function modifier_rift_sf_rings:OnIntervalThink()
         ParticleManager:SetParticleControl(fx, 0, pos)
         ParticleManager:ReleaseParticleIndex(fx)
         if ev.kind == "erupt" then
-          local hits = FindUnitsInRadius(me:GetTeamNumber(), pos, nil, B.eruption_radius, DOTA_UNIT_TARGET_TEAM_ENEMY,
+          local hits = FindUnitsInRadius(me:GetTeamNumber(), pos, nil, s.eruption_radius, DOTA_UNIT_TARGET_TEAM_ENEMY,
             DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
             DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE, FIND_ANY_ORDER, false)
           for _, u in ipairs(hits) do
             local r = s:resolve_hit(ev.ring, key(u), protection(u)) -- checked at hit time
             if r and r.damage > 0 then
               local burn = require("rift.engine.build_bonus").get(me, "ring_damage_bonus")
-              ApplyDamage({ victim = u, attacker = me, damage = r.damage + burn, damage_type = DAMAGE_TYPE_MAGICAL,
+              ApplyDamage({ victim = u, attacker = me, damage = r.damage + burn + require("rift.engine.sf_shadowraze").bonus(me,u), damage_type = DAMAGE_TYPE_MAGICAL,
                             ability = s.ability })
+              if u:IsAlive() then require("rift.engine.sf_shadowraze").mark(me,u) end
+              if not s.soul_claims[ev.ring] then
+                s.soul_claims[ev.ring]=true;require("rift.engine.sf_shadowraze").souls(me)
+              end
             end
             if r and r.fear > 0 then
               require("rift.engine.mods").add(u, me, s.ability, "modifier_rift_sf_fear", { duration = r.fear })

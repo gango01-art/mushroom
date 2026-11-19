@@ -1,0 +1,51 @@
+.SetupRoot { width:100%; height:100%; font-family:Radiance; background-color:gradient(linear,0% 0%,100% 100%,from(#30382f),color-stop(.5,#181f19),to(#090e0a)); }
+.SetupScreen { width:1600px; height:920px; horizontal-align:center; vertical-align:center; flow-children:down; }
+.SetupHeader { width:100%; height:120px; flow-children:right; border-bottom:1px solid #a4b5bd44; margin-bottom:36px; }
+.SetupBrand { width:fill-parent-flow(1); flow-children:down; }
+.SetupCount { vertical-align:center; color:#bdc7cc; font-size:22px; letter-spacing:3px; }
+.SetupBody { width:100%; height:750px; flow-children:right; }
+.SetupStory { width:650px; height:100%; padding-right:50px; flow-children:down; }
+.SetupEyebrow { color:#c6ad77; font-size:16px; letter-spacing:4px; margin:8px 0 16px; }
+.SetupTitle { font-family:Trajan Pro; font-size:49px; line-height:56px; color:#ebe3d2; width:100%; }
+.SetupIntro { width:100%; font-size:21px; color:#a5b7c2; line-height:30px; margin-top:20px; }
+.SetupArtwork { width:100%; height:340px; margin-top:20px; border-bottom:1px solid #76909e44; background-color:gradient(linear,0% 0%,100% 100%,from(#b58b4b00),color-stop(.45,#9c704b33),to(#466a8f22)); }
+.SetupArt { width:52%; height:100%; horizontal-align:left; opacity:.85; }
+.SetupArt.Second { horizontal-align:right; opacity:.7; }
+.SetupTip { width:100%; color:#829ba9; font-size:17px; line-height:26px; margin-top:18px; }
+.SetupLobby { width:950px; height:100%; padding:28px; flow-children:down; border-radius:8px; background-color:#101c27dd; border:1px solid #617b8755; border-top:2px solid #b49d6c; box-shadow:#00000066 0px 6px 20px 0px; }
+.SetupSeats { width:100%; height:448px; flow-children:down; }
+.SetupSeatRow { width:100%; height:106px; flow-children:right; margin-bottom:6px; }
+.SetupSeat { width:fill-parent-flow(1); height:98px; margin-right:10px; padding:12px; flow-children:right; border:1px solid #59718044; border-radius:5px; background-color:gradient(linear,0% 0%,100% 100%,from(#253542aa),to(#0e1721)); transition-property:brightness,border; transition-duration:.15s; }
+.SetupSeat:hover { brightness:1.3; border-color:#a7bcc8; }
+.SetupSeat.Self { border-color:#c4ad77; background-color:#675b3533; }
+.SetupSeat.Empty { background-color:#15232c44; border-style:dashed; }
+.SetupSeatNumber { width:48px; color:#5b7483; font-size:26px; vertical-align:center; }
+.SetupAvatar { width:64px; height:64px; margin-right:15px; border:1px solid #a5b6ba55; border-radius:4px; }
+.SetupSeatInfo { width:fill-parent-flow(1); flow-children:down; vertical-align:center; }
+.SetupPlayerName { color:#d5dce0; font-size:22px; width:100%; text-overflow:ellipsis; }
+.SetupPlayerStatus { color:#8caa9a; font-size:15px; margin-top:5px; letter-spacing:1px; }
+.Empty .SetupPlayerName { color:#66818f; font-size:18px; }
+.SetupUnassigned { width:100%; color:#aebac3; font-size:16px; height:26px; }
+.SetupStatus { width:100%; height:35px; color:#c8b17f; font-size:18px; margin-top:8px; }
+.SetupActions { width:100%; flow-children:right; margin-top:12px; }
+.SetupAssign { width:230px; height:60px; margin-right:14px; background-color:#283d4b; border:1px solid #6b8898; border-radius:4px; }
+.SetupAssign Label { horizontal-align:center; vertical-align:center; font-size:16px; color:#b5c8d1; }
+.SetupActions .PickConfirm { width:fill-parent-flow(1); height:60px; border-radius:4px; }
+.SetupAssign:disabled { saturation:0; brightness:.5; }
+.SetupRoot.Closed { visibility:collapse; }
+.SetupScreen { transform-origin:50% 50%; }
+.SetupLobby { background-color:gradient(linear,0% 0%,100% 100%,from(#242d22ef),to(#0d150f)); border-radius:3px; border-color:#81745466; }
+.SetupSeat { border-radius:2px; background-color:gradient(linear,0% 0%,100% 100%,from(#343b2daa),to(#121b14)); border-color:#6e765444; }
+.SetupSeat.Empty { background-color:#15201577; }
+.SetupTitle { color:#e2d9bc; }
+
+/* Owner-supplied fire/arcane identity. The PNG keeps its original alpha. */
+.SetupRoot { background-color:gradient(linear,0% 0%,100% 100%,from(#29201d),color-stop(.45,#14151c),to(#10101b)); }
+.SetupArtwork { height:300px; background-color:gradient(linear,0% 50%,100% 50%,from(#b4481010),color-stop(.5,#11131a00),to(#5541af14)); border-bottom:1px solid #9c8aa52e; }
+.SetupLogo { width:100%; height:100%; horizontal-align:center; vertical-align:center; }
+.SetupLobby { background-color:gradient(linear,0% 0%,100% 100%,from(#28252af2),to(#11131dee)); border-color:#70616b77; border-top-color:#b79472; }
+.SetupSeat { background-color:gradient(linear,0% 0%,100% 100%,from(#34313aaa),to(#151720)); border-color:#736b8144; }
+.SetupSeat.Empty { background-color:#1a1c2633; border-style:solid; }
+.SetupSeat.Self { background-color:#be7d3520; border-color:#bb936a; }
+.SetupEyebrow { color:#d2a16e; }
+.SetupActions .PickConfirm { background-color:gradient(linear,0% 0%,100% 100%,from(#76543b),to(#352f46)); border-color:#b99776; }

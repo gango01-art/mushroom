@@ -36,6 +36,14 @@ function Bridge.new(gm)
 end
 
 function Bridge:AddPlayer(pid, hero)
+  require("rift.engine.progression").ensure(hero)
+  if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
+    Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
+  end
+  if hero:GetUnitName()=="npc_dota_hero_nevermore" and not hero:HasModifier("modifier_rift_sf_soul_gain") then
+    Mods.add(hero,hero,hero:FindAbilityByName("nevermore_necromastery"),"modifier_rift_sf_soul_gain",{})
+  end
+  if not hero:HasModifier("modifier_rift_area_items") then Mods.add(hero,hero,nil,"modifier_rift_area_items",{}) end
   self.offers:add_player(pid, hero:GetUnitName())
   self.directions:ApplyKit(hero)
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
@@ -46,6 +54,14 @@ end
 
 -- Respawn / reconnect: restore direction state on the hero entity.
 function Bridge:EnsureHero(pid, hero)
+  require("rift.engine.progression").ensure(hero,self:Direction(pid))
+  if hero:GetUnitName()=="npc_dota_hero_lina" and not hero:HasModifier("modifier_rift_lina_burn") then
+    Mods.add(hero,hero,hero:FindAbilityByName("lina_slow_burn"),"modifier_rift_lina_burn",{})
+  end
+  if hero:GetUnitName()=="npc_dota_hero_nevermore" and not hero:HasModifier("modifier_rift_sf_soul_gain") then
+    Mods.add(hero,hero,hero:FindAbilityByName("nevermore_necromastery"),"modifier_rift_sf_soul_gain",{})
+  end
+  if not hero:HasModifier("modifier_rift_area_items") then Mods.add(hero,hero,nil,"modifier_rift_area_items",{}) end
   if not hero:HasModifier("modifier_rift_upgrade_stats") then
     Mods.add(hero, hero, nil, "modifier_rift_upgrade_stats", {})
   end
@@ -117,6 +133,7 @@ function Bridge:Apply(pid, applied, offer)
 end
 
 function Bridge:OnLearnedAbility(keys)
+  if self.gm.lab and self.gm.lab.enabled then return end
   local pid = keys.PlayerID
   local name = keys.abilityname
   if pid == nil or name == nil then
@@ -143,7 +160,9 @@ function Bridge:OnChoose(args)
   if self.last_request[pid] and raw - self.last_request[pid] < MIN_REQUEST_INTERVAL then return end
   self.last_request[pid] = raw
   local ok, reason
-  if self.gm.director.state:is("FINISHED") then
+  if self.gm.lab and self.gm.lab.enabled then
+    ok, reason = false, "lab_mode"
+  elseif self.gm.director.state:is("FINISHED") then
     ok, reason = false, "match_finished"
   elseif not valid_id(args.offer_id) or not valid_id(args.option_id) then
     ok, reason = false, "bad_payload"
@@ -189,7 +208,7 @@ function Bridge:OptionView(p, offer, option_id)
   return { id = u.id, kind = "upgrade", rarity = u.rarity, loc_name = u.loc_name, loc_desc = u.loc_desc,
            icon = u.icon, rank_now = now_rank, rank_next = now_rank + 1, max_rank = u.max_rank,
            required_direction = u.required_direction,
-           values = Effects.values_at(u, now_rank + 1),
+           values = Effects.gain_at(u, now_rank + 1), total_values = Effects.values_at(u, now_rank + 1),
            is_default = (option_id == offer.default_option) and 1 or 0 }
 end
 
@@ -209,7 +228,7 @@ function Bridge:SendPrivate(pid)
   for _, b in ipairs(snap.build) do
     local u = self.registry:get(b.id)
     table.insert(build, { id = b.id, rank = b.rank, max_rank = u and u.max_rank or b.rank,
-                          loc_name = u and u.loc_name or b.id, icon = u and u.icon or "",
+                          loc_name = u and u.loc_name or b.id, loc_desc=u and u.loc_desc or "", icon = u and u.icon or "",
                           values = u and Effects.values_at(u, b.rank) or {} })
   end
   self:SendTo(pid, "rift_private_state", {

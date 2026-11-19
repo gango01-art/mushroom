@@ -13,6 +13,33 @@ function UiBridge.new(gm)
   return setmetatable({ gm = gm, last = -1e9 }, UiBridge)
 end
 
+function UiBridge:PublishRoster()
+  CustomNetTables:SetTableValue("rift_match","settings",{teams=self.gm.teams,max_players=Config.match.max_players,
+    active_seconds=Config.match.active_seconds,selection_seconds=Config.match.hero_selection_seconds})
+  CustomNetTables:SetTableValue("rift_match","geometry",require("rift.data.geometry"))
+  local heroes, seen = {}, {}
+  for _, d in ipairs(require("rift.data.ultimate_directions")) do
+    local h = seen[d.hero_id]
+    if not h then
+      h = { hero = d.hero_id, abilities=require("rift.data.selection")[d.hero_id],attribute=require("rift.data.attributes")[d.hero_id] }
+      seen[d.hero_id] = h
+    end
+    h[d.direction] = { name = d.loc_name, desc = d.loc_desc, icon = d.icon }
+    local preview={}
+    for i,native in ipairs(h.abilities or {}) do
+      local ability=native
+      for _,swap in ipairs(d.swaps or {}) do if swap.from==native then ability=swap.to end end
+      preview[tostring(i)]=ability
+    end
+    h[d.direction].abilities=preview
+  end
+  local names = {}
+  for name in pairs(seen) do names[#names + 1] = name end
+  table.sort(names)
+  for i, name in ipairs(names) do heroes[tostring(i)] = seen[name] end
+  CustomNetTables:SetTableValue("rift_match", "roster", { heroes = heroes })
+end
+
 function UiBridge:Publish(force)
   local raw = GameRules:GetGameTime()
   if not force and raw - self.last < MIN_INTERVAL then return end
@@ -36,8 +63,10 @@ function UiBridge:Publish(force)
     state = st.state,
     elapsed = math.floor(st:active_elapsed(now)),
     remaining = math.ceil(remaining),
+    selection_remaining=gm.selection_started and math.max(0,math.ceil(Config.match.hero_selection_seconds-(raw-gm.selection_started))) or Config.match.hero_selection_seconds,
     active_total = Config.match.active_seconds,
     dev = gm.dev and 1 or 0,
+    lab = gm.lab and gm.lab.enabled and 1 or 0,
     map_fallback = (gm.map and gm.map.fallback) and 1 or 0,
     contenders = contenders,
   })
@@ -46,17 +75,30 @@ function UiBridge:Publish(force)
     CustomNetTables:SetTableValue("rift_match", "relic", gm.relic:View(now, st:active_elapsed(now)))
   end
 
-  if force then self:PublishScores() end
+  if gm.roshan then CustomNetTables:SetTableValue("rift_match","roshan",gm.roshan:view(now,st:active_elapsed(now)))end
+  self:PublishScores() -- also keeps death/respawn indicators current (2 Hz)
+  if gm.lab then gm.lab:Publish() end
 end
 
 function UiBridge:PublishScores()
   local rows = {}
   for i, r in ipairs(self.gm.scoring:standings()) do
     local hero = PlayerResource:GetSelectedHeroEntity(r.pid)
+    local agh={entity=-1,scepter=0,shard=0,primary="",shared=""}
+    if hero and not hero:IsNull()then
+      local A=require("rift.engine.aghanim")
+      local d=require("rift.engine.progression").definition(hero)
+      local shared=require("rift.data.hero_balance").progression.hybrid_shards[hero:GetUnitName()]
+      agh={entity=hero:entindex(),scepter=A.scepter(hero)and 1 or 0,shard=A.shard(hero)and 1 or 0,
+        primary=d and d.ult or"",shared=shared and shared.abilities[1]or""}
+    end
     rows[tostring(i)] = {
       pid = r.pid, score = r.score, kills = r.kills, deaths = r.deaths, assists = r.assists,
       hero = (hero and not hero:IsNull()) and hero:GetUnitName() or "",
       direction = (self.gm.upgrades and self.gm.upgrades:Direction(r.pid)) or "",
+      aghanim=agh,
+      alive = hero and not hero:IsNull() and hero:IsAlive() and 1 or 0,
+      respawn = hero and not hero:IsNull() and not hero:IsAlive() and math.ceil(math.max(0, hero:GetTimeUntilRespawn())) or 0,
     }
   end
   CustomNetTables:SetTableValue("rift_scores", "board", { rows = rows })

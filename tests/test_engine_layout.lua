@@ -7,6 +7,11 @@ local F = require("fixtures")
 local ULT = { phantom_assassin_coup_de_grace = true, pa_phantom_execution = true, pa_storm_charge = true,
   legion_commander_duel = true, lc_duel_physical = true, lc_duel_magical = true, nevermore_requiem = true,
   sf_requiem_physical = true, templar_assassin_psionic_trap = true, ta_psionic_crystal = true, ta_psionic_blast = true }
+for _, h in ipairs(require("rift.data.expansion").heroes) do
+  ULT[h.ultimate] = true
+  ULT["rift_" .. h.key .. "_physical"] = true
+  ULT["rift_" .. h.key .. "_magical"] = true
+end
 
 local function fake_hero(S, unit_name, slots, hidden)
   local h = S.hero(unit_name, 0, 2, Vector(0, 0, 0), {})
@@ -20,7 +25,10 @@ local function fake_hero(S, unit_name, slots, hidden)
     function a:SetLevel(l) self.level = l end
     function a:SetActivated(v) self.active = v end
     function a:GetMaxLevel() return ULT[self.name] and 3 or 4 end
-    function a:GetCooldown() return 10 end
+    function a:GetCooldown(level)
+      local d = require("rift.data.expansion").abilities[self.name]
+      return d and d.cooldown[(level or 0) + 1] or 10
+    end
     function a:GetAbilityType() return ULT[self.name] and 1 or 0 end
     function a:GetAbilityIndex() for i, x in pairs(h.slots) do if x == self then return i end end end
     return a
@@ -133,7 +141,7 @@ local HEROES = {
     hidden = { generic_hidden = true, generic_hidden2 = true },
     cases = {
       lc_duel_physical = { [0] = "legion_commander_overwhelming_odds", [1] = "legion_commander_press_the_attack",
-                           [2] = "legion_commander_moment_of_courage", [5] = "lc_duel_physical" },
+                           [2] = "rift_lc_courage", [5] = "lc_duel_physical" },
       lc_duel_magical = { [0] = "legion_commander_overwhelming_odds", [1] = "legion_commander_press_the_attack",
                           [2] = "lc_statue", [5] = "lc_duel_magical" } } },
   { hero = "npc_dota_hero_nevermore",
@@ -164,3 +172,42 @@ for _, spec in ipairs(HEROES) do
     end)
   end
 end
+
+for _, spec in ipairs(require("rift.data.expansion").heroes) do
+  for _, path in ipairs({ "physical", "magical" }) do
+    local id = "rift_" .. spec.key .. "_" .. path
+    T.case(id .. ": one swap preserves ultimate rank, cooldown, R and unrelated QWE", function()
+      local S = Stub.install()
+      local native_e = spec.key=="sven" and "sven_great_cleave" or spec.key=="juggernaut" and "juggernaut_blade_dance" or "native_e"
+      local h = fake_hero(S, spec.unit, { "native_q", "native_w", native_e, "generic_hidden", "generic_hidden2", spec.ultimate },
+        { generic_hidden = true, generic_hidden2 = true })
+      local A, dirs = adapter(S,h.name)
+      h.slots[0]:SetLevel(1);h.slots[1]:SetLevel(2);h.slots[2]:SetLevel(3);h.slots[5]:SetLevel(2)
+      h.slots[5]:StartCooldown(17)
+      A:Apply(0,dirs[id])
+      T.eq(bar(h)[5],id); T.eq(h.slots[5]:GetLevel(),2)
+      T.eq(h.slots[5]:GetCooldownTimeRemaining(),17)
+      T.eq(h:FindAbilityByName(spec.ultimate):GetLevel(),0,"hidden native disabled")
+      for i=0,2 do T.eq(h.slots[i]:GetLevel(),i+1);T.ok(not h.slots[i]:IsHidden()) end
+      A:Ensure(0,h)
+      T.eq(bar(h)[5],id);T.eq(h.slots[5]:GetCooldownTimeRemaining(),17,"ensure must not reset cooldown")
+    end)
+  end
+end
+T.case("path talent replacement leaves exactly eight native attributes, preserving learned levels",function()
+ local S=Stub.install();local P=require("rift.engine.progression")
+ local hero="npc_dota_hero_axe"
+ local names={"native_q","native_w","native_e","native_d","native_f","axe_culling_blade","native_innate"}
+ for i=1,8 do names[#names+1]=P.name(hero,"physical",i)end
+ local h=fake_hero(S,hero,names);h:FindAbilityByName(P.name(hero,"physical",1)):SetLevel(1)
+ P.ensure(h,"magical");P.ensure(h,"magical")
+ local count=0
+ for _,a in pairs(h.slots)do if a.name:find("special_bonus_",1,true)then count=count+1 end end
+ T.eq(count,8,"native stat branch crashes on a ninth attribute, even hidden")
+ for i=1,8 do
+  T.eq(h:FindAbilityByName(P.name(hero,"physical",i)),nil)
+  T.ok(h:FindAbilityByName(P.name(hero,"magical",i)))
+ end
+ T.eq(h:FindAbilityByName(P.name(hero,"magical",1)):GetLevel(),1)
+ T.eq(h.slots[5].name,"axe_culling_blade","talent replacement cannot displace R")
+end)
